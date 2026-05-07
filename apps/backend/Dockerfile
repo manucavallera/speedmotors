@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npx nest build && ls -la dist/
+RUN npx nest build && echo "BUILD OK" && ls -la dist/
 
 FROM node:20-alpine
 WORKDIR /app
