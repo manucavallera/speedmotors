@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-07T14:47:52.598Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-07T16:16:09.495Z
 > Files: 256 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/
@@ -76,7 +76,7 @@
 - `.claudeignore` — .claude/sessions/** (~159 tok)
 - `.prettierrc` — Prettier configuration (~15 tok)
 - `CLAUDE.md` — SpeedMotors -- Guia tecnica Claude (~605 tok)
-- `Dockerfile` — Docker container definition (~87 tok)
+- `Dockerfile` — Docker container definition (~90 tok)
 - `drizzle.config.ts` — Drizzle ORM configuration (~76 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
 - `nest-cli.json` (~52 tok)
@@ -267,10 +267,10 @@
 - `.claudeignore` — .claude/sessions/** (~159 tok)
 - `.gitignore` — Git ignore rules (~68 tok)
 - `CLAUDE.md` — SpeedMotors -- Guia tecnica Claude (~605 tok)
-- `Dockerfile` — Docker container definition (~77 tok)
+- `Dockerfile` — Docker container definition (~78 tok)
 - `eslint.config.js` — ESLint flat configuration (~176 tok)
 - `index.html` — frontend (~96 tok)
-- `nginx.conf` — Nginx configuration (~150 tok)
+- `nginx.conf` (~152 tok)
 - `package.json` — Node.js package manifest (~342 tok)
 - `README.md` — Project documentation (~607 tok)
 - `tsconfig.app.json` (~177 tok)
@@ -341,7 +341,7 @@
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~2460 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~1449 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1247 tok)
-- `SaleTotalsPanel.tsx` — fmt — renders table (~2468 tok)
+- `SaleTotalsPanel.tsx` — fmt — renders table (~2456 tok)
 
 ## apps/frontend/src/components/transfers/
 
@@ -400,12 +400,12 @@
 - `ExpensesPage.tsx` — ExpensesPage (~1051 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~1513 tok)
 - `LoginPage.tsx` — LoginPage — renders form — uses useNavigate, useState (~1825 tok)
-- `ProductsPage.tsx` — ProductsPage (~2113 tok)
+- `ProductsPage.tsx` — ProductsPage (~2114 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1366 tok)
 - `QuotesPage.tsx` — QuotesPage (~1446 tok)
 - `ReportsPage.tsx` — ReportsPage (~1020 tok)
 - `ReservationsPage.tsx` — statusColors — renders table (~1921 tok)
-- `SalesPage.tsx` — SalesPage (~1109 tok)
+- `SalesPage.tsx` — SalesPage (~1107 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~837 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1053 tok)

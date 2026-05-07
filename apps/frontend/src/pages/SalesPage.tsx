@@ -8,7 +8,7 @@ import { useSales } from '../hooks/useSales'
 import { Pagination } from '../components/ui/Pagination'
 
 export function SalesPage() {
-  const { sales, clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, total, page, pages, setPage } = useSales()
+  const { clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, total, page, pages, setPage } = useSales()
 
   return (
     <div>

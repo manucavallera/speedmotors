@@ -18,8 +18,8 @@
       "first_read": "2026-05-07T14:17:53.787Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx": {
-      "count": 1,
-      "tokens": 1773,
+      "count": 2,
+      "tokens": 2113,
       "first_read": "2026-05-07T14:17:53.939Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useClients.ts": {
@@ -43,8 +43,8 @@
       "first_read": "2026-05-07T14:24:36.464Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx": {
-      "count": 1,
-      "tokens": 1051,
+      "count": 2,
+      "tokens": 1109,
       "first_read": "2026-05-07T14:24:43.063Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ClientsPage.tsx": {
@@ -91,6 +91,36 @@
       "count": 1,
       "tokens": 269,
       "first_read": "2026-05-07T14:47:48.767Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/Dockerfile": {
+      "count": 1,
+      "tokens": 87,
+      "first_read": "2026-05-07T15:06:53.278Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/Dockerfile": {
+      "count": 1,
+      "tokens": 77,
+      "first_read": "2026-05-07T15:06:53.328Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/nginx.conf": {
+      "count": 1,
+      "tokens": 150,
+      "first_read": "2026-05-07T15:14:09.525Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleDetailModal.tsx": {
+      "count": 1,
+      "tokens": 2475,
+      "first_read": "2026-05-07T16:15:53.518Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleTotalsPanel.tsx": {
+      "count": 1,
+      "tokens": 2468,
+      "first_read": "2026-05-07T16:15:54.336Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/reservation.ts": {
+      "count": 1,
+      "tokens": 2776,
+      "first_read": "2026-05-07T16:15:55.161Z"
     }
   },
   "files_written": [
@@ -333,15 +363,63 @@
       "action": "edit",
       "tokens": 82,
       "at": "2026-05-07T14:47:52.619Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/Dockerfile",
+      "action": "create",
+      "tokens": 96,
+      "at": "2026-05-07T15:06:57.639Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/Dockerfile",
+      "action": "create",
+      "tokens": 84,
+      "at": "2026-05-07T15:07:00.779Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/nginx.conf",
+      "action": "edit",
+      "tokens": 14,
+      "at": "2026-05-07T15:14:12.990Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "action": "edit",
+      "tokens": 16,
+      "at": "2026-05-07T16:16:03.922Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "action": "edit",
+      "tokens": 35,
+      "at": "2026-05-07T16:16:05.519Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/reservation.ts",
+      "action": "edit",
+      "tokens": 22,
+      "at": "2026-05-07T16:16:06.320Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx",
+      "action": "edit",
+      "tokens": 32,
+      "at": "2026-05-07T16:16:07.916Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx",
+      "action": "edit",
+      "tokens": 71,
+      "at": "2026-05-07T16:16:09.517Z"
     }
   ],
   "edit_counts": {
     "apps/backend/src/products/products.service.ts": 1,
     "apps/backend/src/products/products.controller.ts": 1,
     "apps/frontend/src/hooks/useProducts.ts": 1,
-    "apps/frontend/src/pages/ProductsPage.tsx": 3,
+    "apps/frontend/src/pages/ProductsPage.tsx": 4,
     "apps/frontend/src/components/ui/Pagination.tsx": 1,
-    "apps/frontend/src/pages/SalesPage.tsx": 3,
+    "apps/frontend/src/pages/SalesPage.tsx": 4,
     "apps/frontend/src/hooks/useClients.ts": 2,
     "apps/frontend/src/pages/ExpensesPage.tsx": 2,
     "apps/frontend/src/hooks/useSales.ts": 2,
@@ -354,11 +432,17 @@
     "apps/frontend/src/pages/ReservationsPage.tsx": 4,
     "apps/frontend/src/pages/SuppliersPage.tsx": 3,
     "apps/frontend/src/pages/TransfersPage.tsx": 3,
-    "apps/backend/src/main.ts": 1
+    "apps/backend/src/main.ts": 1,
+    "apps/backend/Dockerfile": 1,
+    "apps/frontend/Dockerfile": 1,
+    "apps/frontend/nginx.conf": 1,
+    "apps/frontend/src/components/sales/SaleDetailModal.tsx": 1,
+    "apps/frontend/src/components/sales/SaleTotalsPanel.tsx": 1,
+    "apps/frontend/src/lib/pdf/reservation.ts": 1
   },
-  "anatomy_hits": 18,
+  "anatomy_hits": 24,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 8,
+  "repeated_reads_warned": 10,
   "cerebrum_warnings": 0,
-  "stop_count": 9
+  "stop_count": 28
 }

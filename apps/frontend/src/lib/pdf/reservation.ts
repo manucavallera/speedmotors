@@ -48,7 +48,7 @@ export function generateReservationPdf(r: any) {
     y += 6
   }
 
-  function row(label: string, value: string, x = 18, colWidth = w - 36) {
+  function row(label: string, value: string, x = 18, _colWidth = w - 36) {
     doc.setFontSize(8.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139)
     doc.text(label + ':', x, y)
     doc.setTextColor(15, 23, 42); doc.setFont('helvetica', value ? 'normal' : 'italic')

@@ -1824,6 +1824,70 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-07T14:25:48.741Z"
+    },
+    {
+      "id": "bug-115",
+      "timestamp": "2026-05-07T15:14:13.003Z",
+      "error_message": "Wrong reference: backend should be manu_speedmotors",
+      "file": "apps/frontend/nginx.conf",
+      "root_cause": "Used \"backend\" instead of \"manu_speedmotors\"",
+      "fix": "Changed backend → manu_speedmotors",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "conf"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-07T15:14:13.003Z"
+    },
+    {
+      "id": "bug-116",
+      "timestamp": "2026-05-07T16:16:05.532Z",
+      "error_message": "CSS fix: padding",
+      "file": "apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "root_cause": "padding: '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569', firstChild: { textAlign: 'center' → '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569'",
+      "fix": "Changed padding: '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569', firstChild: { textAlign: 'center' → '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-07T16:16:05.532Z"
+    },
+    {
+      "id": "bug-117",
+      "timestamp": "2026-05-07T16:16:06.334Z",
+      "error_message": "Wrong reference: colWidth should be _colWidth",
+      "file": "apps/frontend/src/lib/pdf/reservation.ts",
+      "root_cause": "Used \"colWidth\" instead of \"_colWidth\"",
+      "fix": "Changed colWidth → _colWidth",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-07T16:16:06.334Z"
+    },
+    {
+      "id": "bug-118",
+      "timestamp": "2026-05-07T16:16:07.927Z",
+      "error_message": "CSS fix: id",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "id: editing.id, data → editing!.id, data",
+      "fix": "Changed id: editing.id, data → editing!.id, data",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-07T16:16:07.927Z"
     }
   ]
 }

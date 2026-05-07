@@ -107,7 +107,7 @@ export function ProductsPage() {
           mode={modal}
           editing={editing}
           onClose={() => setModal(null)}
-          onSubmit={data => modal === 'edit' ? update.mutate({ id: editing.id, data }) : create.mutate(data)}
+          onSubmit={data => modal === 'edit' ? update.mutate({ id: editing!.id, data }) : create.mutate(data)}
           isPending={create.isPending || update.isPending}
         />
       )}

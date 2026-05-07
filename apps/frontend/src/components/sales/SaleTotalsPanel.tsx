@@ -132,7 +132,7 @@ export function SaleTotalsPanel({
                 <thead>
                   <tr style={{ background: '#f1f5f9' }}>
                     {['N°', 'Cuota', 'Interés', 'Capital', 'Saldo'].map(h => (
-                      <th key={h} style={{ padding: '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569', firstChild: { textAlign: 'center' } as any }}>
+                      <th key={h} style={{ padding: '5px 8px', textAlign: 'right', fontWeight: 600, color: '#475569' }}>
                         {h}
                       </th>
                     ))}
