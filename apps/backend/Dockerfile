@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npx nest build && echo "BUILD OK" && ls -la dist/
+RUN npx nest build
 
 FROM node:20-alpine
 WORKDIR /app
@@ -13,4 +13,4 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/drizzle ./drizzle
 COPY drizzle.config.ts ./
 EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
