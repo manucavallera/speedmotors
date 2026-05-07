@@ -10,7 +10,7 @@ export class QuotesService {
   constructor(private readonly salesService: SalesService) {}
   async findAll(params: { page?: number; limit?: number } = {}) {
     const page = params.page ?? 1
-    const limit = params.limit ?? 100
+    const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
     const [items, countResult] = await Promise.all([

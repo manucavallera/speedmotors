@@ -8,7 +8,7 @@ import { CreateSaleDto } from './create-sale.dto'
 export class SalesService {
   async findAll(params: { page?: number; limit?: number; search?: string; dateFrom?: string; dateTo?: string; invoiceType?: string } = {}) {
     const page = params.page ?? 1
-    const limit = params.limit ?? 100
+    const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
     const conditions = []

@@ -3,9 +3,12 @@ import { NestExpressApplication } from '@nestjs/platform-express'
 import { ValidationPipe } from '@nestjs/common'
 import { join } from 'path'
 import { existsSync, mkdirSync } from 'fs'
+import { migrate } from 'drizzle-orm/node-postgres/migrator'
+import { db } from './db'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
+  await migrate(db, { migrationsFolder: './drizzle' })
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
   const allowedOrigins = process.env.ALLOWED_ORIGINS

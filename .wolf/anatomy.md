@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-07T14:26:01.433Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-07T14:47:52.598Z
 > Files: 256 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/
@@ -116,7 +116,7 @@
 - `app.controller.ts` — Exports AppController (~82 tok)
 - `app.module.ts` — Exports AppModule (~530 tok)
 - `app.service.ts` — Exports AppService (~43 tok)
-- `main.ts` — Declares bootstrap (~269 tok)
+- `main.ts` — Declares bootstrap (~310 tok)
 
 ## apps/backend/src/alerts/
 

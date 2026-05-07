@@ -7,7 +7,7 @@ import { eq, and, ilike, sql } from 'drizzle-orm'
 export class VehiclesService {
   async findAll(filters?: { type?: 'moto' | 'lancha'; status?: string; search?: string; page?: number; limit?: number }) {
     const page = filters?.page ?? 1
-    const limit = filters?.limit ?? 100
+    const limit = Math.min(200, filters?.limit ?? 100)
     const offset = (page - 1) * limit
 
     const conditions = []
