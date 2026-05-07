@@ -29,6 +29,69 @@
       "when": 1776774147285,
       "tag": "0003_daily_mockingbird",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1776780000000,
+      "tag": "0004_invoice_serial",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1776781000000,
+      "tag": "0005_billing_mixto",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1776782000000,
+      "tag": "0006_purchase_order_mixto",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1776783000000,
+      "tag": "0007_financing_currency",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1776784000000,
+      "tag": "0008_reservations",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1776785000000,
+      "tag": "0009_reminders",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1776786000000,
+      "tag": "0010_transfers",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1776787000000,
+      "tag": "0011_client_payments",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1776788000000,
+      "tag": "0012_indexes",
+      "breakpoints": true
     }
   ]
 }
