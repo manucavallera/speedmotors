@@ -1,8 +1,17 @@
-CREATE TYPE "reminder_type" AS ENUM ('impuesto', 'factura', 'vencimiento', 'otro');
-CREATE TYPE "reminder_status" AS ENUM ('pendiente', 'pagado', 'vencido');
-CREATE TYPE "reminder_recurrence" AS ENUM ('ninguna', 'mensual', 'trimestral', 'anual');
+DO $$ BEGIN
+  CREATE TYPE "reminder_type" AS ENUM ('impuesto', 'factura', 'vencimiento', 'otro');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+DO $$ BEGIN
+  CREATE TYPE "reminder_status" AS ENUM ('pendiente', 'pagado', 'vencido');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+DO $$ BEGIN
+  CREATE TYPE "reminder_recurrence" AS ENUM ('ninguna', 'mensual', 'trimestral', 'anual');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
-CREATE TABLE "reminders" (
+CREATE TABLE IF NOT EXISTS "reminders" (
   "id" serial PRIMARY KEY,
   "type" "reminder_type" NOT NULL DEFAULT 'otro',
   "title" varchar(150) NOT NULL,

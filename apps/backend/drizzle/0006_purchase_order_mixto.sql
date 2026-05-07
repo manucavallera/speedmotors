@@ -1,4 +1,7 @@
-CREATE TYPE IF NOT EXISTS "purchase_order_status" AS ENUM ('borrador', 'enviada', 'recibida', 'cancelada');
+DO $$ BEGIN
+  CREATE TYPE "purchase_order_status" AS ENUM ('borrador', 'enviada', 'recibida', 'cancelada');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 CREATE TABLE IF NOT EXISTS "purchase_orders" (
   "id" serial PRIMARY KEY,

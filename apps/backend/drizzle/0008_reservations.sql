@@ -1,4 +1,7 @@
-CREATE TYPE "reservation_status" AS ENUM ('vigente', 'concretada', 'cancelada');
+DO $$ BEGIN
+  CREATE TYPE "reservation_status" AS ENUM ('vigente', 'concretada', 'cancelada');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 CREATE TABLE "reservations" (
   "id" serial PRIMARY KEY,
