@@ -1,0 +1,18 @@
+// Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad.
+// Importar desde los archivos de dominio, no desde este barrel.
+export * from './enums'
+export * from './users.schema'
+export * from './clients.schema'
+export * from './catalog.schema'
+export * from './vehicles.schema'
+export * from './sales.schema'
+export * from './quotes.schema'
+export * from './cash.schema'
+export * from './stock.schema'
+export * from './orders.schema'
+export * from './expenses.schema'
+export * from './reservations.schema'
+export * from './reminders.schema'
+export * from './transfers.schema'
+export * from './client-payments.schema'
+export * from './relations'

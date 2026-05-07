@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: speedmotors
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: speedmotors
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U speedmotors"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./apps/backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://speedmotors:${DB_PASSWORD}@db:5432/speedmotors
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./apps/frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  pgdata:

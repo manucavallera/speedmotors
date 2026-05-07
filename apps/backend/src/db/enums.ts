@@ -1,0 +1,23 @@
+// @contract: Todos los pgEnum del sistema (14). Importar desde acá, nunca redefinir en otro archivo.
+import { pgEnum } from 'drizzle-orm/pg-core'
+
+export const roleEnum = pgEnum('role', ['admin', 'vendedor'])
+export const vehicleTypeEnum = pgEnum('vehicle_type', ['moto', 'lancha'])
+export const vehicleStatusEnum = pgEnum('vehicle_status', ['disponible', 'reservado', 'vendido'])
+export const saleTypeEnum = pgEnum('sale_type', ['contado', 'cuotas'])
+export const paymentMethodEnum = pgEnum('payment_method', ['efectivo', 'transferencia', 'tarjeta', 'mixto'])
+export const saleStatusEnum = pgEnum('sale_status', ['completado', 'pendiente', 'cancelado'])
+export const invoiceTypeEnum = pgEnum('invoice_type', ['A', 'B', 'X', 'mixto'])
+export const installmentStatusEnum = pgEnum('installment_status', ['pendiente', 'pagado', 'vencido'])
+export const quoteStatusEnum = pgEnum('quote_status', ['borrador', 'enviado', 'aceptado', 'rechazado', 'vencido'])
+export const cashSessionStatusEnum = pgEnum('cash_session_status', ['abierta', 'cerrada'])
+export const cashMovementTypeEnum = pgEnum('cash_movement_type', ['retiro', 'deposito'])
+export const stockMovementTypeEnum = pgEnum('stock_movement_type', ['entrada', 'salida', 'ajuste'])
+export const purchaseOrderStatusEnum = pgEnum('purchase_order_status', ['borrador', 'enviada', 'recibida', 'cancelada'])
+export const expenseCategoryEnum = pgEnum('expense_category', ['alquiler', 'servicios', 'compras', 'sueldos', 'impuestos', 'otros'])
+export const reservationStatusEnum = pgEnum('reservation_status', ['vigente', 'concretada', 'cancelada'])
+export const reminderTypeEnum = pgEnum('reminder_type', ['impuesto', 'factura', 'vencimiento', 'otro'])
+export const reminderStatusEnum = pgEnum('reminder_status', ['pendiente', 'pagado', 'vencido'])
+export const reminderRecurrenceEnum = pgEnum('reminder_recurrence', ['ninguna', 'mensual', 'trimestral', 'anual'])
+export const transferStatusEnum = pgEnum('transfer_status', ['pendiente', 'en_tramite', 'completada', 'cancelada'])
+export const clientPaymentTypeEnum = pgEnum('client_payment_type', ['pago_cuenta', 'nota_credito', 'nota_debito'])

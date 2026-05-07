@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button, textarea, select {
+  font-family: inherit;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Responsive utilities */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-wrap table { min-width: 600px; }
+
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+@media (max-width: 768px) {
+  .form-grid-2 { grid-template-columns: 1fr; }
+  .form-grid-3 { grid-template-columns: 1fr; }
+  .hide-mobile { display: none !important; }
+
+  /* Sidebar: ocultar desktop, mostrar mobile drawer */
+  .sidebar-desktop { display: none !important; }
+  .sidebar-mobile { display: flex !important; }
+  .sidebar-overlay { display: block !important; }
+  .sidebar-close { display: flex !important; }
+  .hamburger-btn { display: flex !important; }
+
+  /* Content padding reducido */
+  .page-content { padding: 16px 12px !important; }
+}
+
+@media (min-width: 769px) {
+  .sidebar-desktop { display: flex !important; }
+  .sidebar-mobile { display: none !important; }
+  .sidebar-overlay { display: none !important; }
+}

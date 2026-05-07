@@ -1,0 +1,172 @@
+import { useState, useEffect } from 'react'
+import { Modal } from '../ui/Modal'
+import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SaleItemsEditor } from './SaleItemsEditor'
+import type { SaleItem } from './SaleItemsEditor'
+import { SaleTotalsPanel } from './SaleTotalsPanel'
+
+interface SaleFormModalProps {
+  clients: any[]
+  products: any[]
+  vehicles: any[]
+  onSubmit: (data: any) => void
+  onClose: () => void
+  isPending: boolean
+}
+
+export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending }: SaleFormModalProps) {
+  const [clientId, setClientId] = useState('')
+  const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
+  const [type, setType] = useState<'contado' | 'cuotas'>('contado')
+  const [paymentMethod, setPaymentMethod] = useState('efectivo')
+  const [discount, setDiscount] = useState('0')
+  const [interestRate, setInterestRate] = useState('0')
+  const [installmentCount, setInstallmentCount] = useState('12')
+  const [financingCurrency, setFinancingCurrency] = useState<'pesos' | 'usd'>('pesos')
+  const [notes, setNotes] = useState('')
+  const [items, setItems] = useState<SaleItem[]>([{ description: '', quantity: 1, unitPrice: 0 }])
+
+  useEffect(() => {
+    if (invoiceType === 'mixto') return
+    if (!clientId) { setInvoiceType('B'); return }
+    const client = clients.find((c: any) => c.id === Number(clientId))
+    if (client?.condicionIva === 'responsable_inscripto') setInvoiceType('A')
+    else setInvoiceType('B')
+  }, [clientId, clients])
+
+  function addItem() { setItems(prev => [...prev, { description: '', quantity: 1, unitPrice: 0 }]) }
+  function removeItem(i: number) { setItems(prev => prev.filter((_, idx) => idx !== i)) }
+  function updateItem(i: number, key: string, val: any) {
+    setItems(prev => prev.map((item, idx) => idx === i ? { ...item, [key]: val } : item))
+  }
+
+  const ventaEnBlanco = invoiceType !== 'X' && invoiceType !== 'mixto'
+  const conflictos = items.filter(it => it.ingresoTipo === 'negro' && ventaEnBlanco)
+  const subtotal = items.reduce((s, it) => s + it.quantity * it.unitPrice, 0)
+  const subtotalFormal = items.filter(it => it.ingresoTipo === 'blanco').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
+  const subtotalInformal = items.filter(it => it.ingresoTipo === 'negro').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
+  const RATES: Record<'pesos' | 'usd', number> = { pesos: 5, usd: 3 }
+  const discountAmt = parseFloat(discount) || 0
+  const interest = parseFloat(interestRate) || 0
+  const principal = subtotal - discountAmt
+  const monthlyRate = type === 'cuotas' ? RATES[financingCurrency] : 0
+  const n = Number(installmentCount)
+  const r = monthlyRate / 100
+  const cuota = type === 'cuotas' && r > 0 && n > 1
+    ? principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+    : principal / Math.max(n, 1)
+  const total = type === 'cuotas' ? cuota * n : principal * (1 + interest / 100)
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSubmit({
+      clientId: clientId ? Number(clientId) : undefined,
+      invoiceType, type, paymentMethod,
+      discount: discountAmt,
+      interestRate: type === 'cuotas' ? monthlyRate : interest,
+      financingCurrency: type === 'cuotas' ? financingCurrency : undefined,
+      installmentCount: type === 'cuotas' ? n : 1,
+      notes,
+      items: items.map(it => ({ ...it, quantity: Number(it.quantity), unitPrice: Number(it.unitPrice) })),
+    })
+  }
+
+  return (
+    <Modal title="Nueva venta" onClose={onClose} width={640}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="form-grid-2">
+          <FormField label="Cliente (opcional)">
+            <select style={inputStyle} value={clientId} onChange={e => setClientId(e.target.value)}>
+              <option value="">Sin cliente</option>
+              {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+          </FormField>
+          <FormField label="Venta en blanco / negro">
+            <select style={inputStyle} value={invoiceType} onChange={e => setInvoiceType(e.target.value as any)}>
+              <option value="B">🧾 En blanco — Factura B (Consumidor final)</option>
+              <option value="A">🧾 En blanco — Factura A (Resp. Inscripto)</option>
+              <option value="X">🤝 En negro — Sin factura oficial</option>
+              <option value="mixto">🔀 Mixto — Parte en blanco, parte en negro</option>
+            </select>
+          </FormField>
+        </div>
+
+        <div className="form-grid-2">
+          <FormField label="Forma de pago">
+            <select style={inputStyle} value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
+              <option value="efectivo">Efectivo</option>
+              <option value="transferencia">Transferencia</option>
+              <option value="tarjeta">Tarjeta</option>
+              <option value="mixto">Mixto</option>
+            </select>
+          </FormField>
+          <FormField label="Tipo de venta">
+            <select style={inputStyle} value={type} onChange={e => setType(e.target.value as any)}>
+              <option value="contado">Contado</option>
+              <option value="cuotas">Cuotas</option>
+            </select>
+          </FormField>
+        </div>
+
+        <SaleItemsEditor
+          items={items} products={products} vehicles={vehicles}
+          isMixto={invoiceType === 'mixto'}
+          onAdd={addItem} onRemove={removeItem} onUpdate={updateItem}
+        />
+
+        {conflictos.length > 0 && (
+          <div style={{ background: '#fef9c3', border: '1px solid #fde047', borderRadius: '10px', padding: '10px 14px', fontSize: '13px', color: '#854d0e' }}>
+            ⚠️ <strong>{conflictos.length} ítem{conflictos.length > 1 ? 's' : ''}</strong> ingresó en negro pero estás emitiendo factura en blanco. Verificá antes de confirmar.
+          </div>
+        )}
+
+        {type === 'cuotas' ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="form-grid-2">
+              <FormField label="Descuento ($)">
+                <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
+              </FormField>
+              <FormField label="N° cuotas">
+                <input style={inputStyle} type="number" min="2" max="60" value={installmentCount} onChange={e => setInstallmentCount(e.target.value)} />
+              </FormField>
+            </div>
+            <FormField label="Moneda de financiación">
+              <select style={inputStyle} value={financingCurrency} onChange={e => setFinancingCurrency(e.target.value as 'pesos' | 'usd')}>
+                <option value="pesos">Pesos argentinos — 5% mensual TEM</option>
+                <option value="usd">Dólares USD — 3% mensual TEM</option>
+              </select>
+            </FormField>
+          </div>
+        ) : (
+          <div className="form-grid-2">
+            <FormField label="Descuento ($)">
+              <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
+            </FormField>
+            <FormField label="Interés (%)">
+              <input style={inputStyle} type="number" min="0" step="0.1" value={interestRate} onChange={e => setInterestRate(e.target.value)} placeholder="0" />
+            </FormField>
+          </div>
+        )}
+
+        <SaleTotalsPanel
+          subtotal={subtotal} discountAmt={discountAmt} interest={interest} total={total}
+          invoiceType={invoiceType} type={type} installmentCount={installmentCount}
+          subtotalFormal={subtotalFormal} subtotalInformal={subtotalInformal}
+          financingCurrency={type === 'cuotas' ? financingCurrency : undefined}
+          monthlyRate={type === 'cuotas' ? monthlyRate : undefined}
+        />
+
+        <FormField label="Notas">
+          <input style={inputStyle} value={notes} onChange={e => setNotes(e.target.value)} placeholder="Opcional..." />
+        </FormField>
+
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+          <button type="button" onClick={onClose} style={btnSecondary}>Cancelar</button>
+          <button type="submit" style={btnPrimary} disabled={isPending}>
+            {isPending ? 'Registrando...' : `Registrar venta — $${total.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`}
+          </button>
+        </div>
+      </form>
+    </Modal>
+  )
+}

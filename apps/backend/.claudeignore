@@ -1,0 +1,49 @@
+# Completions y sessions -- cargar solo si el usuario lo pide explicitamente
+.claude/completions/**
+.claude/sessions/**
+
+# Archivo historico -- cargar solo si el usuario lo pide explicitamente
+docs/archive/**
+
+# Dependencias y builds
+node_modules/**
+dist/**
+build/**
+.next/**
+.expo/**
+out/
+coverage/
+
+# Logs y temporales
+*.log
+npm-debug.log*
+.DS_Store
+.cache/
+
+# Locks
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Git y env
+.git/**
+.env
+.env.*
+!.env.example
+
+# Multimedia
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+*.mp4
+
+# Generados por Drizzle
+drizzle/*.sql
+drizzle/meta/
+
+# IDE
+.vscode/**
+.idea/**

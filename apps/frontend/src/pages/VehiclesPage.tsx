@@ -1,0 +1,77 @@
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '../lib/api'
+import { InfoBanner } from '../components/ui/InfoBanner'
+import { btnPrimary } from '../components/ui/FormField'
+import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
+import { VehicleFormModal, type VehicleFormData } from '../components/vehicles/VehicleFormModal'
+import { Pagination } from '../components/ui/Pagination'
+
+export function VehiclesPage() {
+  const qc = useQueryClient()
+  const [modal, setModal] = useState<'create' | 'edit' | null>(null)
+  const [editing, setEditing] = useState<any>(null)
+  const [page, setPage] = useState(1)
+
+  const { data: vehiclesData, isLoading } = useQuery({
+    queryKey: ['vehicles', page],
+    queryFn: () => api.get('/vehicles', { params: { page, limit: 50 } }).then(r => r.data),
+  })
+  const vehicles = vehiclesData?.items ?? []
+  const total = vehiclesData?.total ?? 0
+  const pages = vehiclesData?.pages ?? 1
+
+  const create = useMutation({
+    mutationFn: (data: VehicleFormData) => api.post('/vehicles', data),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
+    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+  })
+
+  const update = useMutation({
+    mutationFn: (data: VehicleFormData) => api.put(`/vehicles/${editing.id}`, data),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
+    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+  })
+
+  const remove = useMutation({
+    mutationFn: (id: number) => api.delete(`/vehicles/${id}`),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['vehicles'] }),
+    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+  })
+
+  function openEdit(v: any) { setEditing(v); setModal('edit') }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div>
+          <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Motos y Lanchas</h1>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{vehicles.length} vehículos</p>
+        </div>
+        <button onClick={() => { setEditing(null); setModal('create') }} style={btnPrimary}>+ Nuevo vehículo</button>
+      </div>
+
+      <InfoBanner title="Motos y lanchas en venta">
+        Stock de vehículos disponibles, con marca, modelo, año y número de serie. Cuando registrás una venta de un vehículo, <strong>pasa automáticamente a estado "vendido"</strong> y no aparece más como disponible — así no podés venderlo dos veces por error.
+      </InfoBanner>
+
+      <VehiclesGrid
+        vehicles={vehicles}
+        isLoading={isLoading}
+        onEdit={openEdit}
+        onDelete={(id) => { if (window.confirm('¿Eliminar este vehículo?')) remove.mutate(id) }}
+      />
+      <Pagination page={page} pages={pages} total={total} onPage={setPage} />
+
+      {modal && (
+        <VehicleFormModal
+          mode={modal}
+          editing={editing}
+          onClose={() => setModal(null)}
+          onSubmit={(data) => modal === 'edit' ? update.mutate(data) : create.mutate(data)}
+          isPending={create.isPending || update.isPending}
+        />
+      )}
+    </div>
+  )
+}

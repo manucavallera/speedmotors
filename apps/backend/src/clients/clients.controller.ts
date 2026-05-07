@@ -1,0 +1,61 @@
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
+import { ClientsService } from './clients.service'
+import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { AdminGuard } from '../auth/roles.guard'
+
+@UseGuards(JwtAuthGuard)
+@Controller('clients')
+export class ClientsController {
+  constructor(private clientsService: ClientsService) {}
+
+  @Get()
+  findAll(
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.clientsService.findAll({ search, page: page ? +page : undefined, limit: limit ? +limit : undefined })
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.findOne(id)
+  }
+
+  @Get(':id/sales')
+  findSales(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.findSales(id)
+  }
+
+  @Get(':id/account')
+  getAccount(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.getAccount(id)
+  }
+
+  @Post(':id/payments')
+  addPayment(@Param('id', ParseIntPipe) id: number, @Body() body: any, @Request() req: any) {
+    return this.clientsService.addPayment(id, req.user.id, body)
+  }
+
+  @Delete(':id/payments/:paymentId')
+  @UseGuards(AdminGuard)
+  removePayment(@Param('paymentId', ParseIntPipe) paymentId: number) {
+    return this.clientsService.removePayment(paymentId)
+  }
+
+  @Post()
+  create(@Body() body: any) {
+    return this.clientsService.create(body)
+  }
+
+  @Put(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+    return this.clientsService.update(id, body)
+  }
+
+  @Delete(':id')
+  @UseGuards(AdminGuard)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.remove(id)
+  }
+}

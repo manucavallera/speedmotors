@@ -1,0 +1,40 @@
+# Completions y sessions
+.claude/completions/**
+.claude/sessions/**
+
+# Archivo historico
+docs/archive/**
+
+# Dependencias y builds
+node_modules/**
+dist/**
+build/**
+.next/**
+out/
+
+# Logs y temporales
+*.log
+.cache/
+.DS_Store
+
+# Locks y Env
+package-lock.json
+.env
+.env.*
+!.env.example
+
+# Multimedia (Motos/Lanchas)
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.webp
+
+# Drizzle: Ignora metadatos generados, pero PERMITE migraciones .sql
+drizzle/meta/**
+drizzle/journal/**
+
+# IDE
+.vscode/**
+.idea/**

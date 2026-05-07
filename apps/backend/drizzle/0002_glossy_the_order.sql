@@ -1,0 +1,1 @@
+ALTER TABLE "sales" ADD COLUMN "sale_number" varchar(20);
