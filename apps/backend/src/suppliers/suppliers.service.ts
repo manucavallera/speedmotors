@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
-import { suppliers } from '../db/schema'
+import { suppliers, products } from '../db/schema'
 import { eq, desc, ilike } from 'drizzle-orm'
 
 @Injectable()
@@ -46,6 +46,7 @@ export class SuppliersService {
   }
 
   async remove(id: number) {
+    await db.update(products).set({ supplierId: null }).where(eq(products.supplierId, id))
     const [supplier] = await db.delete(suppliers).where(eq(suppliers.id, id)).returning()
     if (!supplier) throw new NotFoundException(`Proveedor ${id} no encontrado`)
     return supplier
