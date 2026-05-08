@@ -30,9 +30,7 @@ async function seed() {
   console.log('✅ Proveedor Mercomax creado')
 
   // Leer el Excel de Mercomax
-  const excelPath = path.resolve(
-    'C:/Users/coco/Desktop/Speed motors/LISTA DE PRECIOS MERCOMAX S.A 10-04-2026.xlsx'
-  )
+  const excelPath = path.resolve(__dirname, 'mercomax.xlsx')
   const workbook = xlsx.readFile(excelPath)
   const sheet = workbook.Sheets['Lista de precios general']
   const rows = xlsx.utils.sheet_to_json(sheet, { header: 1 }) as any[][]
