@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Pars
 import { ExpensesService } from './expenses.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
+import { CreateExpenseDto, UpdateExpenseDto } from './expense.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('expenses')
@@ -12,12 +13,12 @@ export class ExpensesController {
   @Get('summary') getSummary() { return this.expensesService.getSummaryByCategory() }
 
   @Post()
-  create(@Body() body: any, @Request() req: any) {
+  create(@Body() body: CreateExpenseDto, @Request() req: any) {
     return this.expensesService.create({ ...body, userId: req.user.id })
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateExpenseDto) {
     return this.expensesService.update(id, body)
   }
 

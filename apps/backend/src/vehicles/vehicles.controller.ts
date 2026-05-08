@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe } from '@nestjs/common'
 import { VehiclesService } from './vehicles.service'
+import { CreateVehicleDto, UpdateVehicleDto } from './vehicle.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
 
@@ -30,12 +31,12 @@ export class VehiclesController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: CreateVehicleDto) {
     return this.vehiclesService.create(body)
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateVehicleDto) {
     return this.vehiclesService.update(id, body)
   }
 

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe } from '@nestjs/common'
 import { ProductsService } from './products.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { CreateProductDto, UpdateProductDto } from './product.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('products')
@@ -37,12 +38,12 @@ export class ProductsController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: CreateProductDto) {
     return this.productsService.create(body)
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateProductDto) {
     return this.productsService.update(id, body)
   }
 

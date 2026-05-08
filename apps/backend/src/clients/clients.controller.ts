@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Pars
 import { ClientsService } from './clients.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
+import { CreateClientDto, UpdateClientDto } from './client.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('clients')
@@ -44,12 +45,12 @@ export class ClientsController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: CreateClientDto) {
     return this.clientsService.create(body)
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateClientDto) {
     return this.clientsService.update(id, body)
   }
 

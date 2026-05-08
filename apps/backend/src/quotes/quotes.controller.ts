@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
 import { QuotesService } from './quotes.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { CreateQuoteDto, UpdateQuoteDto } from './quote.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('quotes')
@@ -11,13 +12,13 @@ export class QuotesController {
   @Get(':id') findOne(@Param('id', ParseIntPipe) id: number) { return this.quotesService.findOne(id) }
 
   @Post()
-  create(@Body() body: any, @Request() req: any) {
+  create(@Body() body: CreateQuoteDto, @Request() req: any) {
     return this.quotesService.create({ ...body, userId: req.user.id })
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
-    return this.quotesService.update(id, body)
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateQuoteDto) {
+    return this.quotesService.update(id, body as any)
   }
 
   @Put(':id/status')

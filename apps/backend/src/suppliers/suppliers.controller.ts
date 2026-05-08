@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe, UseGuards } from '@nestjs/common'
 import { SuppliersService } from './suppliers.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { CreateSupplierDto, UpdateSupplierDto } from './supplier.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('suppliers')
@@ -8,8 +9,12 @@ export class SuppliersController {
   constructor(private readonly suppliersService: SuppliersService) {}
 
   @Get()
-  findAll(@Query('search') search?: string) {
-    return this.suppliersService.findAll(search)
+  findAll(
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.suppliersService.findAll({ search, page: page ? +page : undefined, limit: limit ? +limit : undefined })
   }
 
   @Get(':id')
@@ -18,12 +23,12 @@ export class SuppliersController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: CreateSupplierDto) {
     return this.suppliersService.create(body)
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateSupplierDto) {
     return this.suppliersService.update(id, body)
   }
 

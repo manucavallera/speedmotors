@@ -1,18 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
 import { suppliers, products } from '../db/schema'
-import { eq, desc, ilike } from 'drizzle-orm'
+import { eq, desc, ilike, sql } from 'drizzle-orm'
 
 @Injectable()
 export class SuppliersService {
-  async findAll(search?: string) {
-    const query = db.select().from(suppliers).orderBy(desc(suppliers.createdAt))
-    if (search) {
-      return db.select().from(suppliers)
-        .where(ilike(suppliers.name, `%${search}%`))
-        .orderBy(desc(suppliers.createdAt))
-    }
-    return query
+  async findAll(params: { search?: string; page?: number; limit?: number } = {}) {
+    const page = Math.max(1, params.page ?? 1)
+    const limit = Math.min(100, params.limit ?? 50)
+    const offset = (page - 1) * limit
+    const where = params.search ? ilike(suppliers.name, `%${params.search}%`) : undefined
+    const [items, countResult] = await Promise.all([
+      where
+        ? db.select().from(suppliers).where(where).orderBy(desc(suppliers.createdAt)).limit(limit).offset(offset)
+        : db.select().from(suppliers).orderBy(desc(suppliers.createdAt)).limit(limit).offset(offset),
+      db.select({ count: sql<number>`count(*)::int` }).from(suppliers).then(r => r[0].count),
+    ])
+    return { items, total: countResult, page, pages: Math.ceil(countResult / limit) }
   }
 
   async findOne(id: number) {

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, Param, ParseIntPipe, Query, UseGuards, Request } from '@nestjs/common'
 import { PurchaseOrdersService } from './purchase-orders.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from './purchase-order.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('purchase-orders')
@@ -14,12 +15,12 @@ export class PurchaseOrdersController {
   findOne(@Param('id', ParseIntPipe) id: number) { return this.service.findOne(id) }
 
   @Post()
-  create(@Body() body: any, @Request() req: any) {
+  create(@Body() body: CreatePurchaseOrderDto, @Request() req: any) {
     return this.service.create(body, req.user.id)
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdatePurchaseOrderDto) {
     return this.service.update(id, body)
   }
 
