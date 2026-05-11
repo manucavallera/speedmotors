@@ -9,6 +9,10 @@ export class CreateReservationDto {
   @IsNumber()
   clientId?: number
 
+  @IsOptional()
+  @IsNumber()
+  vehicleId?: number
+
   @IsString()
   clientName: string
 
@@ -23,6 +27,34 @@ export class CreateReservationDto {
   @IsOptional()
   @IsString()
   clientPhone?: string
+
+  @IsOptional()
+  @IsString()
+  clientEmail?: string
+
+  @IsOptional()
+  @IsString()
+  clientBirthDate?: string
+
+  @IsOptional()
+  @IsString()
+  clientLocality?: string
+
+  @IsOptional()
+  @IsString()
+  clientZip?: string
+
+  @IsOptional()
+  @IsString()
+  clientProvince?: string
+
+  @IsOptional()
+  @IsString()
+  clientOccupation?: string
+
+  @IsOptional()
+  @IsString()
+  patentingName?: string
 
   @IsOptional()
   @IsString()
@@ -59,6 +91,14 @@ export class CreateReservationDto {
   chassisNumber?: string
 
   @IsOptional()
+  @IsString()
+  hullNumber?: string
+
+  @IsOptional()
+  @IsString()
+  requestedUnit?: string
+
+  @IsOptional()
   @IsNumber()
   @Min(0)
   price?: number
@@ -66,7 +106,55 @@ export class CreateReservationDto {
   @IsOptional()
   @IsNumber()
   @Min(0)
+  patentingAmount?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
   depositAmount?: number
+
+  @IsOptional()
+  @IsString()
+  paymentType?: string
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  tradeInValue?: number
+
+  @IsOptional()
+  @IsString()
+  tradeInBrand?: string
+
+  @IsOptional()
+  @IsString()
+  tradeInModel?: string
+
+  @IsOptional()
+  @IsString()
+  tradeInDomain?: string
+
+  @IsOptional()
+  @IsString()
+  tradeInPlate?: string
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  financingBalance?: number
+
+  @IsOptional()
+  @IsString()
+  financingType?: string
+
+  @IsOptional()
+  @IsString()
+  financingMethod?: string
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  financingInstallments?: number
 
   @IsOptional()
   @IsString()
