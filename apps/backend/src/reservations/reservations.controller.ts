@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { ReservationsService } from './reservations.service'
-import type { CreateReservationDto } from './create-reservation.dto'
+import { CreateReservationDto } from './create-reservation.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)

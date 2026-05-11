@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { TransfersService } from './transfers.service'
-import type { CreateTransferDto } from './create-transfer.dto'
+import { CreateTransferDto } from './create-transfer.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)
