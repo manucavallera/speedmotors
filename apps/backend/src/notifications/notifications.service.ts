@@ -5,6 +5,11 @@ import { db } from '../db'
 import { installments, sales, clients } from '../db/schema'
 import { eq, and, lt, inArray } from 'drizzle-orm'
 
+function escHtml(s: string | null | undefined): string {
+  if (!s) return ''
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
 @Injectable()
 export class NotificationsService {
   private readonly logger = new Logger(NotificationsService.name)
@@ -59,8 +64,8 @@ export class NotificationsService {
 
     const rows = overdueList.map(i => `
       <tr>
-        <td style="padding:8px;border-bottom:1px solid #eee">${i.clientName ?? 'Sin cliente'}</td>
-        <td style="padding:8px;border-bottom:1px solid #eee">${i.clientPhone ?? '-'}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee">${escHtml(i.clientName) || 'Sin cliente'}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee">${escHtml(i.clientPhone) || '-'}</td>
         <td style="padding:8px;border-bottom:1px solid #eee">Cuota ${i.number} — Venta #${i.saleId}</td>
         <td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold">$${Number(i.amount).toLocaleString('es-AR')}</td>
         <td style="padding:8px;border-bottom:1px solid #eee;color:#dc2626">${new Date(i.dueDate).toLocaleDateString('es-AR')}</td>

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
+import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common'
 import { db } from '../db'
 import { sales, saleItems, installments, products, vehicles, clients } from '../db/schema'
 import { eq, desc, sql, asc, and, or, gte, lte, ilike, inArray } from 'drizzle-orm'
@@ -6,6 +6,8 @@ import { CreateSaleDto } from './create-sale.dto'
 
 @Injectable()
 export class SalesService {
+  private readonly logger = new Logger(SalesService.name)
+
   async findAll(params: { page?: number; limit?: number; search?: string; dateFrom?: string; dateTo?: string; invoiceType?: string; userId?: number } = {}) {
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
@@ -14,9 +16,14 @@ export class SalesService {
     const conditions = []
     if (params.userId) conditions.push(eq(sales.userId, params.userId))
     if (params.invoiceType) conditions.push(eq(sales.invoiceType, params.invoiceType as 'A' | 'B' | 'X' | 'mixto'))
-    if (params.dateFrom) conditions.push(gte(sales.createdAt, new Date(params.dateFrom)))
+    if (params.dateFrom) {
+      const d = new Date(params.dateFrom)
+      if (isNaN(d.getTime())) throw new BadRequestException('dateFrom inválido')
+      conditions.push(gte(sales.createdAt, d))
+    }
     if (params.dateTo) {
       const to = new Date(params.dateTo)
+      if (isNaN(to.getTime())) throw new BadRequestException('dateTo inválido')
       to.setHours(23, 59, 59, 999)
       conditions.push(lte(sales.createdAt, to))
     }
@@ -218,7 +225,7 @@ export class SalesService {
     return updated
   }
 
-  async getPendingInstallments() {
+  async getPendingInstallments(limit = 500) {
     return db.select({
       id: installments.id,
       saleId: installments.saleId,
@@ -234,5 +241,6 @@ export class SalesService {
     .leftJoin(sales, eq(installments.saleId, sales.id))
     .leftJoin(clients, eq(sales.clientId, clients.id))
     .where(eq(installments.status, 'pendiente'))
+    .limit(limit)
   }
 }

@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, Logger } from '@nestjs/common'
 import { db } from '../db'
 import { products, categories } from '../db/schema'
 import { eq, ilike, and, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger(ProductsService.name)
   async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; priceSort?: string; page?: number; limit?: number }) {
     const page = Math.max(1, filters?.page ?? 1)
     const limit = Math.min(200, Math.max(1, filters?.limit ?? 50))
@@ -94,25 +95,27 @@ export class ProductsService {
         sellPrice: (row.sellPrice ?? row.costPrice * 1.3).toFixed(2),
       }))
       try {
-        await db.insert(products)
-          .values(values)
-          .onConflictDoUpdate({
-            target: products.code,
-            set: {
-              name: sql`excluded.name`,
-              brand: sql`COALESCE(excluded.brand, ${products.brand})`,
-              costPrice: sql`excluded.cost_price`,
-              sellPrice: sql`excluded.sell_price`,
-              updatedAt: new Date(),
-            },
-          })
+        await db.transaction(async (tx) => {
+          await tx.insert(products)
+            .values(values)
+            .onConflictDoUpdate({
+              target: products.code,
+              set: {
+                name: sql`excluded.name`,
+                brand: sql`COALESCE(excluded.brand, ${products.brand})`,
+                costPrice: sql`excluded.cost_price`,
+                sellPrice: sql`excluded.sell_price`,
+                updatedAt: new Date(),
+              },
+            })
+        })
         for (const row of chunk) {
           if (existingCodes.has(row.code)) updated++
           else created++
         }
       } catch (err) {
         errors += chunk.length
-        console.error(`[importProducts] error en chunk ${i}-${i + CHUNK}:`, err)
+        this.logger.error(`importProducts: error en chunk ${i}-${i + CHUNK}: ${(err as Error).message}`)
       }
     }
     return { created, updated, errors, total: rows.length }
