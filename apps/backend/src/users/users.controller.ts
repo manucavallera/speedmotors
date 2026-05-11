@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Patch, Param, Body, UseGuards, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Patch, Param, Body, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -17,8 +17,12 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: { name?: string; email?: string; role?: 'admin' | 'vendedor' }) {
-    return this.svc.update(id, body)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: { name?: string; email?: string; role?: 'admin' | 'vendedor' },
+    @Request() req: { user: { id: number } },
+  ) {
+    return this.svc.update(id, body, req.user.id)
   }
 
   @Patch(':id/password')
@@ -27,5 +31,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) { return this.svc.remove(id) }
+  remove(@Param('id', ParseIntPipe) id: number, @Request() req: { user: { id: number } }) {
+    return this.svc.remove(id, req.user.id)
+  }
 }
