@@ -4,7 +4,7 @@ interface SuppliersTableProps {
   suppliers: any[]
   isLoading: boolean
   onEdit: (s: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
 }
 
 function initials(name: string) {
@@ -49,10 +49,10 @@ export function SuppliersTable({ suppliers, isLoading, onEdit, onDelete }: Suppl
                 <td style={{ padding: '12px 16px' }}>
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <button onClick={() => onEdit(s)} style={{ ...btnSecondary, padding: '5px 12px', fontSize: '12px' }}>Editar</button>
-                    <button onClick={() => { if (confirm('¿Eliminar proveedor?')) onDelete(s.id) }}
+                    {onDelete && <button onClick={() => { if (confirm('¿Eliminar proveedor?')) onDelete(s.id) }}
                       style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                       Eliminar
-                    </button>
+                    </button>}
                   </div>
                 </td>
               </tr>

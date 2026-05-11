@@ -39,7 +39,12 @@ export function QRScannerField({ value, onChange, placeholder, label }: QRScanne
   }, [scanning])
 
   function stopScanner() {
-    readerRef.current?.reset()
+    if (videoRef.current?.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream
+      stream.getTracks().forEach(t => t.stop())
+      videoRef.current.srcObject = null
+    }
+    readerRef.current = null
     setScanning(false)
     setError('')
   }

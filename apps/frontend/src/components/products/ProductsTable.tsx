@@ -7,7 +7,7 @@ interface ProductsTableProps {
   sorted: any[]
   isLoading: boolean
   onEdit: (p: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
   onQR: (p: any) => void
 }
 
@@ -91,10 +91,10 @@ export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: Pro
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <button onClick={() => onQR(p)} style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#f0fdf4', color: '#16a34a', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>QR</button>
                     <button onClick={() => onEdit(p)} style={{ ...btnSecondary, padding: '5px 12px', fontSize: '12px' }}>Editar</button>
-                    <button onClick={() => { if (confirm('¿Eliminar producto?')) onDelete(p.id) }}
+                    {onDelete && <button onClick={() => { if (confirm('¿Eliminar producto?')) onDelete(p.id) }}
                       style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                       Eliminar
-                    </button>
+                    </button>}
                   </div>
                 </td>
               </tr>

@@ -66,7 +66,7 @@ export function ExpensesPage() {
         summary={summary}
         isLoading={isLoading}
         onEdit={setEditing}
-        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este gasto?')) remove.mutate(id)  : undefined}}
+        onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar este gasto?')) remove.mutate(id) } : undefined}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

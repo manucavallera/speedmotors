@@ -13,7 +13,7 @@ interface PurchaseOrdersTableProps {
   isLoading: boolean
   onView: (detail: any) => void
   onEdit: (order: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
 }
 
 export function PurchaseOrdersTable({ orders, isLoading, onView, onEdit, onDelete }: PurchaseOrdersTableProps) {
@@ -60,7 +60,7 @@ export function PurchaseOrdersTable({ orders, isLoading, onView, onEdit, onDelet
                         <button onClick={async () => { const { data } = await api.get(`/purchase-orders/${o.id}`); onEdit(data) }}
                           style={{ ...btnSecondary, padding: '5px 10px', fontSize: '12px' }}>Editar</button>
                       )}
-                      {o.status === 'borrador' && (
+                      {o.status === 'borrador' && onDelete && (
                         <button onClick={() => { if (confirm('¿Eliminar orden?')) onDelete(o.id) }}
                           style={{ padding: '5px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                           Eliminar

@@ -16,7 +16,7 @@ interface QuotesTableProps {
   onView: (detail: any) => void
   onEdit: (quote: any) => void
   onConvert: (quote: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
 }
 
 export function QuotesTable({ quotes, clients, isLoading, onView, onEdit, onConvert, onDelete }: QuotesTableProps) {
@@ -70,8 +70,8 @@ export function QuotesTable({ quotes, clients, isLoading, onView, onEdit, onConv
                           → Venta
                         </button>
                       )}
-                      <button onClick={() => { if (confirm('¿Eliminar?')) onDelete(q.id) }}
-                        style={{ padding: '5px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>✕</button>
+                      {onDelete && <button onClick={() => { if (confirm('¿Eliminar?')) onDelete(q.id) }}
+                        style={{ padding: '5px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>✕</button>}
                     </div>
                   </td>
                 </tr>

@@ -12,7 +12,7 @@ interface VehiclesGridProps {
   vehicles: any[]
   isLoading: boolean
   onEdit: (v: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
 }
 
 export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: VehiclesGridProps) {
@@ -135,10 +135,10 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button onClick={() => setQrVehicle(v)} style={{ flex: 1, padding: '7px', fontSize: '12px', fontWeight: 600, background: '#f0fdf4', color: '#16a34a', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>QR</button>
                   <button onClick={() => onEdit(v)} style={{ ...btnSecondary, flex: 1, padding: '7px', fontSize: '12px', textAlign: 'center' }}>Editar</button>
-                  <button onClick={() => { if (confirm('¿Eliminar?')) onDelete(v.id) }}
+                  {onDelete && <button onClick={() => { if (confirm('¿Eliminar?')) onDelete(v.id) }}
                     style={{ flex: 1, padding: '7px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                     Eliminar
-                  </button>
+                  </button>}
                 </div>
               </div>
             )

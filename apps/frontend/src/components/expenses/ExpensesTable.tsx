@@ -15,7 +15,7 @@ interface ExpensesTableProps {
   summary: any[]
   isLoading: boolean
   onEdit: (e: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
 }
 
 export function ExpensesTable({ expenses, summary, isLoading, onEdit, onDelete }: ExpensesTableProps) {
@@ -93,10 +93,10 @@ export function ExpensesTable({ expenses, summary, isLoading, onEdit, onDelete }
                     <td style={{ padding: '11px 16px' }}>
                       <div style={{ display: 'flex', gap: '6px' }}>
                         <button onClick={() => onEdit(e)} style={{ ...btnSecondary, padding: '5px 10px', fontSize: '12px' }}>Editar</button>
-                        <button onClick={() => { if (confirm('¿Eliminar gasto?')) onDelete(e.id) }}
+                        {onDelete && <button onClick={() => { if (confirm('¿Eliminar gasto?')) onDelete(e.id) }}
                           style={{ padding: '5px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                           Eliminar
-                        </button>
+                        </button>}
                       </div>
                     </td>
                   </tr>

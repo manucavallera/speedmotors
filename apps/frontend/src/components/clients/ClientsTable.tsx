@@ -6,7 +6,7 @@ interface ClientsTableProps {
   clients: any[]
   isLoading: boolean
   onEdit: (c: any) => void
-  onDelete: (id: number) => void
+  onDelete?: (id: number) => void
   onAccount: (c: any) => void
 }
 
@@ -65,10 +65,10 @@ export function ClientsTable({ clients, isLoading, onEdit, onDelete, onAccount }
                     <div style={{ display: 'flex', gap: '6px' }}>
                       <button onClick={() => onAccount(c)} style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>Cuenta</button>
                       <button onClick={() => onEdit(c)} style={{ ...btnSecondary, padding: '5px 12px', fontSize: '12px' }}>Editar</button>
-                      <button onClick={() => { if (confirm('¿Eliminar cliente?')) onDelete(c.id) }}
+                      {onDelete && <button onClick={() => { if (confirm('¿Eliminar cliente?')) onDelete(c.id) }}
                         style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                         Eliminar
-                      </button>
+                      </button>}
                     </div>
                   </td>
                 </tr>
