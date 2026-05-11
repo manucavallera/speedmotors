@@ -70,30 +70,31 @@ export class TransfersService {
   }
 
   async create(data: CreateTransferDto, userId: number) {
-    const [countResult] = await db.select({ count: sql<string>`COUNT(*)` }).from(transfers)
-    const num = (Number(countResult.count) + 1).toString().padStart(5, '0')
-    const transferNumber = `TR-${new Date().getFullYear()}-${num}`
+    return db.transaction(async (tx) => {
+      const [t] = await tx.insert(transfers).values({
+        transferNumber: 'PENDING',
+        vehicleId: data.vehicleId ?? null,
+        clientId: data.clientId ?? null,
+        clientName: data.clientName,
+        clientDni: data.clientDni ?? null,
+        date: data.date ? new Date(data.date) : new Date(),
+        notaryName: data.notaryName ?? null,
+        notaryRegistry: data.notaryRegistry ?? null,
+        rnpNumber: data.rnpNumber ?? null,
+        dnrpaNumber: data.dnrpaNumber ?? null,
+        transferFee: data.transferFee?.toFixed(2) ?? '0',
+        taxAmount: data.taxAmount?.toFixed(2) ?? '0',
+        totalCost: data.totalCost?.toFixed(2) ?? '0',
+        status: data.status ?? 'pendiente',
+        notes: data.notes ?? null,
+        userId,
+      }).returning()
 
-    const [t] = await db.insert(transfers).values({
-      transferNumber,
-      vehicleId: data.vehicleId ?? null,
-      clientId: data.clientId ?? null,
-      clientName: data.clientName,
-      clientDni: data.clientDni ?? null,
-      date: data.date ? new Date(data.date) : new Date(),
-      notaryName: data.notaryName ?? null,
-      notaryRegistry: data.notaryRegistry ?? null,
-      rnpNumber: data.rnpNumber ?? null,
-      dnrpaNumber: data.dnrpaNumber ?? null,
-      transferFee: data.transferFee?.toFixed(2) ?? '0',
-      taxAmount: data.taxAmount?.toFixed(2) ?? '0',
-      totalCost: data.totalCost?.toFixed(2) ?? '0',
-      status: data.status ?? 'pendiente',
-      notes: data.notes ?? null,
-      userId,
-    }).returning()
-
-    return t
+      const num = t.id.toString().padStart(5, '0')
+      const transferNumber = `TR-${new Date().getFullYear()}-${num}`
+      const [updated] = await tx.update(transfers).set({ transferNumber }).where(eq(transfers.id, t.id)).returning()
+      return updated
+    })
   }
 
   async update(id: number, data: Partial<CreateTransferDto>) {
