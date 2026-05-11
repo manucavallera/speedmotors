@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe, UseGuards } from '@nestjs/common'
 import { SuppliersService } from './suppliers.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { AdminGuard } from '../auth/roles.guard'
 import { CreateSupplierDto, UpdateSupplierDto } from './supplier.dto'
 
 @UseGuards(JwtAuthGuard)
@@ -23,16 +24,19 @@ export class SuppliersController {
   }
 
   @Post()
+  @UseGuards(AdminGuard)
   create(@Body() body: CreateSupplierDto) {
     return this.suppliersService.create(body)
   }
 
   @Put(':id')
+  @UseGuards(AdminGuard)
   update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateSupplierDto) {
     return this.suppliersService.update(id, body)
   }
 
   @Delete(':id')
+  @UseGuards(AdminGuard)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.suppliersService.remove(id)
   }

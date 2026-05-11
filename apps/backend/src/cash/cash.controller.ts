@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, UseGuards, Request, Param, ParseIntPipe } from '@nestjs/common'
 import { CashService } from './cash.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { AdminGuard } from '../auth/roles.guard'
 
 @UseGuards(JwtAuthGuard)
 @Controller('cash')
@@ -22,11 +23,13 @@ export class CashController {
   }
 
   @Post('close')
+  @UseGuards(AdminGuard)
   close(@Body() body: { notes?: string; countedBalance?: number }, @Request() req: any) {
     return this.cashService.closeSession(req.user.id, body.notes, body.countedBalance)
   }
 
   @Post('movement')
+  @UseGuards(AdminGuard)
   createMovement(
     @Body() body: { sessionId: number; type: 'retiro' | 'deposito'; amount: number; reason?: string },
     @Request() req: any,

@@ -31,16 +31,19 @@ export class VehiclesController {
   }
 
   @Post()
+  @UseGuards(AdminGuard)
   create(@Body() body: CreateVehicleDto) {
     return this.vehiclesService.create(body)
   }
 
   @Put(':id')
+  @UseGuards(AdminGuard)
   update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateVehicleDto) {
     return this.vehiclesService.update(id, body)
   }
 
   @Put(':id/status')
+  @UseGuards(AdminGuard)
   updateStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: 'disponible' | 'reservado' | 'vendido') {
     return this.vehiclesService.updateStatus(id, status)
   }
