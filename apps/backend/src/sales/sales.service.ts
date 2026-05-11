@@ -6,12 +6,13 @@ import { CreateSaleDto } from './create-sale.dto'
 
 @Injectable()
 export class SalesService {
-  async findAll(params: { page?: number; limit?: number; search?: string; dateFrom?: string; dateTo?: string; invoiceType?: string } = {}) {
+  async findAll(params: { page?: number; limit?: number; search?: string; dateFrom?: string; dateTo?: string; invoiceType?: string; userId?: number } = {}) {
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
     const conditions = []
+    if (params.userId) conditions.push(eq(sales.userId, params.userId))
     if (params.invoiceType) conditions.push(eq(sales.invoiceType, params.invoiceType as 'A' | 'B' | 'X' | 'mixto'))
     if (params.dateFrom) conditions.push(gte(sales.createdAt, new Date(params.dateFrom)))
     if (params.dateTo) {
@@ -178,6 +179,22 @@ export class SalesService {
       .returning()
     if (!installment) throw new NotFoundException(`Cuota ${installmentId} no encontrada`)
     return installment
+  }
+
+  async updateTransport(id: number, data: any) {
+    const [updated] = await db.update(sales).set({
+      transportPropio: data.transportPropio ?? false,
+      transportistaNombre: data.transportistaNombre || null,
+      transportistaCuit: data.transportistaCuit || null,
+      transportistaDomicilio: data.transportistaDomicilio || null,
+      conductorNombre: data.conductorNombre || null,
+      conductorDni: data.conductorDni || null,
+      conductorRegNum: data.conductorRegNum || null,
+      dominioVehiculo: data.dominioVehiculo || null,
+      dominioAcoplado: data.dominioAcoplado || null,
+    }).where(eq(sales.id, id)).returning()
+    if (!updated) throw new NotFoundException('Venta no encontrada')
+    return updated
   }
 
   async getPendingInstallments() {

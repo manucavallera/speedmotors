@@ -1,7 +1,8 @@
+import { toast } from '../lib/toast'
 // @file: useClients.ts | Query y mutations para ClientsPage. AccountModal es self-contained.
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { api, apiError } from '../lib/api'
 import { type Client, type PaginatedResponse } from '../types/api.types'
 import { type ClientForm } from '../types/clients.types'
 
@@ -27,19 +28,19 @@ export function useClients() {
   const create = useMutation({
     mutationFn: (data: ClientForm) => api.post('/clients', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const update = useMutation({
     mutationFn: ({ id, data }: { id: number; data: ClientForm }) => api.put(`/clients/${id}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/clients/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['clients'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   function openCreate() { setEditing(null); setModal('create') }

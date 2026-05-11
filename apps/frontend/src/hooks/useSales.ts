@@ -1,6 +1,7 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { api, apiError } from '../lib/api'
 import { type Sale, type Client, type Vehicle, type PaginatedResponse } from '../types/api.types'
 import { type CreateSaleData } from '../types/sales.types'
 
@@ -57,13 +58,19 @@ export function useSales() {
   const create = useMutation({
     mutationFn: (data: CreateSaleData) => api.post('/sales', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['sales'] }); setModal(false) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const cancel = useMutation({
     mutationFn: (id: number) => api.post(`/sales/${id}/cancel`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['sales'] }); setDetail(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
+  })
+
+  const updateTransport = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => api.patch(`/sales/${id}/transport`, data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['sales'] }),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   return {
@@ -75,6 +82,6 @@ export function useSales() {
     dateFrom, setDateFrom: handleSetDateFrom,
     dateTo, setDateTo: handleSetDateTo,
     invoiceFilter, setInvoiceFilter: handleSetInvoiceFilter,
-    create, cancel,
+    create, cancel, updateTransport,
   }
 }

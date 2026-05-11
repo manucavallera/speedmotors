@@ -5,8 +5,10 @@ import { ClientsTable } from '../components/clients/ClientsTable'
 import { ClientFormModal } from '../components/clients/ClientFormModal'
 import { ClientAccountModal } from '../components/clients/ClientAccountModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function ClientsPage() {
+  const { isAdmin } = useAuth()
   const {
     clients, isLoading,
     search, setSearch,
@@ -40,7 +42,7 @@ export function ClientsPage() {
         clients={clients}
         isLoading={isLoading}
         onEdit={openEdit}
-        onDelete={(id) => { if (window.confirm('¿Eliminar este cliente?')) remove.mutate(id) }}
+        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este cliente?')) remove.mutate(id)  : undefined}}
         onAccount={setAccountClient}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />

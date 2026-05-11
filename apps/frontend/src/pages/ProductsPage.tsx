@@ -7,13 +7,17 @@ import { ProductsTable } from '../components/products/ProductsTable'
 import { ProductFormModal } from '../components/products/ProductFormModal'
 import { useProducts } from '../hooks/useProducts'
 import { generatePriceList } from '../lib/pdf'
+import { exportProductsCsv, exportProductsPdf } from '../lib/export'
 import { api } from '../lib/api'
+import { useAuth } from '../hooks/useAuth'
 
 export function ProductsPage() {
+  const { isAdmin } = useAuth()
   const {
     products, isLoading, sorted, cheapest, priciest,
     total, page, pages, setPage,
     search, setSearch, priceSort, setPriceSort, ingresoFilter, setIngresoFilter,
+    supplierFilter, setSupplierFilter, suppliers,
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
     importModal, setImportModal,
@@ -28,7 +32,9 @@ export function ProductsPage() {
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} productos{ingresoFilter ? ` · filtro: ${ingresoFilter}` : ''}{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => generatePriceList(products, [])} style={{ ...btnSecondary, fontSize: '13px' }}>Exportar PDF</button>
+          <button onClick={() => exportProductsCsv(products)} style={{ ...btnSecondary, fontSize: '13px' }}>CSV</button>
+          <button onClick={() => exportProductsPdf(products)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF stock</button>
+          <button onClick={() => generatePriceList(products, [])} style={{ ...btnSecondary, fontSize: '13px' }}>Lista precios</button>
           <button onClick={() => setImportModal(true)} style={{ ...btnSecondary, fontSize: '13px', color: '#16a34a' }}>Importar Excel</button>
           <button onClick={openCreate} style={btnPrimary}>+ Nuevo producto</button>
         </div>
@@ -58,6 +64,13 @@ export function ProductsPage() {
             </button>
           ))}
         </div>
+        {suppliers.length > 0 && (
+          <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value ? Number(e.target.value) : '')}
+            style={{ ...inputStyle, minWidth: '160px' }}>
+            <option value="">Todos los proveedores</option>
+            {suppliers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+        )}
       </div>
 
       {cheapest && priciest && cheapest.id !== priciest.id && (
@@ -75,7 +88,7 @@ export function ProductsPage() {
         </div>
       )}
 
-      <ProductsTable sorted={sorted} isLoading={isLoading} onEdit={openEdit} onDelete={id => { if (window.confirm('¿Eliminar este producto?')) remove.mutate(id) }} onQR={setQrProduct} />
+      <ProductsTable sorted={sorted} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? id => { if (window.confirm('¿Eliminar este producto?')) remove.mutate(id)  : undefined}} onQR={setQrProduct} />
 
       {pages > 1 && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>

@@ -1,6 +1,7 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { api, apiError } from '../lib/api'
 
 export interface Transfer {
   id: number
@@ -59,20 +60,20 @@ export function useTransfers() {
   const create = useMutation({
     mutationFn: (data: CreateTransferData) => api.post('/transfers', data).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const update = useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<CreateTransferData> }) =>
       api.put(`/transfers/${id}`, data).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/transfers/${id}`).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   return { list, total, page, pages, setPage, create, update, remove }

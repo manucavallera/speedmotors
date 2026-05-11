@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -6,8 +7,10 @@ import { btnPrimary } from '../components/ui/FormField'
 import { ExpensesTable } from '../components/expenses/ExpensesTable'
 import { ExpenseFormModal, type ExpenseFormData } from '../components/expenses/ExpenseFormModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function ExpensesPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [modal, setModal] = useState(false)
   const [editing, setEditing] = useState<any>(null)
@@ -29,19 +32,19 @@ export function ExpensesPage() {
   const create = useMutation({
     mutationFn: (d: ExpenseFormData) => api.post('/expenses', d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['expenses', 'expenses-summary'] }); setModal(false) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const update = useMutation({
     mutationFn: (d: ExpenseFormData) => api.put(`/expenses/${editing.id}`, d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['expenses', 'expenses-summary'] }); setEditing(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/expenses/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['expenses', 'expenses-summary'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   return (
@@ -63,7 +66,7 @@ export function ExpensesPage() {
         summary={summary}
         isLoading={isLoading}
         onEdit={setEditing}
-        onDelete={(id) => { if (window.confirm('¿Eliminar este gasto?')) remove.mutate(id) }}
+        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este gasto?')) remove.mutate(id)  : undefined}}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

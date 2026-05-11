@@ -94,6 +94,14 @@ export function DashboardPage() {
               positive={tm.profit >= 0}
             />
             <KPICard
+              label="Vehículos vendidos"
+              value={`${dash.vehiclesSoldThisMonth ?? 0}`}
+              sub="este mes"
+              icon="🏍️"
+              gradient="linear-gradient(135deg,#8b5cf6,#6d28d9)"
+              positive={dash.vehiclesSoldThisMonth > 0}
+            />
+            <KPICard
               label="Cuotas vencidas"
               value={dash.overdueInstallments.count > 0 ? `$${dash.overdueInstallments.total.toLocaleString('es-AR', { minimumFractionDigits: 0 })}` : 'Al día'}
               sub={dash.overdueInstallments.count > 0 ? `${dash.overdueInstallments.count} cuota${dash.overdueInstallments.count !== 1 ? 's' : ''}` : undefined}

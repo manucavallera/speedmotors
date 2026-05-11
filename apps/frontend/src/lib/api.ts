@@ -20,3 +20,9 @@ api.interceptors.response.use(
     return Promise.reject(err)
   },
 )
+
+export function apiError(err: unknown): string {
+  const msg = (err as any)?.response?.data?.message
+  if (Array.isArray(msg)) return msg.join(' · ')
+  return msg || 'Error inesperado'
+}

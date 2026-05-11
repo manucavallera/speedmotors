@@ -1,6 +1,7 @@
+import { toast } from '../lib/toast'
 import React from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { api, apiError } from '../lib/api'
 
 export interface AlertsData {
   summary: { critical: number; upcoming: number; total: number }
@@ -71,7 +72,7 @@ export function usePayInstallment() {
       qc.invalidateQueries({ queryKey: ['alerts'] })
       qc.invalidateQueries({ queryKey: ['installments-pending'] })
     },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 }
 
@@ -87,26 +88,26 @@ export function useReminders() {
   const create = useMutation({
     mutationFn: (data: CreateReminderData) => api.post('/reminders', data).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const update = useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<CreateReminderData> }) =>
       api.put(`/reminders/${id}`, data).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const markDone = useMutation({
     mutationFn: (id: number) => api.patch(`/reminders/${id}/done`).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/reminders/${id}`).then(r => r.data),
     onSuccess: inv,
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   return { list, create, update, markDone, remove }

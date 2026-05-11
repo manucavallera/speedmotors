@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -6,8 +7,10 @@ import { btnPrimary, inputStyle } from '../components/ui/FormField'
 import { SuppliersTable } from '../components/suppliers/SuppliersTable'
 import { SupplierFormModal, type SupplierFormData } from '../components/suppliers/SupplierFormModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function SuppliersPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [search, setSearch] = useState('')
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
@@ -25,19 +28,19 @@ export function SuppliersPage() {
   const create = useMutation({
     mutationFn: (data: SupplierFormData) => api.post('/suppliers', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['suppliers'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const update = useMutation({
     mutationFn: (data: SupplierFormData) => api.put(`/suppliers/${editing.id}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['suppliers'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/suppliers/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['suppliers'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   function openEdit(s: any) { setEditing(s); setModal('edit') }
@@ -61,7 +64,7 @@ export function SuppliersPage() {
           style={{ ...inputStyle, maxWidth: '360px' }} />
       </div>
 
-      <SuppliersTable suppliers={suppliers} isLoading={isLoading} onEdit={openEdit} onDelete={(id) => { if (window.confirm('¿Eliminar este proveedor?')) remove.mutate(id) }} />
+      <SuppliersTable suppliers={suppliers} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este proveedor?')) remove.mutate(id)  : undefined}} />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && (

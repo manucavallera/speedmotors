@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -8,8 +9,10 @@ import { QuoteFormModal, type QuoteFormData } from '../components/quotes/QuoteFo
 import { QuoteDetailModal } from '../components/quotes/QuoteDetailModal'
 import { QuoteConvertModal, type QuoteConvertData } from '../components/quotes/QuoteConvertModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function QuotesPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [modal, setModal] = useState<'new' | 'edit' | null>(null)
   const [editing, setEditing] = useState<any>(null)
@@ -33,31 +36,31 @@ export function QuotesPage() {
   const create = useMutation({
     mutationFn: (d: QuoteFormData) => api.post('/quotes', d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['quotes'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const update = useMutation({
     mutationFn: (d: QuoteFormData) => api.put(`/quotes/${editing.id}`, d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['quotes'] }); setModal(null); setEditing(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const convert = useMutation({
     mutationFn: ({ id, ...d }: { id: number } & QuoteConvertData) => api.post(`/quotes/${id}/convert`, d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['quotes', 'sales'] }); setConvertModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const updateStatus = useMutation({
     mutationFn: ({ id, status }: { id: number; status: string }) => api.put(`/quotes/${id}/status`, { status }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['quotes'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/quotes/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['quotes'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   function openEdit(q: any) { setEditing(q); setModal('edit') }
@@ -83,7 +86,7 @@ export function QuotesPage() {
         onView={setDetail}
         onEdit={openEdit}
         onConvert={setConvertModal}
-        onDelete={(id) => { if (window.confirm('¿Eliminar este presupuesto?')) remove.mutate(id) }}
+        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este presupuesto?')) remove.mutate(id)  : undefined}}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

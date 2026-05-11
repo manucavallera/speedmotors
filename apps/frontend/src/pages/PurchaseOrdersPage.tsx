@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -7,8 +8,10 @@ import { PurchaseOrdersTable } from '../components/purchase-orders/PurchaseOrder
 import { PurchaseOrderDetailModal } from '../components/purchase-orders/PurchaseOrderDetailModal'
 import { PurchaseOrderFormModal, type PurchaseOrderFormData } from '../components/purchase-orders/PurchaseOrderFormModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function PurchaseOrdersPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [modal, setModal] = useState<'new' | 'edit' | false>(false)
   const [editing, setEditing] = useState<any>(null)
@@ -36,13 +39,13 @@ export function PurchaseOrdersPage() {
   const create = useMutation({
     mutationFn: (data: PurchaseOrderFormData) => api.post('/purchase-orders', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['purchase-orders'] }); setModal(false) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const update = useMutation({
     mutationFn: (data: PurchaseOrderFormData) => api.put(`/purchase-orders/${editing.id}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['purchase-orders'] }); setModal(false); setEditing(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const changeStatus = useMutation({
@@ -53,13 +56,13 @@ export function PurchaseOrdersPage() {
       qc.invalidateQueries({ queryKey: ['products'] })
       setDetail(null)
     },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/purchase-orders/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['purchase-orders'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   function openEdit(order: any) { setEditing(order); setModal('edit') }
@@ -83,7 +86,7 @@ export function PurchaseOrdersPage() {
         isLoading={isLoading}
         onView={setDetail}
         onEdit={openEdit}
-        onDelete={(id) => { if (window.confirm('¿Eliminar esta orden de compra?')) remove.mutate(id) }}
+        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar esta orden de compra?')) remove.mutate(id)  : undefined}}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

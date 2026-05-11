@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { db } from '../db'
-import { sales, saleItems, expenses, installments, products, clients, users } from '../db/schema'
+import { sales, saleItems, expenses, installments, products, clients, users, vehicles } from '../db/schema'
 import { sql, and, gte, lte, eq, lt, desc } from 'drizzle-orm'
 
 @Injectable()
@@ -235,6 +235,16 @@ export class ReportsService {
       .from(products)
       .where(sql`${products.stock} <= ${products.minStock} AND ${products.stock} > 0 AND ${products.active} = true`)
 
+    const [vehiclesSoldResult] = await db
+      .select({ count: sql<string>`COUNT(DISTINCT ${saleItems.vehicleId})` })
+      .from(saleItems)
+      .innerJoin(sales, eq(saleItems.saleId, sales.id))
+      .where(and(
+        gte(sales.createdAt, startOfMonth),
+        lte(sales.createdAt, now),
+        sql`${saleItems.vehicleId} IS NOT NULL`,
+      ))
+
     const bySeller = await db
       .select({
         userId: sales.userId,
@@ -256,6 +266,7 @@ export class ReportsService {
         total: Number(overdueResult.total),
       },
       lowStockCount: Number(lowStockResult.count),
+      vehiclesSoldThisMonth: Number(vehiclesSoldResult.count),
       bySeller: bySeller.map(s => ({
         userId: s.userId,
         name: s.userName ?? 'Sin asignar',

@@ -1,7 +1,8 @@
+import { toast } from '../lib/toast'
 // @file: useProducts.ts | Queries, mutations y estado de filtros para ProductsPage. Filtros y orden server-side con paginación.
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { api, apiError } from '../lib/api'
 import { type Product, type PaginatedResponse } from '../types/api.types'
 import { type ProductForm } from '../types/products.types'
 
@@ -10,6 +11,7 @@ export function useProducts() {
   const [search, setSearch] = useState('')
   const [priceSort, setPriceSort] = useState<'asc' | 'desc' | ''>('')
   const [ingresoFilter, setIngresoFilter] = useState<'blanco' | 'negro' | ''>('')
+  const [supplierFilter, setSupplierFilter] = useState<number | ''>('')
   const [page, setPage] = useState(1)
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
   const [importModal, setImportModal] = useState(false)
@@ -17,12 +19,13 @@ export function useProducts() {
   const [editing, setEditing] = useState<Product | null>(null)
 
   const { data, isLoading } = useQuery<PaginatedResponse<Product>>({
-    queryKey: ['products', { search, priceSort, ingresoFilter, page }],
+    queryKey: ['products', { search, priceSort, ingresoFilter, supplierFilter, page }],
     queryFn: () => api.get('/products', {
       params: {
         search: search || undefined,
         priceSort: priceSort || undefined,
         ingresoTipo: ingresoFilter || undefined,
+        supplierId: supplierFilter || undefined,
         page,
         limit: 50,
       },
@@ -43,19 +46,19 @@ export function useProducts() {
   const create = useMutation({
     mutationFn: (data: ProductForm) => api.post('/products', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['products'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const update = useMutation({
     mutationFn: ({ id, data }: { id: number; data: ProductForm }) => api.put(`/products/${id}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['products'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/products/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['products'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(apiError(err)),
   })
 
   function openCreate() { setEditing(null); setModal('create') }
@@ -65,6 +68,13 @@ export function useProducts() {
   function handleSetSearch(v: string) { setSearch(v); resetPage() }
   function handleSetPriceSort(v: 'asc' | 'desc' | '') { setPriceSort(v); resetPage() }
   function handleSetIngresoFilter(v: 'blanco' | 'negro' | '') { setIngresoFilter(v); resetPage() }
+  function handleSetSupplierFilter(v: number | '') { setSupplierFilter(v); resetPage() }
+
+  const { data: suppliersData } = useQuery({
+    queryKey: ['suppliers-list'],
+    queryFn: () => api.get('/suppliers', { params: { limit: 200 } }).then(r => r.data),
+  })
+  const suppliers: { id: number; name: string }[] = suppliersData?.items ?? []
 
   return {
     products: items, isLoading, sorted: items, cheapest, priciest,
@@ -72,6 +82,8 @@ export function useProducts() {
     search, setSearch: handleSetSearch,
     priceSort, setPriceSort: handleSetPriceSort,
     ingresoFilter, setIngresoFilter: handleSetIngresoFilter,
+    supplierFilter, setSupplierFilter: handleSetSupplierFilter,
+    suppliers,
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
     importModal, setImportModal,

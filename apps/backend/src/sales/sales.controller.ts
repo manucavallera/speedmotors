@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
+import { Controller, Get, Post, Patch, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
 import { SalesService } from './sales.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -17,7 +17,9 @@ export class SalesController {
     @Query('dateFrom') dateFrom?: string,
     @Query('dateTo') dateTo?: string,
     @Query('invoiceType') invoiceType?: string,
+    @Request() req?: any,
   ) {
+    const isVendedor = req?.user?.role === 'vendedor'
     return this.salesService.findAll({
       page: page ? +page : undefined,
       limit: limit ? +limit : undefined,
@@ -25,6 +27,7 @@ export class SalesController {
       dateFrom: dateFrom || undefined,
       dateTo: dateTo || undefined,
       invoiceType: invoiceType || undefined,
+      userId: isVendedor ? req.user.id : undefined,
     })
   }
 
@@ -41,6 +44,11 @@ export class SalesController {
   @Post()
   create(@Body() body: CreateSaleDto, @Request() req: any) {
     return this.salesService.create({ ...body, userId: req.user.id })
+  }
+
+  @Patch(':id/transport')
+  updateTransport(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+    return this.salesService.updateTransport(id, body)
   }
 
   @Post(':id/cancel')

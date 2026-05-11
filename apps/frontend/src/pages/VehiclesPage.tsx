@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -6,8 +7,10 @@ import { btnPrimary } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
 import { VehicleFormModal, type VehicleFormData } from '../components/vehicles/VehicleFormModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function VehiclesPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
   const [editing, setEditing] = useState<any>(null)
@@ -24,19 +27,19 @@ export function VehiclesPage() {
   const create = useMutation({
     mutationFn: (data: VehicleFormData) => api.post('/vehicles', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const update = useMutation({
     mutationFn: (data: VehicleFormData) => api.put(`/vehicles/${editing.id}`, data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/vehicles/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['vehicles'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   function openEdit(v: any) { setEditing(v); setModal('edit') }
@@ -59,7 +62,7 @@ export function VehiclesPage() {
         vehicles={vehicles}
         isLoading={isLoading}
         onEdit={openEdit}
-        onDelete={(id) => { if (window.confirm('¿Eliminar este vehículo?')) remove.mutate(id) }}
+        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este vehículo?')) remove.mutate(id)  : undefined}}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

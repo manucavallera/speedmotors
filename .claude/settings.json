@@ -1,4 +1,18 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc*)",
+      "Bash(npm run dev:backend*)",
+      "Bash(npm run dev:frontend*)",
+      "Bash(docker exec speedmotors-db*)",
+      "Bash(ss -tln*)",
+      "Bash(ss -tlnp*)",
+      "Bash(which *)",
+      "Bash(gh repo view*)",
+      "Bash(wc -l *)",
+      "Bash(npm list*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
