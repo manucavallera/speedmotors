@@ -19,6 +19,7 @@ import { ReservationsModule } from './reservations/reservations.module'
 import { AlertsModule } from './alerts/alerts.module'
 import { TransfersModule } from './transfers/transfers.module'
 import { UsersModule } from './users/users.module'
+import { NotificationsModule } from './notifications/notifications.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -44,6 +45,7 @@ import { AppService } from './app.service'
     AlertsModule,
     TransfersModule,
     UsersModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
