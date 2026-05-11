@@ -27,7 +27,7 @@ import { AppService } from './app.service'
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 5 }]),
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 200 }]),
     DbModule,
     AuthModule,
     ProductsModule,
