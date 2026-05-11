@@ -120,17 +120,22 @@ export class SalesService {
 
       for (const item of data.items) {
         if (item.productId) {
-          const [product] = await tx.select().from(products).where(eq(products.id, item.productId))
-          if (!product) throw new BadRequestException(`Producto ${item.productId} no encontrado`)
-          if (product.stock < item.quantity) throw new BadRequestException(`Stock insuficiente para producto ${item.productId}: disponible ${product.stock}, solicitado ${item.quantity}`)
-          await tx.update(products)
-            .set({ stock: product.stock - item.quantity, updatedAt: new Date() })
-            .where(eq(products.id, item.productId))
+          const [updated] = await tx.update(products)
+            .set({ stock: sql`${products.stock} - ${item.quantity}`, updatedAt: new Date() })
+            .where(and(eq(products.id, item.productId), gte(products.stock, item.quantity)))
+            .returning({ id: products.id, stock: products.stock })
+          if (!updated) {
+            const [p] = await tx.select({ id: products.id, stock: products.stock }).from(products).where(eq(products.id, item.productId))
+            if (!p) throw new BadRequestException(`Producto ${item.productId} no encontrado`)
+            throw new BadRequestException(`Stock insuficiente para producto ${item.productId}: disponible ${p.stock}, solicitado ${item.quantity}`)
+          }
         }
         if (item.vehicleId) {
-          await tx.update(vehicles)
+          const [updatedV] = await tx.update(vehicles)
             .set({ status: 'vendido', updatedAt: new Date() })
-            .where(eq(vehicles.id, item.vehicleId))
+            .where(and(eq(vehicles.id, item.vehicleId), inArray(vehicles.status, ['disponible', 'reservado'])))
+            .returning({ id: vehicles.id })
+          if (!updatedV) throw new BadRequestException(`Vehículo ${item.vehicleId} no disponible para venta (ya vendido)`)
         }
       }
 
@@ -149,21 +154,23 @@ export class SalesService {
   }
 
   async cancelSale(id: number) {
-    const sale = await this.findOne(id)
-    if (sale.status === 'cancelado') throw new BadRequestException('La venta ya está cancelada')
-
     return db.transaction(async (tx) => {
-      for (const item of sale.items) {
+      const [sale] = await tx.select().from(sales).where(eq(sales.id, id))
+      if (!sale) throw new NotFoundException(`Venta ${id} no encontrada`)
+      if (sale.status === 'cancelado') throw new BadRequestException('La venta ya está cancelada')
+
+      const items = await tx.select().from(saleItems).where(eq(saleItems.saleId, id))
+
+      for (const item of items) {
         if (item.productId) {
-          const [product] = await tx.select().from(products).where(eq(products.id, item.productId))
-          if (product) {
-            await tx.update(products)
-              .set({ stock: product.stock + item.quantity, updatedAt: new Date() })
-              .where(eq(products.id, item.productId))
-          }
+          await tx.update(products)
+            .set({ stock: sql`${products.stock} + ${item.quantity}`, updatedAt: new Date() })
+            .where(eq(products.id, item.productId))
         }
         if (item.vehicleId) {
-          await tx.update(vehicles).set({ status: 'disponible', updatedAt: new Date() }).where(eq(vehicles.id, item.vehicleId))
+          await tx.update(vehicles)
+            .set({ status: 'disponible', updatedAt: new Date() })
+            .where(and(eq(vehicles.id, item.vehicleId), eq(vehicles.status, 'vendido')))
         }
       }
       const [updated] = await tx.update(sales).set({ status: 'cancelado' }).where(eq(sales.id, id)).returning()
@@ -172,13 +179,17 @@ export class SalesService {
   }
 
   async payInstallment(installmentId: number) {
-    const [installment] = await db
+    const [existing] = await db.select().from(installments).where(eq(installments.id, installmentId))
+    if (!existing) throw new NotFoundException(`Cuota ${installmentId} no encontrada`)
+    if (existing.status === 'pagado') throw new BadRequestException('La cuota ya fue pagada')
+
+    const [updated] = await db
       .update(installments)
       .set({ status: 'pagado', paidAt: new Date() })
-      .where(eq(installments.id, installmentId))
+      .where(and(eq(installments.id, installmentId), eq(installments.status, 'pendiente')))
       .returning()
-    if (!installment) throw new NotFoundException(`Cuota ${installmentId} no encontrada`)
-    return installment
+    if (!updated) throw new BadRequestException('La cuota ya fue pagada')
+    return updated
   }
 
   async updateTransport(id: number, data: any) {
