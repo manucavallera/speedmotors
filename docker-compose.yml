@@ -6,6 +6,8 @@ services:
       POSTGRES_USER: speedmotors
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: speedmotors
+    ports:
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -23,9 +25,20 @@ services:
     environment:
       DATABASE_URL: postgresql://speedmotors:${DB_PASSWORD}@db:5432/speedmotors
       JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-12h}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost}
+      AUTO_MIGRATE: ${AUTO_MIGRATE:-true}
+      NODE_ENV: production
+      TZ: America/Argentina/Buenos_Aires
       PORT: 3000
     ports:
       - "3000:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   frontend:
     build: ./apps/frontend

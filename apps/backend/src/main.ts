@@ -4,12 +4,17 @@ import { ValidationPipe } from '@nestjs/common'
 import { join } from 'path'
 import { existsSync, mkdirSync } from 'fs'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
+import helmet from 'helmet'
 import { db } from './db'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
-  await migrate(db, { migrationsFolder: './drizzle' })
+  if (process.env.AUTO_MIGRATE !== 'false') {
+    await migrate(db, { migrationsFolder: './drizzle' })
+  }
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
+
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 
   const allowedOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',')
