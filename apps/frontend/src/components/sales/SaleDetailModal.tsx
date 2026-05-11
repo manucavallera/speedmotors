@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Modal } from '../ui/Modal'
-import { btnPrimary, btnSecondary } from '../ui/FormField'
+import { btnPrimary, btnSecondary, inputStyle, FormField } from '../ui/FormField'
 import { generateReceipt, generateInvoice, generateRemito } from '../../lib/pdf'
 
 const invoiceColors: Record<string, { bg: string; color: string }> = {
@@ -14,11 +15,31 @@ interface SaleDetailModalProps {
   onClose: () => void
   onCancel: (id: number) => void
   cancelPending: boolean
+  onUpdateTransport: (id: number, data: any) => void
+  transportPending?: boolean
 }
 
-export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPending }: SaleDetailModalProps) {
+function toTransportForm(s: any) {
+  return {
+    transportPropio: s.transportPropio ?? false,
+    transportistaNombre: s.transportistaNombre || '',
+    transportistaCuit: s.transportistaCuit || '',
+    transportistaDomicilio: s.transportistaDomicilio || '',
+    conductorNombre: s.conductorNombre || '',
+    conductorDni: s.conductorDni || '',
+    conductorRegNum: s.conductorRegNum || '',
+    dominioVehiculo: s.dominioVehiculo || '',
+    dominioAcoplado: s.dominioAcoplado || '',
+  }
+}
+
+export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPending, onUpdateTransport, transportPending }: SaleDetailModalProps) {
   const clientData = clients.find((c: any) => c.id === detail.clientId)
   const invStyle = invoiceColors[detail.invoiceType || 'X'] || invoiceColors.X
+  const [showTransport, setShowTransport] = useState(false)
+  const [tForm, setTForm] = useState(toTransportForm(detail))
+  const tf = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    setTForm((prev: any) => ({ ...prev, [key]: e.target.value }))
 
   return (
     <Modal title={`Comprobante ${detail.saleNumber || '#' + detail.id}`} onClose={onClose} width={520}>
@@ -77,26 +98,13 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
           return (
             <div style={{ border: `1.5px solid ${accentColor}`, borderRadius: '10px', overflow: 'hidden' }}>
               <div style={{ background: accentColor, padding: '8px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>
-                  CRÉDITO EN {currency.toUpperCase()} · {detail.interestRate}% MENSUAL TEM
-                </span>
-                <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', padding: '1px 8px', borderRadius: '20px' }}>
-                  INTERÉS COMPUESTO
-                </span>
+                <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>CRÉDITO EN {currency.toUpperCase()} · {detail.interestRate}% MENSUAL TEM</span>
+                <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', padding: '1px 8px', borderRadius: '20px' }}>INTERÉS COMPUESTO</span>
               </div>
               <div style={{ background: accentBg, padding: '12px 14px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', textAlign: 'center' }}>
-                <div>
-                  <div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>CUOTA MENSUAL</div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(cuota)}</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>TOTAL A PAGAR</div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(totalPagar)}</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '10px', fontWeight: 600, color: '#dc2626' }}>INTERÉS TOTAL</div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: '#dc2626' }}>+${fmt(totalInteres)}</div>
-                </div>
+                <div><div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>CUOTA MENSUAL</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(cuota)}</div></div>
+                <div><div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>TOTAL A PAGAR</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(totalPagar)}</div></div>
+                <div><div style={{ fontSize: '10px', fontWeight: 600, color: '#dc2626' }}>INTERÉS TOTAL</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#dc2626' }}>+${fmt(totalInteres)}</div></div>
               </div>
               <div style={{ padding: '10px 14px' }}>
                 <div style={{ fontSize: '11px', fontWeight: 600, color: '#64748b', marginBottom: '6px' }}>PLAN DE PAGOS</div>
@@ -105,9 +113,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
                     <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR')}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontWeight: 600 }}>${Number(inst.amount).toLocaleString('es-AR')}</span>
-                      <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>
-                        {inst.status}
-                      </span>
+                      <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>{inst.status}</span>
                     </div>
                   </div>
                 ))}
@@ -124,14 +130,60 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
                 <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR')}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontWeight: 600 }}>${Number(inst.amount).toLocaleString('es-AR')}</span>
-                  <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>
-                    {inst.status}
-                  </span>
+                  <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>{inst.status}</span>
                 </div>
               </div>
             ))}
           </div>
         )}
+
+        {/* TRANSPORTE */}
+        <div style={{ border: '1px solid #e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
+          <button
+            type="button"
+            onClick={() => setShowTransport(p => !p)}
+            style={{ width: '100%', padding: '10px 14px', background: '#f8fafc', border: 'none', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px', fontWeight: 600, color: '#334155' }}
+          >
+            Datos de Transporte (Remito)
+            <span style={{ fontSize: '11px', color: '#94a3b8' }}>{showTransport ? '▲ cerrar' : '▼ editar'}</span>
+          </button>
+          {showTransport && (
+            <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <FormField label="Transporte Propio">
+                <select style={inputStyle} value={tForm.transportPropio ? 'true' : 'false'}
+                  onChange={e => setTForm((p: any) => ({ ...p, transportPropio: e.target.value === 'true' }))}>
+                  <option value="false">No (Art. 12 RG 3434)</option>
+                  <option value="true">Sí</option>
+                </select>
+              </FormField>
+              {!tForm.transportPropio && (
+                <>
+                  <div className="form-grid-2">
+                    <FormField label="Transportista"><input style={inputStyle} value={tForm.transportistaNombre} onChange={tf('transportistaNombre')} /></FormField>
+                    <FormField label="CUIT Transportista"><input style={inputStyle} value={tForm.transportistaCuit} onChange={tf('transportistaCuit')} /></FormField>
+                  </div>
+                  <FormField label="Domicilio Transportista"><input style={inputStyle} value={tForm.transportistaDomicilio} onChange={tf('transportistaDomicilio')} /></FormField>
+                  <div className="form-grid-2">
+                    <FormField label="Conductor"><input style={inputStyle} value={tForm.conductorNombre} onChange={tf('conductorNombre')} /></FormField>
+                    <FormField label="DNI Conductor"><input style={inputStyle} value={tForm.conductorDni} onChange={tf('conductorDni')} /></FormField>
+                  </div>
+                  <div className="form-grid-2">
+                    <FormField label="Reg. Nº"><input style={inputStyle} value={tForm.conductorRegNum} onChange={tf('conductorRegNum')} /></FormField>
+                    <FormField label="Dom. Camión"><input style={inputStyle} value={tForm.dominioVehiculo} onChange={tf('dominioVehiculo')} /></FormField>
+                  </div>
+                  <FormField label="Dom. Acoplado"><input style={{ ...inputStyle, width: '200px' }} value={tForm.dominioAcoplado} onChange={tf('dominioAcoplado')} /></FormField>
+                </>
+              )}
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button type="button" style={{ ...btnPrimary, fontSize: '13px', padding: '7px 18px' }}
+                  disabled={transportPending}
+                  onClick={() => onUpdateTransport(detail.id, tForm)}>
+                  {transportPending ? 'Guardando...' : 'Guardar transporte'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
         {detail.status !== 'cancelado' && (
           <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>

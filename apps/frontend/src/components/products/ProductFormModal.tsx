@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import { PhotoUploadField } from './PhotoUploadField'
+import { QRScannerField } from '../ui/QRScannerField'
 import type { ProductForm } from '../../types/products.types'
 import { emptyProductForm } from '../../types/products.types'
 
@@ -42,7 +43,7 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <div className="form-grid-2">
           <FormField label="Código">
-            <input style={inputStyle} value={form.code} onChange={e => setForm(f => ({ ...f, code: e.target.value }))} required />
+            <QRScannerField value={form.code} onChange={val => setForm(f => ({ ...f, code: val }))} label="Código de producto" placeholder="Escanear o ingresar" />
           </FormField>
           <FormField label="Marca">
             <input style={inputStyle} value={form.brand} onChange={e => setForm(f => ({ ...f, brand: e.target.value }))} />

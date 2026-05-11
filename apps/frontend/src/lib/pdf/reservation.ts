@@ -72,8 +72,11 @@ export function generateReservationPdf(r: any) {
   // COMPRADOR
   section('DATOS DEL COMPRADOR')
   row('Apellido y Nombre', r.clientName)
-  rowDouble('DNI / CUIL', r.clientDni || '', 'Teléfono', r.clientPhone || '')
-  row('Domicilio', r.clientAddress || '')
+  rowDouble('DNI / CUIL', r.clientDni || '', 'Fecha de Nac.', r.clientBirthDate || '')
+  rowDouble('Teléfonos', r.clientPhone || '', 'E-mail', r.clientEmail || '')
+  rowDouble('Domicilio', r.clientAddress || '', 'Localidad', r.clientLocality || '')
+  rowDouble('C.P.', r.clientZip || '', 'Provincia', r.clientProvince || '')
+  if (r.clientOccupation) row('Ocupación', r.clientOccupation)
   y += 2; line(doc, y); y += 5
 
   // CÓNYUGE
@@ -82,23 +85,53 @@ export function generateReservationPdf(r: any) {
   row('DNI / CUIL', r.spouseDni || '')
   y += 2; line(doc, y); y += 5
 
+  // PATENTAR / FACTURAR
+  if (r.patentingName) {
+    section('PATENTAMIENTO Y FACTURACIÓN')
+    row('Patentar y Facturar a nombre de', r.patentingName)
+    y += 2; line(doc, y); y += 5
+  }
+
   // VEHÍCULO
   section('DATOS DEL VEHÍCULO')
   rowDouble('Tipo', r.vehicleType === 'lancha' ? 'Lancha / Embarcación' : 'Motocicleta', 'Año', r.year ? String(r.year) : '')
+  if (r.requestedUnit) row('Unidad Solicitada', r.requestedUnit)
   rowDouble('Marca', r.brand, 'Modelo', r.model || '')
   rowDouble('Color', r.color || '', 'Dominio / Patente', '')
   row('Nro. de Motor', r.motorNumber || '')
   row('Nro. de Chasis', r.chassisNumber || '')
+  if (r.hullNumber) row('Nro. de Casco', r.hullNumber)
   y += 2; line(doc, y); y += 5
 
   // CONDICIONES
   section('CONDICIONES ECONÓMICAS')
   const price = Number(r.price || 0)
+  const patenting = Number(r.patentingAmount || 0)
   const deposit = Number(r.depositAmount || 0)
-  const saldo = price - deposit
-  rowDouble('Precio pactado', price > 0 ? `$${fmt(price)}` : '', 'Moneda', 'Pesos argentinos')
-  rowDouble('Seña / Entrega', deposit > 0 ? `$${fmt(deposit)}` : '', 'Saldo', saldo > 0 && price > 0 ? `$${fmt(saldo)}` : '')
+  const total = price + patenting
+  const saldo = total - deposit
+  rowDouble('Precio de Lista', price > 0 ? `$${fmt(price)}` : '', 'Patentamiento', patenting > 0 ? `$${fmt(patenting)}` : '')
+  rowDouble('TOTAL', total > 0 ? `$${fmt(total)}` : '', 'Moneda', 'Pesos argentinos')
+  rowDouble('Forma de Pago', r.paymentType ? String(r.paymentType).toUpperCase() : '', 'Seña / Entrega', deposit > 0 ? `$${fmt(deposit)}` : '')
+  rowDouble('Saldo', saldo > 0 && total > 0 ? `$${fmt(saldo)}` : '', '', '')
   y += 2; line(doc, y); y += 5
+
+  // VEHÍCULO USADO
+  if (r.tradeInBrand || r.tradeInValue) {
+    section('VEHÍCULO USADO (PERMUTA)')
+    rowDouble('Marca', r.tradeInBrand || '', 'Modelo', r.tradeInModel || '')
+    rowDouble('Dominio', r.tradeInDomain || '', 'Matrícula', r.tradeInPlate || '')
+    if (Number(r.tradeInValue) > 0) row('Valor del Usado', `$${fmt(Number(r.tradeInValue))}`)
+    y += 2; line(doc, y); y += 5
+  }
+
+  // FINANCIACIÓN
+  if (r.financingBalance || r.financingType) {
+    section('FINANCIACIÓN')
+    rowDouble('Saldo a Financiar', r.financingBalance ? `$${fmt(Number(r.financingBalance))}` : '', 'Entidad', r.financingType ? String(r.financingType).toUpperCase() : '')
+    rowDouble('Modalidad', r.financingMethod ? String(r.financingMethod).toUpperCase() : '', 'Cuotas', r.financingInstallments ? String(r.financingInstallments) : '')
+    y += 2; line(doc, y); y += 5
+  }
 
   // NOTAS
   if (r.notes) {

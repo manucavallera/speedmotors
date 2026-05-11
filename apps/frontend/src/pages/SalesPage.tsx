@@ -6,9 +6,10 @@ import { SaleFormModal } from '../components/sales/SaleFormModal'
 import { SaleDetailModal } from '../components/sales/SaleDetailModal'
 import { useSales } from '../hooks/useSales'
 import { Pagination } from '../components/ui/Pagination'
+import { exportSalesCsv, exportSalesPdf } from '../lib/export'
 
 export function SalesPage() {
-  const { clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, total, page, pages, setPage } = useSales()
+  const { clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, updateTransport, total, page, pages, setPage } = useSales()
 
   return (
     <div>
@@ -17,7 +18,11 @@ export function SalesPage() {
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Ventas</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} ventas registradas{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
-        <button onClick={() => setModal(true)} style={btnPrimary}>+ Nueva venta</button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button onClick={() => exportSalesCsv(filtered, clients)} style={{ ...btnSecondary, fontSize: '13px' }}>CSV</button>
+          <button onClick={() => exportSalesPdf(filtered, clients)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF</button>
+          <button onClick={() => setModal(true)} style={btnPrimary}>+ Nueva venta</button>
+        </div>
       </div>
 
       <InfoBanner title="Ventas registradas">
@@ -48,7 +53,7 @@ export function SalesPage() {
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && <SaleFormModal clients={clients} products={products} vehicles={vehicles} onSubmit={data => create.mutate(data)} onClose={() => setModal(false)} isPending={create.isPending} />}
-      {detail && <SaleDetailModal detail={detail} clients={clients} onClose={() => setDetail(null)} onCancel={id => cancel.mutate(id)} cancelPending={cancel.isPending} />}
+      {detail && <SaleDetailModal detail={detail} clients={clients} onClose={() => setDetail(null)} onCancel={id => cancel.mutate(id)} cancelPending={cancel.isPending} onUpdateTransport={(id, data) => updateTransport.mutate({ id, data })} transportPending={updateTransport.isPending} />}
     </div>
   )
 }

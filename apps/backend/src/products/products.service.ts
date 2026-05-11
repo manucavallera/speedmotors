@@ -5,7 +5,7 @@ import { eq, ilike, and, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
 
 @Injectable()
 export class ProductsService {
-  async findAll(filters?: { search?: string; categoryId?: number; ingresoTipo?: string; priceSort?: string; page?: number; limit?: number }) {
+  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; priceSort?: string; page?: number; limit?: number }) {
     const page = Math.max(1, filters?.page ?? 1)
     const limit = Math.min(200, Math.max(1, filters?.limit ?? 50))
     const offset = (page - 1) * limit
@@ -13,6 +13,7 @@ export class ProductsService {
     const conditions = []
     if (filters?.search) conditions.push(ilike(products.name, `%${filters.search}%`))
     if (filters?.categoryId) conditions.push(eq(products.categoryId, filters.categoryId))
+    if (filters?.supplierId) conditions.push(eq(products.supplierId, filters.supplierId))
     if (filters?.ingresoTipo) conditions.push(eq(products.ingresoTipo, filters.ingresoTipo as 'blanco' | 'negro'))
     conditions.push(eq(products.active, true))
     const where = and(...conditions)

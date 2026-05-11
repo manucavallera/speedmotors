@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -17,7 +18,7 @@ export function InstallmentsPage() {
   const pay = useMutation({
     mutationFn: (id: number) => api.post(`/sales/installments/${id}/pay`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['installments-pending'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const today = new Date()

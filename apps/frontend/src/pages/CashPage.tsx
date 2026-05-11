@@ -1,3 +1,4 @@
+import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
@@ -25,20 +26,20 @@ export function CashPage() {
   const open = useMutation({
     mutationFn: (openingBalance: number) => api.post('/cash/open', { openingBalance }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const close = useMutation({
     mutationFn: ({ notes, countedBalance }: { notes: string; countedBalance?: number }) =>
       api.post('/cash/close', { notes: notes || undefined, countedBalance }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] }),
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const createMovement = useMutation({
     mutationFn: (d: CashMovementData) => api.post('/cash/movement', d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] }); setMovementModal(false) },
-    onError: (err: any) => alert(err?.response?.data?.message || 'Error inesperado'),
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   return (

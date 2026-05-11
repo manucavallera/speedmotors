@@ -21,6 +21,8 @@ import { AlertsPage } from './pages/AlertsPage'
 import { TransfersPage } from './pages/TransfersPage'
 import { UsersPage } from './pages/UsersPage'
 import { useAuth } from './hooks/useAuth'
+import { ErrorBoundary } from './components/ui/ErrorBoundary'
+import { Toaster } from './components/ui/Toaster'
 
 const queryClient = new QueryClient()
 
@@ -31,6 +33,7 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
+    <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
@@ -57,6 +60,8 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </QueryClientProvider>
+    </ErrorBoundary>
   )
 }
