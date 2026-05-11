@@ -192,7 +192,17 @@ export class SalesService {
     return updated
   }
 
-  async updateTransport(id: number, data: any) {
+  async updateTransport(id: number, data: {
+    transportPropio?: boolean
+    transportistaNombre?: string
+    transportistaCuit?: string
+    transportistaDomicilio?: string
+    conductorNombre?: string
+    conductorDni?: string
+    conductorRegNum?: string
+    dominioVehiculo?: string
+    dominioAcoplado?: string
+  }) {
     const [updated] = await db.update(sales).set({
       transportPropio: data.transportPropio ?? false,
       transportistaNombre: data.transportistaNombre || null,

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
 import { suppliers, products } from '../db/schema'
 import { eq, desc, ilike, sql } from 'drizzle-orm'
+import { CreateSupplierDto, UpdateSupplierDto } from './supplier.dto'
 
 @Injectable()
 export class SuppliersService {
@@ -25,7 +26,7 @@ export class SuppliersService {
     return supplier
   }
 
-  async create(data: any) {
+  async create(data: CreateSupplierDto) {
     const [supplier] = await db.insert(suppliers).values({
       name: data.name,
       phone: data.phone || null,
@@ -35,7 +36,7 @@ export class SuppliersService {
     return supplier
   }
 
-  async update(id: number, data: any) {
+  async update(id: number, data: UpdateSupplierDto) {
     const [supplier] = await db.update(suppliers)
       .set({
         name: data.name,

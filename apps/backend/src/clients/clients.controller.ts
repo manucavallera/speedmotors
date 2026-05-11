@@ -34,7 +34,11 @@ export class ClientsController {
   }
 
   @Post(':id/payments')
-  addPayment(@Param('id', ParseIntPipe) id: number, @Body() body: any, @Request() req: any) {
+  addPayment(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: { type: 'pago_cuenta' | 'nota_credito' | 'nota_debito'; amount: number; description: string; date?: string; notes?: string },
+    @Request() req: { user: { id: number } },
+  ) {
     return this.clientsService.addPayment(id, req.user.id, body)
   }
 

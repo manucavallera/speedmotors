@@ -11,7 +11,10 @@ export class StockMovementsController {
   @Get('product/:id') findByProduct(@Param('id', ParseIntPipe) id: number) { return this.service.findByProduct(id) }
 
   @Post()
-  create(@Body() body: any, @Request() req: any) {
+  create(
+    @Body() body: { productId: number; type: 'entrada' | 'salida' | 'ajuste'; quantity: number; reason?: string },
+    @Request() req: { user: { id: number } },
+  ) {
     return this.service.create(body.productId, req.user.id, body.type, body.quantity, body.reason)
   }
 }

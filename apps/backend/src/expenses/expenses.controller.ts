@@ -13,7 +13,7 @@ export class ExpensesController {
   @Get('summary') getSummary() { return this.expensesService.getSummaryByCategory() }
 
   @Post()
-  create(@Body() body: CreateExpenseDto, @Request() req: any) {
+  create(@Body() body: CreateExpenseDto, @Request() req: { user: { id: number } }) {
     return this.expensesService.create({ ...body, userId: req.user.id })
   }
 

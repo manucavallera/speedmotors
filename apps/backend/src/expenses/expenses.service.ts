@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
 import { expenses } from '../db/schema'
-import { eq, desc, gte, sql } from 'drizzle-orm'
+import { eq, desc, sql } from 'drizzle-orm'
+import { CreateExpenseDto, UpdateExpenseDto } from './expense.dto'
 
 @Injectable()
 export class ExpensesService {
@@ -18,18 +19,25 @@ export class ExpensesService {
     return { items, total, page, limit, pages: Math.ceil(total / limit) }
   }
 
-  async create(data: any) {
+  async create(data: CreateExpenseDto & { userId: number }) {
     const [expense] = await db.insert(expenses).values({
-      ...data,
+      category: data.category as typeof expenses.$inferInsert['category'],
+      description: data.description,
+      amount: data.amount.toString(),
       date: data.date ? new Date(data.date) : new Date(),
+      notes: data.notes ?? null,
+      userId: data.userId,
     }).returning()
     return expense
   }
 
-  async update(id: number, data: any) {
+  async update(id: number, data: UpdateExpenseDto) {
     const [expense] = await db.update(expenses).set({
-      ...data,
+      category: data.category as typeof expenses.$inferInsert['category'],
+      description: data.description,
+      amount: data.amount.toString(),
       date: data.date ? new Date(data.date) : undefined,
+      notes: data.notes ?? null,
     }).where(eq(expenses.id, id)).returning()
     if (!expense) throw new NotFoundException(`Gasto ${id} no encontrado`)
     return expense
