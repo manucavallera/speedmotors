@@ -64,7 +64,7 @@ export function SuppliersPage() {
           style={{ ...inputStyle, maxWidth: '360px' }} />
       </div>
 
-      <SuppliersTable suppliers={suppliers} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este proveedor?')) remove.mutate(id)  : undefined}} />
+      <SuppliersTable suppliers={suppliers} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar este proveedor?')) remove.mutate(id) } : undefined} />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && (

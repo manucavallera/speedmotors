@@ -86,7 +86,7 @@ export function PurchaseOrdersPage() {
         isLoading={isLoading}
         onView={setDetail}
         onEdit={openEdit}
-        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar esta orden de compra?')) remove.mutate(id)  : undefined}}
+        onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar esta orden de compra?')) remove.mutate(id) } : undefined}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

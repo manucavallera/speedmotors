@@ -88,7 +88,7 @@ export function ProductsPage() {
         </div>
       )}
 
-      <ProductsTable sorted={sorted} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? id => { if (window.confirm('¿Eliminar este producto?')) remove.mutate(id)  : undefined}} onQR={setQrProduct} />
+      <ProductsTable sorted={sorted} isLoading={isLoading} onEdit={openEdit} onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar este producto?')) remove.mutate(id) } : undefined} onQR={setQrProduct} />
 
       {pages > 1 && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>

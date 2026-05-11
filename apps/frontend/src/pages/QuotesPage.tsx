@@ -86,7 +86,7 @@ export function QuotesPage() {
         onView={setDetail}
         onEdit={openEdit}
         onConvert={setConvertModal}
-        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este presupuesto?')) remove.mutate(id)  : undefined}}
+        onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar este presupuesto?')) remove.mutate(id) } : undefined}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 

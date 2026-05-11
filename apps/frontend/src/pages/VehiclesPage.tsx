@@ -62,7 +62,7 @@ export function VehiclesPage() {
         vehicles={vehicles}
         isLoading={isLoading}
         onEdit={openEdit}
-        onDelete={isAdmin ? (id) => { if (window.confirm('¿Eliminar este vehículo?')) remove.mutate(id)  : undefined}}
+        onDelete={isAdmin ? (id: number) => { if (window.confirm('¿Eliminar este vehículo?')) remove.mutate(id) } : undefined}
       />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
