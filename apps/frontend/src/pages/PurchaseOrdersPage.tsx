@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary } from '../components/ui/FormField'
+import { btnPrimary, inputStyle } from '../components/ui/FormField'
 import { PurchaseOrdersTable } from '../components/purchase-orders/PurchaseOrdersTable'
 import { PurchaseOrderDetailModal } from '../components/purchase-orders/PurchaseOrderDetailModal'
 import { PurchaseOrderFormModal, type PurchaseOrderFormData } from '../components/purchase-orders/PurchaseOrderFormModal'
@@ -17,6 +17,8 @@ export function PurchaseOrdersPage() {
   const [editing, setEditing] = useState<any>(null)
   const [detail, setDetail] = useState<any>(null)
   const [page, setPage] = useState(1)
+  const [statusFilter, setStatusFilter] = useState('')
+  const [search, setSearch] = useState('')
 
   const { data: ordersData, isLoading } = useQuery({
     queryKey: ['purchase-orders', page],
@@ -25,6 +27,11 @@ export function PurchaseOrdersPage() {
   const orders = ordersData?.items ?? []
   const total = ordersData?.total ?? 0
   const pages = ordersData?.pages ?? 1
+
+  const filtered = orders.filter((o: any) =>
+    (!statusFilter || o.status === statusFilter) &&
+    (!search || o.supplier?.name?.toLowerCase().includes(search.toLowerCase()))
+  )
 
   const { data: suppliers = [] } = useQuery({
     queryKey: ['suppliers'],
@@ -81,8 +88,31 @@ export function PurchaseOrdersPage() {
         Pedidos de mercadería que le hacés a tus proveedores. Pasan por <strong>borrador → enviada → recibida</strong>. Al marcar "recibida", el stock de los productos sube automáticamente. Te sirve para controlar qué le debés a cada proveedor y verificar que llegue todo lo que pediste.
       </InfoBanner>
 
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar proveedor</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre..." style={{ ...inputStyle }} />
+        </div>
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Estado</span>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {([['', 'Todos'], ['draft', 'Borrador'], ['sent', 'Enviada'], ['received', 'Recibida']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setStatusFilter(val)}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: statusFilter === val ? '#1d4ed8' : '#f1f5f9', color: statusFilter === val ? 'white' : '#374151' }}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
       <PurchaseOrdersTable
-        orders={orders}
+        orders={filtered}
         isLoading={isLoading}
         onView={setDetail}
         onEdit={openEdit}

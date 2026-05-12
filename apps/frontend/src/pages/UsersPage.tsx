@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { InfoBanner } from '../components/ui/InfoBanner'
 import { useUsers } from '../hooks/useUsers'
 import type { AppUser } from '../hooks/useUsers'
 import { UserFormModal } from '../components/users/UserFormModal'
@@ -35,6 +36,10 @@ export function UsersPage() {
           + Nuevo usuario
         </button>
       </div>
+
+      <InfoBanner title="Usuarios del sistema">
+        Controlá quién puede entrar al sistema y con qué permisos. Los <strong>administradores</strong> ven todo y pueden eliminar registros. Los <strong>vendedores</strong> pueden cargar ventas, clientes y presupuestos, pero no borrar ni ver reportes financieros.
+      </InfoBanner>
 
       <div style={{ background: 'white', borderRadius: '14px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div className="table-wrap">

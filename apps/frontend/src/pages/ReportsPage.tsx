@@ -13,9 +13,11 @@ export function ReportsPage() {
 
   return (
     <div>
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Reportes</h1>
-        <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Balance gerencial con comparación de períodos</p>
+      <div className="page-header">
+        <div>
+          <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Reportes</h1>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Balance gerencial con comparación de períodos</p>
+        </div>
       </div>
 
       <InfoBanner title="Panel gerencial">

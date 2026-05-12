@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
-import { quotes, quoteItems } from '../db/schema'
+import { quotes, quoteItems, clients } from '../db/schema'
 import { eq, desc, sql } from 'drizzle-orm'
 import { SalesService } from '../sales/sales.service'
 import { CreateQuoteDto } from './create-quote.dto'
@@ -14,7 +14,15 @@ export class QuotesService {
     const offset = (page - 1) * limit
 
     const [items, countResult] = await Promise.all([
-      db.select().from(quotes).orderBy(desc(quotes.createdAt)).limit(limit).offset(offset),
+      db.select({
+        id: quotes.id, clientId: quotes.clientId, userId: quotes.userId,
+        subtotal: quotes.subtotal, discount: quotes.discount, total: quotes.total,
+        status: quotes.status, validUntil: quotes.validUntil, notes: quotes.notes,
+        createdAt: quotes.createdAt,
+        clientName: clients.name,
+      }).from(quotes)
+        .leftJoin(clients, eq(quotes.clientId, clients.id))
+        .orderBy(desc(quotes.createdAt)).limit(limit).offset(offset),
       db.select({ count: sql<number>`count(*)::int` }).from(quotes),
     ])
     const total = countResult[0]?.count ?? 0

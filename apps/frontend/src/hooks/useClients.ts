@@ -10,15 +10,17 @@ export function useClients() {
   const qc = useQueryClient()
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
+  const [hasDebt, setHasDebt] = useState(false)
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
   const [editing, setEditing] = useState<Client | null>(null)
   const [accountClient, setAccountClient] = useState<Client | null>(null)
 
   function handleSetSearch(v: string) { setSearch(v); setPage(1) }
+  function handleSetHasDebt(v: boolean) { setHasDebt(v); setPage(1) }
 
   const { data: clientsData, isLoading } = useQuery<PaginatedResponse<Client>>({
-    queryKey: ['clients', { search, page }],
-    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50 } }).then(r => r.data),
+    queryKey: ['clients', { search, page, hasDebt }],
+    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50, hasDebt: hasDebt || undefined } }).then(r => r.data),
     placeholderData: prev => prev,
   })
   const clients = clientsData?.items ?? []
@@ -49,6 +51,7 @@ export function useClients() {
   return {
     clients, isLoading,
     search, setSearch: handleSetSearch,
+    hasDebt, setHasDebt: handleSetHasDebt,
     total, page, pages, setPage,
     modal, setModal, editing, openCreate, openEdit,
     accountClient, setAccountClient,

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
+import { Controller, Get, Post, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
 import { StockMovementsService } from './stock-movements.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
@@ -7,7 +7,9 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 export class StockMovementsController {
   constructor(private service: StockMovementsService) {}
 
-  @Get() findAll() { return this.service.findAll() }
+  @Get() findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
+    return this.service.findAll({ page: page ? +page : undefined, limit: limit ? +limit : undefined })
+  }
   @Get('product/:id') findByProduct(@Param('id', ParseIntPipe) id: number) { return this.service.findByProduct(id) }
 
   @Post()

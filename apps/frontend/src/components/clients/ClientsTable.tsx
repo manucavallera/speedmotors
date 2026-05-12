@@ -23,7 +23,7 @@ export function ClientsTable({ clients, isLoading, onEdit, onDelete, onAccount }
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
-              {['Cliente', 'Teléfono', 'CUIT / DNI', 'Condición IVA', ''].map(h => (
+              {['Cliente', 'Teléfono', 'CUIT / DNI', 'Condición IVA', 'Saldo', ''].map(h => (
                 <th key={h} style={thStyle}>{h}</th>
               ))}
             </tr>
@@ -60,6 +60,18 @@ export function ClientsTable({ clients, isLoading, onEdit, onDelete, onAccount }
                     <span style={{ padding: '2px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, background: ivaStyle.bg, color: ivaStyle.color }}>
                       {condicionIvaLabel[iva] || iva}
                     </span>
+                  </td>
+                  <td style={{ padding: '12px 16px' }}>
+                    {c.balance != null && Number(c.balance) !== 0 ? (
+                      <span style={{ fontWeight: 700, fontSize: '13px', color: Number(c.balance) > 0 ? '#dc2626' : '#16a34a' }}>
+                        ${Math.abs(Number(c.balance)).toLocaleString('es-AR')}
+                        <span style={{ fontSize: '10px', fontWeight: 500, marginLeft: '4px', color: Number(c.balance) > 0 ? '#dc2626' : '#16a34a' }}>
+                          {Number(c.balance) > 0 ? 'debe' : 'a favor'}
+                        </span>
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: '12px', color: '#94a3b8' }}>—</span>
+                    )}
                   </td>
                   <td style={{ padding: '12px 16px' }}>
                     <div style={{ display: 'flex', gap: '6px' }}>

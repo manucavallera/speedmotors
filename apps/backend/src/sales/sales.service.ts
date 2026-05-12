@@ -225,22 +225,57 @@ export class SalesService {
     return updated
   }
 
-  async getPendingInstallments(limit = 500) {
-    return db.select({
-      id: installments.id,
-      saleId: installments.saleId,
-      number: installments.number,
-      amount: installments.amount,
-      dueDate: installments.dueDate,
-      status: installments.status,
-      paidAt: installments.paidAt,
-      clientId: sales.clientId,
-      clientName: clients.name,
-    })
-    .from(installments)
-    .leftJoin(sales, eq(installments.saleId, sales.id))
-    .leftJoin(clients, eq(sales.clientId, clients.id))
-    .where(eq(installments.status, 'pendiente'))
-    .limit(limit)
+  async getPendingInstallments(params: { page?: number; limit?: number; clientId?: number; overdue?: boolean } = {}) {
+    const page = params.page ?? 1
+    const limit = Math.min(200, params.limit ?? 50)
+    const offset = (page - 1) * limit
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const baseConditions = [eq(installments.status, 'pendiente')]
+    if (params.clientId) baseConditions.push(eq(sales.clientId, params.clientId))
+    const baseWhere = baseConditions.length === 1 ? baseConditions[0] : and(...baseConditions)
+
+    const overdueWhere = and(baseWhere, sql`${installments.dueDate} < ${today}`)
+    const upcomingWhere = and(baseWhere, sql`${installments.dueDate} >= ${today}`)
+    const filterWhere = params.overdue ? overdueWhere : baseWhere
+
+    const [items, countResult, overdueStats, upcomingStats] = await Promise.all([
+      db.select({
+        id: installments.id,
+        saleId: installments.saleId,
+        number: installments.number,
+        amount: installments.amount,
+        dueDate: installments.dueDate,
+        status: installments.status,
+        paidAt: installments.paidAt,
+        clientId: sales.clientId,
+        clientName: clients.name,
+      })
+      .from(installments)
+      .leftJoin(sales, eq(installments.saleId, sales.id))
+      .leftJoin(clients, eq(sales.clientId, clients.id))
+      .where(filterWhere)
+      .orderBy(installments.dueDate)
+      .limit(limit)
+      .offset(offset),
+      db.select({ count: sql<number>`count(*)::int` })
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(filterWhere),
+      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(overdueWhere),
+      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(upcomingWhere),
+    ])
+
+    const total = countResult[0]?.count ?? 0
+    return {
+      items,
+      total, page, limit, pages: Math.ceil(total / limit),
+      overdueCount: overdueStats[0]?.count ?? 0,
+      overdueTotal: overdueStats[0]?.total ?? 0,
+      upcomingCount: upcomingStats[0]?.count ?? 0,
+      upcomingTotal: upcomingStats[0]?.total ?? 0,
+    }
   }
 }

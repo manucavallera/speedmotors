@@ -42,8 +42,9 @@ export class ClientsController {
     @Query('search') search?: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @Query('hasDebt') hasDebt?: string,
   ) {
-    return this.clientsService.findAll({ search, page: page ? +page : undefined, limit: limit ? +limit : undefined })
+    return this.clientsService.findAll({ search, page: page ? +page : undefined, limit: limit ? +limit : undefined, hasDebt: hasDebt === 'true' })
   }
 
   @Get(':id')

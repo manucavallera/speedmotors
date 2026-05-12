@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { InfoBanner } from '../components/ui/InfoBanner'
 import { useTransfers } from '../hooks/useTransfers'
 import type { Transfer } from '../hooks/useTransfers'
 import { TransferFormModal } from '../components/transfers/TransferFormModal'
@@ -45,6 +46,10 @@ export function TransfersPage() {
         </button>
       </div>
 
+      <InfoBanner title="Transferencias de dominio">
+        Trámites para pasar la titularidad de un vehículo al comprador. Registrá el número de RNP, los costos del trámite y seguí el estado: <strong>Pendiente → En trámite → Completada</strong>. Así sabés qué transferencias están demoradas y cuánto cobrar por el servicio.
+      </InfoBanner>
+
       <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '20px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
@@ -85,27 +90,46 @@ export function TransfersPage() {
           const cost = fmt(t.totalCost)
           return (
             <div key={t.id} onClick={() => openDetail(t)}
-              style={{ background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer', transition: 'box-shadow 0.15s' }}
+              style={{ background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '16px 20px', cursor: 'pointer' }}
               onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)')}
               onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}>
-              <div style={{ width: '40px', height: '40px', background: '#f1f5f9', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>📄</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>{t.transferNumber ?? `#${t.id}`} · {t.clientNameResolved ?? t.clientName}</div>
-                <div style={{ fontSize: '12.5px', color: '#64748b', marginTop: '2px' }}>
-                  {t.vehicleLabel ?? 'Sin vehículo asignado'} · {fmtDate(t.date)}
-                  {t.rnpNumber && ` · RNP: ${t.rnpNumber}`}
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
+                <div style={{ width: '40px', height: '40px', background: '#f1f5f9', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0, marginTop: '2px' }}>📄</div>
+
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={{ fontWeight: 700, fontSize: '14px', color: '#94a3b8', fontFamily: 'monospace' }}>{t.transferNumber ?? `#${t.id}`}</span>
+                    <span style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>{t.clientNameResolved ?? t.clientName}</span>
+                    <span style={{ background: st.bg, color: st.color, fontSize: '11px', fontWeight: 700, padding: '2px 9px', borderRadius: '20px' }}>{st.label}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>{t.vehicleLabel ?? 'Sin vehículo'}</span>
+                    <span style={{ color: '#cbd5e1' }}>·</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>{fmtDate(t.date)}</span>
+                    {t.rnpNumber && <>
+                      <span style={{ color: '#cbd5e1' }}>·</span>
+                      <span style={{ fontSize: '12px', color: '#64748b' }}>RNP: {t.rnpNumber}</span>
+                    </>}
+                    {cost && <>
+                      <span style={{ color: '#cbd5e1' }}>·</span>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>{cost}</span>
+                    </>}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }} onClick={e => e.stopPropagation()}>
+                  <button onClick={() => openEdit(t)}
+                    style={{ padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer' }}>
+                    Editar
+                  </button>
+                  <button onClick={() => { if (confirm('¿Eliminar transferencia?')) remove.mutate(t.id) }}
+                    style={{ padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
+                    Eliminar
+                  </button>
                 </div>
               </div>
-              {cost && <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a', flexShrink: 0 }}>{cost}</div>}
-              <span style={{ background: st.bg, color: st.color, fontSize: '11.5px', fontWeight: 700, padding: '3px 10px', borderRadius: '20px', flexShrink: 0 }}>{st.label}</span>
-              <button onClick={e => { e.stopPropagation(); openEdit(t) }}
-                style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '7px', cursor: 'pointer', flexShrink: 0 }}>
-                Editar
-              </button>
-              <button onClick={e => { e.stopPropagation(); if (confirm('¿Eliminar transferencia?')) remove.mutate(t.id) }}
-                style={{ padding: '5px 8px', fontSize: '13px', fontWeight: 700, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '7px', cursor: 'pointer', flexShrink: 0 }}>
-                ×
-              </button>
+
             </div>
           )
         })}

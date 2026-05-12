@@ -32,8 +32,18 @@ export class SalesController {
   }
 
   @Get('installments/pending')
-  getPendingInstallments() {
-    return this.salesService.getPendingInstallments()
+  getPendingInstallments(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('clientId') clientId?: string,
+    @Query('overdue') overdue?: string,
+  ) {
+    return this.salesService.getPendingInstallments({
+      page: page ? +page : undefined,
+      limit: limit ? +limit : undefined,
+      clientId: clientId ? +clientId : undefined,
+      overdue: overdue === 'true',
+    })
   }
 
   @Get(':id')

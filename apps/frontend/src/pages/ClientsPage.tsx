@@ -1,6 +1,6 @@
 import { useClients } from '../hooks/useClients'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary } from '../components/ui/FormField'
+import { btnPrimary, inputStyle } from '../components/ui/FormField'
 import { ClientsTable } from '../components/clients/ClientsTable'
 import { ClientFormModal } from '../components/clients/ClientFormModal'
 import { ClientAccountModal } from '../components/clients/ClientAccountModal'
@@ -12,6 +12,7 @@ export function ClientsPage() {
   const {
     clients, isLoading,
     search, setSearch,
+    hasDebt, setHasDebt,
     total, page, pages, setPage,
     modal, setModal, editing, openCreate, openEdit,
     accountClient, setAccountClient,
@@ -32,10 +33,28 @@ export function ClientsPage() {
         Datos de contacto y fiscales (CUIT, DNI, condición de IVA) de tus clientes. Asociá ventas y presupuestos a un cliente para <strong>llevar su cuenta corriente</strong>, ver qué cuotas debe y generar estados de cuenta en PDF para mandárselos.
       </InfoBanner>
 
-      <div style={{ marginBottom: '16px' }}>
-        <input value={search} onChange={e => setSearch(e.target.value)}
-          placeholder="Buscar por nombre, teléfono o DNI..."
-          style={{ padding: '8px 12px', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', width: '100%', maxWidth: '360px' }} />
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '200px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar</span>
+          <input value={search} onChange={e => setSearch(e.target.value)}
+            placeholder="Nombre, teléfono o DNI..." style={{ ...inputStyle }} />
+        </div>
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Deuda</span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([false, true] as boolean[]).map(val => (
+              <button key={String(val)} onClick={() => setHasDebt(val)}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: hasDebt === val ? '#1d4ed8' : '#f1f5f9', color: hasDebt === val ? 'white' : '#374151' }}>
+                {val ? 'Con deuda' : 'Todos'}
+              </button>
+            ))}
+          </div>
+        </div>
+
       </div>
 
       <ClientsTable

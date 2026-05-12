@@ -6,13 +6,29 @@ import { eq, ilike, or, inArray, desc, sql } from 'drizzle-orm'
 
 @Injectable()
 export class ClientsService {
-  async findAll(params: { search?: string; page?: number; limit?: number } = {}) {
-    const { search } = params
+  async findAll(params: { search?: string; page?: number; limit?: number; hasDebt?: boolean } = {}) {
+    const { search, hasDebt } = params
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
-    const where = search
+    const balanceSql = sql<number>`
+      COALESCE((
+        SELECT SUM(i.amount) FROM installments i
+        JOIN sales s ON i.sale_id = s.id
+        WHERE s.client_id = clients.id AND i.status = 'pendiente'
+      ), 0)
+      - COALESCE((
+        SELECT SUM(cp.amount) FROM client_payments cp
+        WHERE cp.client_id = clients.id AND cp.type IN ('pago_cuenta', 'nota_credito')
+      ), 0)
+      + COALESCE((
+        SELECT SUM(cp.amount) FROM client_payments cp
+        WHERE cp.client_id = clients.id AND cp.type = 'nota_debito'
+      ), 0)
+    `
+
+    const searchWhere = search
       ? or(
           ilike(clients.name, `%${search}%`),
           ilike(clients.phone, `%${search}%`),
@@ -20,10 +36,32 @@ export class ClientsService {
         )
       : undefined
 
+    const debtWhere = hasDebt
+      ? sql`(${balanceSql}) > 0`
+      : undefined
+
+    const where = searchWhere && debtWhere
+      ? sql`(${searchWhere}) AND (${debtWhere})`
+      : searchWhere ?? debtWhere
+
+    const selectFields = {
+      id: clients.id,
+      name: clients.name,
+      phone: clients.phone,
+      email: clients.email,
+      dni: clients.dni,
+      cuit: clients.cuit,
+      condicionIva: clients.condicionIva,
+      address: clients.address,
+      notes: clients.notes,
+      createdAt: clients.createdAt,
+      balance: balanceSql,
+    }
+
     const [items, countResult] = await Promise.all([
       where
-        ? db.select().from(clients).where(where).limit(limit).offset(offset)
-        : db.select().from(clients).limit(limit).offset(offset),
+        ? db.select(selectFields).from(clients).where(where).orderBy(desc(clients.createdAt)).limit(limit).offset(offset)
+        : db.select(selectFields).from(clients).orderBy(desc(clients.createdAt)).limit(limit).offset(offset),
       where
         ? db.select({ count: sql<number>`count(*)::int` }).from(clients).where(where)
         : db.select({ count: sql<number>`count(*)::int` }).from(clients),

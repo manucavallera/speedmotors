@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAlerts, useReminders, usePayInstallment } from '../hooks/useAlerts'
 import type { CreateReminderData, Reminder } from '../hooks/useAlerts'
 import { ReminderFormModal } from '../components/alerts/ReminderFormModal'
+import { InfoBanner } from '../components/ui/InfoBanner'
 import { AlertSummaryCards } from '../components/alerts/AlertSummaryCards'
 import { AlertFilters } from '../components/alerts/AlertFilters'
 import { AlertInstallmentCard } from '../components/alerts/AlertInstallmentCard'
@@ -54,6 +55,10 @@ export function AlertsPage() {
           + Nuevo recordatorio
         </button>
       </div>
+
+      <InfoBanner title="Centro de alertas">
+        Todo lo que necesitás atender hoy en un solo lugar: <strong>cuotas vencidas</strong> de clientes, <strong>reservas que llevan mucho tiempo</strong> sin concretarse, <strong>órdenes de compra</strong> que no llegaron, y tus <strong>recordatorios manuales</strong>. Usá el botón "+ Nuevo recordatorio" para agendar cualquier cosa con fecha — pagos de impuestos, llamadas, vencimientos de seguros, lo que sea.
+      </InfoBanner>
 
       <AlertSummaryCards summary={s} />
       <AlertFilters active={filter} onChange={setFilter} counts={{ cuotas: inst.overdue.length + inst.upcoming.length, recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />

@@ -6,15 +6,21 @@ import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary } from '../components/ui/FormField'
 import { StockMovementsTable } from '../components/stock-movements/StockMovementsTable'
 import { StockMovementFormModal, type StockMovementFormData } from '../components/stock-movements/StockMovementFormModal'
+import { Pagination } from '../components/ui/Pagination'
 
 export function StockMovementsPage() {
   const qc = useQueryClient()
   const [modal, setModal] = useState(false)
+  const [page, setPage] = useState(1)
 
-  const { data: movements = [], isLoading } = useQuery({
-    queryKey: ['stock-movements'],
-    queryFn: () => api.get('/stock-movements').then(r => r.data),
+  const { data: movementsData, isLoading } = useQuery({
+    queryKey: ['stock-movements', page],
+    queryFn: () => api.get('/stock-movements', { params: { page, limit: 50 } }).then(r => r.data),
+    placeholderData: (prev: any) => prev,
   })
+  const movements = movementsData?.items ?? []
+  const total = movementsData?.total ?? 0
+  const pages = movementsData?.pages ?? 1
 
   const { data: products = [] } = useQuery({
     queryKey: ['products'],
@@ -29,10 +35,10 @@ export function StockMovementsPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Movimientos de stock</h1>
-          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Historial de entradas, salidas y ajustes</p>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} movimientos registrados</p>
         </div>
         <button onClick={() => setModal(true)} style={btnPrimary}>+ Registrar movimiento</button>
       </div>
@@ -47,6 +53,7 @@ export function StockMovementsPage() {
       </InfoBanner>
 
       <StockMovementsTable movements={movements} products={products} isLoading={isLoading} />
+      <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && (
         <StockMovementFormModal

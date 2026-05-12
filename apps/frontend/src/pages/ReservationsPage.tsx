@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary } from '../components/ui/FormField'
+import { btnPrimary, inputStyle } from '../components/ui/FormField'
 import { ReservationFormModal } from '../components/reservations/ReservationFormModal'
 import { ReservationDetailModal } from '../components/reservations/ReservationDetailModal'
 import { useReservations } from '../hooks/useReservations'
@@ -18,9 +18,15 @@ export function ReservationsPage() {
   const [modal, setModal] = useState<'new' | 'edit' | false>(false)
   const [editing, setEditing] = useState<any>(null)
   const [detail, setDetail] = useState<any>(null)
+  const [statusFilter, setStatusFilter] = useState('')
+  const [search, setSearch] = useState('')
 
   const { list, total, page, pages, setPage, create, update, changeStatus, remove } = useReservations()
   const reservations = list.data?.items ?? []
+  const filtered = reservations.filter((r: any) =>
+    (!statusFilter || r.status === statusFilter) &&
+    (!search || r.clientName?.toLowerCase().includes(search.toLowerCase()))
+  )
 
   const { data: clientsData } = useQuery({
     queryKey: ['clients'],
@@ -46,11 +52,30 @@ export function ReservationsPage() {
         Registrá la solicitud de reserva con datos del comprador, cónyuge y vehículo. Generá el documento en <strong>PDF formal</strong> para firma o usá <strong>Imprimir</strong> para obtener una copia en papel.
       </InfoBanner>
 
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar cliente</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre..." style={{ ...inputStyle }} />
+        </div>
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Estado</span>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {([['', 'Todos'], ['vigente', 'Vigente'], ['concretada', 'Concretada'], ['cancelada', 'Cancelada']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setStatusFilter(val)}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: statusFilter === val ? '#1d4ed8' : '#f1f5f9', color: statusFilter === val ? 'white' : '#374151' }}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Table */}
-      <div style={{ background: 'white', borderRadius: '14px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden', marginTop: '20px' }}>
+      <div style={{ background: 'white', borderRadius: '14px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
         {list.isLoading ? (
           <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Cargando...</div>
-        ) : reservations.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Sin reservas registradas</div>
         ) : (
           <div className="table-wrap">
@@ -63,7 +88,7 @@ export function ReservationsPage() {
               </tr>
             </thead>
             <tbody>
-              {reservations.map((r: any) => {
+              {filtered.map((r: any) => {
                 const st = statusColors[r.status] || statusColors.vigente
                 return (
                   <tr key={r.id} style={{ borderBottom: '1px solid #f8fafc', cursor: 'pointer' }}
