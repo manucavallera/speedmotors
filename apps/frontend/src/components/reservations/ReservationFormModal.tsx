@@ -58,6 +58,8 @@ function toForm(r?: any) {
 
 export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit, isPending }: ReservationFormModalProps) {
   const [f, setF] = useState(toForm(editing))
+  const [showSpouse, setShowSpouse] = useState(!!(editing?.spouseName))
+  const [showTradeIn, setShowTradeIn] = useState(!!(editing?.tradeInBrand))
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setF(prev => ({ ...prev, [k]: e.target.value }))
@@ -181,15 +183,21 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
         </FormField>
 
         {/* CÓNYUGE */}
-        <div style={sectionStyle}>DATOS DEL CÓNYUGE</div>
-        <div className="form-grid-2">
-          <FormField label="Apellido y Nombre">
-            <input style={inputStyle} value={f.spouseName} onChange={set('spouseName')} />
-          </FormField>
-          <FormField label="DNI / CUIL">
-            <input style={inputStyle} value={f.spouseDni} onChange={set('spouseDni')} />
-          </FormField>
-        </div>
+        <button type="button" onClick={() => setShowSpouse(v => !v)}
+          style={{ ...sectionStyle, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: 'none', width: '100%', textAlign: 'left' }}>
+          <span>DATOS DEL CÓNYUGE</span>
+          <span style={{ fontSize: '14px' }}>{showSpouse ? '▲' : '▼ agregar'}</span>
+        </button>
+        {showSpouse && (
+          <div className="form-grid-2">
+            <FormField label="Apellido y Nombre">
+              <input style={inputStyle} value={f.spouseName} onChange={set('spouseName')} />
+            </FormField>
+            <FormField label="DNI / CUIL">
+              <input style={inputStyle} value={f.spouseDni} onChange={set('spouseDni')} />
+            </FormField>
+          </div>
+        )}
 
         {/* PATENTAR / FACTURAR */}
         <div style={sectionStyle}>PATENTAMIENTO Y FACTURACIÓN</div>
@@ -272,26 +280,34 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
         )}
 
         {/* VEHÍCULO USADO */}
-        <div style={sectionStyle}>VEHÍCULO USADO (PERMUTA)</div>
-        <div className="form-grid-2">
-          <FormField label="Valor del Usado ($)">
-            <input style={inputStyle} type="number" min="0" value={f.tradeInValue} onChange={set('tradeInValue')} />
-          </FormField>
-          <FormField label="Marca">
-            <input style={inputStyle} value={f.tradeInBrand} onChange={set('tradeInBrand')} />
-          </FormField>
-        </div>
-        <div className="form-grid-2">
-          <FormField label="Modelo">
-            <input style={inputStyle} value={f.tradeInModel} onChange={set('tradeInModel')} />
-          </FormField>
-          <FormField label="Dominio">
-            <input style={inputStyle} value={f.tradeInDomain} onChange={set('tradeInDomain')} />
-          </FormField>
-        </div>
-        <FormField label="Matrícula">
-          <input style={{ ...inputStyle, width: '100%' }} value={f.tradeInPlate} onChange={set('tradeInPlate')} />
-        </FormField>
+        <button type="button" onClick={() => setShowTradeIn(v => !v)}
+          style={{ ...sectionStyle, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: 'none', width: '100%', textAlign: 'left' }}>
+          <span>VEHÍCULO USADO (PERMUTA)</span>
+          <span style={{ fontSize: '14px' }}>{showTradeIn ? '▲' : '▼ agregar'}</span>
+        </button>
+        {showTradeIn && (
+          <>
+            <div className="form-grid-2">
+              <FormField label="Valor del Usado ($)">
+                <input style={inputStyle} type="number" min="0" value={f.tradeInValue} onChange={set('tradeInValue')} />
+              </FormField>
+              <FormField label="Marca">
+                <input style={inputStyle} value={f.tradeInBrand} onChange={set('tradeInBrand')} />
+              </FormField>
+            </div>
+            <div className="form-grid-2">
+              <FormField label="Modelo">
+                <input style={inputStyle} value={f.tradeInModel} onChange={set('tradeInModel')} />
+              </FormField>
+              <FormField label="Dominio">
+                <input style={inputStyle} value={f.tradeInDomain} onChange={set('tradeInDomain')} />
+              </FormField>
+            </div>
+            <FormField label="Matrícula">
+              <input style={{ ...inputStyle, width: '100%' }} value={f.tradeInPlate} onChange={set('tradeInPlate')} />
+            </FormField>
+          </>
+        )}
 
         {/* FINANCIACIÓN */}
         <div style={sectionStyle}>FINANCIACIÓN</div>

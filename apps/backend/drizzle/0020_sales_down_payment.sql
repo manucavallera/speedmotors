@@ -1,0 +1,1 @@
+ALTER TABLE sales ADD COLUMN IF NOT EXISTS down_payment numeric(12,2) NOT NULL DEFAULT 0;

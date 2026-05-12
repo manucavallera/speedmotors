@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
+import { toast } from '../lib/toast'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary, inputStyle } from '../components/ui/FormField'
 import { ReservationFormModal } from '../components/reservations/ReservationFormModal'
 import { ReservationDetailModal } from '../components/reservations/ReservationDetailModal'
+import { SaleFormModal } from '../components/sales/SaleFormModal'
 import { useReservations } from '../hooks/useReservations'
 import { Pagination } from '../components/ui/Pagination'
 
@@ -15,11 +17,13 @@ const statusColors: Record<string, { bg: string; color: string; label: string }>
 }
 
 export function ReservationsPage() {
+  const qc = useQueryClient()
   const [modal, setModal] = useState<'new' | 'edit' | false>(false)
   const [editing, setEditing] = useState<any>(null)
   const [detail, setDetail] = useState<any>(null)
   const [statusFilter, setStatusFilter] = useState('')
   const [search, setSearch] = useState('')
+  const [saleModal, setSaleModal] = useState<{ clientId?: number; vehicleId?: number; downPayment?: number } | null>(null)
 
   const { list, total, page, pages, setPage, create, update, changeStatus, remove } = useReservations()
   const reservations = list.data?.items ?? []
@@ -34,7 +38,33 @@ export function ReservationsPage() {
   })
   const clients = clientsData?.items ?? clientsData ?? []
 
+  const { data: productsData } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => api.get('/products').then(r => r.data),
+  })
+  const products = productsData?.items ?? productsData ?? []
+
+  const { data: vehiclesData } = useQuery({
+    queryKey: ['vehicles', 'disponible'],
+    queryFn: () => api.get('/vehicles', { params: { status: 'disponible' } }).then(r => r.data),
+  })
+  const vehicles = vehiclesData?.items ?? []
+
+  const createSale = useMutation({
+    mutationFn: (data: any) => api.post('/sales', data),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['sales'] }); setSaleModal(null); toast.success('Venta registrada') },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
+  })
+
   function openEdit(r: any) { setEditing(r); setDetail(null); setModal('edit') }
+  function openSaleFromReservation(r: any) {
+    setSaleModal({
+      clientId: r.clientId ?? undefined,
+      vehicleId: r.vehicleId ?? undefined,
+      downPayment: r.depositAmount ? Number(r.depositAmount) : 0,
+    })
+    setDetail(null)
+  }
 
   return (
     <div>
@@ -111,11 +141,19 @@ export function ReservationsPage() {
                         {st.label}
                       </span>
                     </td>
-                    <td style={{ padding: '12px 16px' }} onClick={e => e.stopPropagation()}>
-                      <button onClick={() => { if (window.confirm('¿Eliminar esta reserva?')) remove.mutate(r.id) }}
-                        style={{ padding: '4px 10px', fontSize: '12px', background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
-                        ×
-                      </button>
+                    <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }} onClick={e => e.stopPropagation()}>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        {r.status === 'vigente' && (
+                          <button onClick={() => openSaleFromReservation(r)}
+                            style={{ padding: '4px 10px', fontSize: '12px', background: '#f0fdf4', color: '#16a34a', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
+                            Registrar venta
+                          </button>
+                        )}
+                        <button onClick={() => { if (window.confirm('¿Eliminar esta reserva?')) remove.mutate(r.id) }}
+                          style={{ padding: '4px 10px', fontSize: '12px', background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
+                          ×
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 )
@@ -134,6 +172,18 @@ export function ReservationsPage() {
           onEdit={() => openEdit(detail)}
           onChangeStatus={(id, status) => { changeStatus.mutate({ id, status }); setDetail(null) }}
           isPending={changeStatus.isPending}
+        />
+      )}
+
+      {saleModal && (
+        <SaleFormModal
+          clients={clients}
+          products={products}
+          vehicles={vehicles}
+          initialData={saleModal}
+          onClose={() => setSaleModal(null)}
+          onSubmit={(data) => createSale.mutate(data)}
+          isPending={createSale.isPending}
         />
       )}
 

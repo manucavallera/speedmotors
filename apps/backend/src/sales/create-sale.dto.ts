@@ -42,8 +42,8 @@ export class CreateSaleDto {
   @IsIn(['A', 'B', 'X', 'mixto'])
   invoiceType?: 'A' | 'B' | 'X' | 'mixto'
 
-  @IsIn(['efectivo', 'transferencia', 'tarjeta', 'mixto'])
-  paymentMethod: 'efectivo' | 'transferencia' | 'tarjeta' | 'mixto'
+  @IsIn(['efectivo', 'transferencia', 'tarjeta', 'mixto', 'usdt', 'cheque'])
+  paymentMethod: 'efectivo' | 'transferencia' | 'tarjeta' | 'mixto' | 'usdt' | 'cheque'
 
   @IsOptional()
   @IsNumber()
@@ -62,6 +62,19 @@ export class CreateSaleDto {
   @IsOptional()
   @IsIn(['pesos', 'usd'])
   financingCurrency?: 'pesos' | 'usd'
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  downPayment?: number
+
+  @IsOptional()
+  @IsString()
+  downPaymentMethod?: string
+
+  @IsOptional()
+  @IsString()
+  firstInstallmentDate?: string
 
   @IsOptional()
   @IsString()

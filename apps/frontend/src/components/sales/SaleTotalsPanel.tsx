@@ -17,6 +17,7 @@ function annuity(P: number, r: number, n: number) {
 interface SaleTotalsPanelProps {
   subtotal: number
   discountAmt: number
+  downPaymentAmt?: number
   interest: number
   total: number
   invoiceType: 'A' | 'B' | 'X' | 'mixto'
@@ -29,7 +30,7 @@ interface SaleTotalsPanelProps {
 }
 
 export function SaleTotalsPanel({
-  subtotal, discountAmt, interest, total, invoiceType, type,
+  subtotal, discountAmt, downPaymentAmt = 0, interest, total, invoiceType, type,
   installmentCount, subtotalFormal = 0, subtotalInformal = 0,
   financingCurrency, monthlyRate = 0,
 }: SaleTotalsPanelProps) {
@@ -40,8 +41,9 @@ export function SaleTotalsPanel({
   const isFinanced = type === 'cuotas' && !!financingCurrency && monthlyRate > 0
   const n = Number(installmentCount)
   const principal = subtotal - discountAmt
+  const toFinance = Math.max(0, principal - downPaymentAmt)
   const { cuota, total: financedTotal, interest: totalInterest, rows } = isFinanced
-    ? annuity(principal, monthlyRate / 100, n)
+    ? annuity(toFinance, monthlyRate / 100, n)
     : { cuota: 0, total, interest: 0, rows: [] }
 
   const currencyLabel = financingCurrency === 'usd' ? 'USD' : 'Pesos'
@@ -64,9 +66,14 @@ export function SaleTotalsPanel({
             <span>Interés ({interest}%)</span><span>+${fmt((subtotal - discountAmt) * interest / 100)}</span>
           </div>
         )}
+        {isFinanced && downPaymentAmt > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#16a34a' }}>
+            <span>Seña / Anticipo</span><span>-${fmt(downPaymentAmt)}</span>
+          </div>
+        )}
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 700, color: '#0f172a', borderTop: '1px solid #e2e8f0', paddingTop: '8px', marginTop: '2px' }}>
-          <span>{isFinanced ? 'Capital a financiar' : 'Total'}</span>
-          <span>${fmt(isFinanced ? principal : total)}</span>
+          <span>{isFinanced ? 'Saldo a financiar' : 'Total'}</span>
+          <span>${fmt(isFinanced ? toFinance : total)}</span>
         </div>
         {invoiceType === 'mixto' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '2px' }}>
@@ -112,13 +119,13 @@ export function SaleTotalsPanel({
             </div>
             <div style={{ textAlign: 'center', borderLeft: `1px solid ${currencyColor[0]}20`, borderRight: `1px solid ${currencyColor[0]}20` }}>
               <div style={{ fontSize: '10px', fontWeight: 600, color: currencyColor[0], marginBottom: '3px' }}>TOTAL A PAGAR</div>
-              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>${fmt(financedTotal)}</div>
-              <div style={{ fontSize: '11px', color: '#64748b' }}>{n} cuotas</div>
+              <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>${fmt(downPaymentAmt + financedTotal)}</div>
+              <div style={{ fontSize: '11px', color: '#64748b' }}>{downPaymentAmt > 0 ? `seña + ${n} cuotas` : `${n} cuotas`}</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '10px', fontWeight: 600, color: '#dc2626', marginBottom: '3px' }}>INTERÉS TOTAL</div>
               <div style={{ fontSize: '20px', fontWeight: 800, color: '#dc2626' }}>+${fmt(totalInterest)}</div>
-              <div style={{ fontSize: '11px', color: '#64748b' }}>{((totalInterest / principal) * 100).toFixed(1)}% del capital</div>
+              <div style={{ fontSize: '11px', color: '#64748b' }}>{toFinance > 0 ? ((totalInterest / toFinance) * 100).toFixed(1) : '0'}% del saldo</div>
             </div>
           </div>
 

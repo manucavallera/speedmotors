@@ -12,19 +12,30 @@ interface SaleFormModalProps {
   onSubmit: (data: any) => void
   onClose: () => void
   isPending: boolean
+  initialData?: { clientId?: number; vehicleId?: number; downPayment?: number }
 }
 
-export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending }: SaleFormModalProps) {
-  const [clientId, setClientId] = useState('')
+export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending, initialData }: SaleFormModalProps) {
+  const [clientId, setClientId] = useState(initialData?.clientId ? String(initialData.clientId) : '')
   const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
   const [type, setType] = useState<'contado' | 'cuotas'>('contado')
   const [paymentMethod, setPaymentMethod] = useState('efectivo')
   const [discount, setDiscount] = useState('0')
+  const [downPayment, setDownPayment] = useState(initialData?.downPayment ? String(initialData.downPayment) : '0')
+  const [downPaymentMethod, setDownPaymentMethod] = useState('efectivo')
+  const [customRate, setCustomRate] = useState(false)
   const [interestRate, setInterestRate] = useState('0')
   const [installmentCount, setInstallmentCount] = useState('12')
   const [financingCurrency, setFinancingCurrency] = useState<'pesos' | 'usd'>('pesos')
+  const [firstInstallmentDate, setFirstInstallmentDate] = useState('')
   const [notes, setNotes] = useState('')
-  const [items, setItems] = useState<SaleItem[]>([{ description: '', quantity: 1, unitPrice: 0 }])
+  const [items, setItems] = useState<SaleItem[]>(() => {
+    if (initialData?.vehicleId) {
+      const v = vehicles.find((x: any) => x.id === initialData.vehicleId)
+      if (v) return [{ description: `${v.brand} ${v.model} ${v.year || ''}`.trim(), quantity: 1, unitPrice: Number(v.sellPrice), vehicleId: v.id, ingresoTipo: v.ingresoTipo }]
+    }
+    return [{ description: '', quantity: 1, unitPrice: 0 }]
+  })
 
   useEffect(() => {
     if (invoiceType === 'mixto') return
@@ -45,17 +56,20 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   const subtotal = items.reduce((s, it) => s + it.quantity * it.unitPrice, 0)
   const subtotalFormal = items.filter(it => it.ingresoTipo === 'blanco').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
   const subtotalInformal = items.filter(it => it.ingresoTipo === 'negro').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
-  const RATES: Record<'pesos' | 'usd', number> = { pesos: 5, usd: 3 }
+  const DEFAULT_RATES: Record<'pesos' | 'usd', number> = { pesos: 5, usd: 3 }
   const discountAmt = parseFloat(discount) || 0
+  const downPaymentAmt = parseFloat(downPayment) || 0
   const interest = parseFloat(interestRate) || 0
   const principal = subtotal - discountAmt
-  const monthlyRate = type === 'cuotas' ? RATES[financingCurrency] : 0
+  const toFinance = Math.max(0, principal - downPaymentAmt)
+  const effectiveRate = type === 'cuotas' ? (customRate ? interest : DEFAULT_RATES[financingCurrency]) : 0
+  const monthlyRate = effectiveRate
   const n = Number(installmentCount)
   const r = monthlyRate / 100
   const cuota = type === 'cuotas' && r > 0 && n > 1
-    ? principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
-    : principal / Math.max(n, 1)
-  const total = type === 'cuotas' ? cuota * n : principal * (1 + interest / 100)
+    ? toFinance * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+    : toFinance / Math.max(n, 1)
+  const total = type === 'cuotas' ? downPaymentAmt + cuota * n : principal * (1 + interest / 100)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -63,17 +77,24 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
       clientId: clientId ? Number(clientId) : undefined,
       invoiceType, type, paymentMethod,
       discount: discountAmt,
-      interestRate: type === 'cuotas' ? monthlyRate : interest,
+      downPayment: type === 'cuotas' ? downPaymentAmt : 0,
+      downPaymentMethod: type === 'cuotas' && downPaymentAmt > 0 ? downPaymentMethod : undefined,
+      interestRate: monthlyRate,
       financingCurrency: type === 'cuotas' ? financingCurrency : undefined,
       installmentCount: type === 'cuotas' ? n : 1,
+      firstInstallmentDate: type === 'cuotas' && firstInstallmentDate ? firstInstallmentDate : undefined,
       notes,
       items: items.map(it => ({ ...it, quantity: Number(it.quantity), unitPrice: Number(it.unitPrice) })),
     })
   }
 
+  const sec = { fontSize: '11px', fontWeight: 700, color: '#475569', background: '#f1f5f9', padding: '5px 10px', borderRadius: '6px', letterSpacing: '.5px' }
+
   return (
     <Modal title="Nueva venta" onClose={onClose} width={640}>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+
+        <div style={sec}>CLIENTE Y COMPROBANTE</div>
         <div className="form-grid-2">
           <FormField label="Cliente (opcional)">
             <select style={inputStyle} value={clientId} onChange={e => setClientId(e.target.value)}>
@@ -81,38 +102,42 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
               {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </FormField>
-          <FormField label="Venta en blanco / negro">
+          <FormField label="Tipo de comprobante">
             <select style={inputStyle} value={invoiceType} onChange={e => setInvoiceType(e.target.value as any)}>
-              <option value="B">🧾 En blanco — Factura B (Consumidor final)</option>
-              <option value="A">🧾 En blanco — Factura A (Resp. Inscripto)</option>
-              <option value="X">🤝 En negro — Sin factura oficial</option>
-              <option value="mixto">🔀 Mixto — Parte en blanco, parte en negro</option>
+              <option value="B">Factura B — Consumidor final</option>
+              <option value="A">Factura A — Resp. Inscripto</option>
+              <option value="X">Sin factura (en negro)</option>
+              <option value="mixto">Mixto — parte en blanco / negro</option>
             </select>
           </FormField>
         </div>
 
-        <div className="form-grid-2">
-          <FormField label="Forma de pago">
-            <select style={inputStyle} value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
-              <option value="efectivo">Efectivo</option>
-              <option value="transferencia">Transferencia</option>
-              <option value="tarjeta">Tarjeta</option>
-              <option value="mixto">Mixto</option>
-            </select>
-          </FormField>
-          <FormField label="Tipo de venta">
-            <select style={inputStyle} value={type} onChange={e => setType(e.target.value as any)}>
-              <option value="contado">Contado</option>
-              <option value="cuotas">Cuotas</option>
-            </select>
-          </FormField>
-        </div>
-
+        <div style={sec}>ARTÍCULOS</div>
         <SaleItemsEditor
           items={items} products={products} vehicles={vehicles}
           isMixto={invoiceType === 'mixto'}
           onAdd={addItem} onRemove={removeItem} onUpdate={updateItem}
         />
+
+        <div style={sec}>CONDICIONES DE PAGO</div>
+        <div className="form-grid-2">
+          <FormField label="Tipo de venta">
+            <select style={inputStyle} value={type} onChange={e => setType(e.target.value as any)}>
+              <option value="contado">Contado</option>
+              <option value="cuotas">Financiado en cuotas</option>
+            </select>
+          </FormField>
+          <FormField label={type === 'cuotas' ? 'Forma de pago de cuotas' : 'Forma de pago'}>
+            <select style={inputStyle} value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
+              <option value="efectivo">Efectivo</option>
+              <option value="transferencia">Transferencia bancaria</option>
+              <option value="tarjeta">Tarjeta débito/crédito</option>
+              <option value="cheque">Cheque</option>
+              <option value="usdt">USDT / Cripto</option>
+              <option value="mixto">Mixto</option>
+            </select>
+          </FormField>
+        </div>
 
         {conflictos.length > 0 && (
           <div style={{ background: '#fef9c3', border: '1px solid #fde047', borderRadius: '10px', padding: '10px 14px', fontSize: '13px', color: '#854d0e' }}>
@@ -121,7 +146,8 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         )}
 
         {type === 'cuotas' ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Condiciones de financiación</div>
             <div className="form-grid-2">
               <FormField label="Descuento ($)">
                 <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
@@ -130,11 +156,47 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
                 <input style={inputStyle} type="number" min="2" max="60" value={installmentCount} onChange={e => setInstallmentCount(e.target.value)} />
               </FormField>
             </div>
-            <FormField label="Moneda de financiación">
-              <select style={inputStyle} value={financingCurrency} onChange={e => setFinancingCurrency(e.target.value as 'pesos' | 'usd')}>
-                <option value="pesos">Pesos argentinos — 5% mensual TEM</option>
-                <option value="usd">Dólares USD — 3% mensual TEM</option>
-              </select>
+            <div className="form-grid-2">
+              <FormField label="Moneda">
+                <select style={inputStyle} value={financingCurrency} onChange={e => { setFinancingCurrency(e.target.value as 'pesos' | 'usd'); setCustomRate(false) }}>
+                  <option value="pesos">Pesos AR</option>
+                  <option value="usd">Dólares USD</option>
+                </select>
+              </FormField>
+              <FormField label="Tasa mensual TEM (%)">
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <input style={{ ...inputStyle, flex: 1 }} type="number" min="0" step="0.1"
+                    value={customRate ? interestRate : String(DEFAULT_RATES[financingCurrency])}
+                    onChange={e => { setCustomRate(true); setInterestRate(e.target.value) }}
+                  />
+                  {customRate && (
+                    <button type="button" onClick={() => { setCustomRate(false); setInterestRate(String(DEFAULT_RATES[financingCurrency])) }}
+                      style={{ padding: '6px 10px', fontSize: '11px', background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                      Reset
+                    </button>
+                  )}
+                </div>
+              </FormField>
+            </div>
+            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '12px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '10px' }}>Seña / Anticipo</div>
+              <div className="form-grid-2">
+                <FormField label="Monto de la seña ($)">
+                  <input style={inputStyle} type="number" min="0" value={downPayment} onChange={e => setDownPayment(e.target.value)} placeholder="0" />
+                </FormField>
+                <FormField label="Forma de pago de la seña">
+                  <select style={inputStyle} value={downPaymentMethod} onChange={e => setDownPaymentMethod(e.target.value)} disabled={!downPaymentAmt}>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="transferencia">Transferencia bancaria</option>
+                    <option value="tarjeta">Tarjeta débito/crédito</option>
+                    <option value="cheque">Cheque</option>
+                    <option value="usdt">USDT / Cripto</option>
+                  </select>
+                </FormField>
+              </div>
+            </div>
+            <FormField label="Fecha de primera cuota">
+              <input style={inputStyle} type="date" value={firstInstallmentDate} onChange={e => setFirstInstallmentDate(e.target.value)} />
             </FormField>
           </div>
         ) : (
@@ -148,12 +210,14 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
           </div>
         )}
 
+        <div style={sec}>RESUMEN</div>
         <SaleTotalsPanel
-          subtotal={subtotal} discountAmt={discountAmt} interest={interest} total={total}
+          subtotal={subtotal} discountAmt={discountAmt} downPaymentAmt={type === 'cuotas' ? downPaymentAmt : 0}
+          interest={interest} total={total}
           invoiceType={invoiceType} type={type} installmentCount={installmentCount}
           subtotalFormal={subtotalFormal} subtotalInformal={subtotalInformal}
           financingCurrency={type === 'cuotas' ? financingCurrency : undefined}
-          monthlyRate={type === 'cuotas' ? monthlyRate : undefined}
+          monthlyRate={type === 'cuotas' ? effectiveRate : undefined}
         />
 
         <FormField label="Notas">

@@ -44,10 +44,11 @@ export function useSales() {
   })
   const clients = clientsData?.items ?? []
 
-  const { data: products = [] } = useQuery({
+  const { data: productsData } = useQuery({
     queryKey: ['products'],
     queryFn: () => api.get('/products').then(r => r.data),
   })
+  const products = productsData?.items ?? productsData ?? []
 
   const { data: vehiclesData } = useQuery<PaginatedResponse<Vehicle>>({
     queryKey: ['vehicles', 'disponible'],

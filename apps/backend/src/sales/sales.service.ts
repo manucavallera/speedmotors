@@ -61,7 +61,9 @@ export class SalesService {
 
     const subtotal = data.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
     const discount = data.discount || 0
+    const downPayment = data.downPayment || 0
     const principal = subtotal - discount
+    const toFinance = Math.max(0, principal - downPayment)
 
     const MONTHLY_RATES: Record<string, number> = { pesos: 5, usd: 3 }
     const isFinanced = data.type === 'cuotas' && !!data.financingCurrency
@@ -72,8 +74,8 @@ export class SalesService {
     let total: number
     if (isFinanced && n > 1) {
       const r = monthlyRate / 100
-      cuotaAmount = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
-      total = cuotaAmount * n
+      cuotaAmount = toFinance * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+      total = downPayment + cuotaAmount * n
     } else {
       total = principal * (1 + monthlyRate / 100)
     }
@@ -101,10 +103,13 @@ export class SalesService {
         paymentMethod: data.paymentMethod,
         subtotal: subtotal.toString(),
         discount: discount.toString(),
+        downPayment: downPayment.toString(),
+        downPaymentMethod: data.downPaymentMethod ?? null,
         interestRate: monthlyRate.toString(),
         total: total.toFixed(2),
         amountFormal: amountFormal.toString(),
         amountInformal: amountInformal.toString(),
+        firstInstallmentDate: data.firstInstallmentDate ? new Date(data.firstInstallmentDate) : null,
         notes: data.notes,
       }).returning()
 
@@ -148,9 +153,10 @@ export class SalesService {
 
       if (data.type === 'cuotas' && n > 1) {
         const amount = isFinanced ? cuotaAmount : total / n
+        const baseDate = data.firstInstallmentDate ? new Date(data.firstInstallmentDate) : new Date()
         const cuotas = Array.from({ length: n }, (_, i) => {
-          const dueDate = new Date()
-          dueDate.setMonth(dueDate.getMonth() + i + 1)
+          const dueDate = new Date(baseDate)
+          dueDate.setMonth(dueDate.getMonth() + (data.firstInstallmentDate ? i : i + 1))
           return { saleId: sale.id, number: i + 1, amount: amount.toFixed(2), dueDate }
         })
         await tx.insert(installments).values(cuotas)
