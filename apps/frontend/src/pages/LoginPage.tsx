@@ -67,7 +67,7 @@ export function LoginPage() {
       {/* Panel derecho */}
       <div style={{
         flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: '32px', background: '#f8fafc', minWidth: '340px',
+        padding: '32px', background: '#f8fafc', width: '100%', maxWidth: '380px',
       }}>
         <div style={{ width: '100%', maxWidth: '400px' }}>
 

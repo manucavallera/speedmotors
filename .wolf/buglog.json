@@ -3008,6 +3008,198 @@
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-05-12T16:40:43.953Z"
+    },
+    {
+      "id": "bug-189",
+      "timestamp": "2026-05-12T16:44:21.986Z",
+      "error_message": "CSS fix: grid-template-columns, gap",
+      "file": "apps/frontend/src/index.css",
+      "root_cause": "grid-template-columns: 1fr 1fr 1fr → repeat(5, 1fr); gap: 14px → 12px",
+      "fix": "Changed grid-template-columns: 1fr 1fr 1fr → repeat(5, 1fr); gap: 14px → 12px",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "css"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:21.986Z"
+    },
+    {
+      "id": "bug-190",
+      "timestamp": "2026-05-12T16:44:23.406Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/alerts/AlertSummaryCards.tsx",
+      "root_cause": "Had 'grid'",
+      "fix": "Changed to \"grid-3\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:23.406Z"
+    },
+    {
+      "id": "bug-191",
+      "timestamp": "2026-05-12T16:44:24.797Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/reports/ReportKPIs.tsx",
+      "root_cause": "Had 'grid'",
+      "fix": "Changed to \"grid-4\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:24.797Z"
+    },
+    {
+      "id": "bug-192",
+      "timestamp": "2026-05-12T16:44:26.570Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/LoginPage.tsx",
+      "root_cause": "Had '340px'",
+      "fix": "Changed to '100%'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:26.570Z"
+    },
+    {
+      "id": "bug-193",
+      "timestamp": "2026-05-12T16:44:27.999Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/ui/QRScannerField.tsx",
+      "root_cause": "Had '320px'",
+      "fix": "Changed to '100%'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:27.999Z"
+    },
+    {
+      "id": "bug-194",
+      "timestamp": "2026-05-12T16:44:29.630Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "Had 'repeat(4, 1fr)'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(140px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:29.630Z"
+    },
+    {
+      "id": "bug-195",
+      "timestamp": "2026-05-12T16:44:31.010Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "Had '1fr 1fr 1fr'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(140px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:31.010Z"
+    },
+    {
+      "id": "bug-196",
+      "timestamp": "2026-05-12T16:44:32.241Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/transfers/TransferDetailModal.tsx",
+      "root_cause": "Had '1fr 1fr 1fr'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(140px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:32.241Z"
+    },
+    {
+      "id": "bug-197",
+      "timestamp": "2026-05-12T16:44:34.141Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "root_cause": "Had '1fr 1fr 1fr'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(130px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:34.141Z"
+    },
+    {
+      "id": "bug-198",
+      "timestamp": "2026-05-12T16:44:35.594Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/reservations/ReservationFormModal.tsx",
+      "root_cause": "Had '180px'",
+      "fix": "Changed to '100%'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-05-12T16:44:40.732Z"
+    },
+    {
+      "id": "bug-199",
+      "timestamp": "2026-05-12T16:44:43.216Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx",
+      "root_cause": "Had 'grid'",
+      "fix": "Changed to 'auto'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:43.216Z"
+    },
+    {
+      "id": "bug-200",
+      "timestamp": "2026-05-12T16:44:48.791Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/ImportExcelModal.tsx",
+      "root_cause": "Had '1px solid #f1f5f9'",
+      "fix": "Changed to 'auto'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:44:48.791Z"
     }
   ]
 }

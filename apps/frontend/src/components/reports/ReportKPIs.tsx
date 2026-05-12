@@ -23,7 +23,7 @@ export function ReportKPIs({ data }: ReportKPIsProps) {
   const profitBorder = data.current.profit >= 0 ? '#bbf7d0' : '#fecaca'
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '24px' }}>
+    <div className="grid-4" style={{ display: 'grid', gap: '14px', marginBottom: '24px' }}>
       <div style={cardBase}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b' }}>📈 INGRESOS</span>

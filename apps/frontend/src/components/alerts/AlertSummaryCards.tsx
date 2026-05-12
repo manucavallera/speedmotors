@@ -2,7 +2,7 @@ interface Summary { critical: number; upcoming: number; total: number }
 
 export function AlertSummaryCards({ summary: s }: { summary: Summary }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px' }}>
+    <div className="grid-3" style={{ display: 'grid', gap: '14px', marginBottom: '20px' }}>
       {[
         { label: 'Urgentes / Vencidos', value: s.critical, bg: '#fef2f2', border: '#fecaca', color: '#dc2626', dot: '#dc2626' },
         { label: 'Próximos 7 días',     value: s.upcoming, bg: '#fffbeb', border: '#fde68a', color: '#d97706', dot: '#d97706' },

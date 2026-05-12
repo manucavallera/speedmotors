@@ -101,7 +101,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
                 <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>CRÉDITO EN {currency.toUpperCase()} · {detail.interestRate}% MENSUAL TEM</span>
                 <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', padding: '1px 8px', borderRadius: '20px' }}>INTERÉS COMPUESTO</span>
               </div>
-              <div style={{ background: accentBg, padding: '12px 14px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', textAlign: 'center' }}>
+              <div style={{ background: accentBg, padding: '12px 14px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px', textAlign: 'center' }}>
                 <div><div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>CUOTA MENSUAL</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(cuota)}</div></div>
                 <div><div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>TOTAL A PAGAR</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(totalPagar)}</div></div>
                 <div><div style={{ fontSize: '10px', fontWeight: 600, color: '#dc2626' }}>INTERÉS TOTAL</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#dc2626' }}>+${fmt(totalInteres)}</div></div>

@@ -130,7 +130,7 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
         <FormField label="Fecha de reserva">
-          <input type="date" style={{ ...inputStyle, width: '180px' }} value={f.date} onChange={set('date')} />
+          <input type="date" style={{ ...inputStyle, width: '100%' }} value={f.date} onChange={set('date')} />
         </FormField>
 
         {/* COMPRADOR */}
@@ -236,7 +236,7 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
         </div>
         {f.vehicleType === 'lancha' && (
           <FormField label="Nº Casco">
-            <input style={{ ...inputStyle, width: '220px' }} value={f.hullNumber} onChange={set('hullNumber')} />
+            <input style={{ ...inputStyle, width: '100%' }} value={f.hullNumber} onChange={set('hullNumber')} />
           </FormField>
         )}
 
@@ -290,7 +290,7 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
           </FormField>
         </div>
         <FormField label="Matrícula">
-          <input style={{ ...inputStyle, width: '220px' }} value={f.tradeInPlate} onChange={set('tradeInPlate')} />
+          <input style={{ ...inputStyle, width: '100%' }} value={f.tradeInPlate} onChange={set('tradeInPlate')} />
         </FormField>
 
         {/* FINANCIACIÓN */}

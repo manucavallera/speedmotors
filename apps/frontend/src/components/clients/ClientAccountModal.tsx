@@ -70,7 +70,7 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
             </div>
 
             {/* KPIs */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }}>
               {[
                 { label: 'Total comprado', value: fmt(account.totalPurchased), color: '#0f172a', bg: '#f8fafc' },
                 { label: 'Deuda pendiente', value: fmt(account.totalPending), color: account.totalPending > 0 ? '#d97706' : '#16a34a', bg: account.totalPending > 0 ? '#fffbeb' : '#f0fdf4' },

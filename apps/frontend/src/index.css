@@ -29,6 +29,10 @@ input, button, textarea, select {
 .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+
 /* Page header: título + botones */
 .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
 .page-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -68,6 +72,10 @@ input, button, textarea, select {
   .page-header { flex-direction: column; align-items: flex-start; }
   .page-header-actions { width: 100%; }
   .page-header-actions button { flex: 1; justify-content: center; }
+
+  .grid-3 { grid-template-columns: 1fr 1fr !important; }
+  .grid-4 { grid-template-columns: 1fr 1fr !important; }
+  .grid-5 { grid-template-columns: 1fr 1fr 1fr !important; }
 }
 
 @media (min-width: 769px) {

@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:40:51.351Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:44:48.755Z
 > Files: 296 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
@@ -316,24 +316,24 @@
 
 - `App.css` (~11 tok)
 - `App.tsx` — DashboardPage (~1492 tok)
-- `index.css` — Styles: 10 rules (~636 tok)
+- `index.css` — Styles: 13 rules (~753 tok)
 - `main.tsx` (~66 tok)
 
 ## apps/frontend/src/components/
 
-- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3136 tok)
+- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3141 tok)
 
 ## apps/frontend/src/components/alerts/
 
 - `AlertFilters.tsx` — filters (~504 tok)
 - `AlertInstallmentCard.tsx` — fmt (~665 tok)
 - `AlertReminderCard.tsx` — typeLabel (~924 tok)
-- `AlertSummaryCards.tsx` — AlertSummaryCards (~368 tok)
+- `AlertSummaryCards.tsx` — AlertSummaryCards (~362 tok)
 - `ReminderFormModal.tsx` — defaultForm — renders form, modal (~1192 tok)
 
 ## apps/frontend/src/components/clients/
 
-- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2529 tok)
+- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2536 tok)
 - `ClientFormModal.tsx` — toForm — renders form, modal (~1435 tok)
 - `ClientPaymentFormModal.tsx` — typeOptions — renders form, modal (~1622 tok)
 - `ClientsTable.tsx` — ClientsTable — renders table (~1377 tok)
@@ -359,7 +359,7 @@
 ## apps/frontend/src/components/purchase-orders/
 
 - `PurchaseOrderDetailModal.tsx` — statusColors — renders modal (~1283 tok)
-- `PurchaseOrderFormModal.tsx` — emptyItem — renders form, modal (~2125 tok)
+- `PurchaseOrderFormModal.tsx` — emptyItem — renders form, modal (~2136 tok)
 - `PurchaseOrdersTable.tsx` — statusColors — renders table (~1290 tok)
 
 ## apps/frontend/src/components/quotes/
@@ -369,7 +369,7 @@
 ## apps/frontend/src/components/reports/
 
 - `ReportBreakdowns.tsx` — cardBase (~2179 tok)
-- `ReportKPIs.tsx` — ChangeBadge (~1043 tok)
+- `ReportKPIs.tsx` — ChangeBadge (~1038 tok)
 - `ReportMonthlyChart.tsx` — ReportMonthlyChart (~867 tok)
 - `ReportTopLists.tsx` — RankBadge (~1012 tok)
 
@@ -380,11 +380,11 @@
 
 ## apps/frontend/src/components/sales/
 
-- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3579 tok)
+- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3586 tok)
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~2460 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~1449 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1260 tok)
-- `SaleTotalsPanel.tsx` — fmt — renders table (~2456 tok)
+- `SaleTotalsPanel.tsx` — fmt — renders table (~2463 tok)
 
 ## apps/frontend/src/components/suppliers/
 
@@ -392,7 +392,7 @@
 
 ## apps/frontend/src/components/transfers/
 
-- `TransferDetailModal.tsx` — statusStyles — renders modal (~1426 tok)
+- `TransferDetailModal.tsx` — statusStyles — renders modal (~1434 tok)
 - `TransferFormModal.tsx` — empty — renders form, modal (~2439 tok)
 
 ## apps/frontend/src/components/ui/
@@ -403,7 +403,7 @@
 - `Modal.tsx` — Modal (~468 tok)
 - `Pagination.tsx` — Pagination (~305 tok)
 - `QRModal.tsx` — QRBlock — renders chart, modal — uses useState, useEffect (~1168 tok)
-- `QRScannerField.tsx` — inputStyle (~1055 tok)
+- `QRScannerField.tsx` — inputStyle (~1060 tok)
 - `Toaster.tsx` — BG (~504 tok)
 
 ## apps/frontend/src/components/users/
@@ -458,7 +458,7 @@
 - `DashboardPage.tsx` — KPICard (~3696 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~1513 tok)
-- `LoginPage.tsx` — LoginPage — renders form — uses useNavigate, useState (~1825 tok)
+- `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~2335 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1390 tok)
 - `QuotesPage.tsx` — QuotesPage (~1472 tok)

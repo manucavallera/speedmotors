@@ -146,7 +146,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
           <p style={{ color: '#64748b', fontSize: '13px' }}>
             Preview de los primeros {preview.length} productos (de {rawRows.length} total). Los existentes se actualizan por código.
           </p>
-          <div style={{ maxHeight: '260px', overflowY: 'auto', border: '1px solid #f1f5f9', borderRadius: '10px' }}>
+          <div style={{ maxHeight: '260px', overflowY: 'auto', overflowX: 'auto', border: '1px solid #f1f5f9', borderRadius: '10px' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
               <thead style={{ position: 'sticky', top: 0, background: '#f8fafc' }}>
                 <tr>{['Código', 'Descripción', 'Marca', 'Costo', 'Venta'].map(h => (

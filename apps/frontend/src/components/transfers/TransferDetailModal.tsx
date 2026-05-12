@@ -55,7 +55,7 @@ export function TransferDetailModal({ transfer: t, onClose, onEdit }: Props) {
           <Row label="N° trámite DNRPA" value={t.dnrpaNumber} />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
           {[
             { label: 'Honorarios', value: fmt(t.transferFee) },
             { label: 'Sellos', value: fmt(t.taxAmount) },

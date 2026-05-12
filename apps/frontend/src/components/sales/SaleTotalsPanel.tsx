@@ -104,7 +104,7 @@ export function SaleTotalsPanel({
           </div>
 
           {/* KPIs del crédito */}
-          <div style={{ background: currencyColor[1], padding: '14px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+          <div style={{ background: currencyColor[1], padding: '14px 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '10px', fontWeight: 600, color: currencyColor[0], marginBottom: '3px' }}>CUOTA MENSUAL</div>
               <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>${fmt(cuota)}</div>

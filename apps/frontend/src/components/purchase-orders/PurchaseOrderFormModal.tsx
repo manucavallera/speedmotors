@@ -90,9 +90,9 @@ export function PurchaseOrderFormModal({ mode, editing, suppliers, products, onC
 
         <div>
           <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Productos a pedir</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', overflowX: 'auto' }}>
             {items.map((item, i) => (
-              <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 80px 110px 36px', gap: '8px', alignItems: 'center' }}>
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 70px 100px 30px', gap: '8px', alignItems: 'center', minWidth: '360px' }}>
                 <div>
                   <select style={{ ...inputStyle, marginBottom: '4px' }} value={item.productId}
                     onChange={e => updateItem(i, 'productId', e.target.value)}>

@@ -81,7 +81,7 @@ export function QRScannerField({ value, onChange, placeholder, label }: QRScanne
           <div style={{ color: '#fff', fontSize: '15px', fontWeight: 600 }}>
             {label ? `Escaneando: ${label}` : 'Apuntá la cámara al código'}
           </div>
-          <div style={{ position: 'relative', width: '320px', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '2px solid #3b82f6' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '320px', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '2px solid #3b82f6' }}>
             <video ref={videoRef} style={{ width: '100%', height: '100%', objectFit: 'cover' }} autoPlay muted playsInline />
             <div style={{
               position: 'absolute', inset: 0, border: '2px solid rgba(59,130,246,0.5)',
