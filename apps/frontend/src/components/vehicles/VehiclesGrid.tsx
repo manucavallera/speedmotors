@@ -90,7 +90,7 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
           No hay vehículos registrados
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '14px' }}>
           {sorted.map((v: any) => {
             const st = statusColors[v.status] || statusColors.disponible
             return (

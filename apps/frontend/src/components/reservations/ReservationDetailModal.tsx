@@ -60,7 +60,7 @@ export function ReservationDetailModal({ detail, onClose, onEdit, onChangeStatus
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '13px', marginBottom: '4px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', fontSize: '13px', marginBottom: '4px' }}>
           <div><span style={{ color: '#94a3b8' }}>Fecha: </span><strong>{fecha}</strong></div>
           <div><span style={{ color: '#94a3b8' }}>N°: </span><strong>{detail.reservationNumber || '—'}</strong></div>
         </div>
@@ -97,7 +97,7 @@ export function ReservationDetailModal({ detail, onClose, onEdit, onChangeStatus
         {(price > 0 || deposit > 0) && (
           <>
             <Section label="CONDICIONES" />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', textAlign: 'center', background: '#f8fafc', borderRadius: '8px', padding: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px', textAlign: 'center', background: '#f8fafc', borderRadius: '8px', padding: '12px' }}>
               <div>
                 <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 600 }}>PRECIO</div>
                 <div style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>${price.toLocaleString('es-AR')}</div>

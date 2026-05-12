@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:44:48.755Z
-> Files: 296 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:47:57.599Z
+> Files: 297 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -331,6 +331,10 @@
 - `AlertSummaryCards.tsx` — AlertSummaryCards (~362 tok)
 - `ReminderFormModal.tsx` — defaultForm — renders form, modal (~1192 tok)
 
+## apps/frontend/src/components/cash/
+
+- `CashStatusPanel.tsx` — CashStatusPanel (~2179 tok)
+
 ## apps/frontend/src/components/clients/
 
 - `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2536 tok)
@@ -375,7 +379,7 @@
 
 ## apps/frontend/src/components/reservations/
 
-- `ReservationDetailModal.tsx` — statusStyles — renders modal (~2009 tok)
+- `ReservationDetailModal.tsx` — statusStyles — renders modal (~2024 tok)
 - `ReservationFormModal.tsx` — sectionStyle — renders form, modal (~4528 tok)
 
 ## apps/frontend/src/components/sales/
@@ -455,9 +459,9 @@
 - `AlertsPage.tsx` — SectionBox (~2628 tok)
 - `CashPage.tsx` — CashPage (~1010 tok)
 - `ClientsPage.tsx` — ClientsPage (~766 tok)
-- `DashboardPage.tsx` — KPICard (~3696 tok)
+- `DashboardPage.tsx` — KPICard (~3705 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `InstallmentsPage.tsx` — InstallmentsPage (~1513 tok)
+- `InstallmentsPage.tsx` — InstallmentsPage (~1534 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~2335 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1390 tok)

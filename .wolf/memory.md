@@ -1258,3 +1258,13 @@
 | 16:44 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | "220px" → "100%" | ~30 |
 | 16:44 | Edited apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx | CSS: overflowX, minWidth | ~83 |
 | 16:44 | Edited apps/frontend/src/components/ImportExcelModal.tsx | inline fix | ~36 |
+| 16:45 | Session end: 60 writes across 36 files (vehicles.service.ts, RemitoImportModal.tsx, clients.service.ts, clients.controller.ts, ClientFormModal.tsx) | 49 reads | ~78818 tok |
+| 16:47 | Edited apps/frontend/src/pages/DashboardPage.tsx | "repeat(auto-fit, minmax(2" → "repeat(auto-fit, minmax(1" | ~27 |
+| 16:47 | Edited apps/frontend/src/pages/DashboardPage.tsx | "repeat(auto-fit, minmax(2" → "repeat(auto-fit, minmax(1" | ~27 |
+| 16:47 | Edited apps/frontend/src/pages/DashboardPage.tsx | "1fr 1fr" → "repeat(auto-fit, minmax(2" | ~21 |
+| 16:47 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | "1fr 1fr" → "repeat(auto-fit, minmax(1" | ~27 |
+| 16:47 | Edited apps/frontend/src/components/cash/CashStatusPanel.tsx | "repeat(5, 1fr)" → "repeat(auto-fit, minmax(1" | ~17 |
+| 16:47 | Edited apps/frontend/src/components/cash/CashStatusPanel.tsx | "1fr 1fr auto" → "1fr 1fr" | ~9 |
+| 16:47 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | inline fix | ~6 |
+| 16:47 | Edited apps/frontend/src/components/reservations/ReservationDetailModal.tsx | "1fr 1fr" → "repeat(auto-fit, minmax(1" | ~32 |
+| 16:47 | Edited apps/frontend/src/components/reservations/ReservationDetailModal.tsx | "1fr 1fr 1fr" → "repeat(auto-fit, minmax(1" | ~17 |

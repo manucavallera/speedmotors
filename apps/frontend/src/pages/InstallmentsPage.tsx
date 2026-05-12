@@ -66,7 +66,7 @@ export function InstallmentsPage() {
       )}
 
       {installments.length > 0 && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px', marginBottom: '24px' }}>
           <div style={{ background: 'white', borderRadius: '14px', padding: '18px 20px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #fecaca' }}>
             <div style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600, marginBottom: '4px' }}>VENCIDAS</div>
             <div style={{ fontSize: '24px', fontWeight: 700, color: '#0f172a' }}>${totalOverdue.toLocaleString('es-AR')}</div>

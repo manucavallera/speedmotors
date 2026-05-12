@@ -3200,6 +3200,86 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-12T16:44:48.791Z"
+    },
+    {
+      "id": "bug-201",
+      "timestamp": "2026-05-12T16:47:30.504Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/DashboardPage.tsx",
+      "root_cause": "Had 'repeat(auto-fit, minmax(220px, 1fr))'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(150px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-05-12T16:47:36.164Z"
+    },
+    {
+      "id": "bug-202",
+      "timestamp": "2026-05-12T16:47:39.785Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "Had '1fr 1fr'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(180px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:47:39.785Z"
+    },
+    {
+      "id": "bug-203",
+      "timestamp": "2026-05-12T16:47:42.608Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/cash/CashStatusPanel.tsx",
+      "root_cause": "Had 'repeat(5, 1fr)'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(110px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-12T16:47:45.804Z"
+    },
+    {
+      "id": "bug-204",
+      "timestamp": "2026-05-12T16:47:48.397Z",
+      "error_message": "Wrong reference: 280px should be 220px",
+      "file": "apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "root_cause": "Used \"280px\" instead of \"220px\"",
+      "fix": "Changed 280px → 220px",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:47:48.397Z"
+    },
+    {
+      "id": "bug-205",
+      "timestamp": "2026-05-12T16:47:51.916Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/reservations/ReservationDetailModal.tsx",
+      "root_cause": "Had '1fr 1fr'",
+      "fix": "Changed to 'repeat(auto-fit, minmax(180px, 1fr))'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-12T16:47:57.635Z"
     }
   ]
 }

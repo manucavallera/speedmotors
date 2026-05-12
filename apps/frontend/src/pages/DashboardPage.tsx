@@ -69,7 +69,7 @@ export function DashboardPage() {
       ) : tm && (
         <>
           {/* KPI row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '8px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', marginBottom: '8px' }}>
             <KPICard
               label="Facturación del mes"
               value={`$${tm.sales.total.toLocaleString('es-AR', { minimumFractionDigits: 0 })}`}
@@ -113,7 +113,7 @@ export function DashboardPage() {
 
           {/* Trends */}
           {lm && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', marginBottom: '24px' }}>
               {[
                 { current: tm.sales.total, previous: lm.sales.total, label: 'ventas' },
                 { current: tm.expenses.total, previous: lm.expenses.total, label: 'gastos' },
@@ -157,7 +157,7 @@ export function DashboardPage() {
           })()}
 
           {/* Bottom row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
             {/* Formas de pago del mes */}
             <div style={{ background: 'white', borderRadius: '14px', padding: '20px 24px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
               <h3 style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginBottom: '16px' }}>Cobros del mes</h3>

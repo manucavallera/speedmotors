@@ -52,7 +52,7 @@ export function CashStatusPanel({ summary, isLoading, onOpen, onClose, isPending
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px', marginBottom: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '12px', marginBottom: '24px' }}>
             {[
               { label: 'Saldo inicial', value: summary.session.openingBalance, icon: '💰' },
               { label: `Ventas (${summary.salesCount})`, value: summary.salesTotal.toFixed(2), icon: '📈', positive: true },
@@ -84,7 +84,7 @@ export function CashStatusPanel({ summary, isLoading, onOpen, onClose, isPending
             </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '10px', alignItems: 'end' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignItems: 'end' }}>
             <div>
               <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#94a3b8', marginBottom: '4px', textTransform: 'uppercase' }}>Efectivo contado ($)</label>
               <input type="number" placeholder="Opcional — para arqueo"
