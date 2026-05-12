@@ -78,7 +78,7 @@
       "first_read": "2026-05-12T16:37:41.474Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehiclesGrid.tsx": {
-      "count": 4,
+      "count": 5,
       "tokens": 2724,
       "first_read": "2026-05-12T16:37:42.012Z"
     },
@@ -103,8 +103,8 @@
       "first_read": "2026-05-12T16:39:04.982Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx": {
-      "count": 1,
-      "tokens": 2360,
+      "count": 2,
+      "tokens": 2335,
       "first_read": "2026-05-12T16:39:05.060Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/PurchaseOrdersPage.tsx": {
@@ -123,8 +123,8 @@
       "first_read": "2026-05-12T16:39:06.794Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx": {
-      "count": 1,
-      "tokens": 1256,
+      "count": 2,
+      "tokens": 1230,
       "first_read": "2026-05-12T16:39:06.975Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SuppliersPage.tsx": {
@@ -133,8 +133,8 @@
       "first_read": "2026-05-12T16:39:07.318Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TransfersPage.tsx": {
-      "count": 1,
-      "tokens": 2079,
+      "count": 2,
+      "tokens": 2056,
       "first_read": "2026-05-12T16:39:07.699Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/UsersPage.tsx": {
@@ -148,7 +148,7 @@
       "first_read": "2026-05-12T16:40:06.244Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/expenses/ExpensesTable.tsx": {
-      "count": 1,
+      "count": 2,
       "tokens": 1853,
       "first_read": "2026-05-12T16:40:06.938Z"
     },
@@ -158,12 +158,12 @@
       "first_read": "2026-05-12T16:40:07.301Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/purchase-orders/PurchaseOrdersTable.tsx": {
-      "count": 1,
+      "count": 2,
       "tokens": 1290,
       "first_read": "2026-05-12T16:40:07.744Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/quotes/QuotesTable.tsx": {
-      "count": 1,
+      "count": 2,
       "tokens": 1395,
       "first_read": "2026-05-12T16:40:07.991Z"
     },
@@ -266,6 +266,11 @@
       "count": 2,
       "tokens": 2009,
       "first_read": "2026-05-12T16:46:19.858Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/alerts/AlertFilters.tsx": {
+      "count": 1,
+      "tokens": 504,
+      "first_read": "2026-05-12T19:03:38.709Z"
     }
   },
   "files_written": [
@@ -682,6 +687,42 @@
       "action": "edit",
       "tokens": 17,
       "at": "2026-05-12T16:47:57.621Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "action": "edit",
+      "tokens": 756,
+      "at": "2026-05-12T19:02:08.356Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx",
+      "action": "edit",
+      "tokens": 926,
+      "at": "2026-05-12T19:02:38.701Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/alerts/AlertFilters.tsx",
+      "action": "edit",
+      "tokens": 477,
+      "at": "2026-05-12T19:03:57.696Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx",
+      "action": "edit",
+      "tokens": 870,
+      "at": "2026-05-12T19:04:14.707Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TransfersPage.tsx",
+      "action": "edit",
+      "tokens": 580,
+      "at": "2026-05-12T19:04:22.587Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/expenses/ExpensesTable.tsx",
+      "action": "edit",
+      "tokens": 706,
+      "at": "2026-05-12T19:04:31.623Z"
     }
   ],
   "edit_counts": {
@@ -701,13 +742,13 @@
     "apps/frontend/src/pages/CashPage.tsx": 1,
     "apps/frontend/src/pages/ClientsPage.tsx": 1,
     "apps/frontend/src/pages/ExpensesPage.tsx": 1,
-    "apps/frontend/src/pages/ProductsPage.tsx": 1,
+    "apps/frontend/src/pages/ProductsPage.tsx": 2,
     "apps/frontend/src/pages/PurchaseOrdersPage.tsx": 1,
     "apps/frontend/src/pages/QuotesPage.tsx": 1,
     "apps/frontend/src/pages/ReservationsPage.tsx": 3,
-    "apps/frontend/src/pages/SalesPage.tsx": 1,
+    "apps/frontend/src/pages/SalesPage.tsx": 2,
     "apps/frontend/src/pages/SuppliersPage.tsx": 1,
-    "apps/frontend/src/pages/TransfersPage.tsx": 1,
+    "apps/frontend/src/pages/TransfersPage.tsx": 2,
     "apps/frontend/src/pages/UsersPage.tsx": 3,
     "apps/frontend/src/components/sales/SalesTable.tsx": 2,
     "apps/frontend/src/components/alerts/AlertSummaryCards.tsx": 1,
@@ -724,12 +765,14 @@
     "apps/frontend/src/pages/DashboardPage.tsx": 3,
     "apps/frontend/src/pages/InstallmentsPage.tsx": 1,
     "apps/frontend/src/components/cash/CashStatusPanel.tsx": 2,
-    "apps/frontend/src/components/vehicles/VehiclesGrid.tsx": 1,
-    "apps/frontend/src/components/reservations/ReservationDetailModal.tsx": 2
+    "apps/frontend/src/components/vehicles/VehiclesGrid.tsx": 2,
+    "apps/frontend/src/components/reservations/ReservationDetailModal.tsx": 2,
+    "apps/frontend/src/components/alerts/AlertFilters.tsx": 1,
+    "apps/frontend/src/components/expenses/ExpensesTable.tsx": 1
   },
-  "anatomy_hits": 50,
+  "anatomy_hits": 51,
   "anatomy_misses": 3,
-  "repeated_reads_warned": 29,
+  "repeated_reads_warned": 36,
   "cerebrum_warnings": 0,
-  "stop_count": 30
+  "stop_count": 37
 }

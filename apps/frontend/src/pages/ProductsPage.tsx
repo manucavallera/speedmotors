@@ -44,32 +44,53 @@ export function ProductsPage() {
         Lista de todo lo que vendés con código, marca, precios y stock. <strong>El stock se actualiza solo</strong> al registrar ventas (baja) o recibir órdenes de compra (sube). Podés exportar el catálogo a PDF para mandárselo a clientes, o importar productos desde Excel para cargas masivas.
       </InfoBanner>
 
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap' }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por nombre..." style={{ ...inputStyle, maxWidth: '280px' }} />
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {([['', 'Sin orden'], ['asc', '↑ Más baratos'], ['desc', '↓ Más caros']] as [string, string][]).map(([val, label]) => (
-            <button key={val} onClick={() => setPriceSort(val as 'asc' | 'desc' | '')}
-              style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: priceSort === val ? '#1d4ed8' : '#f1f5f9', color: priceSort === val ? 'white' : '#374151' }}>
-              {label}
-            </button>
-          ))}
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre..." style={{ ...inputStyle }} />
         </div>
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {([['', 'Todos'], ['blanco', '🧾 En blanco'], ['negro', '🤝 En negro']] as [string, string][]).map(([val, label]) => (
-            <button key={val} onClick={() => setIngresoFilter(val as 'blanco' | 'negro' | '')}
-              style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer',
-                background: ingresoFilter === val ? (val === 'negro' ? '#854d0e' : val === 'blanco' ? '#1d4ed8' : '#1d4ed8') : '#f1f5f9',
-                color: ingresoFilter === val ? 'white' : '#374151' }}>
-              {label}
-            </button>
-          ))}
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Precio</span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Sin orden'], ['asc', '↑ Menor'], ['desc', '↓ Mayor']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setPriceSort(val as 'asc' | 'desc' | '')}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: priceSort === val ? '#1d4ed8' : '#f1f5f9', color: priceSort === val ? 'white' : '#374151' }}>
+                {lbl}
+              </button>
+            ))}
+          </div>
         </div>
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Ingreso</span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Todos'], ['blanco', '🧾 Blanco'], ['negro', '🤝 Negro']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setIngresoFilter(val as 'blanco' | 'negro' | '')}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: ingresoFilter === val ? '#1d4ed8' : '#f1f5f9', color: ingresoFilter === val ? 'white' : '#374151' }}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {suppliers.length > 0 && (
-          <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value ? Number(e.target.value) : '')}
-            style={{ ...inputStyle, minWidth: '160px' }}>
-            <option value="">Todos los proveedores</option>
-            {suppliers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
+          <>
+            <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Proveedor</span>
+              <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value ? Number(e.target.value) : '')}
+                style={{ ...inputStyle, minWidth: '160px' }}>
+                <option value="">Todos</option>
+                {suppliers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+              </select>
+            </div>
+          </>
         )}
       </div>
 

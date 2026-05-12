@@ -3280,6 +3280,86 @@
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-05-12T16:47:57.635Z"
+    },
+    {
+      "id": "bug-206",
+      "timestamp": "2026-05-12T19:02:08.372Z",
+      "error_message": "CSS fix: display, width",
+      "file": "apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "root_cause": "display: 'flex', gap: '6px', marginBottom: '12px' → 'flex', gap: '6px'; width: '1px', background: '#e2e8f0', margin: '0 4px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'",
+      "fix": "Changed display: 'flex', gap: '6px', marginBottom: '12px' → 'flex', gap: '6px'; width: '1px', background: '#e2e8f0', margin: '0 4px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T19:02:08.372Z"
+    },
+    {
+      "id": "bug-207",
+      "timestamp": "2026-05-12T19:02:38.717Z",
+      "error_message": "CSS fix: background, display, padding",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "background: ingresoFilter === val ? (val === 'negro' ? '#854d0e' : val === 'blanco' ? '#1d4ed8' : '#1d4ed8') : '#f1f5f9', → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start'; display: 'flex', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px'; padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', → '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: ingresoFilter === val ? '#1d4ed8' : '#f1f5f9', color: ingresoFilter === val ? 'white' : '#374151'",
+      "fix": "Changed background: ingresoFilter === val ? (val === 'negro' ? '#854d0e' : val === 'blanco' ? '#1d4ed8' : '#1d4ed8') : '#f1f5f9', → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start'; display: 'flex', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px'; padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', → '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: ingresoFilter === val ? '#1d4ed8' : '#f1f5f9', color: ingresoFilter === val ? 'white' : '#374151'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T19:02:38.717Z"
+    },
+    {
+      "id": "bug-208",
+      "timestamp": "2026-05-12T19:04:14.721Z",
+      "error_message": "CSS fix: display, width, padding",
+      "file": "apps/frontend/src/pages/SalesPage.tsx",
+      "root_cause": "display: 'flex', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px'; width: '150px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'; padding: '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: 'none', cursor: 'pointer', background: invoiceFilter === val ? '#1d4ed8' : '#f1f5f9', color: invoiceFilter === val ? 'white' : '#374151' → '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: invoiceFilter === val ? '1.5px solid #1d4ed8' : '1.5px solid #e2e8f0', cursor: 'pointer', background: invoiceFilter === val ? '#eff6ff' : '#fff', color: invoiceFilter === val ? '#1d4ed8' : '#374151'",
+      "fix": "Changed display: 'flex', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px'; width: '150px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'; padding: '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: 'none', cursor: 'pointer', background: invoiceFilter === val ? '#1d4ed8' : '#f1f5f9', color: invoiceFilter === val ? 'white' : '#374151' → '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: invoiceFilter === val ? '1.5px solid #1d4ed8' : '1.5px solid #e2e8f0', cursor: 'pointer', background: invoiceFilter === val ? '#eff6ff' : '#fff', color: invoiceFilter === val ? '#1d4ed8' : '#374151'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T19:04:14.721Z"
+    },
+    {
+      "id": "bug-209",
+      "timestamp": "2026-05-12T19:04:22.600Z",
+      "error_message": "CSS fix: display, padding",
+      "file": "apps/frontend/src/pages/TransfersPage.tsx",
+      "root_cause": "display: 'flex', gap: '10px', marginBottom: '20px' → 'flex', gap: '6px'; padding: '9px 14px', border: '1.5px solid #e2e8f0', borderRadius: '9px', fontSize: '14px', background: 'white', outline: 'none' → '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', border: statusFilter === v ? `1.5px solid ${s.color",
+      "fix": "Changed display: 'flex', gap: '10px', marginBottom: '20px' → 'flex', gap: '6px'; padding: '9px 14px', border: '1.5px solid #e2e8f0', borderRadius: '9px', fontSize: '14px', background: 'white', outline: 'none' → '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', border: statusFilter === v ? `1.5px solid ${s.color",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T19:04:22.600Z"
+    },
+    {
+      "id": "bug-210",
+      "timestamp": "2026-05-12T19:04:31.655Z",
+      "error_message": "CSS fix: display, fontSize, width",
+      "file": "apps/frontend/src/components/expenses/ExpensesTable.tsx",
+      "root_cause": "display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' → 'flex', flexDirection: 'column', gap: '6px'; fontSize: '13px', color: '#64748b', marginLeft: 'auto' → '12px', padding: '6px 12px'; width: '150px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'",
+      "fix": "Changed display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' → 'flex', flexDirection: 'column', gap: '6px'; fontSize: '13px', color: '#64748b', marginLeft: 'auto' → '12px', padding: '6px 12px'; width: '150px' → '1px', background: '#e2e8f0', alignSelf: 'stretch'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T19:04:31.655Z"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:47:57.599Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T19:04:31.575Z
 > Files: 297 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
@@ -325,7 +325,7 @@
 
 ## apps/frontend/src/components/alerts/
 
-- `AlertFilters.tsx` — filters (~504 tok)
+- `AlertFilters.tsx` — filters (~654 tok)
 - `AlertInstallmentCard.tsx` — fmt (~665 tok)
 - `AlertReminderCard.tsx` — typeLabel (~924 tok)
 - `AlertSummaryCards.tsx` — AlertSummaryCards (~362 tok)
@@ -348,7 +348,7 @@
 
 ## apps/frontend/src/components/expenses/
 
-- `ExpensesTable.tsx` — catColors — renders table (~1853 tok)
+- `ExpensesTable.tsx` — catColors — renders table (~2271 tok)
 
 ## apps/frontend/src/components/layout/
 
@@ -419,7 +419,7 @@
 
 - `RemitoImportModal.tsx` — defaultShared — renders form, table, modal (~2788 tok)
 - `VehicleFormModal.tsx` — emptyForm — renders form, modal (~2172 tok)
-- `VehiclesGrid.tsx` — statusColors (~2724 tok)
+- `VehiclesGrid.tsx` — statusColors (~3050 tok)
 
 ## apps/frontend/src/hooks/
 
@@ -463,16 +463,16 @@
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~1534 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
-- `ProductsPage.tsx` — ProductsPage (~2335 tok)
+- `ProductsPage.tsx` — ProductsPage (~2703 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1390 tok)
 - `QuotesPage.tsx` — QuotesPage (~1472 tok)
 - `ReportsPage.tsx` — ReportsPage (~1020 tok)
 - `ReservationsPage.tsx` — statusColors — renders table (~1914 tok)
-- `SalesPage.tsx` — SalesPage (~1230 tok)
+- `SalesPage.tsx` — SalesPage (~1673 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~837 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
-- `TransfersPage.tsx` — statusStyles (~2056 tok)
+- `TransfersPage.tsx` — statusStyles (~2417 tok)
 - `UsersPage.tsx` — roleStyle — renders table (~1826 tok)
 - `VehiclesPage.tsx` — VehiclesPage (~1283 tok)
 

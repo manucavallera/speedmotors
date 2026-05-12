@@ -45,14 +45,28 @@ export function TransfersPage() {
         </button>
       </div>
 
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por cliente, vehículo o número..."
-          style={{ flex: 1, padding: '9px 14px', border: '1.5px solid #e2e8f0', borderRadius: '9px', fontSize: '14px', outline: 'none' }} />
-        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-          style={{ padding: '9px 14px', border: '1.5px solid #e2e8f0', borderRadius: '9px', fontSize: '14px', background: 'white', outline: 'none' }}>
-          <option value="">Todos los estados</option>
-          {Object.entries(statusStyles).map(([v, s]) => <option key={v} value={v}>{s.label}</option>)}
-        </select>
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '20px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cliente, vehículo o número..."
+            style={{ padding: '7px 12px', border: '1.5px solid #e2e8f0', borderRadius: '8px', fontSize: '13px', outline: 'none', width: '240px' }} />
+        </div>
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>ESTADO</span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            <button onClick={() => setStatusFilter('')}
+              style={{ padding: '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', border: statusFilter === '' ? '1.5px solid #2563eb' : '1.5px solid #e2e8f0', background: statusFilter === '' ? '#eff6ff' : '#fff', color: statusFilter === '' ? '#2563eb' : '#374151' }}>
+              Todos
+            </button>
+            {Object.entries(statusStyles).map(([v, s]) => (
+              <button key={v} onClick={() => setStatusFilter(v)}
+                style={{ padding: '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', border: statusFilter === v ? `1.5px solid ${s.color}` : '1.5px solid #e2e8f0', background: statusFilter === v ? s.bg : '#fff', color: statusFilter === v ? s.color : '#374151' }}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {list.isLoading && <div style={{ textAlign: 'center', padding: '48px', color: '#94a3b8' }}>Cargando...</div>}

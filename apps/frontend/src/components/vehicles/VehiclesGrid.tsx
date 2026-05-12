@@ -44,28 +44,56 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
     ...btnFilter(active), background: active ? '#0f172a' : '#f1f5f9',
   } as React.CSSProperties)
 
+  const label = (text: string) => (
+    <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{text}</span>
+  )
+
   return (
     <div>
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
-        {([['', 'Todos'], ['moto', '🏍️ Motos'], ['lancha', '⛵ Lanchas']] as [string, string][]).map(([val, label]) => (
-          <button key={val} onClick={() => setTypeFilter(val)} style={btnFilter(typeFilter === val)}>{label}</button>
-        ))}
-        <div style={{ width: '1px', background: '#e2e8f0', margin: '0 4px' }} />
-        {([['', 'Todos los estados'], ['disponible', 'Disponibles'], ['reservado', 'Reservados'], ['vendido', 'Vendidos']] as [string, string][]).map(([val, label]) => (
-          <button key={val} onClick={() => setStatusFilter(val)} style={btnFilterDark(statusFilter === val)}>{label}</button>
-        ))}
-      </div>
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
 
-      <div style={{ display: 'flex', gap: '6px', marginBottom: '10px' }}>
-        {([['', 'Todo ingreso'], ['blanco', '🧾 En blanco'], ['negro', '🤝 En negro']] as [string, string][]).map(([val, label]) => (
-          <button key={val} onClick={() => setIngresoFilter(val as 'blanco' | 'negro' | '')} style={btnFilterDark(ingresoFilter === val)}>{label}</button>
-        ))}
-      </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {label('Tipo')}
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Todos'], ['moto', '🏍️ Motos'], ['lancha', '⛵ Lanchas']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setTypeFilter(val)} style={btnFilter(typeFilter === val)}>{lbl}</button>
+            ))}
+          </div>
+        </div>
 
-      <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
-        {([['', 'Sin orden'], ['asc', '↑ Más baratos'], ['desc', '↓ Más caros']] as [string, string][]).map(([val, label]) => (
-          <button key={val} onClick={() => setPriceSort(val as 'asc' | 'desc' | '')} style={btnFilter(priceSort === val)}>{label}</button>
-        ))}
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {label('Estado')}
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {([['', 'Todos'], ['disponible', 'Disponible'], ['reservado', 'Reservado'], ['vendido', 'Vendido']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setStatusFilter(val)} style={btnFilterDark(statusFilter === val)}>{lbl}</button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {label('Ingreso')}
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Todos'], ['blanco', '🧾 Blanco'], ['negro', '🤝 Negro']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setIngresoFilter(val as 'blanco' | 'negro' | '')} style={btnFilterDark(ingresoFilter === val)}>{lbl}</button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {label('Precio')}
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Sin orden'], ['asc', '↑ Menor'], ['desc', '↓ Mayor']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setPriceSort(val as 'asc' | 'desc' | '')} style={btnFilter(priceSort === val)}>{lbl}</button>
+            ))}
+          </div>
+        </div>
+
       </div>
 
       {cheapest && priciest && cheapest.id !== priciest.id && (

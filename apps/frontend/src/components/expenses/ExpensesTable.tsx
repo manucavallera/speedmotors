@@ -36,16 +36,35 @@ export function ExpensesTable({ expenses, summary, isLoading, onEdit, onDelete }
 
   return (
     <div>
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar descripción o categoría..."
-          style={{ ...inputStyle, maxWidth: '260px' }} />
-        <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
-        <span style={{ color: '#94a3b8', fontSize: '13px' }}>→</span>
-        <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Descripción o categoría..."
+            style={{ ...inputStyle, width: '220px' }} />
+        </div>
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>PERÍODO</span>
+          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
+            <span style={{ color: '#94a3b8', fontSize: '13px' }}>→</span>
+            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
+          </div>
+        </div>
+        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>TOTAL</span>
+          <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', paddingTop: '2px' }}>${total.toLocaleString('es-AR')}</span>
+        </div>
         {(search || dateFrom || dateTo) && (
-          <button onClick={() => { setSearch(''); setDateFrom(''); setDateTo('') }} style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px' }}>Limpiar</button>
+          <>
+            <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>&nbsp;</span>
+              <button onClick={() => { setSearch(''); setDateFrom(''); setDateTo('') }} style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px' }}>Limpiar</button>
+            </div>
+          </>
         )}
-        <span style={{ fontSize: '13px', color: '#64748b', marginLeft: 'auto' }}>Total: <strong>${total.toLocaleString('es-AR')}</strong></span>
       </div>
 
       {summary.length > 0 && (
