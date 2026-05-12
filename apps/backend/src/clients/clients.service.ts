@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
+import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
 import { clients, sales, installments, saleItems, clientPayments } from '../db/schema'
 import { eq, ilike, or, inArray, desc, sql } from 'drizzle-orm'
@@ -135,5 +136,57 @@ export class ClientsService {
     const [client] = await db.delete(clients).where(eq(clients.id, id)).returning()
     if (!client) throw new NotFoundException(`Cliente ${id} no encontrado`)
     return client
+  }
+
+  async parseComprobante(file: Express.Multer.File): Promise<{ amount: string; date: string; description: string }> {
+    if (!process.env.ANTHROPIC_API_KEY) throw new BadRequestException('ANTHROPIC_API_KEY no configurada')
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+    const base64 = file.buffer.toString('base64')
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 512,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: file.mimetype as 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif', data: base64 } },
+          { type: 'text', text: 'Extraé los datos de este comprobante de pago o transferencia bancaria argentina. Devolvé SOLO un JSON sin texto adicional:\n{"amount":"monto en números sin símbolos ni puntos de miles, solo decimales con punto, o cadena vacía","date":"fecha en formato YYYY-MM-DD o cadena vacía","description":"descripción breve del pago o transferencia"}' },
+        ],
+      }],
+    })
+
+    const raw = (response.content[0] as Anthropic.TextBlock).text
+    const text = raw.replace(/```(?:json)?\n?/g, '').replace(/```/g, '').trim()
+    try {
+      return JSON.parse(text)
+    } catch {
+      throw new BadRequestException('No se pudo leer el comprobante')
+    }
+  }
+
+  async parseDni(file: Express.Multer.File): Promise<{ name: string; dni: string; address: string }> {
+    if (!process.env.ANTHROPIC_API_KEY) throw new BadRequestException('ANTHROPIC_API_KEY no configurada')
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+    const base64 = file.buffer.toString('base64')
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 512,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: file.mimetype as 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif', data: base64 } },
+          { type: 'text', text: 'Extraé los datos de este DNI argentino. Devolvé SOLO un JSON sin texto adicional:\n{"name":"apellido y nombre completo","dni":"número de DNI sin puntos","address":"domicilio completo o cadena vacía"}' },
+        ],
+      }],
+    })
+
+    const raw = (response.content[0] as Anthropic.TextBlock).text
+    const text = raw.replace(/```(?:json)?\n?/g, '').replace(/```/g, '').trim()
+    try {
+      return JSON.parse(text)
+    } catch {
+      throw new BadRequestException('No se pudo leer el DNI')
+    }
   }
 }

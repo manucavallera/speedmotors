@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import { QRScannerField } from '../ui/QRScannerField'
 import { PhotoUploadField } from '../products/PhotoUploadField'
+import { api } from '../../lib/api'
 
 const emptyForm = {
   type: 'moto', brand: '', model: '', year: '', color: '',
@@ -37,6 +38,32 @@ function toForm(v: any) {
 
 export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }: VehicleFormModalProps) {
   const [form, setForm] = useState<any>(editing ? toForm(editing) : emptyForm)
+  const [scanning, setScanning] = useState(false)
+  const tituloInputRef = useRef<HTMLInputElement>(null)
+
+  async function handleTituloScan(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setScanning(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const { data } = await api.post('/vehicles/parse-titulo', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+      setForm((prev: any) => ({
+        ...prev,
+        brand: data.brand || prev.brand,
+        model: data.model || prev.model,
+        year: data.year || prev.year,
+        chassisNumber: data.chassisNumber || prev.chassisNumber,
+        engineNumber: data.engineNumber || prev.engineNumber,
+      }))
+    } catch {
+      // silencioso
+    } finally {
+      setScanning(false)
+      if (tituloInputRef.current) tituloInputRef.current.value = ''
+    }
+  }
 
   const f = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((prev: any) => ({ ...prev, [key]: e.target.value }))
@@ -55,6 +82,19 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
   return (
     <Modal title={mode === 'edit' ? 'Editar vehículo' : 'Nuevo vehículo'} onClose={onClose} width={580}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+          <span style={{ fontSize: '20px' }}>📄</span>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', margin: 0 }}>Escanear título</p>
+            <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>Completá marca, modelo, chasis y motor automáticamente</p>
+          </div>
+          <input ref={tituloInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleTituloScan} />
+          <button type="button" onClick={() => tituloInputRef.current?.click()} disabled={scanning}
+            style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px', opacity: scanning ? 0.6 : 1 }}>
+            {scanning ? 'Leyendo...' : 'Subir foto'}
+          </button>
+        </div>
 
         <div className="form-grid-2">
           <FormField label="Tipo">

@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, Request, UseInterceptors, UploadedFile } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { memoryStorage } from 'multer'
 import { ClientsService } from './clients.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -8,6 +10,32 @@ import { CreateClientDto, UpdateClientDto } from './client.dto'
 @Controller('clients')
 export class ClientsController {
   constructor(private clientsService: ClientsService) {}
+
+  @Post('parse-comprobante')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: memoryStorage(),
+    fileFilter: (_, file, cb) => {
+      if (!file.mimetype.startsWith('image/')) return cb(new Error('Solo imágenes'), false)
+      cb(null, true)
+    },
+    limits: { fileSize: 5 * 1024 * 1024 },
+  }))
+  parseComprobante(@UploadedFile() file: Express.Multer.File) {
+    return this.clientsService.parseComprobante(file)
+  }
+
+  @Post('parse-dni')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: memoryStorage(),
+    fileFilter: (_, file, cb) => {
+      if (!file.mimetype.startsWith('image/')) return cb(new Error('Solo imágenes'), false)
+      cb(null, true)
+    },
+    limits: { fileSize: 5 * 1024 * 1024 },
+  }))
+  parseDni(@UploadedFile() file: Express.Multer.File) {
+    return this.clientsService.parseDni(file)
+  }
 
   @Get()
   findAll(

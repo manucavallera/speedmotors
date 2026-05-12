@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { api } from '../../lib/api'
 
 interface Props {
   clientName: string
@@ -21,6 +22,27 @@ export function ClientPaymentFormModal({ clientName, onClose, onSubmit, isPendin
   const [description, setDescription] = useState('')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [notes, setNotes] = useState('')
+  const [scanning, setScanning] = useState(false)
+  const comprobanteRef = useRef<HTMLInputElement>(null)
+
+  async function handleComprobante(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setScanning(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const { data } = await api.post('/clients/parse-comprobante', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+      if (data.amount) setAmount(data.amount)
+      if (data.date) setDate(data.date)
+      if (data.description) setDescription(data.description)
+    } catch {
+      // silencioso
+    } finally {
+      setScanning(false)
+      if (comprobanteRef.current) comprobanteRef.current.value = ''
+    }
+  }
 
   const selected = typeOptions.find(t => t.value === type)!
 
@@ -32,6 +54,19 @@ export function ClientPaymentFormModal({ clientName, onClose, onSubmit, isPendin
   return (
     <Modal title={`Movimiento de cuenta — ${clientName}`} onClose={onClose} width={460}>
       <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+          <span style={{ fontSize: '20px' }}>🧾</span>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', margin: 0 }}>Escanear comprobante</p>
+            <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>Completá monto, fecha y descripción automáticamente</p>
+          </div>
+          <input ref={comprobanteRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleComprobante} />
+          <button type="button" onClick={() => comprobanteRef.current?.click()} disabled={scanning}
+            style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px', opacity: scanning ? 0.6 : 1 }}>
+            {scanning ? 'Leyendo...' : 'Subir foto'}
+          </button>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
           {typeOptions.map(t => (

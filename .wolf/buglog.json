@@ -1888,6 +1888,934 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-07T16:16:07.927Z"
+    },
+    {
+      "id": "bug-119",
+      "timestamp": "2026-05-08T18:20:00.611Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/db/seeds/seed.ts",
+      "root_cause": "Had 'C:/Users/coco/Desktop/Speed motors/LISTA DE PRECI",
+      "fix": "Changed to 'mercomax.xlsx'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-08T18:20:00.611Z"
+    },
+    {
+      "id": "bug-120",
+      "timestamp": "2026-05-08T18:37:11.540Z",
+      "error_message": "Wrong reference: any should be CreateVehicleDto",
+      "file": "apps/backend/src/vehicles/vehicles.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreateVehicleDto\"",
+      "fix": "Changed any → CreateVehicleDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:18.804Z"
+    },
+    {
+      "id": "bug-121",
+      "timestamp": "2026-05-08T18:37:12.251Z",
+      "error_message": "Wrong reference: any should be CreateProductDto",
+      "file": "apps/backend/src/products/products.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreateProductDto\"",
+      "fix": "Changed any → CreateProductDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:19.786Z"
+    },
+    {
+      "id": "bug-122",
+      "timestamp": "2026-05-08T18:37:12.993Z",
+      "error_message": "Wrong reference: any should be CreateClientDto",
+      "file": "apps/backend/src/clients/clients.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreateClientDto\"",
+      "fix": "Changed any → CreateClientDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:23.179Z"
+    },
+    {
+      "id": "bug-123",
+      "timestamp": "2026-05-08T18:37:13.622Z",
+      "error_message": "Wrong reference: any should be CreateExpenseDto",
+      "file": "apps/backend/src/expenses/expenses.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreateExpenseDto\"",
+      "fix": "Changed any → CreateExpenseDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:24.316Z"
+    },
+    {
+      "id": "bug-124",
+      "timestamp": "2026-05-08T18:37:14.679Z",
+      "error_message": "Wrong reference: any should be CreatePurchaseOrderDto",
+      "file": "apps/backend/src/purchase-orders/purchase-orders.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreatePurchaseOrderDto\"",
+      "fix": "Changed any → CreatePurchaseOrderDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:25.450Z"
+    },
+    {
+      "id": "bug-125",
+      "timestamp": "2026-05-08T18:37:15.135Z",
+      "error_message": "Wrong reference: any should be CreateQuoteDto",
+      "file": "apps/backend/src/quotes/quotes.controller.ts",
+      "root_cause": "Used \"any\" instead of \"CreateQuoteDto\"",
+      "fix": "Changed any → CreateQuoteDto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-08T18:37:26.269Z"
+    },
+    {
+      "id": "bug-126",
+      "timestamp": "2026-05-08T18:37:38.582Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/suppliers/suppliers.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-08T18:37:38.582Z"
+    },
+    {
+      "id": "bug-127",
+      "timestamp": "2026-05-08T18:39:21.439Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/quotes/quotes.controller.ts",
+      "root_cause": "Was returning: this.quotesService.update(id, body)",
+      "fix": "Now returns: this.quotesService.update(id, body as any)",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-08T18:39:21.439Z"
+    },
+    {
+      "id": "bug-128",
+      "timestamp": "2026-05-08T18:40:01.085Z",
+      "error_message": "Wrong reference: string should be disponible",
+      "file": "apps/backend/src/vehicles/vehicle.dto.ts",
+      "root_cause": "Used \"string\" instead of \"disponible\"",
+      "fix": "Changed string → disponible",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-08T18:40:01.085Z"
+    },
+    {
+      "id": "bug-129",
+      "timestamp": "2026-05-10T18:30:11.311Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/lib/pdf/reservation.ts",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 33→66 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T18:30:11.311Z"
+    },
+    {
+      "id": "bug-130",
+      "timestamp": "2026-05-10T18:45:38.712Z",
+      "error_message": "Incorrect value in code",
+      "file": "../../../../../../home/manucavalelra/.claude/settings.json",
+      "root_cause": "Had \"enabledPlugins\"",
+      "fix": "Changed to \"enableAllProjectMcpServers\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "json"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T18:45:38.712Z"
+    },
+    {
+      "id": "bug-131",
+      "timestamp": "2026-05-10T18:55:31.435Z",
+      "error_message": "CSS fix: code",
+      "file": "apps/frontend/src/components/products/ProductFormModal.tsx",
+      "root_cause": "code: e.target.value → val",
+      "fix": "Changed code: e.target.value → val",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T18:55:31.435Z"
+    },
+    {
+      "id": "bug-132",
+      "timestamp": "2026-05-10T19:04:41.367Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/sales/sales.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T19:04:41.367Z"
+    },
+    {
+      "id": "bug-133",
+      "timestamp": "2026-05-10T19:05:23.672Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T19:05:23.672Z"
+    },
+    {
+      "id": "bug-134",
+      "timestamp": "2026-05-10T19:20:30.185Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/SalesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T19:20:30.185Z"
+    },
+    {
+      "id": "bug-135",
+      "timestamp": "2026-05-10T19:20:40.536Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Had '../lib/api'",
+      "fix": "Changed to '../lib/export'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T19:20:40.536Z"
+    },
+    {
+      "id": "bug-136",
+      "timestamp": "2026-05-10T20:06:12.997Z",
+      "error_message": "Wrong reference: ingresoTipo should be supplierId",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Used \"ingresoTipo\" instead of \"supplierId\"",
+      "fix": "Changed ingresoTipo → supplierId",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T20:06:12.997Z"
+    },
+    {
+      "id": "bug-137",
+      "timestamp": "2026-05-10T20:06:35.356Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/hooks/useProducts.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-10T20:06:35.356Z"
+    },
+    {
+      "id": "bug-138",
+      "timestamp": "2026-05-11T14:02:16.232Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/lib/api.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:02:16.232Z"
+    },
+    {
+      "id": "bug-139",
+      "timestamp": "2026-05-11T14:24:27.323Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/reports/reports.service.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:24:27.323Z"
+    },
+    {
+      "id": "bug-140",
+      "timestamp": "2026-05-11T14:24:40.894Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/DashboardPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:24:40.894Z"
+    },
+    {
+      "id": "bug-141",
+      "timestamp": "2026-05-11T14:33:34.714Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/reports/reports.service.ts",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 8→9 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:33:34.714Z"
+    },
+    {
+      "id": "bug-142",
+      "timestamp": "2026-05-11T14:43:45.723Z",
+      "error_message": "Wrong reference: invoiceType should be userId",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "Used \"invoiceType\" instead of \"userId\"",
+      "fix": "Changed invoiceType → userId",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:43:45.723Z"
+    },
+    {
+      "id": "bug-143",
+      "timestamp": "2026-05-11T14:43:53.799Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/sales/sales.controller.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:43:53.799Z"
+    },
+    {
+      "id": "bug-144",
+      "timestamp": "2026-05-11T14:57:39.158Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/app.module.ts",
+      "root_cause": "Had './app.controller'",
+      "fix": "Changed to './notifications/notifications.module'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T14:57:39.158Z"
+    },
+    {
+      "id": "bug-145",
+      "timestamp": "2026-05-11T15:18:59.126Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/auth/auth.module.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T15:18:59.126Z"
+    },
+    {
+      "id": "bug-146",
+      "timestamp": "2026-05-11T15:25:16.756Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "8 lines replaced/restructured",
+      "fix": "Rewrote 15→20 lines (8 removed) | Also: const [installment] = await db; .where(eq(installments.id, installmentId))",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-11T15:25:28.445Z"
+    },
+    {
+      "id": "bug-147",
+      "timestamp": "2026-05-11T15:28:46.008Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/app.controller.ts",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 12→17 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T15:28:46.008Z"
+    },
+    {
+      "id": "bug-148",
+      "timestamp": "2026-05-11T15:29:03.519Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/users/users.service.ts",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 46→65 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T15:29:03.519Z"
+    },
+    {
+      "id": "bug-149",
+      "timestamp": "2026-05-11T15:29:22.547Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/expenses/expenses.service.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T15:29:22.547Z"
+    },
+    {
+      "id": "bug-150",
+      "timestamp": "2026-05-11T16:00:47.600Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T16:00:47.600Z"
+    },
+    {
+      "id": "bug-151",
+      "timestamp": "2026-05-11T16:01:11.566Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/backend/src/notifications/notifications.service.ts",
+      "root_cause": "No early return/throw for edge case: !s",
+      "fix": "Added guard clause: if (!s)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T16:01:11.566Z"
+    },
+    {
+      "id": "bug-152",
+      "timestamp": "2026-05-11T16:01:17.362Z",
+      "error_message": "Wrong operator: ?? should be ||",
+      "file": "apps/backend/src/notifications/notifications.service.ts",
+      "root_cause": "Used \"??\" instead of \"||\"",
+      "fix": "Changed operator ?? → ||",
+      "tags": [
+        "auto-detected",
+        "operator-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T16:01:17.362Z"
+    },
+    {
+      "id": "bug-153",
+      "timestamp": "2026-05-11T16:08:39.265Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/ui/QRScannerField.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-11T16:08:39.265Z"
+    },
+    {
+      "id": "bug-154",
+      "timestamp": "2026-05-12T14:11:59.574Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/db/vehicles.schema.ts",
+      "root_cause": "Had 'ingreso_tipo'",
+      "fix": "Changed to 'remito_number'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:11:59.574Z"
+    },
+    {
+      "id": "bug-155",
+      "timestamp": "2026-05-12T14:12:28.188Z",
+      "error_message": "Missing error handling in remove",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:12:28.188Z"
+    },
+    {
+      "id": "bug-156",
+      "timestamp": "2026-05-12T14:12:33.531Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/vehicles/vehicles.controller.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:12:33.531Z"
+    },
+    {
+      "id": "bug-157",
+      "timestamp": "2026-05-12T14:13:26.613Z",
+      "error_message": "Wrong reference: null should be remito",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "Used \"null\" instead of \"remito\"",
+      "fix": "Changed null → remito",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:13:26.613Z"
+    },
+    {
+      "id": "bug-158",
+      "timestamp": "2026-05-12T14:13:34.169Z",
+      "error_message": "CSS fix: mutationFn, onSuccess, onError",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "mutationFn: (id: number) => api.delete(`/vehicles/${id → (items: any[]) => api.post('/vehicles/bulk', { items; onSuccess: () => qc.invalidateQueries({ queryKey: ['vehicles'] → (res) => {; onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'), → (err: any) => toast.error(err?.response?.data?.message || 'Error al importar'),",
+      "fix": "Changed mutationFn: (id: number) => api.delete(`/vehicles/${id → (items: any[]) => api.post('/vehicles/bulk', { items; onSuccess: () => qc.invalidateQueries({ queryKey: ['vehicles'] → (res) => {; onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'), → (err: any) => toast.error(err?.response?.data?.message || 'Error al importar'),",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:13:34.169Z"
+    },
+    {
+      "id": "bug-159",
+      "timestamp": "2026-05-12T14:13:42.720Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:13:42.720Z"
+    },
+    {
+      "id": "bug-160",
+      "timestamp": "2026-05-12T14:58:33.943Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "Had 'Extraé los datos de este remito de proveedor de m",
+      "fix": "Changed to 'Extraé los datos de este remito de proveedor de m",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:58:33.943Z"
+    },
+    {
+      "id": "bug-161",
+      "timestamp": "2026-05-12T14:58:44.622Z",
+      "error_message": "CSS fix: brand",
+      "file": "apps/frontend/src/components/vehicles/RemitoImportModal.tsx",
+      "root_cause": "brand: shared.brand, → item.brand || shared.brand,",
+      "fix": "Changed brand: shared.brand, → item.brand || shared.brand,",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T14:58:44.622Z"
+    },
+    {
+      "id": "bug-162",
+      "timestamp": "2026-05-12T15:05:38.574Z",
+      "error_message": "Missing await",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "Async call without await — returned Promise instead of value",
+      "fix": "Added await to async call",
+      "tags": [
+        "auto-detected",
+        "async-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:05:38.574Z"
+    },
+    {
+      "id": "bug-163",
+      "timestamp": "2026-05-12T15:05:48.004Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "Had 'Extraé los datos de este remito de proveedor de m",
+      "fix": "Changed to `Extraé los datos de este remito de proveedor de m",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:05:48.004Z"
+    },
+    {
+      "id": "bug-164",
+      "timestamp": "2026-05-12T15:12:57.746Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Had '../db'",
+      "fix": "Changed to '@anthropic-ai/sdk'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:12:57.746Z"
+    },
+    {
+      "id": "bug-165",
+      "timestamp": "2026-05-12T15:13:18.436Z",
+      "error_message": "Missing error handling in remove",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:13:18.436Z"
+    },
+    {
+      "id": "bug-166",
+      "timestamp": "2026-05-12T15:13:39.488Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/clients/clients.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:13:39.488Z"
+    },
+    {
+      "id": "bug-167",
+      "timestamp": "2026-05-12T15:13:58.542Z",
+      "error_message": "Missing error handling in ClientFormModal",
+      "file": "apps/frontend/src/components/clients/ClientFormModal.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:13:58.542Z"
+    },
+    {
+      "id": "bug-168",
+      "timestamp": "2026-05-12T15:14:09.918Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/clients/ClientFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:14:09.918Z"
+    },
+    {
+      "id": "bug-169",
+      "timestamp": "2026-05-12T15:19:36.976Z",
+      "error_message": "Missing error handling in parseTitulo",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:19:36.976Z"
+    },
+    {
+      "id": "bug-170",
+      "timestamp": "2026-05-12T15:19:49.034Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/vehicles/vehicles.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:19:49.034Z"
+    },
+    {
+      "id": "bug-171",
+      "timestamp": "2026-05-12T15:20:10.307Z",
+      "error_message": "Missing error handling in VehicleFormModal",
+      "file": "apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:20:10.307Z"
+    },
+    {
+      "id": "bug-172",
+      "timestamp": "2026-05-12T15:20:18.462Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:20:18.462Z"
+    },
+    {
+      "id": "bug-173",
+      "timestamp": "2026-05-12T15:20:37.996Z",
+      "error_message": "Missing error handling in parseComprobante",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:20:37.996Z"
+    },
+    {
+      "id": "bug-174",
+      "timestamp": "2026-05-12T15:20:47.470Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/clients/clients.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:20:47.470Z"
+    },
+    {
+      "id": "bug-175",
+      "timestamp": "2026-05-12T15:21:04.121Z",
+      "error_message": "Missing error handling in ClientPaymentFormModal",
+      "file": "apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:21:04.121Z"
+    },
+    {
+      "id": "bug-176",
+      "timestamp": "2026-05-12T15:21:15.631Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T15:21:15.631Z"
     }
   ]
 }

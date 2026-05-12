@@ -1,31 +1,65 @@
 # OpenWolf
-
 @.wolf/OPENWOLF.md
+Read .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
 
-This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
+---
 
+# SpeedMotors — Guía técnica Claude
 
-# SpeedMotors -- Guia tecnica Claude (Protocolo Caveman + RTK)
+## Stack
+- **Backend:** NestJS 11, Drizzle ORM, PostgreSQL (Docker) — puerto 5432 expuesto
+- **Frontend:** React 19, Vite, TanStack Query v5, React Router v7, jsPDF
+- **MCP:** PostgreSQL directo (`localhost:5432`) — usar antes de leer schema files
+- **Dominio:** Gestión de stock de motos y lanchas. Crespo, Entre Ríos.
 
-## Stack & Context
-- **Backend:** NestJS 11, Drizzle ORM, PostgreSQL (Docker).
-- **Frontend:** React 19, Vite, TanStack Query v5, React Router v7.
-- **Tooling:** rtk (Binary Compressor) + OpenWolf (Monitoring).
-- **Domain:** Gestion de stock de motos y lanchas.
+## Comandos rápidos
+```bash
+npm run dev:backend          # NestJS en :3000
+npm run dev:frontend         # Vite en :5173
+docker-compose up -d         # PostgreSQL
+# Aplicar migration:
+type apps\backend\drizzle\XXXX.sql | docker exec -i speedmotors-db psql -U speedmotors -d speedmotors
+```
 
 ## Token Discipline (OBLIGATORIO)
-1. **rtk Prefix:** Usar el binario `rtk` para CUALQUIER inspeccion.
-   - Ejemplos: `rtk ls`, `rtk cat [file]`, `rtk grep`, `rtk npm test`.
-2. **No Yapping:** Prohibido explicar el codigo o hacer intros/outros. Si funciona, no se habla.
-3. **Diffs Only:** Mostrar solo bloques de codigo modificados. Prohibido reescribir archivos completos.
-4. **Logic First:** Una sola linea de explicacion tecnica antes de cada bloque de codigo.
+- `rtk` prefix en TODO comando bash: `rtk ls`, `rtk cat`, `rtk grep`
+- MCP Postgres > leer schema files (preguntá a la DB directamente)
+- No reescribir archivos completos — solo diffs
+- No yapping: si funciona, no se explica
+- Una línea de lógica antes de cada bloque de código
 
-## Reglas de Codigo (Patrones del Proyecto)
-- **TypeScript:** Estricto, sin `any`.
-- **Drizzle:** Unica fuente de verdad en `apps/backend/src/db/schema.ts`. No usar SQL crudo.
-- **Mutations:** Usar siempre `useMutation` + `invalidateQueries` de TanStack Query para mantener el estado sincronizado.
-- **Styles:** Usar **inline styles** exclusivamente (patron existente). No agregar librerias de CSS externas.
-- **Idioma:** Responder en español rioplatense, terminos tecnicos en ingles.
+## Mapa de módulos
+| Módulo | Backend | Frontend |
+|---|---|---|
+| Ventas | `src/sales/` | `pages/SalesPage`, `components/sales/` |
+| Reservas | `src/reservations/` | `pages/ReservationsPage`, `components/reservations/` |
+| Vehículos | `src/vehicles/` | `pages/VehiclesPage`, `components/vehicles/` |
+| Productos | `src/products/` | `pages/ProductsPage`, `components/products/` |
+| Clientes | `src/clients/` | `pages/ClientsPage`, `components/clients/` |
+| Proveedores | `src/suppliers/` | `pages/SuppliersPage`, `components/suppliers/` |
+| Gastos | `src/expenses/` | `pages/ExpensesPage` |
+| Caja | `src/cash/` | `pages/CashPage` |
+| Alertas | `src/alerts/` | `pages/AlertsPage` |
+| PDFs | — | `src/lib/pdf/` (remito, receipt, reservation, invoice) |
 
-## Protocolo de Sesion
-Al iniciar, cargar: `CLAUDE.md`, `.claude/COMMON_MISTAKES.md`, `.claude/QUICK_START.md`, y `.claude/ARCHITECTURE_MAP.md`.
+## Fuentes de verdad
+- **Schema DB:** `apps/backend/src/db/schema.ts` (+ archivos `*.schema.ts` en `src/db/`)
+- **Migrations:** `apps/backend/drizzle/` — última: `0014_reservation_extra_fields.sql`
+- **Settings app:** `localStorage['speedmotors_settings']` → leído por `src/lib/pdf/helpers.ts`
+
+## Patrones de código
+- **TypeScript:** estricto, prohibido `any`
+- **Drizzle:** única fuente de verdad — no SQL crudo fuera de migrations
+- **State:** `useMutation` + `invalidateQueries` (TanStack Query)
+- **Styles:** inline styles exclusivamente — no agregar librerías CSS externas
+- **Formularios:** patrón `toForm()` → estado local `f` → `handleSubmit` serializa
+
+## Para agregar nuevo módulo
+1. Schema en `src/db/` + migration SQL
+2. Service + Controller + Module en `src/[modulo]/`
+3. Hook `use[Modulo].ts` en `src/hooks/`
+4. Page en `src/pages/` (orquestador liviano)
+5. Components en `src/components/[modulo]/`
+
+## Idioma
+Responder en español rioplatense. Términos técnicos en inglés.

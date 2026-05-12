@@ -12,6 +12,7 @@ export const vehicles = pgTable('vehicles', {
   chassisNumber: varchar('chassis_number', { length: 100 }).unique(),
   engineNumber: varchar('engine_number', { length: 100 }),
   importCode: varchar('import_code', { length: 100 }),
+  remitoNumber: varchar('remito_number', { length: 100 }),
   ingresoTipo: varchar('ingreso_tipo', { length: 10 }),
   costPrice: numeric('cost_price', { precision: 12, scale: 2 }).notNull().default('0'),
   sellPrice: numeric('sell_price', { precision: 12, scale: 2 }).notNull().default('0'),

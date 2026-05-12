@@ -1,6 +1,8 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, UseInterceptors, UploadedFile } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { memoryStorage } from 'multer'
 import { VehiclesService } from './vehicles.service'
-import { CreateVehicleDto, UpdateVehicleDto } from './vehicle.dto'
+import { CreateVehicleDto, UpdateVehicleDto, BulkCreateVehiclesDto } from './vehicle.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
 
@@ -34,6 +36,41 @@ export class VehiclesController {
   @UseGuards(AdminGuard)
   create(@Body() body: CreateVehicleDto) {
     return this.vehiclesService.create(body)
+  }
+
+  @Post('bulk')
+  @UseGuards(AdminGuard)
+  bulkCreate(@Body() body: BulkCreateVehiclesDto) {
+    return this.vehiclesService.bulkCreate(body.items)
+  }
+
+  @Post('parse-titulo')
+  @UseGuards(AdminGuard)
+  @UseInterceptors(FileInterceptor('file', {
+    storage: memoryStorage(),
+    fileFilter: (_, file, cb) => {
+      if (!file.mimetype.startsWith('image/')) return cb(new Error('Solo imágenes'), false)
+      cb(null, true)
+    },
+    limits: { fileSize: 5 * 1024 * 1024 },
+  }))
+  parseTitulo(@UploadedFile() file: Express.Multer.File) {
+    return this.vehiclesService.parseTitulo(file)
+  }
+
+  @Post('parse-remito')
+  @UseGuards(AdminGuard)
+  @UseInterceptors(FileInterceptor('file', {
+    storage: memoryStorage(),
+    fileFilter: (_, file, cb) => {
+      const allowed = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf']
+      if (!allowed.includes(file.mimetype)) return cb(new Error('Solo imágenes o PDF'), false)
+      cb(null, true)
+    },
+    limits: { fileSize: 10 * 1024 * 1024 },
+  }))
+  parseRemito(@UploadedFile() file: Express.Multer.File) {
+    return this.vehiclesService.parseRemito(file)
   }
 
   @Put(':id')

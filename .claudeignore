@@ -1,40 +1,66 @@
-# Completions y sessions
-.claude/completions/**
-.claude/sessions/**
-
-# Archivo historico
-docs/archive/**
-
-# Dependencias y builds
-node_modules/**
-dist/**
-build/**
-.next/**
+# === DEPENDENCIAS Y BUILDS ===
+node_modules/
+dist/
+build/
+.next/
 out/
-
-# Logs y temporales
-*.log
 .cache/
-.DS_Store
 
-# Locks y Env
+# === LOCKS ===
 package-lock.json
+*.lock
+
+# === ENV Y SECRETOS ===
 .env
 .env.*
 !.env.example
 
-# Multimedia (Motos/Lanchas)
+# === MIGRATIONS ANTIGUAS (fuente de verdad = schema.ts) ===
+apps/backend/drizzle/0001_*.sql
+apps/backend/drizzle/0002_*.sql
+apps/backend/drizzle/0003_*.sql
+apps/backend/drizzle/0004_*.sql
+apps/backend/drizzle/0005_*.sql
+apps/backend/drizzle/0006_*.sql
+apps/backend/drizzle/0007_*.sql
+apps/backend/drizzle/0008_*.sql
+apps/backend/drizzle/0009_*.sql
+apps/backend/drizzle/0010_*.sql
+apps/backend/drizzle/0011_*.sql
+apps/backend/drizzle/0012_*.sql
+apps/backend/drizzle/apply_purchase_orders.sql
+apps/backend/drizzle/meta/
+
+# === WOLF INTERNALS ===
+.wolf/hooks/
+.wolf/designqc-captures/
+.wolf/token-ledger.json
+
+# === DOCS HISTÓRICOS ===
+docs/archive/
+.claude/completions/
+.claude/sessions/
+
+# === MULTIMEDIA ===
 *.pdf
 *.png
 *.jpg
 *.jpeg
 *.svg
 *.webp
+*.ogg
+*.mp3
+*.mp4
 
-# Drizzle: Ignora metadatos generados, pero PERMITE migraciones .sql
-drizzle/meta/**
-drizzle/journal/**
+# === LOGS Y TEMPORALES ===
+*.log
+.DS_Store
+Thumbs.db
 
-# IDE
-.vscode/**
-.idea/**
+# === IDE ===
+.vscode/
+.idea/
+
+# === ARCHIVOS PESADOS DE BAJA FRECUENCIA ===
+AUDIT.md
+apps/frontend/src/assets/

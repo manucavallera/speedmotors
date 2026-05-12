@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsNumber, IsIn, IsArray, Min } from 'class-validator'
+import { IsString, IsOptional, IsNumber, IsIn, IsArray, ValidateNested } from 'class-validator'
 import { Type } from 'class-transformer'
 
 export class CreateVehicleDto {
@@ -16,6 +16,7 @@ export class CreateVehicleDto {
   @IsOptional() @IsString() chassisNumber?: string
   @IsOptional() @IsString() engineNumber?: string
   @IsOptional() @IsString() importCode?: string
+  @IsOptional() @IsString() remitoNumber?: string
   @IsOptional() @IsIn(['blanco', 'negro', 'mixto']) ingresoTipo?: string
 
   @IsString() costPrice: string
@@ -27,3 +28,10 @@ export class CreateVehicleDto {
 }
 
 export class UpdateVehicleDto extends CreateVehicleDto {}
+
+export class BulkCreateVehiclesDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateVehicleDto)
+  items: CreateVehicleDto[]
+}
