@@ -98,7 +98,7 @@ export function AppLayout() {
 
         {/* Content */}
         <main style={{ flex: 1, overflow: 'auto' }}>
-          <div style={{ padding: '20px 16px', maxWidth: '1200px' }}>
+          <div className="page-content" style={{ padding: '20px 16px', maxWidth: '1200px' }}>
             <Outlet />
           </div>
         </main>

@@ -32,7 +32,7 @@ export function ReservationsPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Solicitudes de Reserva</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} reservas{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
@@ -53,6 +53,7 @@ export function ReservationsPage() {
         ) : reservations.length === 0 ? (
           <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Sin reservas registradas</div>
         ) : (
+          <div className="table-wrap">
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
@@ -96,6 +97,7 @@ export function ReservationsPage() {
               })}
             </tbody>
           </table>
+          </div>
         )}
       </div>
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />

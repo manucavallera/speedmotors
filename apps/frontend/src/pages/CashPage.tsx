@@ -44,7 +44,7 @@ export function CashPage() {
 
   return (
     <div>
-      <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Caja</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Control de apertura y cierre de caja diaria</p>

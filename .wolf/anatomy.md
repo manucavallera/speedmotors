@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T15:21:15.598Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T16:40:51.351Z
 > Files: 296 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
@@ -316,7 +316,7 @@
 
 - `App.css` (~11 tok)
 - `App.tsx` — DashboardPage (~1492 tok)
-- `index.css` — Styles: 8 rules, 2 media queries, 1 animations (~412 tok)
+- `index.css` — Styles: 10 rules (~636 tok)
 - `main.tsx` (~66 tok)
 
 ## apps/frontend/src/components/
@@ -348,7 +348,7 @@
 
 ## apps/frontend/src/components/layout/
 
-- `AppLayout.tsx` — routeTitles — uses useState (~1269 tok)
+- `AppLayout.tsx` — routeTitles (~1276 tok)
 - `Sidebar.tsx` — groups (~2410 tok)
 
 ## apps/frontend/src/components/products/
@@ -383,7 +383,7 @@
 - `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3579 tok)
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~2460 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~1449 tok)
-- `SalesTable.tsx` — statusColors — renders table (~1247 tok)
+- `SalesTable.tsx` — statusColors — renders table (~1260 tok)
 - `SaleTotalsPanel.tsx` — fmt — renders table (~2456 tok)
 
 ## apps/frontend/src/components/suppliers/
@@ -400,7 +400,7 @@
 - `ErrorBoundary.tsx` — Exports ErrorBoundary (~368 tok)
 - `FormField.tsx` — FormField (~290 tok)
 - `InfoBanner.tsx` — InfoBanner (~166 tok)
-- `Modal.tsx` — Modal — uses useEffect (~445 tok)
+- `Modal.tsx` — Modal (~468 tok)
 - `Pagination.tsx` — Pagination (~305 tok)
 - `QRModal.tsx` — QRBlock — renders chart, modal — uses useState, useEffect (~1168 tok)
 - `QRScannerField.tsx` — inputStyle (~1055 tok)
@@ -452,25 +452,25 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~2651 tok)
-- `CashPage.tsx` — CashPage (~1017 tok)
-- `ClientsPage.tsx` — ClientsPage (~789 tok)
+- `AlertsPage.tsx` — SectionBox (~2628 tok)
+- `CashPage.tsx` — CashPage (~1010 tok)
+- `ClientsPage.tsx` — ClientsPage (~766 tok)
 - `DashboardPage.tsx` — KPICard (~3696 tok)
-- `ExpensesPage.tsx` — ExpensesPage (~1097 tok)
+- `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~1513 tok)
 - `LoginPage.tsx` — LoginPage — renders form — uses useNavigate, useState (~1825 tok)
-- `ProductsPage.tsx` — ProductsPage (~2360 tok)
-- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1414 tok)
-- `QuotesPage.tsx` — QuotesPage (~1495 tok)
+- `ProductsPage.tsx` — ProductsPage (~2335 tok)
+- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1390 tok)
+- `QuotesPage.tsx` — QuotesPage (~1472 tok)
 - `ReportsPage.tsx` — ReportsPage (~1020 tok)
-- `ReservationsPage.tsx` — statusColors — renders table (~1921 tok)
-- `SalesPage.tsx` — SalesPage (~1256 tok)
+- `ReservationsPage.tsx` — statusColors — renders table (~1914 tok)
+- `SalesPage.tsx` — SalesPage (~1230 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~837 tok)
-- `SuppliersPage.tsx` — SuppliersPage (~1098 tok)
-- `TransfersPage.tsx` — statusStyles (~2079 tok)
-- `UsersPage.tsx` — roleStyle — renders table (~1834 tok)
-- `VehiclesPage.tsx` — VehiclesPage (~1309 tok)
+- `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
+- `TransfersPage.tsx` — statusStyles (~2056 tok)
+- `UsersPage.tsx` — roleStyle — renders table (~1826 tok)
+- `VehiclesPage.tsx` — VehiclesPage (~1283 tok)
 
 ## apps/frontend/src/types/
 

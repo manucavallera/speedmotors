@@ -1219,3 +1219,26 @@
 | 15:21 | Edited apps/frontend/src/components/clients/ClientPaymentFormModal.tsx | added error handling | ~320 |
 | 15:21 | Edited apps/frontend/src/components/clients/ClientPaymentFormModal.tsx | added optional chaining | ~325 |
 | 15:22 | Session end: 23 writes across 8 files (vehicles.service.ts, RemitoImportModal.tsx, clients.service.ts, clients.controller.ts, ClientFormModal.tsx) | 11 reads | ~11237 tok |
+| 15:28 | Session end: 23 writes across 8 files (vehicles.service.ts, RemitoImportModal.tsx, clients.service.ts, clients.controller.ts, ClientFormModal.tsx) | 11 reads | ~11237 tok |
+| 16:38 | Edited apps/frontend/src/index.css | modified media() | ~516 |
+| 16:38 | Edited apps/frontend/src/components/ui/Modal.tsx | 29→31 lines | ~335 |
+| 16:38 | Edited apps/frontend/src/components/layout/AppLayout.tsx | 6→6 lines | ~65 |
+| 16:38 | Edited apps/frontend/src/pages/VehiclesPage.tsx | 12→12 lines | ~182 |
+| 16:39 | Edited apps/frontend/src/pages/AlertsPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/CashPage.tsx | "24px" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/ClientsPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/ExpensesPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/ProductsPage.tsx | 6→6 lines | ~115 |
+| 16:39 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/QuotesPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/ReservationsPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/SalesPage.tsx | 6→6 lines | ~102 |
+| 16:39 | Edited apps/frontend/src/pages/SuppliersPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/TransfersPage.tsx | "flex" → "page-header" | ~10 |
+| 16:39 | Edited apps/frontend/src/pages/UsersPage.tsx | "flex" → "page-header" | ~10 |
+| 16:40 | Edited apps/frontend/src/components/sales/SalesTable.tsx | 3→4 lines | ~36 |
+| 16:40 | Edited apps/frontend/src/components/sales/SalesTable.tsx | 4→5 lines | ~13 |
+| 16:40 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 7→8 lines | ~167 |
+| 16:40 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 4→5 lines | ~22 |
+| 16:40 | Edited apps/frontend/src/pages/UsersPage.tsx | 2→3 lines | ~64 |
+| 16:40 | Edited apps/frontend/src/pages/UsersPage.tsx | 3→4 lines | ~18 |

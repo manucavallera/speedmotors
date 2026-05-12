@@ -2816,6 +2816,198 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-12T15:21:15.631Z"
+    },
+    {
+      "id": "bug-177",
+      "timestamp": "2026-05-12T16:38:13.842Z",
+      "error_message": "CSS fix: gap, max-width, padding",
+      "file": "apps/frontend/src/index.css",
+      "root_cause": "gap: 14px → 8px; max-width: 768px) { → 100% !important; padding: 16px 12px !important → 0 !important",
+      "fix": "Changed gap: 14px → 8px; max-width: 768px) { → 100% !important; padding: 16px 12px !important → 0 !important",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "css"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:38:13.842Z"
+    },
+    {
+      "id": "bug-178",
+      "timestamp": "2026-05-12T16:38:27.362Z",
+      "error_message": "CSS fix: padding, fontSize",
+      "file": "apps/frontend/src/components/ui/Modal.tsx",
+      "root_cause": "padding: '24px' → '20px'; fontSize: '20px', color: '#94a3b8', lineHeight: 1, → '20px', color: '#94a3b8', lineHeight: 1, padding: '4px',",
+      "fix": "Changed padding: '24px' → '20px'; fontSize: '20px', color: '#94a3b8', lineHeight: 1, → '20px', color: '#94a3b8', lineHeight: 1, padding: '4px',",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:38:27.362Z"
+    },
+    {
+      "id": "bug-179",
+      "timestamp": "2026-05-12T16:39:19.263Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:19.263Z"
+    },
+    {
+      "id": "bug-180",
+      "timestamp": "2026-05-12T16:39:20.312Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/CashPage.tsx",
+      "root_cause": "Had '24px'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:20.312Z"
+    },
+    {
+      "id": "bug-181",
+      "timestamp": "2026-05-12T16:39:21.313Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ClientsPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:21.313Z"
+    },
+    {
+      "id": "bug-182",
+      "timestamp": "2026-05-12T16:39:22.068Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ExpensesPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:22.068Z"
+    },
+    {
+      "id": "bug-183",
+      "timestamp": "2026-05-12T16:39:27.293Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/PurchaseOrdersPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:27.293Z"
+    },
+    {
+      "id": "bug-184",
+      "timestamp": "2026-05-12T16:39:28.315Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/QuotesPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:28.315Z"
+    },
+    {
+      "id": "bug-185",
+      "timestamp": "2026-05-12T16:39:29.037Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ReservationsPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:29.037Z"
+    },
+    {
+      "id": "bug-186",
+      "timestamp": "2026-05-12T16:39:32.569Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/SuppliersPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:32.569Z"
+    },
+    {
+      "id": "bug-187",
+      "timestamp": "2026-05-12T16:39:33.837Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/TransfersPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-12T16:39:33.837Z"
+    },
+    {
+      "id": "bug-188",
+      "timestamp": "2026-05-12T16:39:34.447Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/UsersPage.tsx",
+      "root_cause": "Had 'flex'",
+      "fix": "Changed to \"page-header\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-12T16:40:43.953Z"
     }
   ]
 }

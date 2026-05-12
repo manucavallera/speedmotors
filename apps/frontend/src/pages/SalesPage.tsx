@@ -13,12 +13,12 @@ export function SalesPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Ventas</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} ventas registradas{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="page-header-actions">
           <button onClick={() => exportSalesCsv(filtered, clients)} style={{ ...btnSecondary, fontSize: '13px' }}>CSV</button>
           <button onClick={() => exportSalesPdf(filtered, clients)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF</button>
           <button onClick={() => setModal(true)} style={btnPrimary}>+ Nueva venta</button>

@@ -2,14 +2,14 @@
   "version": 1,
   "created_at": "2026-05-01T14:25:21.311Z",
   "lifetime": {
-    "total_tokens_estimated": 5447701,
-    "total_reads": 4372,
-    "total_writes": 6678,
+    "total_tokens_estimated": 5458938,
+    "total_reads": 4383,
+    "total_writes": 6701,
     "total_sessions": 33,
-    "anatomy_hits": 3670,
-    "anatomy_misses": 686,
-    "repeated_reads_blocked": 1472,
-    "estimated_savings_vs_bare_cli": 2436768
+    "anatomy_hits": 3679,
+    "anatomy_misses": 688,
+    "repeated_reads_blocked": 1476,
+    "estimated_savings_vs_bare_cli": 2442918
   },
   "sessions": [
     {
@@ -66239,6 +66239,204 @@
       "id": "session-2026-05-12-1119",
       "started": "2026-05-12T14:19:57.397Z",
       "ended": "2026-05-12T15:22:14.321Z",
+      "reads": [
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/meta/_journal.json",
+          "tokens_estimated": 590,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/0004_invoice_serial.sql",
+          "tokens_estimated": 128,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/0013_missing_columns.sql",
+          "tokens_estimated": 102,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/.env",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/.env",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 1264,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientFormModal.tsx",
+          "tokens_estimated": 927,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/clients.schema.ts",
+          "tokens_estimated": 195,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.service.ts",
+          "tokens_estimated": 1558,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.controller.ts",
+          "tokens_estimated": 617,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+          "tokens_estimated": 1120,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 84,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 132,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 57,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/RemitoImportModal.tsx",
+          "tokens_estimated": 99,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 205,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 138,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.service.ts",
+          "tokens_estimated": 44,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.service.ts",
+          "tokens_estimated": 406,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.controller.ts",
+          "tokens_estimated": 134,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.controller.ts",
+          "tokens_estimated": 122,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientFormModal.tsx",
+          "tokens_estimated": 121,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientFormModal.tsx",
+          "tokens_estimated": 340,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientFormModal.tsx",
+          "tokens_estimated": 376,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts",
+          "tokens_estimated": 394,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.controller.ts",
+          "tokens_estimated": 133,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+          "tokens_estimated": 90,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+          "tokens_estimated": 316,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+          "tokens_estimated": 311,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.service.ts",
+          "tokens_estimated": 404,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.controller.ts",
+          "tokens_estimated": 129,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+          "tokens_estimated": 56,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+          "tokens_estimated": 320,
+          "action": "edit"
+        },
+        {
+          "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientPaymentFormModal.tsx",
+          "tokens_estimated": 325,
+          "action": "edit"
+        }
+      ],
+      "totals": {
+        "input_tokens_estimated": 6501,
+        "output_tokens_estimated": 4736,
+        "reads_count": 11,
+        "writes_count": 23,
+        "repeated_reads_blocked": 4,
+        "anatomy_lookups": 9
+      }
+    },
+    {
+      "id": "session-2026-05-12-1119",
+      "started": "2026-05-12T14:19:57.397Z",
+      "ended": "2026-05-12T15:28:42.616Z",
       "reads": [
         {
           "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/meta/_journal.json",

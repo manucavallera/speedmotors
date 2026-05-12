@@ -27,6 +27,7 @@ export function SalesTable({ filtered, clients, isLoading, onView }: SalesTableP
   if (filtered.length === 0) return <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Sin resultados</div>
 
   return (
+    <div className="table-wrap">
     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
       <thead>
         <tr style={{ borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
@@ -75,5 +76,6 @@ export function SalesTable({ filtered, clients, isLoading, onView }: SalesTableP
         })}
       </tbody>
     </table>
+    </div>
   )
 }

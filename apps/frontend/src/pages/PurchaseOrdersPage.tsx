@@ -69,7 +69,7 @@ export function PurchaseOrdersPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Órdenes de compra</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{orders.length} órdenes</p>

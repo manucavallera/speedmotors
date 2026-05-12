@@ -26,12 +26,12 @@ export function ProductsPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Productos</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} productos{ingresoFilter ? ` · filtro: ${ingresoFilter}` : ''}{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="page-header-actions">
           <button onClick={() => exportProductsCsv(products)} style={{ ...btnSecondary, fontSize: '13px' }}>CSV</button>
           <button onClick={() => exportProductsPdf(products)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF stock</button>
           <button onClick={() => generatePriceList(products, [])} style={{ ...btnSecondary, fontSize: '13px' }}>Lista precios</button>
