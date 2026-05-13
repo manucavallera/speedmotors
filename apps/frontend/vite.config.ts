@@ -26,7 +26,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        navigateFallbackDenylist: [/^\/api\//],
+        navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/api/') &&
