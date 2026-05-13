@@ -151,7 +151,7 @@ export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: Pro
           </tbody>
         </table>
       )}
+      {lightbox && <PhotoLightbox photos={lightbox} onClose={() => setLightbox(null)} />}
     </div>
-    {lightbox && <PhotoLightbox photos={lightbox} onClose={() => setLightbox(null)} />}
   )
 }
