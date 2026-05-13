@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 import { SaleItemsEditor } from './SaleItemsEditor'
 import type { SaleItem } from './SaleItemsEditor'
 import { SaleTotalsPanel } from './SaleTotalsPanel'
@@ -97,10 +98,13 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         <div style={sec}>CLIENTE Y COMPROBANTE</div>
         <div className="form-grid-2">
           <FormField label="Cliente (opcional)">
-            <select style={inputStyle} value={clientId} onChange={e => setClientId(e.target.value)}>
-              <option value="">Sin cliente</option>
-              {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-            </select>
+            <SearchableSelect
+              value={clientId}
+              onChange={setClientId}
+              options={clients.map((c: any) => ({ value: String(c.id), label: c.name }))}
+              placeholder="Buscar cliente..."
+              emptyLabel="Sin cliente"
+            />
           </FormField>
           <FormField label="Tipo de comprobante">
             <select style={inputStyle} value={invoiceType} onChange={e => setInvoiceType(e.target.value as any)}>

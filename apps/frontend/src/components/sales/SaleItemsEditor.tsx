@@ -1,4 +1,5 @@
 import { inputStyle, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 import type { SaleItem } from '../../types/sales.types'
 export type { SaleItem }
 
@@ -20,9 +21,9 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
         {items.map((item, i) => (
           <div key={i} style={{ background: '#f8fafc', borderRadius: '10px', padding: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <select style={inputStyle} value={item.vehicleId ? `v:${item.vehicleId}` : item.productId ? `p:${item.productId}` : ''}
-                onChange={e => {
-                  const val = e.target.value
+              <SearchableSelect
+                value={item.vehicleId ? `v:${item.vehicleId}` : item.productId ? `p:${item.productId}` : ''}
+                onChange={val => {
                   if (!val) { onUpdate(i, 'vehicleId', undefined); onUpdate(i, 'productId', undefined); onUpdate(i, 'ingresoTipo', undefined); return }
                   if (val.startsWith('v:')) {
                     const v = vehicles.find((x: any) => x.id === Number(val.slice(2)))
@@ -31,15 +32,14 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
                     const p = products.find((x: any) => x.id === Number(val.slice(2)))
                     if (p) { onUpdate(i, 'productId', p.id); onUpdate(i, 'vehicleId', undefined); onUpdate(i, 'description', p.name); onUpdate(i, 'unitPrice', Number(p.sellPrice)); onUpdate(i, 'ingresoTipo', p.ingresoTipo || '') }
                   }
-                }}>
-                <option value="">— Libre / Servicio —</option>
-                {vehicles.length > 0 && <optgroup label="🏍️ Vehículos disponibles">
-                  {vehicles.map((v: any) => <option key={`v:${v.id}`} value={`v:${v.id}`}>{v.brand} {v.model} {v.year || ''} — ${Number(v.sellPrice).toLocaleString('es-AR')}</option>)}
-                </optgroup>}
-                {products.length > 0 && <optgroup label="📦 Productos">
-                  {products.map((p: any) => <option key={`p:${p.id}`} value={`p:${p.id}`}>{p.name} — ${Number(p.sellPrice).toLocaleString('es-AR')}</option>)}
-                </optgroup>}
-              </select>
+                }}
+                groups={[
+                  ...(vehicles.length > 0 ? [{ label: '🏍️ Vehículos disponibles', options: vehicles.map((v: any) => ({ value: `v:${v.id}`, label: `${v.brand} ${v.model} ${v.year || ''} — $${Number(v.sellPrice).toLocaleString('es-AR')}` })) }] : []),
+                  ...(products.length > 0 ? [{ label: '📦 Productos', options: products.map((p: any) => ({ value: `p:${p.id}`, label: `${p.name} — $${Number(p.sellPrice).toLocaleString('es-AR')}` })) }] : []),
+                ]}
+                placeholder="Buscar producto o vehículo..."
+                emptyLabel="— Libre / Servicio —"
+              />
               <input placeholder="Descripción" style={inputStyle} value={item.description} onChange={e => onUpdate(i, 'description', e.target.value)} required />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 36px', gap: '8px', alignItems: 'center' }}>
