@@ -122,7 +122,14 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
           {sorted.map((v: any) => {
             const st = statusColors[v.status] || statusColors.disponible
             return (
-              <div key={v.id} style={{ background: 'white', borderRadius: '14px', padding: '20px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
+              <div key={v.id} style={{ background: 'white', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
+                {v.photos?.[0] && (
+                  <img src={v.photos[0]} alt={`${v.brand} ${v.model}`}
+                    style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                  />
+                )}
+                <div style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '22px' }}>{v.type === 'moto' ? '🏍️' : '⛵'}</span>
@@ -167,6 +174,7 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                     style={{ flex: 1, padding: '7px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
                     Eliminar
                   </button>}
+                </div>
                 </div>
               </div>
             )
