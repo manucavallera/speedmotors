@@ -138,16 +138,17 @@ export function ReservationsPage() {
                       </span>
                     </td>
                     <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }} onClick={e => e.stopPropagation()}>
-                      <div style={{ display: 'flex', gap: '6px' }}>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                         {r.status === 'vigente' && (
                           <button onClick={() => openSaleFromReservation(r)}
-                            style={{ padding: '4px 10px', fontSize: '12px', background: '#f0fdf4', color: '#16a34a', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
-                            Registrar venta
+                            style={{ padding: '5px 12px', fontSize: '12px', fontWeight: 600, background: '#16a34a', color: 'white', border: 'none', borderRadius: '7px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                            💰 Venta
                           </button>
                         )}
                         <button onClick={() => { if (window.confirm('¿Eliminar esta reserva?')) remove.mutate(r.id) }}
-                          style={{ padding: '4px 10px', fontSize: '12px', background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
-                          ×
+                          title="Eliminar reserva"
+                          style={{ padding: '5px 9px', fontSize: '13px', background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: '7px', cursor: 'pointer', lineHeight: 1 }}>
+                          🗑
                         </button>
                       </div>
                     </td>
