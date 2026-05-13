@@ -4,6 +4,8 @@ interface Props {
   active: FilterType
   onChange: (f: FilterType) => void
   counts: { cuotas: number; recordatorios: number; reservas: number; ordenes: number }
+  search: string
+  onSearch: (v: string) => void
 }
 
 const filters: { key: FilterType; label: string }[] = [
@@ -14,9 +16,17 @@ const filters: { key: FilterType; label: string }[] = [
   { key: 'ordenes',       label: 'Órdenes de compra' },
 ]
 
-export function AlertFilters({ active, onChange, counts }: Props) {
+export function AlertFilters({ active, onChange, counts, search, onSearch }: Props) {
   return (
     <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
+        <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
+        <input
+          value={search} onChange={e => onSearch(e.target.value)}
+          placeholder="Nombre, cliente, título..."
+          style={{ padding: '7px 12px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '13px', outline: 'none', color: '#0f172a' }}
+        />
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>TIPO</span>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>

@@ -22,10 +22,11 @@ export function StockMovementsPage() {
   const total = movementsData?.total ?? 0
   const pages = movementsData?.pages ?? 1
 
-  const { data: products = [] } = useQuery({
+  const { data: productsData } = useQuery({
     queryKey: ['products'],
-    queryFn: () => api.get('/products').then(r => r.data?.items ?? r.data),
+    queryFn: () => api.get('/products').then(r => r.data),
   })
+  const products = productsData?.items ?? productsData ?? []
 
   const create = useMutation({
     mutationFn: (d: StockMovementFormData) => api.post('/stock-movements', d),

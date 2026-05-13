@@ -34,12 +34,17 @@ export function AlertsPage() {
   const [modal, setModal] = useState<'new' | 'edit' | false>(false)
   const [editing, setEditing] = useState<Reminder | null>(null)
   const [filter, setFilter] = useState<FilterType>('todos')
+  const [search, setSearch] = useState('')
 
   function openEdit(r: Reminder) { setEditing(r); setModal('edit') }
 
   if (isLoading || !data) return <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Cargando alertas...</div>
 
   const { summary: s, installments: inst, reservations: res, purchaseOrders: po, reminders: rem } = data
+
+  const q = search.toLowerCase()
+  const filt = <T extends { clientName?: string; title?: string; supplierName?: string; brand?: string; model?: string }>(arr: T[]) =>
+    q ? arr.filter(x => [x.clientName, x.title, x.supplierName, x.brand, x.model].some(v => v?.toLowerCase().includes(q))) : arr
 
   const show = (section: FilterType) => filter === 'todos' || filter === section
 
@@ -61,31 +66,31 @@ export function AlertsPage() {
       </InfoBanner>
 
       <AlertSummaryCards summary={s} />
-      <AlertFilters active={filter} onChange={setFilter} counts={{ cuotas: inst.overdue.length + inst.upcoming.length, recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
+      <AlertFilters active={filter} onChange={setFilter} search={search} onSearch={setSearch} counts={{ cuotas: inst.overdue.length + inst.upcoming.length, recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
 
-      {show('cuotas') && inst.overdue.length > 0 && (
+      {show('cuotas') && filt(inst.overdue).length > 0 && (
         <SectionBox border="#fecaca">
-          <SectionTitle label="Cuotas vencidas" count={inst.overdue.length} color="#dc2626" />
+          <SectionTitle label="Cuotas vencidas" count={filt(inst.overdue).length} color="#dc2626" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {inst.overdue.map(i => <AlertInstallmentCard key={i.id} item={i} variant="overdue" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
+            {filt(inst.overdue).map(i => <AlertInstallmentCard key={i.id} item={i} variant="overdue" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
           </div>
         </SectionBox>
       )}
 
-      {show('cuotas') && inst.upcoming.length > 0 && (
+      {show('cuotas') && filt(inst.upcoming).length > 0 && (
         <SectionBox border="#fde68a">
-          <SectionTitle label="Cuotas próximas (7 días)" count={inst.upcoming.length} color="#d97706" />
+          <SectionTitle label="Cuotas próximas (7 días)" count={filt(inst.upcoming).length} color="#d97706" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {inst.upcoming.map(i => <AlertInstallmentCard key={i.id} item={i} variant="upcoming" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
+            {filt(inst.upcoming).map(i => <AlertInstallmentCard key={i.id} item={i} variant="upcoming" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
           </div>
         </SectionBox>
       )}
 
-      {show('reservas') && res.length > 0 && (
+      {show('reservas') && filt(res).length > 0 && (
         <SectionBox border="#ddd6fe">
-          <SectionTitle label="Reservas vigentes +30 días" count={res.length} color="#7c3aed" />
+          <SectionTitle label="Reservas vigentes +30 días" count={filt(res).length} color="#7c3aed" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {res.map(r => (
+            {filt(res).map(r => (
               <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#faf5ff', borderRadius: '8px', border: '1px solid #ddd6fe' }}>
                 <div style={{ width: '36px', height: '36px', background: '#7c3aed', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', flexShrink: 0 }}>🏍️</div>
                 <div style={{ flex: 1 }}>
@@ -99,11 +104,11 @@ export function AlertsPage() {
         </SectionBox>
       )}
 
-      {show('ordenes') && po.length > 0 && (
+      {show('ordenes') && filt(po).length > 0 && (
         <SectionBox border="#bae6fd">
-          <SectionTitle label="Órdenes de compra pendientes" count={po.length} color="#0284c7" />
+          <SectionTitle label="Órdenes de compra pendientes" count={filt(po).length} color="#0284c7" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {po.map(o => (
+            {filt(po).map(o => (
               <div key={o.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#f0f9ff', borderRadius: '8px', border: '1px solid #bae6fd' }}>
                 <div style={{ width: '36px', height: '36px', background: '#0284c7', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '16px', flexShrink: 0 }}>📦</div>
                 <div style={{ flex: 1 }}>
@@ -117,29 +122,29 @@ export function AlertsPage() {
         </SectionBox>
       )}
 
-      {show('recordatorios') && rem.overdue.length > 0 && (
+      {show('recordatorios') && filt(rem.overdue).length > 0 && (
         <SectionBox border="#fecaca">
-          <SectionTitle label="Recordatorios vencidos" count={rem.overdue.length} color="#dc2626" />
+          <SectionTitle label="Recordatorios vencidos" count={filt(rem.overdue).length} color="#dc2626" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {rem.overdue.map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}
+            {filt(rem.overdue).map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}
           </div>
         </SectionBox>
       )}
 
-      {show('recordatorios') && rem.upcoming.length > 0 && (
+      {show('recordatorios') && filt(rem.upcoming).length > 0 && (
         <SectionBox border="#fde68a">
-          <SectionTitle label="Recordatorios próximos 7 días" count={rem.upcoming.length} color="#d97706" />
+          <SectionTitle label="Recordatorios próximos 7 días" count={filt(rem.upcoming).length} color="#d97706" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {rem.upcoming.map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}
+            {filt(rem.upcoming).map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}
           </div>
         </SectionBox>
       )}
 
       {show('recordatorios') && (
         <SectionBox border="#f1f5f9">
-          <SectionTitle label="Mis recordatorios" count={rem.pending.length} color="#475569" />
-          {rem.pending.length > 0
-            ? <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>{rem.pending.map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}</div>
+          <SectionTitle label="Mis recordatorios" count={filt(rem.pending).length} color="#475569" />
+          {filt(rem.pending).length > 0
+            ? <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>{filt(rem.pending).map(r => <AlertReminderCard key={r.id} item={r} onEdit={openEdit} onMarkDone={id => markDone.mutate(id)} onDelete={id => { if (window.confirm('¿Eliminar este recordatorio?')) remove.mutate(id) }} />)}</div>
             : <div style={{ textAlign: 'center', padding: '24px 0', color: '#94a3b8', fontSize: '13.5px' }}>Sin recordatorios pendientes.</div>
           }
         </SectionBox>

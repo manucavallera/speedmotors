@@ -11,6 +11,7 @@ import { CashMovementModal, type CashMovementData } from '../components/cash/Cas
 export function CashPage() {
   const qc = useQueryClient()
   const [movementModal, setMovementModal] = useState(false)
+  const [statusFilter, setStatusFilter] = useState<'todas' | 'abierta' | 'cerrada'>('todas')
 
   const { data: summary, isLoading } = useQuery({
     queryKey: ['cash-summary'],
@@ -67,7 +68,19 @@ export function CashPage() {
         isPendingClose={close.isPending}
       />
 
-      {sessions.length > 0 && <CashSessionsTable sessions={sessions} />}
+      {sessions.length > 0 && (
+        <>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '10px', flexWrap: 'wrap' }}>
+            {(['todas', 'abierta', 'cerrada'] as const).map(s => (
+              <button key={s} onClick={() => setStatusFilter(s)}
+                style={{ padding: '6px 16px', fontSize: '13px', fontWeight: 600, borderRadius: '20px', cursor: 'pointer', border: statusFilter === s ? '1.5px solid #2563eb' : '1.5px solid #e2e8f0', background: statusFilter === s ? '#eff6ff' : '#fff', color: statusFilter === s ? '#2563eb' : '#64748b' }}>
+                {s.charAt(0).toUpperCase() + s.slice(1)}
+              </button>
+            ))}
+          </div>
+          <CashSessionsTable sessions={statusFilter === 'todas' ? sessions : (sessions as any[]).filter((s: any) => s.status === statusFilter)} />
+        </>
+      )}
 
       {movementModal && summary?.session && (
         <CashMovementModal
