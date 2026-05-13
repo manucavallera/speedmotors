@@ -2,6 +2,35 @@ import { useState } from 'react'
 import { QRModal } from '../ui/QRModal'
 import { btnSecondary } from '../ui/FormField'
 
+function PhotoLightbox({ photos, onClose }: { photos: string[]; onClose: () => void }) {
+  const [idx, setIdx] = useState(0)
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: '16px', padding: '12px', maxWidth: '480px', width: '92%' }}>
+        <div style={{ position: 'relative' }}>
+          <img src={photos[idx]} alt="" style={{ width: '100%', height: '300px', objectFit: 'contain', borderRadius: '10px', background: '#f8fafc', display: 'block' }} />
+          {photos.length > 1 && <>
+            <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0}
+              style={{ position: 'absolute', left: '8px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', color: 'white', border: 'none', borderRadius: '50%', width: '34px', height: '34px', cursor: 'pointer', fontSize: '20px', opacity: idx === 0 ? 0.3 : 1 }}>‹</button>
+            <button onClick={() => setIdx(i => Math.min(photos.length - 1, i + 1))} disabled={idx === photos.length - 1}
+              style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', color: 'white', border: 'none', borderRadius: '50%', width: '34px', height: '34px', cursor: 'pointer', fontSize: '20px', opacity: idx === photos.length - 1 ? 0.3 : 1 }}>›</button>
+            <span style={{ position: 'absolute', bottom: '8px', right: '10px', background: 'rgba(0,0,0,0.5)', color: 'white', fontSize: '11px', padding: '2px 8px', borderRadius: '20px' }}>{idx + 1}/{photos.length}</span>
+          </>}
+        </div>
+        {photos.length > 1 && (
+          <div style={{ display: 'flex', gap: '6px', marginTop: '8px', overflowX: 'auto' }}>
+            {photos.map((url, i) => (
+              <img key={i} src={url} onClick={() => setIdx(i)} alt=""
+                style={{ width: '52px', height: '52px', objectFit: 'cover', borderRadius: '7px', cursor: 'pointer', border: i === idx ? '2px solid #2563eb' : '2px solid transparent', flexShrink: 0 }} />
+            ))}
+          </div>
+        )}
+        <button onClick={onClose} style={{ marginTop: '10px', width: '100%', padding: '8px', border: '1px solid #e2e8f0', borderRadius: '8px', background: 'white', cursor: 'pointer', fontSize: '13px', color: '#64748b' }}>Cerrar</button>
+      </div>
+    </div>
+  )
+}
+
 const statusColors: Record<string, { bg: string; color: string; label: string }> = {
   disponible: { bg: '#f0fdf4', color: '#16a34a', label: 'Disponible' },
   reservado:  { bg: '#fffbeb', color: '#d97706', label: 'Reservado' },
@@ -18,6 +47,7 @@ interface VehiclesGridProps {
 export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: VehiclesGridProps) {
   const [typeFilter, setTypeFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [lightbox, setLightbox] = useState<string[] | null>(null)
   const [priceSort, setPriceSort] = useState<'asc' | 'desc' | ''>('')
   const [ingresoFilter, setIngresoFilter] = useState<'blanco' | 'negro' | ''>('')
   const [qrVehicle, setQrVehicle] = useState<any>(null)
@@ -124,10 +154,17 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
             return (
               <div key={v.id} style={{ background: 'white', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
                 {v.photos?.[0] && (
-                  <img src={v.photos[0]} alt={`${v.brand} ${v.model}`}
-                    style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                  />
+                  <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setLightbox(v.photos)}>
+                    <img src={v.photos[0]} alt={`${v.brand} ${v.model}`}
+                      style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
+                      onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    />
+                    {v.photos.length > 1 && (
+                      <span style={{ position: 'absolute', bottom: '6px', right: '8px', background: 'rgba(0,0,0,0.55)', color: 'white', fontSize: '10px', fontWeight: 700, padding: '2px 8px', borderRadius: '20px' }}>
+                        📷 {v.photos.length}
+                      </span>
+                    )}
+                  </div>
                 )}
                 <div style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
@@ -181,6 +218,8 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
           })}
         </div>
       )}
+
+      {lightbox && <PhotoLightbox photos={lightbox} onClose={() => setLightbox(null)} />}
 
       {qrVehicle && (
         <QRModal

@@ -33,15 +33,8 @@ export default defineConfig({
             handler: 'NetworkOnly',
           },
           {
-            urlPattern: ({ url }) => url.pathname.startsWith('/api/') &&
-              !url.pathname.startsWith('/api/auth') &&
-              !url.pathname.startsWith('/api/reports'),
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              networkTimeoutSeconds: 10,
-              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 },
-            },
+            urlPattern: ({ url }) => url.pathname.startsWith('/api/'),
+            handler: 'NetworkOnly',
           },
         ],
       },
