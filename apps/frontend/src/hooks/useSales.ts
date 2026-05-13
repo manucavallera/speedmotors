@@ -40,13 +40,13 @@ export function useSales() {
 
   const { data: clientsData } = useQuery<PaginatedResponse<Client>>({
     queryKey: ['clients'],
-    queryFn: () => api.get('/clients').then(r => r.data),
+    queryFn: () => api.get('/clients', { params: { limit: 500 } }).then(r => r.data),
   })
   const clients = clientsData?.items ?? []
 
   const { data: productsData } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => api.get('/products').then(r => r.data),
+    queryKey: ['products', 'all'],
+    queryFn: () => api.get('/products', { params: { limit: 500 } }).then(r => r.data),
   })
   const products = productsData?.items ?? productsData ?? []
 
