@@ -24,7 +24,7 @@ export function StockMovementsPage() {
 
   const { data: products = [] } = useQuery({
     queryKey: ['products'],
-    queryFn: () => api.get('/products').then(r => r.data),
+    queryFn: () => api.get('/products').then(r => r.data?.items ?? r.data),
   })
 
   const create = useMutation({
