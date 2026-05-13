@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsNumber, IsBoolean, IsIn, Min } from 'class-validator'
+import { IsString, IsOptional, IsNumber, IsBoolean, IsIn, IsArray, Min } from 'class-validator'
 import { Type } from 'class-transformer'
 
 export class CreateProductDto {
@@ -15,6 +15,7 @@ export class CreateProductDto {
   @IsOptional() @IsNumber() @Min(0) @Type(() => Number) minStock?: number
   @IsOptional() @IsString() unit?: string
   @IsOptional() @IsString() photoUrl?: string
+  @IsOptional() @IsArray() @IsString({ each: true }) photos?: string[]
   @IsOptional() @IsString() serialNumber?: string
   @IsOptional() @IsIn(['blanco', 'negro', 'mixto']) ingresoTipo?: string
   @IsOptional() @IsBoolean() active?: boolean

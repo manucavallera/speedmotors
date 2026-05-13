@@ -1,5 +1,5 @@
 // @contract: Tablas categories (self-ref parentId), suppliers, products. products → categories + suppliers. Referenciada por saleItems, quoteItems, stockMovements, purchaseOrderItems.
-import { pgTable, serial, varchar, text, integer, numeric, boolean, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, serial, varchar, text, integer, numeric, boolean, timestamp, jsonb } from 'drizzle-orm/pg-core'
 
 export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
@@ -32,6 +32,7 @@ export const products = pgTable('products', {
   minStock: integer('min_stock').notNull().default(1),
   unit: varchar('unit', { length: 20 }).default('U'),
   photoUrl: text('photo_url'),
+  photos: jsonb('photos').$type<string[]>().notNull().default([]),
   serialNumber: varchar('serial_number', { length: 100 }),
   ingresoTipo: varchar('ingreso_tipo', { length: 10 }),
   active: boolean('active').notNull().default(true),

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
-import { PhotoUploadField } from './PhotoUploadField'
+import { PhotoCarouselField } from '../ui/PhotoCarouselField'
 import { QRScannerField } from '../ui/QRScannerField'
 import type { ProductForm } from '../../types/products.types'
 import { emptyProductForm } from '../../types/products.types'
@@ -20,7 +20,8 @@ function toForm(p: any): ProductForm {
     code: p.code, name: p.name, brand: p.brand || '',
     costPrice: p.costPrice, sellPrice: p.sellPrice,
     stock: String(p.stock), minStock: String(p.minStock), unit: p.unit || 'U',
-    photoUrl: p.photoUrl || '', serialNumber: p.serialNumber || '', ingresoTipo: p.ingresoTipo || '',
+    photoUrl: p.photoUrl || '', photos: p.photos || (p.photoUrl ? [p.photoUrl] : []),
+    serialNumber: p.serialNumber || '', ingresoTipo: p.ingresoTipo || '',
   }
 }
 
@@ -33,7 +34,8 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
       ...form,
       stock: Number(form.stock),
       minStock: Number(form.minStock),
-      photoUrl: form.photoUrl || null,
+      photoUrl: form.photos[0] || null,
+      photos: form.photos,
       serialNumber: form.serialNumber || null,
       ingresoTipo: form.ingresoTipo || undefined,
     })
@@ -102,8 +104,8 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
             </select>
           </FormField>
         </div>
-        <FormField label="Foto del producto">
-          <PhotoUploadField photoUrl={form.photoUrl} onChange={url => setForm(f => ({ ...f, photoUrl: url }))} />
+        <FormField label="Fotos del producto">
+          <PhotoCarouselField photos={form.photos} onChange={photos => setForm(f => ({ ...f, photos }))} />
         </FormField>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '4px' }}>
           <button type="button" onClick={onClose} style={btnSecondary}>Cancelar</button>

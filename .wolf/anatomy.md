@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-12T19:04:31.575Z
-> Files: 297 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-13T18:10:03.974Z
+> Files: 304 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -120,6 +120,9 @@
 - `0017_cash_unique_open_session.sql` — Garantiza que solo puede haber una caja abierta simultáneamente. (~68 tok)
 - `0018_fk_on_delete_policies.sql` — Declara políticas onDelete explícitas en todas las FKs. (~1304 tok)
 - `0019_remito_number.sql` (~21 tok)
+- `0020_sales_down_payment.sql` (~24 tok)
+- `0021_payment_methods_financing.sql` (~71 tok)
+- `0022_products_photos.sql` (~55 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -163,18 +166,18 @@
 ## apps/backend/src/clients/
 
 - `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~160 tok)
-- `clients.controller.ts` — Exports ClientsController (~857 tok)
+- `clients.controller.ts` — Exports ClientsController (~876 tok)
 - `clients.module.ts` — Exports ClientsModule (~83 tok)
-- `clients.service.ts` — Exports ClientsService (~2295 tok)
+- `clients.service.ts` — Exports ClientsService (~2649 tok)
 
 ## apps/backend/src/db/
 
 - `cash.schema.ts` — Exports cashSessions, cashMovements (~445 tok)
-- `catalog.schema.ts` — Exports categories, suppliers, products (~562 tok)
+- `catalog.schema.ts` — Exports categories, suppliers, products (~583 tok)
 - `client-payments.schema.ts` — Exports clientPayments (~261 tok)
 - `clients.schema.ts` — Exports clients (~195 tok)
 - `db.module.ts` — Exports DbModule (~56 tok)
-- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 16 more (~612 tok)
+- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 16 more (~617 tok)
 - `expenses.schema.ts` — Exports expenses (~231 tok)
 - `index.ts` — Exports db (~73 tok)
 - `orders.schema.ts` — Exports purchaseOrders, purchaseOrderItems (~484 tok)
@@ -183,7 +186,7 @@
 - `relations.ts` — Exports categoriesRelations, productsRelations, salesRelations, saleItemsRelations (~458 tok)
 - `reminders.schema.ts` — Exports reminders (~255 tok)
 - `reservations.schema.ts` — Exports reservations (~862 tok)
-- `sales.schema.ts` — Exports sales, saleItems, installments (~974 tok)
+- `sales.schema.ts` — Exports sales, saleItems, installments (~1038 tok)
 - `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~197 tok)
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
@@ -211,7 +214,7 @@
 
 ## apps/backend/src/products/
 
-- `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~286 tok)
+- `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~309 tok)
 - `products.controller.ts` — Exports ProductsController (~612 tok)
 - `products.module.ts` — Exports ProductsModule (~85 tok)
 - `products.service.ts` — Exports ProductsService (~1404 tok)
@@ -219,7 +222,7 @@
 ## apps/backend/src/purchase-orders/
 
 - `create-purchase-order.dto.ts` — Exports PurchaseOrderItemDto, CreatePurchaseOrderDto (~90 tok)
-- `purchase-order.dto.ts` — Exports PurchaseOrderItemDto, CreatePurchaseOrderDto, UpdatePurchaseOrderDto (~316 tok)
+- `purchase-order.dto.ts` — Exports PurchaseOrderItemDto, CreatePurchaseOrderDto, UpdatePurchaseOrderDto (~321 tok)
 - `purchase-orders.controller.ts` — Exports PurchaseOrdersController (~382 tok)
 - `purchase-orders.module.ts` — Exports PurchaseOrdersModule (~89 tok)
 - `purchase-orders.service.ts` — Exports PurchaseOrdersService (~1483 tok)
@@ -230,7 +233,7 @@
 - `quote.dto.ts` — Exports QuoteItemDto, CreateQuoteDto, UpdateQuoteDto (~234 tok)
 - `quotes.controller.ts` — Exports QuotesController (~447 tok)
 - `quotes.module.ts` — Exports QuotesModule (~100 tok)
-- `quotes.service.ts` — Exports QuotesService (~1298 tok)
+- `quotes.service.ts` — Exports QuotesService (~1416 tok)
 
 ## apps/backend/src/reports/
 
@@ -247,17 +250,17 @@
 
 ## apps/backend/src/sales/
 
-- `create-sale.dto.ts` — Exports SaleItemDto, CreateSaleDto (~366 tok)
-- `sales.controller.ts` — Exports SalesController (~560 tok)
+- `create-sale.dto.ts` — Exports SaleItemDto, CreateSaleDto (~430 tok)
+- `sales.controller.ts` — Exports SalesController (~654 tok)
 - `sales.module.ts` — Exports SalesModule (~78 tok)
 - `sales.service.spec.ts` — Tests de lógica de cálculo pura en SalesService (sin DB). (~2320 tok)
-- `sales.service.ts` — Exports SalesService (~3023 tok)
+- `sales.service.ts` — Exports SalesService (~3668 tok)
 
 ## apps/backend/src/stock-movements/
 
-- `stock-movements.controller.ts` — Exports StockMovementsController (~240 tok)
+- `stock-movements.controller.ts` — Exports StockMovementsController (~281 tok)
 - `stock-movements.module.ts` — Exports StockMovementsModule (~97 tok)
-- `stock-movements.service.ts` — Zustand store (~393 tok)
+- `stock-movements.service.ts` — Exports StockMovementsService (~520 tok)
 
 ## apps/backend/src/suppliers/
 
@@ -275,7 +278,7 @@
 
 ## apps/backend/src/upload/
 
-- `upload.controller.ts` — Exports UploadController (~600 tok)
+- `upload.controller.ts` — Exports UploadController (~389 tok)
 - `upload.module.ts` — Exports UploadModule (~49 tok)
 
 ## apps/backend/src/users/
@@ -304,19 +307,19 @@
 - `Dockerfile` — Docker container definition (~78 tok)
 - `eslint.config.js` — ESLint flat configuration (~176 tok)
 - `index.html` — frontend (~96 tok)
-- `nginx.conf` (~152 tok)
+- `nginx.conf` (~220 tok)
 - `package.json` — Node.js package manifest (~342 tok)
 - `README.md` — Project documentation (~607 tok)
 - `tsconfig.app.json` (~177 tok)
 - `tsconfig.json` — TypeScript configuration (~34 tok)
 - `tsconfig.node.json` (~169 tok)
-- `vite.config.ts` (~503 tok)
+- `vite.config.ts` (~537 tok)
 
 ## apps/frontend/src/
 
 - `App.css` (~11 tok)
 - `App.tsx` — DashboardPage (~1492 tok)
-- `index.css` — Styles: 13 rules (~753 tok)
+- `index.css` — Styles: 14 rules (~959 tok)
 - `main.tsx` (~66 tok)
 
 ## apps/frontend/src/components/
@@ -340,7 +343,7 @@
 - `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2536 tok)
 - `ClientFormModal.tsx` — toForm — renders form, modal (~1435 tok)
 - `ClientPaymentFormModal.tsx` — typeOptions — renders form, modal (~1622 tok)
-- `ClientsTable.tsx` — ClientsTable — renders table (~1377 tok)
+- `ClientsTable.tsx` — ClientsTable — renders table (~1601 tok)
 
 ## apps/frontend/src/components/dashboard/
 
@@ -357,7 +360,7 @@
 
 ## apps/frontend/src/components/products/
 
-- `ProductFormModal.tsx` — toForm — renders form, modal (~1702 tok)
+- `ProductFormModal.tsx` — toForm — renders form, modal (~1741 tok)
 - `ProductsTable.tsx` — HEADERS — renders table (~1760 tok)
 
 ## apps/frontend/src/components/purchase-orders/
@@ -368,7 +371,7 @@
 
 ## apps/frontend/src/components/quotes/
 
-- `QuotesTable.tsx` — statusColors — renders table (~1395 tok)
+- `QuotesTable.tsx` — statusConfig — renders table (~2276 tok)
 
 ## apps/frontend/src/components/reports/
 
@@ -380,15 +383,15 @@
 ## apps/frontend/src/components/reservations/
 
 - `ReservationDetailModal.tsx` — statusStyles — renders modal (~2024 tok)
-- `ReservationFormModal.tsx` — sectionStyle — renders form, modal (~4528 tok)
+- `ReservationFormModal.tsx` — sectionStyle — renders form, modal (~4817 tok)
 
 ## apps/frontend/src/components/sales/
 
 - `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3586 tok)
-- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~2460 tok)
+- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~3725 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~1449 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1260 tok)
-- `SaleTotalsPanel.tsx` — fmt — renders table (~2463 tok)
+- `SaleTotalsPanel.tsx` — fmt — renders table (~2593 tok)
 
 ## apps/frontend/src/components/suppliers/
 
@@ -406,6 +409,7 @@
 - `InfoBanner.tsx` — InfoBanner (~166 tok)
 - `Modal.tsx` — Modal (~468 tok)
 - `Pagination.tsx` — Pagination (~305 tok)
+- `PhotoCarouselField.tsx` — PhotoCarouselField (~1413 tok)
 - `QRModal.tsx` — QRBlock — renders chart, modal — uses useState, useEffect (~1168 tok)
 - `QRScannerField.tsx` — inputStyle (~1060 tok)
 - `Toaster.tsx` — BG (~504 tok)
@@ -418,18 +422,19 @@
 ## apps/frontend/src/components/vehicles/
 
 - `RemitoImportModal.tsx` — defaultShared — renders form, table, modal (~2788 tok)
-- `VehicleFormModal.tsx` — emptyForm — renders form, modal (~2172 tok)
-- `VehiclesGrid.tsx` — statusColors (~3050 tok)
+- `VehicleFormModal.tsx` — emptyForm — renders form, modal (~2181 tok)
+- `VehiclesGrid.tsx` — statusColors (~3170 tok)
 
 ## apps/frontend/src/hooks/
 
 - `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1137 tok)
 - `useAuth.ts` — Exports useAuth (~180 tok)
-- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~688 tok)
+- `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
+- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~732 tok)
 - `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1204 tok)
 - `useReports.ts` — API routes: GET (1 endpoints) (~236 tok)
 - `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~566 tok)
-- `useSales.ts` — API routes: GET, POST, PATCH (7 endpoints) (~986 tok)
+- `useSales.ts` — API routes: GET, POST, PATCH (7 endpoints) (~987 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
@@ -439,6 +444,7 @@
 - `export.ts` — Exports exportSalesCsv, exportSalesPdf, exportProductsCsv, exportProductsPdf (~1300 tok)
 - `pdf.ts` (~53 tok)
 - `toast.ts` — Exports toast (~124 tok)
+- `tokens.ts` — Exports tokens (~253 tok)
 
 ## apps/frontend/src/lib/pdf/
 
@@ -456,31 +462,31 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~2628 tok)
+- `AlertsPage.tsx` — SectionBox (~2782 tok)
 - `CashPage.tsx` — CashPage (~1010 tok)
-- `ClientsPage.tsx` — ClientsPage (~766 tok)
-- `DashboardPage.tsx` — KPICard (~3705 tok)
+- `ClientsPage.tsx` — ClientsPage (~1123 tok)
+- `DashboardPage.tsx` — KPICard (~3751 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `InstallmentsPage.tsx` — InstallmentsPage (~1534 tok)
+- `InstallmentsPage.tsx` — InstallmentsPage (~1817 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
-- `ProductsPage.tsx` — ProductsPage (~2703 tok)
-- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1390 tok)
+- `ProductsPage.tsx` — ProductsPage (~2730 tok)
+- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1961 tok)
 - `QuotesPage.tsx` — QuotesPage (~1472 tok)
-- `ReportsPage.tsx` — ReportsPage (~1020 tok)
-- `ReservationsPage.tsx` — statusColors — renders table (~1914 tok)
-- `SalesPage.tsx` — SalesPage (~1673 tok)
+- `ReportsPage.tsx` — ReportsPage (~1027 tok)
+- `ReservationsPage.tsx` — statusColors — renders table (~3075 tok)
+- `SalesPage.tsx` — SalesPage (~1669 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
-- `StockMovementsPage.tsx` — StockMovementsPage (~837 tok)
+- `StockMovementsPage.tsx` — StockMovementsPage (~938 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
-- `TransfersPage.tsx` — statusStyles (~2417 tok)
-- `UsersPage.tsx` — roleStyle — renders table (~1826 tok)
+- `TransfersPage.tsx` — statusStyles (~2815 tok)
+- `UsersPage.tsx` — roleStyle — renders table (~1938 tok)
 - `VehiclesPage.tsx` — VehiclesPage (~1283 tok)
 
 ## apps/frontend/src/types/
 
 - `api.types.ts` — Exports PaginatedResponse, Client, Product, Sale + 3 more (~690 tok)
 - `clients.types.ts` — Exports ClientForm, emptyClientForm, condicionIvaOptions, condicionIvaLabel + 2 more (~374 tok)
-- `products.types.ts` — Exports ProductForm, emptyProductForm (~147 tok)
+- `products.types.ts` — Exports ProductForm, emptyProductForm (~156 tok)
 - `reservations.types.ts` — Exports CreateReservationDto (~120 tok)
 - `sales.types.ts` — Exports SaleItem, CreateSaleData (~148 tok)
 
@@ -506,3 +512,4 @@
 
 - `backup.bat` (~150 tok)
 - `backup.sh` — Backup PostgreSQL via docker exec. Guardar en scripts/backups/ (~143 tok)
+- `gen-presupuesto.mjs` — doc: header, sectionTitle (~1856 tok)

@@ -1281,3 +1281,254 @@
 | 19:04 | Edited apps/frontend/src/pages/SalesPage.tsx | expanded (+19 lines) | ~870 |
 | 19:04 | Edited apps/frontend/src/pages/TransfersPage.tsx | expanded (+14 lines) | ~580 |
 | 19:04 | Edited apps/frontend/src/components/expenses/ExpensesTable.tsx | expanded (+19 lines) | ~706 |
+| 19:05 | Session end: 75 writes across 43 files (vehicles.service.ts, RemitoImportModal.tsx, clients.service.ts, clients.controller.ts, ClientFormModal.tsx) | 54 reads | ~90675 tok |
+| 19:09 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | inline fix | ~20 |
+| 19:09 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | 1→3 lines | ~39 |
+
+## Session: 2026-05-12 19:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:12 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | CSS: o | ~86 |
+| 19:12 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | expanded (+23 lines) | ~531 |
+| 19:12 | Session end: 2 writes across 1 files (PurchaseOrdersPage.tsx) | 0 reads | ~617 tok |
+| 19:13 | Session end: 2 writes across 1 files (PurchaseOrdersPage.tsx) | 0 reads | ~617 tok |
+| 19:15 | Session end: 2 writes across 1 files (PurchaseOrdersPage.tsx) | 0 reads | ~617 tok |
+| 19:21 | Edited apps/backend/src/clients/clients.service.ts | modified findAll() | ~628 |
+| 19:21 | Edited apps/backend/src/clients/clients.controller.ts | 8→9 lines | ~93 |
+| 19:22 | Edited apps/frontend/src/hooks/useClients.ts | modified handleSetSearch() | ~228 |
+| 19:22 | Edited apps/frontend/src/hooks/useClients.ts | 8→9 lines | ~78 |
+| 19:22 | Edited apps/frontend/src/pages/ClientsPage.tsx | 3→3 lines | ~50 |
+| 19:22 | Edited apps/frontend/src/pages/ClientsPage.tsx | 7→8 lines | ~69 |
+| 19:22 | Edited apps/frontend/src/pages/ClientsPage.tsx | expanded (+18 lines) | ~430 |
+| 19:25 | Edited apps/frontend/src/components/clients/ClientsTable.tsx | 3→3 lines | ~47 |
+| 19:25 | Edited apps/frontend/src/components/clients/ClientsTable.tsx | expanded (+12 lines) | ~273 |
+| 19:27 | Session end: 11 writes across 6 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~3279 tok |
+| 19:32 | Session end: 11 writes across 6 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~3279 tok |
+| 19:33 | Edited apps/backend/src/clients/clients.service.ts | 15→15 lines | ~158 |
+| 19:33 | Session end: 12 writes across 6 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~3437 tok |
+| 19:36 | Session end: 12 writes across 6 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~3437 tok |
+| 19:38 | Edited apps/backend/src/sales/sales.service.ts | added optional chaining | ~440 |
+| 19:45 | Edited apps/backend/src/sales/sales.controller.ts | expanded (+10 lines) | ~127 |
+| 19:46 | Edited apps/backend/src/sales/sales.service.ts | modified getPendingInstallments() | ~678 |
+| 19:46 | Created apps/frontend/src/pages/InstallmentsPage.tsx | — | ~1817 |
+| 19:47 | Session end: 16 writes across 9 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~6499 tok |
+| 19:51 | Session end: 16 writes across 9 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 1 reads | ~6499 tok |
+| 19:52 | Edited apps/backend/src/quotes/quotes.service.ts | 2→2 lines | ~30 |
+| 19:52 | Edited apps/backend/src/quotes/quotes.service.ts | modified select() | ~182 |
+| 19:54 | Created apps/frontend/src/components/quotes/QuotesTable.tsx | — | ~2276 |
+| 19:55 | Edited apps/backend/src/quotes/quotes.service.ts | 3→3 lines | ~58 |
+| 19:56 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 19:57 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 19:57 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 19:58 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:00 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:00 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:01 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:01 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:01 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:03 | Session end: 20 writes across 11 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 2 reads | ~10440 tok |
+| 20:04 | Edited apps/frontend/src/pages/TransfersPage.tsx | expanded (+19 lines) | ~959 |
+| 20:08 | Edited apps/frontend/src/pages/ReportsPage.tsx | 4→6 lines | ~85 |
+| 20:08 | Session end: 22 writes across 13 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 4 reads | ~14921 tok |
+| 20:09 | Edited apps/frontend/src/pages/ReservationsPage.tsx | inline fix | ~20 |
+| 20:09 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 3→5 lines | ~77 |
+| 20:09 | Edited apps/frontend/src/pages/ReservationsPage.tsx | CSS: r | ~95 |
+| 20:09 | Edited apps/frontend/src/pages/ReservationsPage.tsx | expanded (+19 lines) | ~504 |
+| 20:34 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 14→14 lines | ~212 |
+| 20:35 | Session end: 27 writes across 14 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 5 reads | ~17743 tok |
+| 20:35 | Session end: 27 writes across 14 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 5 reads | ~17743 tok |
+| 20:37 | Edited apps/frontend/src/pages/AlertsPage.tsx | added 1 import(s) | ~112 |
+| 20:37 | Edited apps/frontend/src/pages/AlertsPage.tsx | CSS: lugar | ~155 |
+| 20:38 | Edited apps/frontend/src/pages/TransfersPage.tsx | added 1 import(s) | ~41 |
+| 20:38 | Edited apps/frontend/src/pages/TransfersPage.tsx | CSS: estado | ~142 |
+| 20:38 | Edited apps/frontend/src/pages/UsersPage.tsx | added 1 import(s) | ~39 |
+| 20:38 | Edited apps/frontend/src/pages/UsersPage.tsx | 3→7 lines | ~132 |
+| 20:39 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | 7→7 lines | ~116 |
+| 20:39 | Session end: 34 writes across 17 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 6 reads | ~19317 tok |
+| 21:01 | Edited apps/backend/src/stock-movements/stock-movements.service.ts | inline fix | ~13 |
+| 21:01 | Edited apps/backend/src/stock-movements/stock-movements.service.ts | added optional chaining | ~160 |
+| 21:02 | Edited apps/backend/src/stock-movements/stock-movements.controller.ts | inline fix | ~31 |
+| 21:02 | Edited apps/backend/src/stock-movements/stock-movements.controller.ts | 1→3 lines | ~54 |
+| 21:02 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | added nullish coalescing | ~560 |
+| 21:02 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | 1→2 lines | ~49 |
+| 21:04 | Session end: 40 writes across 19 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 7 reads | ~20424 tok |
+| 21:07 | Session end: 40 writes across 19 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 7 reads | ~20424 tok |
+| 21:09 | Created scripts/gen-presupuesto.mjs | — | ~1544 |
+| 21:12 | Session end: 41 writes across 20 files (PurchaseOrdersPage.tsx, clients.service.ts, clients.controller.ts, useClients.ts, ClientsPage.tsx) | 7 reads | ~22078 tok |
+| 21:15 | Created scripts/gen-presupuesto.mjs | — | ~1865 |
+
+## Session: 2026-05-12 21:18
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 21:28 | Edited scripts/gen-presupuesto.mjs | 2→2 lines | ~34 |
+| 21:28 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:41 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:41 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:42 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:42 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:42 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:43 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:43 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:43 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:44 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:44 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:45 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:45 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:46 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:46 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:46 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 21:58 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 22:00 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 22:01 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 22:01 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 22:02 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 0 reads | ~37 tok |
+| 22:03 | Session end: 1 writes across 1 files (gen-presupuesto.mjs) | 1 reads | ~1486 tok |
+| 22:04 | Edited apps/frontend/src/hooks/useSales.ts | added optional chaining | ~56 |
+| 22:04 | Session end: 2 writes across 2 files (gen-presupuesto.mjs, useSales.ts) | 2 reads | ~2528 tok |
+| 22:07 | Created apps/backend/drizzle/0020_sales_down_payment.sql | — | ~24 |
+| 22:07 | Edited apps/backend/src/db/sales.schema.ts | 1→2 lines | ~33 |
+| 22:07 | Edited apps/backend/src/sales/create-sale.dto.ts | 5→10 lines | ~36 |
+| 22:07 | Edited apps/backend/src/sales/sales.service.ts | modified if() | ~268 |
+| 22:08 | Edited apps/backend/src/sales/sales.service.ts | 7→8 lines | ~94 |
+| 22:08 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 8→9 lines | ~69 |
+| 22:08 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added optional chaining | ~362 |
+| 22:08 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 11→13 lines | ~204 |
+| 22:08 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: downPayment, downPaymentAmt | ~111 |
+| 22:08 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 17→22 lines | ~378 |
+| 22:09 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | modified SaleTotalsPanel() | ~124 |
+| 22:09 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | modified annuity() | ~115 |
+| 22:09 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | CSS: toFinance | ~257 |
+| 22:09 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | modified toFixed() | ~290 |
+| 22:10 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: downPaymentAmt | ~144 |
+| 22:10 | Edited apps/frontend/src/pages/ReservationsPage.tsx | added 2 import(s) | ~190 |
+| 22:10 | Edited apps/frontend/src/pages/ReservationsPage.tsx | modified openEdit() | ~578 |
+| 22:11 | Edited apps/frontend/src/pages/ReservationsPage.tsx | CSS: whiteSpace, display, gap | ~297 |
+| 22:11 | Edited apps/frontend/src/pages/ReservationsPage.tsx | expanded (+12 lines) | ~108 |
+| 22:11 | Session end: 21 writes across 9 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 8 reads | ~18604 tok |
+| 22:12 | Created apps/backend/drizzle/0021_payment_methods_financing.sql | — | ~71 |
+| 22:12 | Edited apps/backend/src/db/enums.ts | inline fix | ~36 |
+| 22:12 | Edited apps/backend/src/db/sales.schema.ts | 2→4 lines | ~70 |
+| 22:12 | Edited apps/backend/src/sales/create-sale.dto.ts | expanded (+8 lines) | ~67 |
+| 22:12 | Edited apps/backend/src/sales/create-sale.dto.ts | 2→2 lines | ~47 |
+| 22:12 | Edited apps/backend/src/sales/sales.service.ts | added nullish coalescing | ~140 |
+| 22:13 | Edited apps/backend/src/sales/sales.service.ts | modified if() | ~161 |
+| 22:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified useState() | ~201 |
+| 22:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: DEFAULT_RATES, interest | ~227 |
+| 22:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified Number() | ~161 |
+| 22:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 16→18 lines | ~280 |
+| 22:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+32 lines) | ~1196 |
+| 22:14 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | inline fix | ~20 |
+| 22:14 | Session end: 34 writes across 11 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 9 reads | ~21944 tok |
+| 22:15 | Session end: 34 writes across 11 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 9 reads | ~21944 tok |
+| 22:17 | Session end: 34 writes across 11 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 9 reads | ~21944 tok |
+| 22:19 | Session end: 34 writes across 11 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 9 reads | ~21944 tok |
+| 22:19 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | reduced (-14 lines) | ~382 |
+| 22:20 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+20 lines) | ~305 |
+| 22:20 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 1→2 lines | ~18 |
+| 22:20 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | added optional chaining | ~91 |
+| 22:20 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | expanded (+6 lines) | ~239 |
+| 22:20 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | expanded (+8 lines) | ~432 |
+| 22:20 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 22:54 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 22:54 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 23:21 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 23:39 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 23:40 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+| 23:40 | Session end: 40 writes across 12 files (gen-presupuesto.mjs, useSales.ts, 0020_sales_down_payment.sql, sales.schema.ts, create-sale.dto.ts) | 10 reads | ~29122 tok |
+
+## Session: 2026-05-13 15:01
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:16 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | added optional chaining | ~22 |
+| 15:16 | Session end: 1 writes across 1 files (StockMovementsPage.tsx) | 2 reads | ~956 tok |
+| 15:20 | Session end: 1 writes across 1 files (StockMovementsPage.tsx) | 2 reads | ~956 tok |
+| 15:29 | Edited apps/frontend/src/pages/DashboardPage.tsx | "44px" → "52px" | ~62 |
+| 15:30 | Session end: 2 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 4 reads | ~4723 tok |
+| 15:31 | Session end: 2 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 4 reads | ~4723 tok |
+| 15:33 | Edited apps/frontend/src/pages/DashboardPage.tsx | "52px" → "44px" | ~62 |
+| 15:33 | Session end: 3 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 4 reads | ~4785 tok |
+| 15:48 | Session end: 3 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 5 reads | ~4785 tok |
+| 15:50 | Edited apps/frontend/src/pages/DashboardPage.tsx | 10→10 lines | ~286 |
+| 15:50 | Session end: 4 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 5 reads | ~5071 tok |
+| 15:57 | Session end: 4 writes across 2 files (StockMovementsPage.tsx, DashboardPage.tsx) | 5 reads | ~5071 tok |
+| 15:59 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: ingresoTipo | ~70 |
+| 15:59 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | CSS: photoUrl, ingresoTipo | ~68 |
+| 15:59 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 8 reads | ~9415 tok |
+| 16:04 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 43 reads | ~58162 tok |
+| 16:05 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 44 reads | ~59422 tok |
+| 16:07 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 44 reads | ~59422 tok |
+| 16:09 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 44 reads | ~59422 tok |
+| 16:09 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 44 reads | ~59422 tok |
+| 16:11 | Session end: 6 writes across 4 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx) | 44 reads | ~59422 tok |
+| 16:14 | Created apps/frontend/src/hooks/useBreakpoint.ts | — | ~253 |
+| 16:14 | Created apps/frontend/src/lib/tokens.ts | — | ~253 |
+| 16:14 | Edited apps/frontend/src/index.css | modified media() | ~257 |
+| 16:14 | Edited apps/frontend/src/pages/DashboardPage.tsx | added 1 import(s) | ~90 |
+| 16:14 | Edited apps/frontend/src/pages/DashboardPage.tsx | "22px" → "kpi-value" | ~59 |
+| 16:15 | Edited apps/frontend/src/pages/DashboardPage.tsx | modified DashboardPage() | ~56 |
+| 16:15 | Edited apps/frontend/src/pages/DashboardPage.tsx | 2→2 lines | ~60 |
+| 16:15 | Edited apps/frontend/src/pages/SalesPage.tsx | 36→32 lines | ~866 |
+| 16:16 | Edited apps/frontend/src/pages/TransfersPage.tsx | CSS: minWidth, flex | ~255 |
+| 16:17 | Edited apps/frontend/src/pages/ProductsPage.tsx | "white" → "filter-bar" | ~68 |
+| 16:17 | Edited apps/frontend/src/pages/ProductsPage.tsx | "1px" → "filter-sep" | ~31 |
+| 16:17 | Edited apps/frontend/src/pages/ReservationsPage.tsx | "white" → "filter-bar" | ~68 |
+| 16:17 | Edited apps/frontend/src/pages/ReservationsPage.tsx | "1px" → "filter-sep" | ~31 |
+| 16:17 | Edited apps/frontend/src/pages/ClientsPage.tsx | "white" → "filter-bar" | ~68 |
+| 16:17 | Edited apps/frontend/src/pages/ClientsPage.tsx | "1px" → "filter-sep" | ~31 |
+| 16:18 | Session end: 21 writes across 12 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 49 reads | ~69105 tok |
+| 16:23 | Edited apps/frontend/nginx.conf | expanded (+7 lines) | ~58 |
+| 16:23 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:23 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:24 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:25 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:27 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:27 | Session end: 22 writes across 13 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 51 reads | ~69919 tok |
+| 16:30 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | added optional chaining | ~115 |
+| 16:31 | Edited apps/backend/src/purchase-orders/purchase-order.dto.ts | inline fix | ~21 |
+| 16:31 | Session end: 24 writes across 15 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 67 reads | ~85827 tok |
+| 16:35 | Session end: 24 writes across 15 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 67 reads | ~85827 tok |
+| 16:37 | Session end: 24 writes across 15 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 67 reads | ~85827 tok |
+| 16:38 | Edited apps/frontend/vite.config.ts | inline fix | ~18 |
+| 16:38 | Session end: 25 writes across 16 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 68 reads | ~86348 tok |
+| 16:41 | Edited apps/frontend/nginx.conf | 6→6 lines | ~68 |
+| 16:42 | Session end: 26 writes across 16 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 68 reads | ~86421 tok |
+| 16:42 | Edited apps/frontend/vite.config.ts | 4→8 lines | ~79 |
+| 16:43 | Session end: 27 writes across 16 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 68 reads | ~86500 tok |
+| 16:48 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | added optional chaining | ~251 |
+| 16:48 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | 6→7 lines | ~119 |
+| 16:49 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 16:49 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 16:49 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 16:50 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 16:52 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 16:54 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 17:37 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 17:37 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 17:38 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 17:59 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:02 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:03 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:03 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:04 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:05 | Session end: 29 writes across 17 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 69 reads | ~89920 tok |
+| 18:07 | Created apps/backend/src/upload/upload.controller.ts | — | ~389 |
+| 18:07 | Created apps/backend/drizzle/0022_products_photos.sql | — | ~55 |
+| 18:07 | Edited apps/backend/src/db/catalog.schema.ts | 1→2 lines | ~28 |
+| 18:07 | Edited apps/backend/src/db/catalog.schema.ts | inline fix | ~33 |
+| 18:08 | Edited apps/backend/src/products/product.dto.ts | inline fix | ~28 |
+| 18:08 | Edited apps/backend/src/products/product.dto.ts | 1→2 lines | ~34 |
+| 18:08 | Created apps/frontend/src/components/ui/PhotoCarouselField.tsx | — | ~1413 |
+| 18:08 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | "../products/PhotoUploadFi" → "../ui/PhotoCarouselField" | ~18 |
+| 18:09 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | CSS: photos | ~69 |
+| 18:09 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | inline fix | ~8 |
+| 18:09 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | modified onSubmit() | ~39 |
+| 18:09 | Edited apps/frontend/src/components/vehicles/VehicleFormModal.tsx | set() → setForm() | ~46 |
+| 18:09 | Edited apps/frontend/src/types/products.types.ts | 2→3 lines | ~18 |
+| 18:09 | Edited apps/frontend/src/types/products.types.ts | inline fix | ~29 |
+| 18:09 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | "./PhotoUploadField" → "../ui/PhotoCarouselField" | ~18 |
+| 18:09 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: photos | ~46 |
+| 18:09 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: photos | ~47 |
+| 18:10 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | 3→3 lines | ~50 |

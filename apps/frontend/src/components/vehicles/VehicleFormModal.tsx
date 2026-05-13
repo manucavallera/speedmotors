@@ -2,13 +2,13 @@ import { useState, useRef } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import { QRScannerField } from '../ui/QRScannerField'
-import { PhotoUploadField } from '../products/PhotoUploadField'
+import { PhotoCarouselField } from '../ui/PhotoCarouselField'
 import { api } from '../../lib/api'
 
 const emptyForm = {
   type: 'moto', brand: '', model: '', year: '', color: '',
   chassisNumber: '', engineNumber: '', importCode: '', ingresoTipo: '',
-  costPrice: '', sellPrice: '', status: 'disponible', notes: '', photoUrl: '',
+  costPrice: '', sellPrice: '', status: 'disponible', notes: '', photos: [] as string[],
 }
 
 export interface VehicleFormData {
@@ -32,7 +32,7 @@ function toForm(v: any) {
     engineNumber: v.engineNumber || '', importCode: v.importCode || '',
     ingresoTipo: v.ingresoTipo || '', costPrice: v.costPrice, sellPrice: v.sellPrice,
     status: v.status, notes: v.notes || '',
-    photoUrl: v.photos?.[0] || '',
+    photos: v.photos || [],
   }
 }
 
@@ -72,11 +72,9 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const { photoUrl: _photoUrl, ...rest } = form
     onSubmit({
-      ...rest,
+      ...form,
       year: form.year ? Number(form.year) : null,
-      photos: form.photoUrl ? [form.photoUrl] : [],
       ingresoTipo: form.ingresoTipo || undefined,
     })
   }
@@ -150,8 +148,8 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
           <FormField label="Precio venta ($)"><input style={inputStyle} type="number" value={form.sellPrice} onChange={f('sellPrice')} required /></FormField>
         </div>
 
-        <FormField label="Foto del vehículo">
-          <PhotoUploadField photoUrl={form.photoUrl} onChange={set('photoUrl')} />
+        <FormField label="Fotos del vehículo">
+          <PhotoCarouselField photos={form.photos} onChange={photos => setForm((p: any) => ({ ...p, photos }))} />
         </FormField>
 
         <FormField label="Notas">
