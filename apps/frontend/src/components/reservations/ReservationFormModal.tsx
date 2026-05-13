@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 
 interface ReservationFormModalProps {
   mode: 'new' | 'edit'
@@ -138,10 +139,13 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
         {/* COMPRADOR */}
         <div style={sectionStyle}>DATOS DEL COMPRADOR</div>
         <FormField label="Cliente (vincular existente)">
-          <select style={inputStyle} value={f.clientId} onChange={e => fillFromClient(e.target.value)}>
-            <option value="">Sin vincular / ingreso manual</option>
-            {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
+          <SearchableSelect
+            value={f.clientId}
+            onChange={fillFromClient}
+            options={clients.map((c: any) => ({ value: String(c.id), label: c.name }))}
+            placeholder="Buscar cliente..."
+            emptyLabel="Sin vincular / ingreso manual"
+          />
         </FormField>
         <div className="form-grid-2">
           <FormField label="Apellido y Nombre *">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 
 interface Item { description: string; quantity: number; unitPrice: number }
 
@@ -53,10 +54,13 @@ export function QuoteFormModal({ mode, editing, clients, onClose, onSubmit, isPe
     <Modal title={mode === 'edit' ? 'Editar presupuesto' : 'Nuevo presupuesto'} onClose={onClose} width={600}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <FormField label="Cliente (opcional)">
-          <select style={inputStyle} value={clientId} onChange={e => setClientId(e.target.value)}>
-            <option value="">Sin cliente</option>
-            {clients.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
+          <SearchableSelect
+            value={clientId}
+            onChange={setClientId}
+            options={clients.map((c: any) => ({ value: String(c.id), label: c.name }))}
+            placeholder="Buscar cliente..."
+            emptyLabel="Sin cliente"
+          />
         </FormField>
         <div>
           <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Ítems</div>

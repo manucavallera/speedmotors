@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 
 interface OrderItem { description: string; productId: string; quantity: string; unitPrice: string }
 
@@ -78,10 +79,13 @@ export function PurchaseOrderFormModal({ mode, editing, suppliers, products, onC
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <div className="form-grid-2">
           <FormField label="Proveedor">
-            <select style={inputStyle} value={supplierId} onChange={e => setSupplierId(e.target.value)}>
-              <option value="">Sin proveedor asignado</option>
-              {suppliers.map((s: any) => <option key={s.id} value={s.id}>{s.name}</option>)}
-            </select>
+            <SearchableSelect
+              value={supplierId}
+              onChange={setSupplierId}
+              options={suppliers.map((s: any) => ({ value: String(s.id), label: s.name }))}
+              placeholder="Buscar proveedor..."
+              emptyLabel="Sin proveedor asignado"
+            />
           </FormField>
           <FormField label="Fecha esperada de entrega">
             <input style={inputStyle} type="date" value={expectedDate} onChange={e => setExpectedDate(e.target.value)} />
@@ -94,11 +98,15 @@ export function PurchaseOrderFormModal({ mode, editing, suppliers, products, onC
             {items.map((item, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 70px 100px 30px', gap: '8px', alignItems: 'center', minWidth: '360px' }}>
                 <div>
-                  <select style={{ ...inputStyle, marginBottom: '4px' }} value={item.productId}
-                    onChange={e => updateItem(i, 'productId', e.target.value)}>
-                    <option value="">Descripción libre</option>
-                    {products.map((p: any) => <option key={p.id} value={p.id}>{p.name}</option>)}
-                  </select>
+                  <div style={{ marginBottom: '4px' }}>
+                    <SearchableSelect
+                      value={item.productId}
+                      onChange={val => updateItem(i, 'productId', val)}
+                      options={products.map((p: any) => ({ value: String(p.id), label: p.name }))}
+                      placeholder="Buscar producto..."
+                      emptyLabel="Descripción libre"
+                    />
+                  </div>
                   {!item.productId && (
                     <input placeholder="Descripción del ítem" style={inputStyle} value={item.description}
                       onChange={e => updateItem(i, 'description', e.target.value)} required />

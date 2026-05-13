@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 
 export interface StockMovementFormData {
   productId: number
@@ -26,10 +27,13 @@ export function StockMovementFormModal({ products, onClose, onSubmit, isPending 
       <form onSubmit={e => { e.preventDefault(); onSubmit({ ...form, productId: Number(form.productId), quantity: Number(form.quantity) }) }}
         style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <FormField label="Producto">
-          <select style={inputStyle} value={form.productId} onChange={f('productId')} required>
-            <option value="">Seleccioná un producto</option>
-            {products.map((p: any) => <option key={p.id} value={p.id}>{p.name} (stock: {p.stock})</option>)}
-          </select>
+          <SearchableSelect
+            value={form.productId}
+            onChange={val => setForm(prev => ({ ...prev, productId: val }))}
+            options={products.map((p: any) => ({ value: String(p.id), label: `${p.name} (stock: ${p.stock})` }))}
+            placeholder="Buscar producto..."
+            emptyLabel="Seleccioná un producto"
+          />
         </FormField>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
           <FormField label="Tipo">
