@@ -4,6 +4,26 @@ import { StockBadge, GainBadge } from './ProductBadges'
 
 const HEADERS = ['', 'Código', 'Nombre', 'Marca', 'Costo', 'Precio venta', 'Ganancia', 'Stock', '']
 
+function RowCarousel({ photos, onExpand }: { photos: string[]; onExpand: () => void }) {
+  const [idx, setIdx] = useState(0)
+  const prev = (e: React.MouseEvent) => { e.stopPropagation(); setIdx(i => Math.max(0, i - 1)) }
+  const next = (e: React.MouseEvent) => { e.stopPropagation(); setIdx(i => Math.min(photos.length - 1, i + 1)) }
+  return (
+    <div style={{ position: 'relative', width: '52px', height: '52px', cursor: 'zoom-in', flexShrink: 0 }} onClick={e => { e.stopPropagation(); onExpand() }}>
+      <img src={photos[idx]} alt="" style={{ width: '52px', height: '52px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'block' }}
+        onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
+      {photos.length > 1 && (
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'space-between', padding: '0 2px 2px' }}>
+          <button onClick={prev} disabled={idx === 0}
+            style={{ background: 'rgba(0,0,0,0.55)', color: 'white', border: 'none', borderRadius: '4px', width: '16px', height: '14px', cursor: 'pointer', fontSize: '11px', padding: 0, lineHeight: 1, opacity: idx === 0 ? 0.3 : 1 }}>‹</button>
+          <button onClick={next} disabled={idx === photos.length - 1}
+            style={{ background: 'rgba(0,0,0,0.55)', color: 'white', border: 'none', borderRadius: '4px', width: '16px', height: '14px', cursor: 'pointer', fontSize: '11px', padding: 0, lineHeight: 1, opacity: idx === photos.length - 1 ? 0.3 : 1 }}>›</button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function PhotoLightbox({ photos, onClose }: { photos: string[]; onClose: () => void }) {
   const [idx, setIdx] = useState(0)
   return (
@@ -81,27 +101,13 @@ export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: Pro
                 onMouseEnter={e => (e.currentTarget.style.background = '#f8fafc')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               >
-                <td style={{ padding: '8px 8px 8px 16px', width: '52px' }}>
+                <td style={{ padding: '8px 8px 8px 16px', width: '60px' }}>
                   {(() => {
                     const photos: string[] = p.photos?.length ? p.photos : p.photoUrl ? [p.photoUrl] : []
-                    const thumb = photos[0]
-                    return thumb ? (
-                      <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}
-                        onClick={e => { e.stopPropagation(); setLightbox(photos) }}>
-                        <img src={thumb} alt={p.name}
-                          style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #e2e8f0', display: 'block' }}
-                          onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        />
-                        {photos.length > 1 && (
-                          <span style={{ position: 'absolute', bottom: '-4px', right: '-4px', background: '#2563eb', color: 'white', fontSize: '9px', fontWeight: 700, padding: '1px 4px', borderRadius: '10px', lineHeight: 1.4 }}>
-                            {photos.length}
-                          </span>
-                        )}
-                      </div>
+                    return photos.length ? (
+                      <RowCarousel photos={photos} onExpand={() => setLightbox(photos)} />
                     ) : (
-                      <div style={{ width: '44px', height: '44px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>
-                        📦
-                      </div>
+                      <div style={{ width: '52px', height: '52px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>📦</div>
                     )
                   })()}
                 </td>
