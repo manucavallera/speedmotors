@@ -6,7 +6,7 @@ export class PurchaseOrderItemDto {
   @IsString() description: string
   @IsNumber() @Min(1) @Type(() => Number) quantity: number
   @IsNumber() @Min(0) @Type(() => Number) unitPrice: number
-  @IsNumber() @Min(0) @Type(() => Number) subtotal: number
+  @IsOptional() @IsNumber() @Min(0) @Type(() => Number) subtotal?: number
 }
 
 export class CreatePurchaseOrderDto {

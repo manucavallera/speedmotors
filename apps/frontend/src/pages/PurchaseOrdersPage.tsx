@@ -33,15 +33,17 @@ export function PurchaseOrdersPage() {
     (!search || o.supplier?.name?.toLowerCase().includes(search.toLowerCase()))
   )
 
-  const { data: suppliers = [] } = useQuery({
+  const { data: suppliersData } = useQuery({
     queryKey: ['suppliers'],
     queryFn: () => api.get('/suppliers').then(r => r.data),
   })
+  const suppliers = suppliersData?.items ?? suppliersData ?? []
 
-  const { data: products = [] } = useQuery({
+  const { data: productsData } = useQuery({
     queryKey: ['products'],
     queryFn: () => api.get('/products').then(r => r.data),
   })
+  const products = productsData?.items ?? productsData ?? []
 
   const create = useMutation({
     mutationFn: (data: PurchaseOrderFormData) => api.post('/purchase-orders', data),
