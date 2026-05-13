@@ -8,13 +8,13 @@ function KPICard({ label, value, sub, icon, gradient, positive }: {
   label: string; value: string; sub?: string; icon: string; gradient: string; positive?: boolean
 }) {
   return (
-    <div style={{ background: 'white', borderRadius: '14px', padding: '20px 24px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
-      <div style={{ flex: 1, minWidth: 0 }}>
+    <div style={{ background: 'white', borderRadius: '14px', padding: '20px 24px 20px 24px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', position: 'relative' }}>
+      <div style={{ paddingRight: '56px' }}>
         <p style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>{label}</p>
-        <p style={{ fontSize: '24px', fontWeight: 700, color: positive === false ? '#dc2626' : positive ? '#16a34a' : '#0f172a', lineHeight: 1.2 }}>{value}</p>
+        <p style={{ fontSize: '22px', fontWeight: 700, color: positive === false ? '#dc2626' : positive ? '#16a34a' : '#0f172a', lineHeight: 1.2, wordBreak: 'break-word' }}>{value}</p>
         {sub && <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>{sub}</p>}
       </div>
-      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', flexShrink: 0, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+      <div style={{ position: 'absolute', top: '20px', right: '20px', width: '40px', height: '40px', borderRadius: '12px', background: gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
         {icon}
       </div>
     </div>
