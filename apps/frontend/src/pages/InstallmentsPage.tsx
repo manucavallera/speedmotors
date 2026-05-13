@@ -98,7 +98,7 @@ export function InstallmentsPage() {
 
       {isLoading ? (
         <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Cargando...</div>
-      ) : filtered.length === 0 ? (
+      ) : items.length === 0 ? (
         <div style={{ padding: '48px', textAlign: 'center', background: 'white', borderRadius: '14px', color: '#94a3b8', fontSize: '14px' }}>
           <div style={{ fontSize: '32px', marginBottom: '8px' }}>✅</div>
           No hay cuotas pendientes
