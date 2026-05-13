@@ -29,6 +29,10 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/api\//, /^\/uploads\//],
         runtimeCaching: [
           {
+            urlPattern: /^\/uploads\//,
+            handler: 'NetworkOnly',
+          },
+          {
             urlPattern: ({ url }) => url.pathname.startsWith('/api/') &&
               !url.pathname.startsWith('/api/auth') &&
               !url.pathname.startsWith('/api/reports'),
