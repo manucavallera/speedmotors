@@ -35,6 +35,7 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
       minStock: Number(form.minStock),
       photoUrl: form.photoUrl || null,
       serialNumber: form.serialNumber || null,
+      ingresoTipo: form.ingresoTipo || undefined,
     })
   }
 

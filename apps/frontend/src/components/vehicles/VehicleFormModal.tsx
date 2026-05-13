@@ -72,10 +72,12 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    const { photoUrl: _photoUrl, ...rest } = form
     onSubmit({
-      ...form,
+      ...rest,
       year: form.year ? Number(form.year) : null,
       photos: form.photoUrl ? [form.photoUrl] : [],
+      ingresoTipo: form.ingresoTipo || undefined,
     })
   }
 
