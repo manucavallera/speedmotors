@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { db } from '../db'
 import { purchaseOrders, purchaseOrderItems, products, suppliers } from '../db/schema'
 import { eq, desc, sql } from 'drizzle-orm'
@@ -102,11 +102,15 @@ export class PurchaseOrdersService {
   }
 
   async updateStatus(id: number, status: string) {
+    const [current] = await db.select({ status: purchaseOrders.status }).from(purchaseOrders).where(eq(purchaseOrders.id, id))
+    if (!current) throw new NotFoundException(`Orden ${id} no encontrada`)
+    if (status === 'recibida' && current.status === 'recibida')
+      throw new ConflictException('La orden ya fue recibida — no se puede recibir dos veces')
+
     const [order] = await db.update(purchaseOrders)
       .set({ status: status as 'borrador' | 'enviada' | 'recibida' | 'cancelada', receivedAt: status === 'recibida' ? new Date() : null })
       .where(eq(purchaseOrders.id, id))
       .returning()
-    if (!order) throw new NotFoundException(`Orden ${id} no encontrada`)
 
     if (status === 'recibida') {
       const items = await db.select().from(purchaseOrderItems).where(eq(purchaseOrderItems.orderId, id))

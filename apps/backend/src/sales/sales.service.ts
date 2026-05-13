@@ -231,7 +231,7 @@ export class SalesService {
     return updated
   }
 
-  async getPendingInstallments(params: { page?: number; limit?: number; clientId?: number; overdue?: boolean } = {}) {
+  async getPendingInstallments(params: { page?: number; limit?: number; clientId?: number; overdue?: boolean; search?: string } = {}) {
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 50)
     const offset = (page - 1) * limit
@@ -241,6 +241,7 @@ export class SalesService {
 
     const baseConditions = [eq(installments.status, 'pendiente')]
     if (params.clientId) baseConditions.push(eq(sales.clientId, params.clientId))
+    if (params.search) baseConditions.push(ilike(clients.name, `%${params.search}%`))
     const baseWhere = baseConditions.length === 1 ? baseConditions[0] : and(...baseConditions)
 
     const overdueWhere = and(baseWhere, sql`${installments.dueDate} < ${today}`)
@@ -267,11 +268,11 @@ export class SalesService {
       .limit(limit)
       .offset(offset),
       db.select({ count: sql<number>`count(*)::int` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(filterWhere),
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(filterWhere),
       db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(overdueWhere),
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(overdueWhere),
       db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).where(upcomingWhere),
+      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(upcomingWhere),
     ])
 
     const total = countResult[0]?.count ?? 0

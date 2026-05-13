@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Requ
 import { TransfersService } from './transfers.service'
 import { CreateTransferDto } from './create-transfer.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { AdminGuard } from '../auth/roles.guard'
 
 @UseGuards(JwtAuthGuard)
 @Controller('transfers')
@@ -20,10 +21,12 @@ export class TransfersController {
   }
 
   @Put(':id')
+  @UseGuards(AdminGuard)
   update(@Param('id') id: string, @Body() dto: Partial<CreateTransferDto>) {
     return this.svc.update(Number(id), dto)
   }
 
   @Delete(':id')
+  @UseGuards(AdminGuard)
   remove(@Param('id') id: string) { return this.svc.remove(Number(id)) }
 }

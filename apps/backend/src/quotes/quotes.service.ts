@@ -74,8 +74,13 @@ export class QuotesService {
     return quote
   }
 
-  async convertToSale(id: number, userId: number, paymentMethod: string, type: string, installmentCount: number) {
+  async convertToSale(id: number, userId: number, opts: {
+    paymentMethod: string; type: string; installmentCount: number
+    financingCurrency?: string; downPaymentMethod?: string; downPayment?: number
+    interestRate?: number; firstInstallmentDate?: string
+  }) {
     const quote = await this.findOne(id)
+    const { paymentMethod, type, installmentCount, financingCurrency, downPaymentMethod, downPayment, interestRate, firstInstallmentDate } = opts
 
     const sale = await this.salesService.create({
       clientId: quote.clientId ?? undefined,
@@ -84,6 +89,11 @@ export class QuotesService {
       paymentMethod: paymentMethod as 'efectivo' | 'transferencia' | 'tarjeta' | 'mixto',
       discount: Number(quote.discount),
       installmentCount: type === 'cuotas' ? installmentCount : undefined,
+      financingCurrency: financingCurrency as 'pesos' | 'usd' | undefined,
+      downPaymentMethod: downPaymentMethod || undefined,
+      downPayment: downPayment || undefined,
+      interestRate: interestRate || undefined,
+      firstInstallmentDate: firstInstallmentDate || undefined,
       notes: `Convertido desde presupuesto #${id}`,
       items: quote.items.map((i: any) => ({
         productId: i.productId ?? undefined,

@@ -1,5 +1,5 @@
 import { toast } from '../lib/toast'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { inputStyle } from '../components/ui/FormField'
@@ -13,10 +13,12 @@ export function InstallmentsPage() {
   const [clientSearch, setClientSearch] = useState('')
   const [overdueOnly, setOverdueOnly] = useState(false)
 
+  useEffect(() => { setPage(1) }, [clientSearch, overdueOnly])
+
   const { data, isLoading } = useQuery({
-    queryKey: ['installments-pending', { page, overdueOnly }],
+    queryKey: ['installments-pending', { page, overdueOnly, clientSearch }],
     queryFn: () => api.get('/sales/installments/pending', {
-      params: { page, limit: 50, overdue: overdueOnly || undefined },
+      params: { page, limit: 50, overdue: overdueOnly || undefined, search: clientSearch || undefined },
     }).then(r => r.data),
     placeholderData: (prev: any) => prev,
   })
@@ -38,12 +40,8 @@ export function InstallmentsPage() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
-  const filtered = clientSearch
-    ? items.filter(i => i.clientName?.toLowerCase().includes(clientSearch.toLowerCase()))
-    : items
-
-  const overdue = filtered.filter(i => new Date(i.dueDate) < today)
-  const upcoming = filtered.filter(i => new Date(i.dueDate) >= today)
+  const overdue = items.filter(i => new Date(i.dueDate) < today)
+  const upcoming = items.filter(i => new Date(i.dueDate) >= today)
 
   function handleOverdueToggle(val: boolean) { setOverdueOnly(val); setPage(1) }
 

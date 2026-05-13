@@ -28,7 +28,16 @@ export class QuotesController {
 
   @Post(':id/convert')
   convertToSale(@Param('id', ParseIntPipe) id: number, @Body() body: any, @Request() req: any) {
-    return this.quotesService.convertToSale(id, req.user.id, body.paymentMethod || 'efectivo', body.type || 'contado', body.installmentCount || 1)
+    return this.quotesService.convertToSale(id, req.user.id, {
+      paymentMethod: body.paymentMethod || 'efectivo',
+      type: body.type || 'contado',
+      installmentCount: body.installmentCount || 1,
+      financingCurrency: body.financingCurrency,
+      downPaymentMethod: body.downPaymentMethod,
+      downPayment: body.downPayment,
+      interestRate: body.interestRate,
+      firstInstallmentDate: body.firstInstallmentDate,
+    })
   }
 
   @Delete(':id') remove(@Param('id', ParseIntPipe) id: number) { return this.quotesService.remove(id) }

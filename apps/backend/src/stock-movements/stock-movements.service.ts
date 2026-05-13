@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { stockMovements, products } from '../db/schema'
 import { eq, desc, sql } from 'drizzle-orm'
@@ -26,6 +26,10 @@ export class StockMovementsService {
     if (!product) throw new NotFoundException(`Producto ${productId} no encontrado`)
 
     const previousStock = product.stock
+    if (type === 'salida' && quantity > previousStock)
+      throw new BadRequestException(`Stock insuficiente: disponible ${previousStock}, solicitado ${quantity}`)
+    if (type === 'ajuste' && quantity < 0)
+      throw new BadRequestException('El ajuste no puede resultar en stock negativo')
     const newStock = type === 'entrada' ? previousStock + quantity
       : type === 'salida' ? previousStock - quantity
       : quantity

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuard
 import { ReservationsService } from './reservations.service'
 import { CreateReservationDto } from './create-reservation.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
+import { AdminGuard } from '../auth/roles.guard'
 
 @UseGuards(JwtAuthGuard)
 @Controller('reservations')
@@ -9,7 +10,10 @@ export class ReservationsController {
   constructor(private readonly svc: ReservationsService) {}
 
   @Get()
-  findAll(@Query('page') page?: string, @Query('limit') limit?: string) { return this.svc.findAll({ page: page ? +page : undefined, limit: limit ? +limit : undefined }) }
+  findAll(
+    @Query('page') page?: string, @Query('limit') limit?: string,
+    @Query('search') search?: string, @Query('status') status?: string,
+  ) { return this.svc.findAll({ page: page ? +page : undefined, limit: limit ? +limit : undefined, search: search || undefined, status: status || undefined }) }
 
   @Get(':id')
   findOne(@Param('id') id: string) { return this.svc.findOne(Number(id)) }
@@ -20,6 +24,7 @@ export class ReservationsController {
   }
 
   @Put(':id')
+  @UseGuards(AdminGuard)
   update(@Param('id') id: string, @Body() dto: CreateReservationDto) {
     return this.svc.update(Number(id), dto)
   }
@@ -30,5 +35,6 @@ export class ReservationsController {
   }
 
   @Delete(':id')
+  @UseGuards(AdminGuard)
   remove(@Param('id') id: string) { return this.svc.remove(Number(id)) }
 }

@@ -1,19 +1,29 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { reservations, vehicles } from '../db/schema'
-import { eq, desc, sql, and, inArray } from 'drizzle-orm'
+import { eq, desc, sql, and, inArray, ilike, or } from 'drizzle-orm'
 import { CreateReservationDto } from './create-reservation.dto'
 
 @Injectable()
 export class ReservationsService {
-  async findAll(params: { page?: number; limit?: number } = {}) {
+  async findAll(params: { page?: number; limit?: number; search?: string; status?: string } = {}) {
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
+    const conditions = []
+    if (params.search) {
+      conditions.push(or(
+        ilike(reservations.clientName, `%${params.search}%`),
+        ilike(reservations.reservationNumber, `%${params.search}%`),
+      ))
+    }
+    if (params.status) conditions.push(eq(reservations.status, params.status as any))
+    const where = conditions.length ? and(...conditions) : undefined
+
     const [items, countResult] = await Promise.all([
-      db.select().from(reservations).orderBy(desc(reservations.createdAt)).limit(limit).offset(offset),
-      db.select({ count: sql<number>`count(*)::int` }).from(reservations),
+      db.select().from(reservations).where(where).orderBy(desc(reservations.createdAt)).limit(limit).offset(offset),
+      db.select({ count: sql<number>`count(*)::int` }).from(reservations).where(where),
     ])
     const total = countResult[0]?.count ?? 0
     return { items, total, page, limit, pages: Math.ceil(total / limit) }

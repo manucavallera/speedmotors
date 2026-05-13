@@ -1,18 +1,19 @@
 import { toast } from '../lib/toast'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
 import { type Reservation, type PaginatedResponse } from '../types/api.types'
 import { type CreateReservationDto } from '../types/reservations.types'
 
-export function useReservations() {
+export function useReservations(filters: { search?: string; status?: string } = {}) {
   const qc = useQueryClient()
   const [page, setPage] = useState(1)
+  useEffect(() => { setPage(1) }, [filters.search, filters.status])
   const invalidate = () => qc.invalidateQueries({ queryKey: ['reservations'] })
 
   const listQuery = useQuery<PaginatedResponse<Reservation>>({
-    queryKey: ['reservations', page],
-    queryFn: () => api.get('/reservations', { params: { page, limit: 50 } }).then(r => r.data),
+    queryKey: ['reservations', page, filters.search, filters.status],
+    queryFn: () => api.get('/reservations', { params: { page, limit: 50, search: filters.search || undefined, status: filters.status || undefined } }).then(r => r.data),
     placeholderData: prev => prev,
   })
   const reservations = listQuery.data?.items ?? []

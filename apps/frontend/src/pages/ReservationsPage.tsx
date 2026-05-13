@@ -25,12 +25,8 @@ export function ReservationsPage() {
   const [search, setSearch] = useState('')
   const [saleModal, setSaleModal] = useState<{ clientId?: number; vehicleId?: number; downPayment?: number } | null>(null)
 
-  const { list, total, page, pages, setPage, create, update, changeStatus, remove } = useReservations()
-  const reservations = list.data?.items ?? []
-  const filtered = reservations.filter((r: any) =>
-    (!statusFilter || r.status === statusFilter) &&
-    (!search || r.clientName?.toLowerCase().includes(search.toLowerCase()))
-  )
+  const { list, total, page, pages, setPage, create, update, changeStatus, remove } = useReservations({ search, status: statusFilter })
+  const filtered = list.data?.items ?? []
 
   const { data: clientsData } = useQuery({
     queryKey: ['clients'],

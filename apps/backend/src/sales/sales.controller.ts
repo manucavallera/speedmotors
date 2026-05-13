@@ -37,12 +37,14 @@ export class SalesController {
     @Query('limit') limit?: string,
     @Query('clientId') clientId?: string,
     @Query('overdue') overdue?: string,
+    @Query('search') search?: string,
   ) {
     return this.salesService.getPendingInstallments({
       page: page ? +page : undefined,
       limit: limit ? +limit : undefined,
       clientId: clientId ? +clientId : undefined,
       overdue: overdue === 'true',
+      search: search || undefined,
     })
   }
 
