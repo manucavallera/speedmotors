@@ -1,7 +1,37 @@
+import { useState } from 'react'
 import { btnSecondary } from '../ui/FormField'
 import { StockBadge, GainBadge } from './ProductBadges'
 
 const HEADERS = ['', 'Código', 'Nombre', 'Marca', 'Costo', 'Precio venta', 'Ganancia', 'Stock', '']
+
+function PhotoLightbox({ photos, onClose }: { photos: string[]; onClose: () => void }) {
+  const [idx, setIdx] = useState(0)
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: '14px', padding: '12px', maxWidth: '420px', width: '90%' }}>
+        <div style={{ position: 'relative' }}>
+          <img src={photos[idx]} alt="" style={{ width: '100%', height: '280px', objectFit: 'contain', borderRadius: '8px', background: '#f8fafc' }} />
+          {photos.length > 1 && <>
+            <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0}
+              style={{ position: 'absolute', left: '8px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', fontSize: '18px', opacity: idx === 0 ? 0.3 : 1 }}>‹</button>
+            <button onClick={() => setIdx(i => Math.min(photos.length - 1, i + 1))} disabled={idx === photos.length - 1}
+              style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', fontSize: '18px', opacity: idx === photos.length - 1 ? 0.3 : 1 }}>›</button>
+            <span style={{ position: 'absolute', bottom: '8px', right: '10px', background: 'rgba(0,0,0,0.5)', color: 'white', fontSize: '11px', padding: '2px 8px', borderRadius: '20px' }}>{idx + 1}/{photos.length}</span>
+          </>}
+        </div>
+        {photos.length > 1 && (
+          <div style={{ display: 'flex', gap: '6px', marginTop: '8px', overflowX: 'auto' }}>
+            {photos.map((url, i) => (
+              <img key={i} src={url} onClick={() => setIdx(i)} alt=""
+                style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer', border: i === idx ? '2px solid #2563eb' : '2px solid transparent', flexShrink: 0 }} />
+            ))}
+          </div>
+        )}
+        <button onClick={onClose} style={{ marginTop: '10px', width: '100%', padding: '8px', border: '1px solid #e2e8f0', borderRadius: '8px', background: 'white', cursor: 'pointer', fontSize: '13px', color: '#64748b' }}>Cerrar</button>
+      </div>
+    </div>
+  )
+}
 
 interface ProductsTableProps {
   sorted: any[]
@@ -12,6 +42,7 @@ interface ProductsTableProps {
 }
 
 export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: ProductsTableProps) {
+  const [lightbox, setLightbox] = useState<string[] | null>(null)
   const thStyle = { padding: '11px 16px', textAlign: 'left' as const, fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: '0.05em' }
 
   return (
@@ -50,17 +81,29 @@ export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: Pro
                 onMouseEnter={e => (e.currentTarget.style.background = '#f8fafc')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               >
-                <td style={{ padding: '8px 8px 8px 16px', width: '44px' }}>
-                  {p.photoUrl ? (
-                    <img src={p.photoUrl} alt={p.name}
-                      style={{ width: '36px', height: '36px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #f1f5f9' }}
-                      onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                    />
-                  ) : (
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>
-                      📦
-                    </div>
-                  )}
+                <td style={{ padding: '8px 8px 8px 16px', width: '52px' }}>
+                  {(() => {
+                    const photos: string[] = p.photos?.length ? p.photos : p.photoUrl ? [p.photoUrl] : []
+                    const thumb = photos[0]
+                    return thumb ? (
+                      <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}
+                        onClick={e => { e.stopPropagation(); setLightbox(photos) }}>
+                        <img src={thumb} alt={p.name}
+                          style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #e2e8f0', display: 'block' }}
+                          onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                        {photos.length > 1 && (
+                          <span style={{ position: 'absolute', bottom: '-4px', right: '-4px', background: '#2563eb', color: 'white', fontSize: '9px', fontWeight: 700, padding: '1px 4px', borderRadius: '10px', lineHeight: 1.4 }}>
+                            {photos.length}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <div style={{ width: '44px', height: '44px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>
+                        📦
+                      </div>
+                    )
+                  })()}
                 </td>
                 <td style={{ padding: '12px 16px', fontSize: '13px', color: '#64748b', fontFamily: 'monospace' }}>
                   <div>{p.code}</div>
@@ -103,5 +146,6 @@ export function ProductsTable({ sorted, isLoading, onEdit, onDelete, onQR }: Pro
         </table>
       )}
     </div>
+    {lightbox && <PhotoLightbox photos={lightbox} onClose={() => setLightbox(null)} />}
   )
 }
