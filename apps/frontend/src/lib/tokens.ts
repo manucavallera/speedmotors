@@ -1,0 +1,31 @@
+export const tokens = {
+  space: { xs: '4px', sm: '8px', md: '14px', lg: '20px', xl: '24px', '2xl': '32px' },
+  radius: { sm: '8px', md: '12px', lg: '14px', xl: '20px' },
+  shadow: {
+    card: '0 1px 4px rgba(0,0,0,0.06)',
+    modal: '0 8px 32px rgba(0,0,0,0.12)',
+    icon: '0 4px 12px rgba(0,0,0,0.15)',
+  },
+  color: {
+    bg: '#f1f5f9',
+    surface: '#ffffff',
+    border: '#f1f5f9',
+    borderStrong: '#e2e8f0',
+    text: '#0f172a',
+    textMuted: '#64748b',
+    textSubtle: '#94a3b8',
+    primary: '#2563eb',
+    primaryLight: '#eff6ff',
+    success: '#16a34a',
+    successLight: '#f0fdf4',
+    warning: '#d97706',
+    warningLight: '#fffbeb',
+    danger: '#dc2626',
+    dangerLight: '#fef2f2',
+  },
+  font: {
+    xs: '11px', sm: '12px', md: '13px', lg: '14px', xl: '16px', '2xl': '22px',
+    normal: 400, medium: 500, semibold: 600, bold: 700,
+  },
+  touch: { min: '44px' },
+}

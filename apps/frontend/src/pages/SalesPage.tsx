@@ -29,40 +29,36 @@ export function SalesPage() {
         Historial de todo lo que vendiste. Podés vender al <strong>contado</strong> (un solo pago) o en <strong>cuotas</strong> (el sistema arma el plan de pagos automáticamente). El stock baja solo al registrar la venta.
       </InfoBanner>
 
-      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div className="filter-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cliente o comprobante..." style={{ ...inputStyle, width: '220px' }} />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cliente o comprobante..." style={{ ...inputStyle, minWidth: '180px', flex: 1 }} />
         </div>
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>PERÍODO</span>
-          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
+          <div className="filter-dates" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={{ ...inputStyle, flex: 1, minWidth: '130px' }} />
             <span style={{ color: '#94a3b8', fontSize: '13px' }}>→</span>
-            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ ...inputStyle, width: '150px' }} />
+            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={{ ...inputStyle, flex: 1, minWidth: '130px' }} />
           </div>
         </div>
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>COMPROBANTE</span>
-          <div style={{ display: 'flex', gap: '6px' }}>
-            {([['', 'Todas'], ['A', '🧾 Fctura A'], ['B', '🧾 Fctura B'], ['X', '🤝 Negro'], ['mixto', '🔀 Mixto']] as [string, string][]).map(([val, label]) => (
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {([['', 'Todas'], ['A', '🧾 A'], ['B', '🧾 B'], ['X', '🤝 Negro'], ['mixto', '🔀 Mixto']] as [string, string][]).map(([val, label]) => (
               <button key={val} onClick={() => setInvoiceFilter(val)}
-                style={{ padding: '6px 12px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: invoiceFilter === val ? '1.5px solid #1d4ed8' : '1.5px solid #e2e8f0', cursor: 'pointer', background: invoiceFilter === val ? '#eff6ff' : '#fff', color: invoiceFilter === val ? '#1d4ed8' : '#374151' }}>
+                style={{ padding: '6px 10px', borderRadius: '9px', fontSize: '12px', fontWeight: 500, border: invoiceFilter === val ? '1.5px solid #1d4ed8' : '1.5px solid #e2e8f0', cursor: 'pointer', background: invoiceFilter === val ? '#eff6ff' : '#fff', color: invoiceFilter === val ? '#1d4ed8' : '#374151', minHeight: '36px' }}>
                 {label}
               </button>
             ))}
           </div>
         </div>
         {(search || dateFrom || dateTo || invoiceFilter) && (
-          <>
-            <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>&nbsp;</span>
-              <button onClick={() => { setSearch(''); setDateFrom(''); setDateTo(''); setInvoiceFilter('') }} style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px' }}>Limpiar</button>
-            </div>
-          </>
+          <div className="filter-group" style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <button onClick={() => { setSearch(''); setDateFrom(''); setDateTo(''); setInvoiceFilter('') }} style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px', minHeight: '36px' }}>Limpiar</button>
+          </div>
         )}
       </div>
 

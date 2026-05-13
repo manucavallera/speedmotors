@@ -44,14 +44,14 @@ export function ProductsPage() {
         Lista de todo lo que vendés con código, marca, precios y stock. <strong>El stock se actualiza solo</strong> al registrar ventas (baja) o recibir órdenes de compra (sube). Podés exportar el catálogo a PDF para mandárselo a clientes, o importar productos desde Excel para cargas masivas.
       </InfoBanner>
 
-      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar</span>
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre..." style={{ ...inputStyle }} />
         </div>
 
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Precio</span>
@@ -65,7 +65,7 @@ export function ProductsPage() {
           </div>
         </div>
 
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Ingreso</span>
@@ -81,7 +81,7 @@ export function ProductsPage() {
 
         {suppliers.length > 0 && (
           <>
-            <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+            <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Proveedor</span>
               <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value ? Number(e.target.value) : '')}

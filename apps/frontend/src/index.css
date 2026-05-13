@@ -75,7 +75,25 @@ input, button, textarea, select {
 
   .grid-3 { grid-template-columns: 1fr 1fr !important; }
   .grid-4 { grid-template-columns: 1fr 1fr !important; }
-  .grid-5 { grid-template-columns: 1fr 1fr 1fr !important; }
+  .grid-5 { grid-template-columns: 1fr 1fr !important; }
+
+  /* Filter bars — stack groups vertically, inputs full width */
+  .filter-bar { flex-direction: column !important; }
+  .filter-bar .filter-sep { display: none !important; }
+  .filter-bar .filter-group { width: 100%; }
+  .filter-bar .filter-group input,
+  .filter-bar .filter-group select { width: 100% !important; }
+  .filter-bar .filter-dates { flex-wrap: wrap; }
+  .filter-bar .filter-dates input { flex: 1; min-width: 120px; }
+
+  /* KPI cards: value font smaller to prevent overflow */
+  .kpi-value { font-size: 18px !important; }
+}
+
+@media (max-width: 480px) {
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-5 { grid-template-columns: 1fr 1fr !important; }
+  .page-content { padding: 10px 8px !important; }
 }
 
 @media (min-width: 769px) {

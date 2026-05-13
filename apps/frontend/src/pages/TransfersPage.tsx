@@ -50,13 +50,13 @@ export function TransfersPage() {
         Trámites para pasar la titularidad de un vehículo al comprador. Registrá el número de RNP, los costos del trámite y seguí el estado: <strong>Pendiente → En trámite → Completada</strong>. Así sabés qué transferencias están demoradas y cuánto cobrar por el servicio.
       </InfoBanner>
 
-      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '20px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div className="filter-group" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>BUSCAR</span>
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Cliente, vehículo o número..."
-            style={{ padding: '7px 12px', border: '1.5px solid #e2e8f0', borderRadius: '8px', fontSize: '13px', outline: 'none', width: '240px' }} />
+            style={{ padding: '7px 12px', border: '1.5px solid #e2e8f0', borderRadius: '8px', fontSize: '13px', outline: 'none', minWidth: '180px', flex: 1 }} />
         </div>
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>ESTADO</span>
           <div style={{ display: 'flex', gap: '6px' }}>

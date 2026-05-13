@@ -33,7 +33,7 @@ export function ClientsPage() {
         Datos de contacto y fiscales (CUIT, DNI, condición de IVA) de tus clientes. Asociá ventas y presupuestos a un cliente para <strong>llevar su cuenta corriente</strong>, ver qué cuotas debe y generar estados de cuenta en PDF para mandárselos.
       </InfoBanner>
 
-      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '200px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar</span>
@@ -41,7 +41,7 @@ export function ClientsPage() {
             placeholder="Nombre, teléfono o DNI..." style={{ ...inputStyle }} />
         </div>
 
-        <div style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Deuda</span>
