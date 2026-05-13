@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAlerts } from '../hooks/useAlerts'
 import { useBreakpoint } from '../hooks/useBreakpoint'
+import { useAuth } from '../hooks/useAuth'
 import { SalesBySellerWidget } from '../components/dashboard/SalesBySellerWidget'
 
 function KPICard({ label, value, sub, icon, gradient, positive }: {
@@ -41,19 +42,39 @@ export function DashboardPage() {
   const navigate = useNavigate()
   const { isMobile } = useBreakpoint()
   const { data: alertsData } = useAlerts()
+  const { user } = useAuth()
+
+  const isAdmin = user?.role === 'admin'
+
   const { data: dash, isLoading } = useQuery({
     queryKey: ['dashboard'],
     queryFn: () => api.get('/reports/dashboard').then(r => r.data),
     refetchInterval: 60000,
+    enabled: isAdmin,
   })
 
   const { data: lowStock } = useQuery({
     queryKey: ['low-stock'],
     queryFn: () => api.get('/products/low-stock').then(r => r.data),
+    enabled: isAdmin,
   })
 
   const tm = dash?.thisMonth
   const lm = dash?.lastMonth
+
+  if (!isAdmin) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '12px', textAlign: 'center' }}>
+        <div style={{ fontSize: '48px' }}>🔒</div>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Acceso restringido</h2>
+        <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>El dashboard es solo para administradores.</p>
+        <button onClick={() => navigate('/sales')}
+          style={{ marginTop: '8px', padding: '10px 24px', background: '#1d4ed8', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 600, cursor: 'pointer', fontSize: '14px' }}>
+          Ir a Ventas
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div>

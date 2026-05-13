@@ -94,7 +94,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* Nav */}
       <nav style={{ flex: 1, padding: '10px 8px', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-        {(user.role === 'admin' ? [...groups, { label: 'ADMIN', items: [{ to: '/users', icon: UserCog, label: 'Usuarios' }] }] : groups).map((group, gi) => (
+        {(user.role === 'admin'
+          ? [...groups, { label: 'ADMIN', items: [{ to: '/users', icon: UserCog, label: 'Usuarios' }] }]
+          : groups.map(g => ({ ...g, items: g.items.filter(i => i.to !== '/reports') }))
+        ).map((group, gi) => (
           <div key={gi} style={{ marginBottom: '4px' }}>
             {group.label && (
               <div style={{ padding: '10px 10px 4px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', color: '#334155', textTransform: 'uppercase' }}>
