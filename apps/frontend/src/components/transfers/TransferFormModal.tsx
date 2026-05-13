@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { SearchableSelect } from '../ui/SearchableSelect'
 import { api } from '../../lib/api'
 import type { Transfer, CreateTransferData } from '../../hooks/useTransfers'
 
@@ -82,12 +83,13 @@ export function TransferFormModal({ editing, onClose, onSubmit, isPending }: Pro
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
           <FormField label="Vehículo">
-            <select value={form.vehicleId ?? ''} onChange={e => handleVehicleChange(e.target.value)} style={inputStyle}>
-              <option value="">— Seleccionar —</option>
-              {(vehicles as any[]).map((v: any) => (
-                <option key={v.id} value={v.id}>{v.brand} {v.model} {v.year} — {v.chassisNumber ?? 'sin chasis'}</option>
-              ))}
-            </select>
+            <SearchableSelect
+              value={form.vehicleId ? String(form.vehicleId) : ''}
+              onChange={handleVehicleChange}
+              options={(vehicles as any[]).map((v: any) => ({ value: String(v.id), label: `${v.brand} ${v.model} ${v.year} — ${v.chassisNumber ?? 'sin chasis'}` }))}
+              placeholder="Buscar vehículo..."
+              emptyLabel="— Seleccionar —"
+            />
           </FormField>
           <FormField label="Fecha de transferencia">
             <input type="date" value={form.date ?? ''} onChange={e => set('date', e.target.value)} style={inputStyle} required />
@@ -98,10 +100,13 @@ export function TransferFormModal({ editing, onClose, onSubmit, isPending }: Pro
           <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Datos del comprador</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <FormField label="Cliente (opcional)">
-              <select value={form.clientId ?? ''} onChange={e => handleClientChange(e.target.value)} style={inputStyle}>
-                <option value="">— Cargar manual —</option>
-                {(clients as any[]).map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
+              <SearchableSelect
+                value={form.clientId ? String(form.clientId) : ''}
+                onChange={handleClientChange}
+                options={(clients as any[]).map((c: any) => ({ value: String(c.id), label: c.name }))}
+                placeholder="Buscar cliente..."
+                emptyLabel="— Cargar manual —"
+              />
             </FormField>
             <FormField label="DNI comprador">
               <input value={form.clientDni ?? ''} onChange={e => set('clientDni', e.target.value)} style={inputStyle} placeholder="28.456.789" />
