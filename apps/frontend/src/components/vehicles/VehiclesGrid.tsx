@@ -31,6 +31,28 @@ function PhotoLightbox({ photos, onClose }: { photos: string[]; onClose: () => v
   )
 }
 
+function CardCarousel({ photos, onExpand }: { photos: string[]; onExpand: (photos: string[]) => void }) {
+  const [idx, setIdx] = useState(0)
+  if (!photos.length) return null
+  const prev = (e: React.MouseEvent) => { e.stopPropagation(); setIdx(i => Math.max(0, i - 1)) }
+  const next = (e: React.MouseEvent) => { e.stopPropagation(); setIdx(i => Math.min(photos.length - 1, i + 1)) }
+  return (
+    <div style={{ position: 'relative', height: '150px', background: '#f8fafc', cursor: 'zoom-in' }} onClick={() => onExpand(photos)}>
+      <img src={photos[idx]} alt="" style={{ width: '100%', height: '150px', objectFit: 'cover', display: 'block' }}
+        onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
+      {photos.length > 1 && (
+        <>
+          {idx > 0 && <button onClick={prev}
+            style={{ position: 'absolute', left: '6px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '28px', height: '28px', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>‹</button>}
+          {idx < photos.length - 1 && <button onClick={next}
+            style={{ position: 'absolute', right: '6px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '28px', height: '28px', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>›</button>}
+          <span style={{ position: 'absolute', bottom: '6px', right: '8px', background: 'rgba(0,0,0,0.5)', color: 'white', fontSize: '10px', fontWeight: 700, padding: '2px 7px', borderRadius: '20px' }}>{idx + 1}/{photos.length}</span>
+        </>
+      )}
+    </div>
+  )
+}
+
 const statusColors: Record<string, { bg: string; color: string; label: string }> = {
   disponible: { bg: '#f0fdf4', color: '#16a34a', label: 'Disponible' },
   reservado:  { bg: '#fffbeb', color: '#d97706', label: 'Reservado' },
@@ -153,18 +175,8 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
             const st = statusColors[v.status] || statusColors.disponible
             return (
               <div key={v.id} style={{ background: 'white', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
-                {v.photos?.[0] && (
-                  <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setLightbox(v.photos)}>
-                    <img src={v.photos[0]} alt={`${v.brand} ${v.model}`}
-                      style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
-                      onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                    />
-                    {v.photos.length > 1 && (
-                      <span style={{ position: 'absolute', bottom: '6px', right: '8px', background: 'rgba(0,0,0,0.55)', color: 'white', fontSize: '10px', fontWeight: 700, padding: '2px 8px', borderRadius: '20px' }}>
-                        📷 {v.photos.length}
-                      </span>
-                    )}
-                  </div>
+                {v.photos?.length > 0 && (
+                  <CardCarousel photos={v.photos} onExpand={setLightbox} />
                 )}
                 <div style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
