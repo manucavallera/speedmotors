@@ -33,6 +33,18 @@ export function QuotesPage() {
   })
   const clients = clientsData?.items ?? clientsData ?? []
 
+  const { data: productsData } = useQuery({
+    queryKey: ['products', 'all'],
+    queryFn: () => api.get('/products', { params: { limit: 500 } }).then(r => r.data),
+  })
+  const products = productsData?.items ?? productsData ?? []
+
+  const { data: vehiclesData } = useQuery({
+    queryKey: ['vehicles', 'disponible'],
+    queryFn: () => api.get('/vehicles', { params: { status: 'disponible' } }).then(r => r.data),
+  })
+  const vehicles = vehiclesData?.items ?? []
+
   const create = useMutation({
     mutationFn: (d: QuoteFormData) => api.post('/quotes', d),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['quotes'] }); setModal(null) },
@@ -95,6 +107,8 @@ export function QuotesPage() {
           mode={modal}
           editing={editing}
           clients={clients}
+          products={products}
+          vehicles={vehicles}
           onClose={() => { setModal(null); setEditing(null) }}
           onSubmit={(data) => modal === 'edit' ? update.mutate(data) : create.mutate(data)}
           isPending={create.isPending || update.isPending}

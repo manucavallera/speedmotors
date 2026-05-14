@@ -189,6 +189,7 @@ export function ReservationsPage() {
           mode={modal}
           editing={editing}
           clients={clients}
+          vehicles={vehicles}
           onClose={() => { setModal(false); setEditing(null) }}
           onSubmit={(data) => {
             if (modal === 'edit') {

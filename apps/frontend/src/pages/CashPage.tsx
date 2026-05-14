@@ -26,14 +26,14 @@ export function CashPage() {
 
   const open = useMutation({
     mutationFn: (openingBalance: number) => api.post('/cash/open', { openingBalance }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] }); qc.invalidateQueries({ queryKey: ['cash-sessions'] }) },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
   const close = useMutation({
     mutationFn: ({ notes, countedBalance }: { notes: string; countedBalance?: number }) =>
       api.post('/cash/close', { notes: notes || undefined, countedBalance }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] }); qc.invalidateQueries({ queryKey: ['cash-sessions'] }) },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 

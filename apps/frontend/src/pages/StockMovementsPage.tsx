@@ -24,13 +24,13 @@ export function StockMovementsPage() {
 
   const { data: productsData } = useQuery({
     queryKey: ['products'],
-    queryFn: () => api.get('/products').then(r => r.data),
+    queryFn: () => api.get('/products', { params: { limit: 500 } }).then(r => r.data),
   })
   const products = productsData?.items ?? productsData ?? []
 
   const create = useMutation({
     mutationFn: (d: StockMovementFormData) => api.post('/stock-movements', d),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['stock-movements', 'products'] }); setModal(false) },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['stock-movements'] }); qc.invalidateQueries({ queryKey: ['products'] }); setModal(false) },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 

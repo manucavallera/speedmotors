@@ -7,6 +7,7 @@ interface ReservationFormModalProps {
   mode: 'new' | 'edit'
   editing?: any
   clients: any[]
+  vehicles: any[]
   onClose: () => void
   onSubmit: (data: any) => void
   isPending: boolean
@@ -17,6 +18,7 @@ const sectionStyle = { fontSize: '12px', fontWeight: 700, color: '#334155', back
 function toForm(r?: any) {
   return {
     date: r?.date ? new Date(r.date).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10),
+    vehicleId: r?.vehicleId ? String(r.vehicleId) : '',
     clientId: r?.clientId ? String(r.clientId) : '',
     clientName: r?.clientName || '',
     clientDni: r?.clientDni || '',
@@ -57,7 +59,7 @@ function toForm(r?: any) {
   }
 }
 
-export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit, isPending }: ReservationFormModalProps) {
+export function ReservationFormModal({ mode, editing, clients, vehicles, onClose, onSubmit, isPending }: ReservationFormModalProps) {
   const [f, setF] = useState(toForm(editing))
   const [showSpouse, setShowSpouse] = useState(!!(editing?.spouseName))
   const [showTradeIn, setShowTradeIn] = useState(!!(editing?.tradeInBrand))
@@ -82,6 +84,7 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
     e.preventDefault()
     onSubmit({
       date: f.date,
+      vehicleId: f.vehicleId ? Number(f.vehicleId) : undefined,
       clientId: f.clientId ? Number(f.clientId) : undefined,
       clientName: f.clientName,
       clientDni: f.clientDni || undefined,
@@ -211,6 +214,30 @@ export function ReservationFormModal({ mode, editing, clients, onClose, onSubmit
 
         {/* VEHÍCULO */}
         <div style={sectionStyle}>DATOS DEL VEHÍCULO</div>
+        {vehicles.length > 0 && (
+          <FormField label="Seleccionar del inventario (opcional)">
+            <SearchableSelect
+              value={f.vehicleId}
+              onChange={val => {
+                const v = vehicles.find((x: any) => String(x.id) === val)
+                setF(prev => ({
+                  ...prev,
+                  vehicleId: val,
+                  brand: v?.brand || prev.brand,
+                  model: v?.model || prev.model,
+                  year: v?.year ? String(v.year) : prev.year,
+                  color: v?.color || prev.color,
+                  price: v?.sellPrice ? String(Number(v.sellPrice)) : prev.price,
+                  motorNumber: v?.motorNumber || prev.motorNumber,
+                  chassisNumber: v?.chassisNumber || prev.chassisNumber,
+                }))
+              }}
+              options={vehicles.map((v: any) => ({ value: String(v.id), label: `${v.brand} ${v.model} ${v.year || ''} — $${Number(v.sellPrice).toLocaleString('es-AR')}` }))}
+              placeholder="Buscar vehículo del stock..."
+              emptyLabel="— Vehículo externo / a pedir —"
+            />
+          </FormField>
+        )}
         <div className="form-grid-2">
           <FormField label="Tipo *">
             <select style={inputStyle} value={f.vehicleType} onChange={set('vehicleType')}>

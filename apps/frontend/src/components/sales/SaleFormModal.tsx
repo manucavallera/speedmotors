@@ -5,6 +5,7 @@ import { SearchableSelect } from '../ui/SearchableSelect'
 import { SaleItemsEditor } from './SaleItemsEditor'
 import type { SaleItem } from './SaleItemsEditor'
 import { SaleTotalsPanel } from './SaleTotalsPanel'
+import { ClientFormModal } from '../clients/ClientFormModal'
 
 interface SaleFormModalProps {
   clients: any[]
@@ -13,11 +14,14 @@ interface SaleFormModalProps {
   onSubmit: (data: any) => void
   onClose: () => void
   isPending: boolean
+  onCreateClient?: (data: any) => Promise<any>
   initialData?: { clientId?: number; vehicleId?: number; downPayment?: number }
 }
 
-export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending, initialData }: SaleFormModalProps) {
+export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending, onCreateClient, initialData }: SaleFormModalProps) {
   const [clientId, setClientId] = useState(initialData?.clientId ? String(initialData.clientId) : '')
+  const [showNewClient, setShowNewClient] = useState(false)
+  const [creatingClient, setCreatingClient] = useState(false)
   const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
   const [type, setType] = useState<'contado' | 'cuotas'>('contado')
   const [paymentMethod, setPaymentMethod] = useState('efectivo')
@@ -89,22 +93,45 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
     })
   }
 
+  async function handleCreateClient(data: any) {
+    if (!onCreateClient) return
+    setCreatingClient(true)
+    try {
+      const newClient = await onCreateClient(data)
+      setClientId(String(newClient.id))
+      setShowNewClient(false)
+    } finally {
+      setCreatingClient(false)
+    }
+  }
+
   const sec = { fontSize: '11px', fontWeight: 700, color: '#475569', background: '#f1f5f9', padding: '5px 10px', borderRadius: '6px', letterSpacing: '.5px' }
 
   return (
+    <>
     <Modal title="Nueva venta" onClose={onClose} width={640}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
         <div style={sec}>CLIENTE Y COMPROBANTE</div>
         <div className="form-grid-2">
           <FormField label="Cliente (opcional)">
-            <SearchableSelect
-              value={clientId}
-              onChange={setClientId}
-              options={clients.map((c: any) => ({ value: String(c.id), label: c.name }))}
-              placeholder="Buscar cliente..."
-              emptyLabel="Sin cliente"
-            />
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <div style={{ flex: 1 }}>
+                <SearchableSelect
+                  value={clientId}
+                  onChange={setClientId}
+                  options={clients.map((c: any) => ({ value: String(c.id), label: c.name }))}
+                  placeholder="Buscar cliente..."
+                  emptyLabel="Sin cliente"
+                />
+              </div>
+              {onCreateClient && (
+                <button type="button" onClick={() => setShowNewClient(true)}
+                  style={{ padding: '8px 12px', fontSize: '12px', background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', borderRadius: '8px', cursor: 'pointer', whiteSpace: 'nowrap', fontWeight: 600 }}>
+                  + Nuevo
+                </button>
+              )}
+            </div>
           </FormField>
           <FormField label="Tipo de comprobante">
             <select style={inputStyle} value={invoiceType} onChange={e => setInvoiceType(e.target.value as any)}>
@@ -236,5 +263,16 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         </div>
       </form>
     </Modal>
+
+    {showNewClient && (
+      <ClientFormModal
+        mode="create"
+        editing={null}
+        onClose={() => setShowNewClient(false)}
+        onSubmit={handleCreateClient}
+        isPending={creatingClient}
+      />
+    )}
+    </>
   )
 }

@@ -62,6 +62,12 @@ export function useSales() {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
+  const createClient = useMutation({
+    mutationFn: (data: any) => api.post('/clients', data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['clients'] }),
+    onError: (err: any) => toast.error(apiError(err)),
+  })
+
   const cancel = useMutation({
     mutationFn: (id: number) => api.post(`/sales/${id}/cancel`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['sales'] }); setDetail(null) },
@@ -83,6 +89,6 @@ export function useSales() {
     dateFrom, setDateFrom: handleSetDateFrom,
     dateTo, setDateTo: handleSetDateTo,
     invoiceFilter, setInvoiceFilter: handleSetInvoiceFilter,
-    create, cancel, updateTransport,
+    create, cancel, updateTransport, createClient,
   }
 }
