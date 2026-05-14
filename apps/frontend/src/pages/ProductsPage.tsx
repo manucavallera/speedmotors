@@ -42,6 +42,9 @@ export function ProductsPage() {
 
       <InfoBanner title="Catálogo de productos">
         Lista de todo lo que vendés con código, marca, precios y stock. <strong>El stock se actualiza solo</strong> al registrar ventas (baja) o recibir órdenes de compra (sube). Podés exportar el catálogo a PDF para mandárselo a clientes, o importar productos desde Excel para cargas masivas.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px' }}>
+          Si necesitás corregir el stock manualmente — por rotura, robo, devolución o ajuste de inventario — usá la sección <strong>Movimientos de stock</strong> en el menú lateral. Cada corrección queda registrada con fecha y motivo.
+        </div>
       </InfoBanner>
 
       <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
