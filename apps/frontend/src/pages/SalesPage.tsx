@@ -26,7 +26,16 @@ export function SalesPage() {
       </div>
 
       <InfoBanner title="Ventas registradas">
-        Historial de todo lo que vendiste. Podés vender al <strong>contado</strong> (un solo pago) o en <strong>cuotas</strong> (el sistema arma el plan de pagos automáticamente). El stock baja solo al registrar la venta.
+        Historial completo de todo lo que vendiste. Podés registrar ventas al <strong>contado</strong> (un solo pago) o en <strong>cuotas</strong> — en ese caso el sistema arma el plan de pagos automáticamente con la tasa que vos definís. El stock de productos y el estado de los vehículos se actualiza solo al confirmar la venta.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span><strong>Factura A</strong> — para clientes Responsables Inscriptos (CUIT)</span>
+          <span><strong>Factura B</strong> — para consumidores finales</span>
+          <span><strong>Sin factura</strong> — operación informal (en negro)</span>
+          <span><strong>Mixto</strong> — parte con factura, parte sin factura</span>
+        </div>
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>
+          Desde el detalle de cada venta podés generar el <strong>Remito</strong> y el <strong>Comprobante PDF</strong> para entregar al cliente. Si vendiste en cuotas, las cuotas aparecen en la sección <strong>Cobranza</strong>.
+        </div>
       </InfoBanner>
 
       <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>

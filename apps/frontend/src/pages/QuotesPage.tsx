@@ -88,7 +88,12 @@ export function QuotesPage() {
       </div>
 
       <InfoBanner title="Presupuestos para clientes">
-        Cotizaciones que le pasás al cliente <strong>antes de cerrar la venta</strong>. Si el cliente acepta, lo convertís en venta con un clic — sin volver a cargar los productos. Los presupuestos tienen vencimiento y los podés mandar por PDF o WhatsApp.
+        Cotizaciones que le pasás al cliente <strong>antes de cerrar la venta</strong>. Agregá vehículos o productos del stock — el precio se completa automáticamente y lo podés ajustar. Si el cliente acepta, usá <strong>Convertir a venta</strong> con un clic, sin volver a cargar nada.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span>Generá el presupuesto en <strong>PDF</strong> para mandárselo por WhatsApp o imprimirlo</span>
+          <span>Los presupuestos tienen estado: <strong>Pendiente → Aceptado → Rechazado → Expirado</strong></span>
+          <span>Podés editar un presupuesto mientras no fue convertido a venta</span>
+        </div>
       </InfoBanner>
 
       <QuotesTable

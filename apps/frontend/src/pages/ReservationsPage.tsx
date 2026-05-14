@@ -75,7 +75,15 @@ export function ReservationsPage() {
       </div>
 
       <InfoBanner title="Reservas de vehículos">
-        Registrá la solicitud de reserva con datos del comprador, cónyuge y vehículo. Generá el documento en <strong>PDF formal</strong> para firma o usá <strong>Imprimir</strong> para obtener una copia en papel.
+        Documentá el acuerdo con el cliente <strong>antes de concretar la venta</strong>. Incluye datos del comprador, cónyuge, condiciones económicas (precio, seña, financiación) y el vehículo reservado — podés vincular uno del stock o ingresar datos de un vehículo a pedir.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span><strong style={{ color: '#d97706' }}>Vigente</strong> — reserva activa, esperando concretarse</span>
+          <span><strong style={{ color: '#16a34a' }}>Concretada</strong> — se convirtió en venta</span>
+          <span><strong style={{ color: '#dc2626' }}>Cancelada</strong> — el cliente no siguió adelante</span>
+        </div>
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>
+          Cuando el cliente confirma la compra, usá el botón <strong>💰 Convertir a venta</strong> — los datos del vehículo y la seña se pasan automáticamente al formulario de venta, sin volver a cargar nada. También podés generar el <strong>documento PDF formal de reserva</strong> para que el cliente lo firme.
+        </div>
       </InfoBanner>
 
       <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>

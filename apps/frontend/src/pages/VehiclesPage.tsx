@@ -71,7 +71,13 @@ export function VehiclesPage() {
       </div>
 
       <InfoBanner title="Motos y lanchas en venta">
-        Stock de vehículos disponibles, con marca, modelo, año y número de serie. Cuando registrás una venta de un vehículo, <strong>pasa automáticamente a estado "vendido"</strong> y no aparece más como disponible — así no podés venderlo dos veces por error.
+        Inventario de todos los vehículos: marca, modelo, año, colores, números de motor y chasis, precio de costo y venta, y fotos. Cuando registrás una venta, el vehículo <strong>pasa automáticamente a "vendido"</strong> y deja de aparecer como disponible — así no lo vendés dos veces por error.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span><strong>Disponible</strong> — en stock, listo para vender o reservar</span>
+          <span><strong>Reservado</strong> — tiene una reserva activa</span>
+          <span><strong>Vendido</strong> — ya fue vendido, no aparece en el formulario de ventas</span>
+          <span>Importá vehículos masivamente desde un <strong>Excel/Remito</strong> con el botón de importación</span>
+        </div>
       </InfoBanner>
 
       <VehiclesGrid

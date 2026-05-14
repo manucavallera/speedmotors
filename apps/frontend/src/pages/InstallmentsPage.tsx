@@ -57,7 +57,12 @@ export function InstallmentsPage() {
       </div>
 
       <InfoBanner title="Cobranza de cuotas">
-        Cuotas de ventas en cuotas que <strong>todavía no fueron cobradas</strong>. Las <strong style={{ color: '#dc2626' }}>vencidas aparecen en rojo</strong> y son las que tenés que reclamar primero. Cuando recibís el pago, hacé clic en "Cobrar".
+        Todas las cuotas de ventas financiadas que <strong>todavía no fueron cobradas</strong>, ordenadas por vencimiento. Las <strong style={{ color: '#dc2626' }}>vencidas aparecen en rojo</strong> — esas son las que tenés que reclamar primero.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span>Cuando el cliente paga, hacé clic en <strong>Cobrar</strong> y registrá el método de pago</span>
+          <span>Al cobrar se genera un <strong>recibo de pago</strong> para entregar al cliente</span>
+          <span>Buscá por nombre de cliente para ver todas sus cuotas pendientes juntas</span>
+        </div>
       </InfoBanner>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px', marginBottom: '20px' }}>

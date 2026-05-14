@@ -30,7 +30,12 @@ export function ClientsPage() {
       </div>
 
       <InfoBanner title="Clientes del negocio">
-        Datos de contacto y fiscales (CUIT, DNI, condición de IVA) de tus clientes. Asociá ventas y presupuestos a un cliente para <strong>llevar su cuenta corriente</strong>, ver qué cuotas debe y generar estados de cuenta en PDF para mandárselos.
+        Datos de contacto y fiscales (CUIT, DNI, condición de IVA) de tus clientes. Asociá ventas y presupuestos a un cliente para <strong>llevar su cuenta corriente</strong>: ver qué cuotas debe, cuánto pagó y cuánto le falta. Generá el estado de cuenta en PDF para mandárselo.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span>La <strong>condición de IVA</strong> del cliente determina si la venta sale como Factura A o B automáticamente</span>
+          <span>Hacé clic en el ícono 📋 para ver el historial completo de compras y pagos del cliente</span>
+          <span>Podés registrar <strong>pagos a cuenta</strong> independientes de una venta específica</span>
+        </div>
       </InfoBanner>
 
       <div className="filter-bar" style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-start' }}>

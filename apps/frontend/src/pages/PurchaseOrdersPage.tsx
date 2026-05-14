@@ -87,7 +87,13 @@ export function PurchaseOrdersPage() {
       </div>
 
       <InfoBanner title="Compras a proveedores">
-        Pedidos de mercadería que le hacés a tus proveedores. Pasan por <strong>borrador → enviada → recibida</strong>. Al marcar "recibida", el stock de los productos sube automáticamente. Te sirve para controlar qué le debés a cada proveedor y verificar que llegue todo lo que pediste.
+        Pedidos de mercadería que le hacés a tus proveedores. Cada orden pasa por <strong>Borrador → Enviada → Recibida</strong>. Al marcarla como recibida, el stock de todos los productos incluidos sube automáticamente — sin tener que actualizarlo a mano.
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span><strong>Borrador</strong> — la estás armando, todavía no la mandaste al proveedor</span>
+          <span><strong>Enviada</strong> — ya la mandaste, esperando que llegue la mercadería</span>
+          <span><strong>Recibida</strong> — llegó todo, el stock ya subió automáticamente</span>
+          <span>Si llegó menos de lo pedido, registrá un <strong>movimiento de stock</strong> manual para ajustar</span>
+        </div>
       </InfoBanner>
 
       <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
