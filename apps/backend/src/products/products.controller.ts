@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, ParseIntPipe, UseInterceptors, UploadedFile, Request } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { memoryStorage } from 'multer'
 import { ProductsService } from './products.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -62,6 +64,30 @@ export class ProductsController {
   @UseGuards(AdminGuard)
   importProducts(@Body() body: { products: any[] }) {
     return this.productsService.importProducts(body.products)
+  }
+
+  @Post('receive-remito')
+  @UseGuards(AdminGuard)
+  receiveRemito(
+    @Body() body: { items: { name: string; code: string | null; quantity: number; unitPrice: number | null }[]; remitoNumber: string | null },
+    @Request() req: { user: { id: number } },
+  ) {
+    return this.productsService.receiveRemito(body.items, req.user.id, body.remitoNumber)
+  }
+
+  @Post('parse-remito')
+  @UseGuards(AdminGuard)
+  @UseInterceptors(FileInterceptor('file', {
+    storage: memoryStorage(),
+    fileFilter: (_, file, cb) => {
+      const allowed = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf']
+      if (!allowed.includes(file.mimetype)) return cb(new Error('Solo imágenes o PDF'), false)
+      cb(null, true)
+    },
+    limits: { fileSize: 10 * 1024 * 1024 },
+  }))
+  parseRemito(@UploadedFile() file: Express.Multer.File) {
+    return this.productsService.parseRemito(file)
   }
 
   @Delete(':id')

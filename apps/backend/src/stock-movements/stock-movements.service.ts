@@ -21,6 +21,15 @@ export class StockMovementsService {
     return { items, total, page, limit, pages: Math.ceil(total / limit) }
   }
 
+  async bulkCreate(items: { productId: number; quantity: number; reason?: string }[], userId: number) {
+    const results = []
+    for (const item of items) {
+      const movement = await this.create(item.productId, userId, 'entrada', item.quantity, item.reason)
+      results.push(movement)
+    }
+    return results
+  }
+
   async create(productId: number, userId: number, type: 'entrada' | 'salida' | 'ajuste', quantity: number, reason?: string, saleId?: number) {
     const [product] = await db.select().from(products).where(eq(products.id, productId))
     if (!product) throw new NotFoundException(`Producto ${productId} no encontrado`)

@@ -19,4 +19,12 @@ export class StockMovementsController {
   ) {
     return this.service.create(body.productId, req.user.id, body.type, body.quantity, body.reason)
   }
+
+  @Post('bulk')
+  bulkCreate(
+    @Body() body: { items: { productId: number; quantity: number; reason?: string }[] },
+    @Request() req: { user: { id: number } },
+  ) {
+    return this.service.bulkCreate(body.items, req.user.id)
+  }
 }

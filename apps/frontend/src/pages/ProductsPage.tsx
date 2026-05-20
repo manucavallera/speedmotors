@@ -1,10 +1,12 @@
 // @file: ProductsPage.tsx | Cáscara orquestadora de productos. Lógica en useProducts, UI en ProductsTable/ProductFormModal.
+import { useState } from 'react'
 import { inputStyle, btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { QRModal } from '../components/ui/QRModal'
 import { ImportExcelModal } from '../components/ImportExcelModal'
 import { ProductsTable } from '../components/products/ProductsTable'
 import { ProductFormModal } from '../components/products/ProductFormModal'
+import { ProductRemitoModal } from '../components/products/ProductRemitoModal'
 import { useProducts } from '../hooks/useProducts'
 import { generatePriceList } from '../lib/pdf'
 import { exportProductsCsv, exportProductsPdf } from '../lib/export'
@@ -23,6 +25,7 @@ export function ProductsPage() {
     importModal, setImportModal,
     create, update, remove, refreshProducts,
   } = useProducts()
+  const [remitoModal, setRemitoModal] = useState(false)
 
   return (
     <div>
@@ -36,6 +39,7 @@ export function ProductsPage() {
           <button onClick={() => exportProductsPdf(products)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF stock</button>
           <button onClick={() => generatePriceList(products, [])} style={{ ...btnSecondary, fontSize: '13px' }}>Lista precios</button>
           <button onClick={() => setImportModal(true)} style={{ ...btnSecondary, fontSize: '13px', color: '#16a34a' }}>Importar Excel</button>
+          <button onClick={() => setRemitoModal(true)} style={{ ...btnSecondary, fontSize: '13px', color: '#0369a1' }}>Recibir remito</button>
           <button onClick={openCreate} style={btnPrimary}>+ Nuevo producto</button>
         </div>
       </div>
@@ -154,6 +158,10 @@ export function ProductsPage() {
           onClose={() => { setImportModal(false); refreshProducts() }}
           onImport={rows => api.post('/products/import', { products: rows }).then(r => r.data)}
         />
+      )}
+
+      {remitoModal && (
+        <ProductRemitoModal onClose={() => setRemitoModal(false)} />
       )}
     </div>
   )
