@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
 import { vehicles } from '../db/schema'
-import { eq, and, ilike, sql } from 'drizzle-orm'
+import { eq, and, or, ilike, sql } from 'drizzle-orm'
 
 @Injectable()
 export class VehiclesService {
@@ -14,7 +14,12 @@ export class VehiclesService {
     const conditions = []
     if (filters?.type) conditions.push(eq(vehicles.type, filters.type))
     if (filters?.status) conditions.push(eq(vehicles.status, filters.status as any))
-    if (filters?.search) conditions.push(ilike(vehicles.model, `%${filters.search}%`))
+    if (filters?.search) conditions.push(or(
+      ilike(vehicles.brand, `%${filters.search}%`),
+      ilike(vehicles.model, `%${filters.search}%`),
+      ilike(vehicles.chassisNumber, `%${filters.search}%`),
+      ilike(vehicles.engineNumber, `%${filters.search}%`),
+    ))
 
     const where = conditions.length > 0 ? and(...conditions) : undefined
 
