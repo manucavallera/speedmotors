@@ -43,7 +43,7 @@ export function AlertsPage() {
   const { summary: s, installments: inst, reservations: res, purchaseOrders: po, reminders: rem } = data
 
   const q = search.toLowerCase()
-  const filt = <T extends { clientName?: string; title?: string; supplierName?: string; brand?: string; model?: string }>(arr: T[]) =>
+  const filt = <T extends { clientName?: string | null; title?: string | null; supplierName?: string | null; brand?: string | null; model?: string | null }>(arr: T[]) =>
     q ? arr.filter(x => [x.clientName, x.title, x.supplierName, x.brand, x.model].some(v => v?.toLowerCase().includes(q))) : arr
 
   const show = (section: FilterType) => filter === 'todos' || filter === section
