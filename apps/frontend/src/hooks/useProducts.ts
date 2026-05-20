@@ -10,6 +10,7 @@ export function useProducts() {
   const qc = useQueryClient()
   const [search, setSearch] = useState('')
   const [priceSort, setPriceSort] = useState<'asc' | 'desc' | ''>('')
+  const [costSort, setCostSort] = useState<'asc' | 'desc' | ''>('')
   const [ingresoFilter, setIngresoFilter] = useState<'blanco' | 'negro' | ''>('')
   const [supplierFilter, setSupplierFilter] = useState<number | ''>('')
   const [brandFilter, setBrandFilter] = useState('')
@@ -20,11 +21,12 @@ export function useProducts() {
   const [editing, setEditing] = useState<Product | null>(null)
 
   const { data, isLoading } = useQuery<PaginatedResponse<Product>>({
-    queryKey: ['products', { search, priceSort, ingresoFilter, supplierFilter, brandFilter, page }],
+    queryKey: ['products', { search, priceSort, costSort, ingresoFilter, supplierFilter, brandFilter, page }],
     queryFn: () => api.get('/products', {
       params: {
         search: search || undefined,
         priceSort: priceSort || undefined,
+        costSort: costSort || undefined,
         ingresoTipo: ingresoFilter || undefined,
         supplierId: supplierFilter || undefined,
         brand: brandFilter || undefined,
@@ -68,7 +70,8 @@ export function useProducts() {
   function refreshProducts() { qc.invalidateQueries({ queryKey: ['products'] }) }
 
   function handleSetSearch(v: string) { setSearch(v); resetPage() }
-  function handleSetPriceSort(v: 'asc' | 'desc' | '') { setPriceSort(v); resetPage() }
+  function handleSetPriceSort(v: 'asc' | 'desc' | '') { setPriceSort(v); setCostSort(''); resetPage() }
+  function handleSetCostSort(v: 'asc' | 'desc' | '') { setCostSort(v); setPriceSort(''); resetPage() }
   function handleSetIngresoFilter(v: 'blanco' | 'negro' | '') { setIngresoFilter(v); resetPage() }
   function handleSetSupplierFilter(v: number | '') { setSupplierFilter(v); resetPage() }
   function handleSetBrandFilter(v: string) { setBrandFilter(v); resetPage() }
@@ -84,6 +87,7 @@ export function useProducts() {
     total, page, pages, setPage,
     search, setSearch: handleSetSearch,
     priceSort, setPriceSort: handleSetPriceSort,
+    costSort, setCostSort: handleSetCostSort,
     ingresoFilter, setIngresoFilter: handleSetIngresoFilter,
     supplierFilter, setSupplierFilter: handleSetSupplierFilter,
     brandFilter, setBrandFilter: handleSetBrandFilter,

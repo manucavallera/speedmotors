@@ -7,7 +7,7 @@ import { eq, ilike, and, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
 @Injectable()
 export class ProductsService {
   private readonly logger = new Logger(ProductsService.name)
-  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; page?: number; limit?: number }) {
+  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; costSort?: string; page?: number; limit?: number }) {
     const page = Math.max(1, filters?.page ?? 1)
     const limit = Math.min(200, Math.max(1, filters?.limit ?? 50))
     const offset = (page - 1) * limit
@@ -22,11 +22,11 @@ export class ProductsService {
     const where = and(...conditions)
 
     const baseQuery = db.select().from(products).where(where)
-    const orderedQuery = filters?.priceSort === 'asc'
-      ? baseQuery.orderBy(asc(products.sellPrice))
-      : filters?.priceSort === 'desc'
-        ? baseQuery.orderBy(desc(products.sellPrice))
-        : baseQuery
+    const orderedQuery = filters?.priceSort === 'asc' ? baseQuery.orderBy(asc(products.sellPrice))
+      : filters?.priceSort === 'desc' ? baseQuery.orderBy(desc(products.sellPrice))
+      : filters?.costSort === 'asc' ? baseQuery.orderBy(asc(products.costPrice))
+      : filters?.costSort === 'desc' ? baseQuery.orderBy(desc(products.costPrice))
+      : baseQuery
 
     const [items, countResult] = await Promise.all([
       orderedQuery.limit(limit).offset(offset),

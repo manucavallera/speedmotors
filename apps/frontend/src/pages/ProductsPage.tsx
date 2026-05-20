@@ -18,7 +18,7 @@ export function ProductsPage() {
   const {
     products, isLoading, sorted, cheapest, priciest,
     total, page, pages, setPage,
-    search, setSearch, priceSort, setPriceSort, ingresoFilter, setIngresoFilter,
+    search, setSearch, priceSort, setPriceSort, costSort, setCostSort, ingresoFilter, setIngresoFilter,
     supplierFilter, setSupplierFilter, brandFilter, setBrandFilter, suppliers,
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
@@ -61,7 +61,21 @@ export function ProductsPage() {
         <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Precio</span>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Costo</span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {([['', 'Sin orden'], ['asc', '↑ Menor'], ['desc', '↓ Mayor']] as [string, string][]).map(([val, lbl]) => (
+              <button key={val} onClick={() => setCostSort(val as 'asc' | 'desc' | '')}
+                style={{ padding: '7px 14px', borderRadius: '9px', fontSize: '13px', fontWeight: 500, border: 'none', cursor: 'pointer', background: costSort === val ? '#0369a1' : '#f1f5f9', color: costSort === val ? 'white' : '#374151' }}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Precio venta</span>
           <div style={{ display: 'flex', gap: '6px' }}>
             {([['', 'Sin orden'], ['asc', '↑ Menor'], ['desc', '↓ Mayor']] as [string, string][]).map(([val, lbl]) => (
               <button key={val} onClick={() => setPriceSort(val as 'asc' | 'desc' | '')}
