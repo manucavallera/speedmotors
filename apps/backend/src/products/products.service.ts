@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, BadRequestException, Logger } from '@nes
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
 import { products, categories, stockMovements } from '../db/schema'
-import { eq, ilike, and, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
+import { eq, ilike, and, or, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
 
 @Injectable()
 export class ProductsService {
@@ -13,7 +13,7 @@ export class ProductsService {
     const offset = (page - 1) * limit
 
     const conditions = []
-    if (filters?.search) conditions.push(sql`(${ilike(products.name, `%${filters.search}%`)} OR ${ilike(products.code, `%${filters.search}%`)})`)
+    if (filters?.search) conditions.push(or(ilike(products.name, `%${filters.search}%`), ilike(products.code, `%${filters.search}%`)))
     if (filters?.categoryId) conditions.push(eq(products.categoryId, filters.categoryId))
     if (filters?.supplierId) conditions.push(eq(products.supplierId, filters.supplierId))
     if (filters?.ingresoTipo) conditions.push(eq(products.ingresoTipo, filters.ingresoTipo as 'blanco' | 'negro'))
