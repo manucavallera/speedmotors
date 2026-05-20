@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary, btnSecondary } from '../components/ui/FormField'
+import { btnPrimary, btnSecondary, inputStyle } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
 import { VehicleFormModal, type VehicleFormData } from '../components/vehicles/VehicleFormModal'
 import { RemitoImportModal } from '../components/vehicles/RemitoImportModal'
@@ -16,10 +16,12 @@ export function VehiclesPage() {
   const [modal, setModal] = useState<'create' | 'edit' | 'remito' | null>(null)
   const [editing, setEditing] = useState<any>(null)
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
 
   const { data: vehiclesData, isLoading } = useQuery({
-    queryKey: ['vehicles', page],
-    queryFn: () => api.get('/vehicles', { params: { page, limit: 50 } }).then(r => r.data),
+    queryKey: ['vehicles', page, search],
+    queryFn: () => api.get('/vehicles', { params: { page, limit: 50, search: search || undefined } }).then(r => r.data),
+    placeholderData: (prev: any) => prev,
   })
   const vehicles = vehiclesData?.items ?? []
   const total = vehiclesData?.total ?? 0
@@ -79,6 +81,15 @@ export function VehiclesPage() {
           <span>Importá vehículos masivamente desde un <strong>Excel/Remito</strong> con el botón de importación</span>
         </div>
       </InfoBanner>
+
+      <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 16px', marginBottom: '16px' }}>
+        <input
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(1) }}
+          placeholder="Buscar por marca, modelo, chasis, motor..."
+          style={{ ...inputStyle, width: '100%', maxWidth: '420px' }}
+        />
+      </div>
 
       <VehiclesGrid
         vehicles={vehicles}
