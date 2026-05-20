@@ -12,6 +12,7 @@ export function useProducts() {
   const [priceSort, setPriceSort] = useState<'asc' | 'desc' | ''>('')
   const [ingresoFilter, setIngresoFilter] = useState<'blanco' | 'negro' | ''>('')
   const [supplierFilter, setSupplierFilter] = useState<number | ''>('')
+  const [brandFilter, setBrandFilter] = useState('')
   const [page, setPage] = useState(1)
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
   const [importModal, setImportModal] = useState(false)
@@ -19,13 +20,14 @@ export function useProducts() {
   const [editing, setEditing] = useState<Product | null>(null)
 
   const { data, isLoading } = useQuery<PaginatedResponse<Product>>({
-    queryKey: ['products', { search, priceSort, ingresoFilter, supplierFilter, page }],
+    queryKey: ['products', { search, priceSort, ingresoFilter, supplierFilter, brandFilter, page }],
     queryFn: () => api.get('/products', {
       params: {
         search: search || undefined,
         priceSort: priceSort || undefined,
         ingresoTipo: ingresoFilter || undefined,
         supplierId: supplierFilter || undefined,
+        brand: brandFilter || undefined,
         page,
         limit: 50,
       },
@@ -69,6 +71,7 @@ export function useProducts() {
   function handleSetPriceSort(v: 'asc' | 'desc' | '') { setPriceSort(v); resetPage() }
   function handleSetIngresoFilter(v: 'blanco' | 'negro' | '') { setIngresoFilter(v); resetPage() }
   function handleSetSupplierFilter(v: number | '') { setSupplierFilter(v); resetPage() }
+  function handleSetBrandFilter(v: string) { setBrandFilter(v); resetPage() }
 
   const { data: suppliersData } = useQuery({
     queryKey: ['suppliers-list'],
@@ -83,6 +86,7 @@ export function useProducts() {
     priceSort, setPriceSort: handleSetPriceSort,
     ingresoFilter, setIngresoFilter: handleSetIngresoFilter,
     supplierFilter, setSupplierFilter: handleSetSupplierFilter,
+    brandFilter, setBrandFilter: handleSetBrandFilter,
     suppliers,
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,

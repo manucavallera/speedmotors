@@ -19,7 +19,7 @@ export function ProductsPage() {
     products, isLoading, sorted, cheapest, priciest,
     total, page, pages, setPage,
     search, setSearch, priceSort, setPriceSort, ingresoFilter, setIngresoFilter,
-    supplierFilter, setSupplierFilter, suppliers,
+    supplierFilter, setSupplierFilter, brandFilter, setBrandFilter, suppliers,
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
     importModal, setImportModal,
@@ -99,6 +99,12 @@ export function ProductsPage() {
             </div>
           </>
         )}
+
+        <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '140px' }}>
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Marca</span>
+          <input value={brandFilter} onChange={e => setBrandFilter(e.target.value)} placeholder="Ej: NGK, Castrol..." style={{ ...inputStyle }} />
+        </div>
       </div>
 
       {cheapest && priciest && cheapest.id !== priciest.id && (

@@ -20,12 +20,14 @@ export class ProductsController {
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('supplierId') supplierId?: string,
+    @Query('brand') brand?: string,
   ) {
     return this.productsService.findAll({
       search,
       categoryId: categoryId ? parseInt(categoryId) : undefined,
       supplierId: supplierId ? parseInt(supplierId) : undefined,
       ingresoTipo,
+      brand,
       priceSort,
       page: page ? parseInt(page) : undefined,
       limit: limit ? parseInt(limit) : undefined,

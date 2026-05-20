@@ -7,16 +7,17 @@ import { eq, ilike, and, lte, gt, asc, desc, sql, inArray } from 'drizzle-orm'
 @Injectable()
 export class ProductsService {
   private readonly logger = new Logger(ProductsService.name)
-  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; priceSort?: string; page?: number; limit?: number }) {
+  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; page?: number; limit?: number }) {
     const page = Math.max(1, filters?.page ?? 1)
     const limit = Math.min(200, Math.max(1, filters?.limit ?? 50))
     const offset = (page - 1) * limit
 
     const conditions = []
-    if (filters?.search) conditions.push(ilike(products.name, `%${filters.search}%`))
+    if (filters?.search) conditions.push(sql`(${ilike(products.name, `%${filters.search}%`)} OR ${ilike(products.code, `%${filters.search}%`)})`)
     if (filters?.categoryId) conditions.push(eq(products.categoryId, filters.categoryId))
     if (filters?.supplierId) conditions.push(eq(products.supplierId, filters.supplierId))
     if (filters?.ingresoTipo) conditions.push(eq(products.ingresoTipo, filters.ingresoTipo as 'blanco' | 'negro'))
+    if (filters?.brand) conditions.push(ilike(products.brand, `%${filters.brand}%`))
     conditions.push(eq(products.active, true))
     const where = and(...conditions)
 
