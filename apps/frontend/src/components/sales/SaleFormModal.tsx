@@ -64,7 +64,11 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   }, [clientId, clients])
 
   function addItemFromProduct(p: any) {
-    setItems(prev => [...prev, { description: p.name, quantity: 1, unitPrice: Number(p.sellPrice), productId: p.id, ingresoTipo: p.ingresoTipo || '' }])
+    setItems(prev => {
+      const idx = prev.findIndex(it => it.productId === p.id)
+      if (idx >= 0) return prev.map((it, i) => i === idx ? { ...it, quantity: Number(it.quantity) + 1 } : it)
+      return [...prev, { description: p.name, quantity: 1, unitPrice: Number(p.sellPrice), productId: p.id, ingresoTipo: p.ingresoTipo || '' }]
+    })
   }
   function addItem() { setItems(prev => [...prev, { description: '', quantity: 1, unitPrice: 0 }]) }
   function removeItem(i: number) { setItems(prev => prev.filter((_, idx) => idx !== i)) }
