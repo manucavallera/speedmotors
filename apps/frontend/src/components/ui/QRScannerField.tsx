@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { BrowserMultiFormatReader } from '@zxing/browser'
+import type React from 'react'
 
 interface QRScannerFieldProps {
   value: string
@@ -21,14 +22,17 @@ export function QRScannerField({ value, onChange, onScan, onKeyDown, placeholder
   const [error, setError] = useState('')
   const videoRef = useRef<HTMLVideoElement>(null)
   const readerRef = useRef<BrowserMultiFormatReader | null>(null)
+  const firedRef = useRef(false)
 
   useEffect(() => {
     if (!scanning) return
     const reader = new BrowserMultiFormatReader()
     readerRef.current = reader
 
+    firedRef.current = false
     reader.decodeFromVideoDevice(undefined, videoRef.current!, (result, err) => {
-      if (result) {
+      if (result && !firedRef.current) {
+        firedRef.current = true
         const text = result.getText()
         onChange(text)
         onScan?.(text)
