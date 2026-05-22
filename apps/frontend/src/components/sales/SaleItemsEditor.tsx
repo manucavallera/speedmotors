@@ -24,7 +24,8 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
   function searchBarcode(code: string) {
     const c = code.trim()
     if (!c) return
-    const p = products.find((x: any) => x.barcode === c || x.code === c)
+    const cl = c.toLowerCase()
+    const p = products.find((x: any) => x.barcode?.toLowerCase().trim() === cl || x.code?.toLowerCase().trim() === cl)
     if (p) {
       onBarcodeFound?.(p)
       setBarcode('')
