@@ -11,10 +11,11 @@ export interface ProductForm {
   photoUrl: string
   photos: string[]
   serialNumber: string
+  barcode: string
   ingresoTipo: string
 }
 
 export const emptyProductForm: ProductForm = {
   code: '', name: '', brand: '', costPrice: '', sellPrice: '',
-  stock: '', minStock: '1', unit: 'U', photoUrl: '', photos: [], serialNumber: '', ingresoTipo: '',
+  stock: '', minStock: '1', unit: 'U', photoUrl: '', photos: [], serialNumber: '', barcode: '', ingresoTipo: '',
 }

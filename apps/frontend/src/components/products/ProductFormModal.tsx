@@ -10,6 +10,7 @@ import { emptyProductForm } from '../../types/products.types'
 interface ProductFormModalProps {
   mode: 'create' | 'edit'
   editing: any | null
+  initialValues?: Partial<ProductForm>
   onClose: () => void
   onSubmit: (data: any) => void
   isPending: boolean
@@ -21,12 +22,12 @@ function toForm(p: any): ProductForm {
     costPrice: p.costPrice, sellPrice: p.sellPrice,
     stock: String(p.stock), minStock: String(p.minStock), unit: p.unit || 'U',
     photoUrl: p.photoUrl || '', photos: p.photos || (p.photoUrl ? [p.photoUrl] : []),
-    serialNumber: p.serialNumber || '', ingresoTipo: p.ingresoTipo || '',
+    serialNumber: p.serialNumber || '', barcode: p.barcode || '', ingresoTipo: p.ingresoTipo || '',
   }
 }
 
-export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }: ProductFormModalProps) {
-  const [form, setForm] = useState<ProductForm>(() => editing ? toForm(editing) : emptyProductForm)
+export function ProductFormModal({ mode, editing, initialValues, onClose, onSubmit, isPending }: ProductFormModalProps) {
+  const [form, setForm] = useState<ProductForm>(() => editing ? toForm(editing) : { ...emptyProductForm, ...initialValues })
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -37,6 +38,7 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
       photoUrl: form.photos[0] || null,
       photos: form.photos,
       serialNumber: form.serialNumber || null,
+      barcode: form.barcode || null,
       ingresoTipo: form.ingresoTipo || undefined,
     })
   }
@@ -96,6 +98,11 @@ export function ProductFormModal({ mode, editing, onClose, onSubmit, isPending }
           <FormField label="Número de serie">
             <input style={inputStyle} value={form.serialNumber} onChange={e => setForm(f => ({ ...f, serialNumber: e.target.value }))} placeholder="Opcional" />
           </FormField>
+          <FormField label="Código de barras">
+            <QRScannerField value={form.barcode} onChange={val => setForm(f => ({ ...f, barcode: val }))} label="Código de barras" placeholder="Escanear o ingresar" />
+          </FormField>
+        </div>
+        <div className="form-grid-2">
           <FormField label="Ingreso">
             <select style={inputStyle} value={form.ingresoTipo} onChange={e => setForm(f => ({ ...f, ingresoTipo: e.target.value }))}>
               <option value="">Sin especificar</option>

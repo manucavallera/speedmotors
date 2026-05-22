@@ -6,12 +6,20 @@ import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary } from '../components/ui/FormField'
 import { StockMovementsTable } from '../components/stock-movements/StockMovementsTable'
 import { StockMovementFormModal, type StockMovementFormData } from '../components/stock-movements/StockMovementFormModal'
+import { ProductFormModal } from '../components/products/ProductFormModal'
 import { Pagination } from '../components/ui/Pagination'
 
 export function StockMovementsPage() {
   const qc = useQueryClient()
   const [modal, setModal] = useState(false)
   const [page, setPage] = useState(1)
+  const [newProductBarcode, setNewProductBarcode] = useState<string | null>(null)
+
+  const createProduct = useMutation({
+    mutationFn: (d: any) => api.post('/products', d),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['products'] }); setNewProductBarcode(null) },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error al crear producto'),
+  })
 
   const { data: movementsData, isLoading } = useQuery({
     queryKey: ['stock-movements', page],
@@ -62,6 +70,17 @@ export function StockMovementsPage() {
           onClose={() => setModal(false)}
           onSubmit={(data) => create.mutate(data)}
           isPending={create.isPending}
+          onCreateProduct={setNewProductBarcode}
+        />
+      )}
+      {newProductBarcode !== null && (
+        <ProductFormModal
+          mode="create"
+          editing={null}
+          initialValues={{ barcode: newProductBarcode }}
+          onClose={() => setNewProductBarcode(null)}
+          onSubmit={d => createProduct.mutate(d)}
+          isPending={createProduct.isPending}
         />
       )}
     </div>

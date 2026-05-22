@@ -4,6 +4,8 @@ import { BrowserMultiFormatReader } from '@zxing/browser'
 interface QRScannerFieldProps {
   value: string
   onChange: (val: string) => void
+  onScan?: (val: string) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   placeholder?: string
   label?: string
 }
@@ -14,7 +16,7 @@ const inputStyle: React.CSSProperties = {
   fontFamily: 'inherit', background: '#fff',
 }
 
-export function QRScannerField({ value, onChange, placeholder, label }: QRScannerFieldProps) {
+export function QRScannerField({ value, onChange, onScan, onKeyDown, placeholder, label }: QRScannerFieldProps) {
   const [scanning, setScanning] = useState(false)
   const [error, setError] = useState('')
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -27,7 +29,9 @@ export function QRScannerField({ value, onChange, placeholder, label }: QRScanne
 
     reader.decodeFromVideoDevice(undefined, videoRef.current!, (result, err) => {
       if (result) {
-        onChange(result.getText())
+        const text = result.getText()
+        onChange(text)
+        onScan?.(text)
         stopScanner()
       }
       if (err && !(err.message?.includes('No MultiFormat'))) {
@@ -56,6 +60,7 @@ export function QRScannerField({ value, onChange, placeholder, label }: QRScanne
           style={inputStyle}
           value={value}
           onChange={e => onChange(e.target.value)}
+          onKeyDown={onKeyDown}
           placeholder={placeholder}
         />
         <button

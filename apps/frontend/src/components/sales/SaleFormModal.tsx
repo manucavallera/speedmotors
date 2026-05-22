@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import { SearchableSelect } from '../ui/SearchableSelect'
@@ -6,6 +7,8 @@ import { SaleItemsEditor } from './SaleItemsEditor'
 import type { SaleItem } from './SaleItemsEditor'
 import { SaleTotalsPanel } from './SaleTotalsPanel'
 import { ClientFormModal } from '../clients/ClientFormModal'
+import { ProductFormModal } from '../products/ProductFormModal'
+import { api } from '../../lib/api'
 
 interface SaleFormModalProps {
   clients: any[]
@@ -19,8 +22,18 @@ interface SaleFormModalProps {
 }
 
 export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, isPending, onCreateClient, initialData }: SaleFormModalProps) {
+  const qc = useQueryClient()
   const [clientId, setClientId] = useState(initialData?.clientId ? String(initialData.clientId) : '')
   const [showNewClient, setShowNewClient] = useState(false)
+  const [newProductBarcode, setNewProductBarcode] = useState<string | null>(null)
+  const createProduct = useMutation({
+    mutationFn: (d: any) => api.post('/products', d),
+    onSuccess: (res) => {
+      qc.invalidateQueries({ queryKey: ['products'] })
+      addItemFromProduct(res.data)
+      setNewProductBarcode(null)
+    },
+  })
   const [creatingClient, setCreatingClient] = useState(false)
   const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
   const [type, setType] = useState<'contado' | 'cuotas'>('contado')
@@ -50,6 +63,9 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
     else setInvoiceType('B')
   }, [clientId, clients])
 
+  function addItemFromProduct(p: any) {
+    setItems(prev => [...prev, { description: p.name, quantity: 1, unitPrice: Number(p.sellPrice), productId: p.id, ingresoTipo: p.ingresoTipo || '' }])
+  }
   function addItem() { setItems(prev => [...prev, { description: '', quantity: 1, unitPrice: 0 }]) }
   function removeItem(i: number) { setItems(prev => prev.filter((_, idx) => idx !== i)) }
   function updateItem(i: number, key: string, val: any) {
@@ -148,6 +164,8 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
           items={items} products={products} vehicles={vehicles}
           isMixto={invoiceType === 'mixto'}
           onAdd={addItem} onRemove={removeItem} onUpdate={updateItem}
+          onBarcodeFound={addItemFromProduct}
+          onCreateProduct={setNewProductBarcode}
         />
 
         <div style={sec}>CONDICIONES DE PAGO</div>
@@ -271,6 +289,16 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         onClose={() => setShowNewClient(false)}
         onSubmit={handleCreateClient}
         isPending={creatingClient}
+      />
+    )}
+    {newProductBarcode !== null && (
+      <ProductFormModal
+        mode="create"
+        editing={null}
+        initialValues={{ barcode: newProductBarcode }}
+        onClose={() => setNewProductBarcode(null)}
+        onSubmit={d => createProduct.mutate(d)}
+        isPending={createProduct.isPending}
       />
     )}
     </>

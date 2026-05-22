@@ -34,6 +34,7 @@ export const products = pgTable('products', {
   photoUrl: text('photo_url'),
   photos: jsonb('photos').$type<string[]>().notNull().default([]),
   serialNumber: varchar('serial_number', { length: 100 }),
+  barcode: varchar('barcode', { length: 100 }),
   ingresoTipo: varchar('ingreso_tipo', { length: 10 }),
   active: boolean('active').notNull().default(true),
   createdAt: timestamp('created_at').defaultNow().notNull(),

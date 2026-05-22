@@ -17,6 +17,7 @@ export class CreateProductDto {
   @IsOptional() @IsString() photoUrl?: string
   @IsOptional() @IsArray() @IsString({ each: true }) photos?: string[]
   @IsOptional() @IsString() serialNumber?: string
+  @IsOptional() @IsString() barcode?: string
   @IsOptional() @IsIn(['blanco', 'negro', 'mixto']) ingresoTipo?: string
   @IsOptional() @IsBoolean() active?: boolean
 }
