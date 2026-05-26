@@ -20,6 +20,19 @@ function ColSelect({ field, label, headers, mapping, onChange }: ColSelectProps)
   )
 }
 
+// Detecta automáticamente en qué fila están los encabezados reales
+function detectHeaderRow(data: any[][]): number {
+  for (let i = 0; i < Math.min(10, data.length); i++) {
+    const row = data[i]
+    const textCells = row.filter((c: any) => {
+      const s = String(c).trim()
+      return s.length > 0 && s.length < 60 && !/^\d/.test(s) && !s.includes('$') && !s.includes('Cotizacion') && !s.includes('vigencia')
+    })
+    if (textCells.length >= 3) return i + 1
+  }
+  return 1
+}
+
 function autoDetect(hdrs: string[]): Record<string, string> {
   const auto: Record<string, string> = { code: '', name: '', brand: '', costPrice: '', sellPrice: '' }
   hdrs.forEach(h => {
@@ -57,7 +70,10 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
       setWb(workbook)
       setSheetNames(workbook.SheetNames)
       setSelectedSheet(workbook.SheetNames[0])
-      parseSheet(workbook, workbook.SheetNames[0], 1)
+      const data: any[][] = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1, defval: '' })
+      const detectedRow = detectHeaderRow(data)
+      setHeaderRow(detectedRow)
+      parseSheet(workbook, workbook.SheetNames[0], detectedRow)
     }
     reader.readAsBinaryString(file)
   }
@@ -75,7 +91,12 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
 
   function handleSheetChange(name: string) {
     setSelectedSheet(name)
-    if (wb) parseSheet(wb, name, headerRow)
+    if (wb) {
+      const data: any[][] = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, defval: '' })
+      const detectedRow = detectHeaderRow(data)
+      setHeaderRow(detectedRow)
+      parseSheet(wb, name, detectedRow)
+    }
   }
 
   function handleHeaderRowChange(val: number) {
