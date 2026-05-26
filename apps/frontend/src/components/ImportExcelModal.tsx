@@ -79,7 +79,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
 
   async function handleImport() {
     const markupFactor = 1 + (parseFloat(markup) || 30) / 100
-    if (rawRows.length > 500) { alert('Máximo 500 productos por importación'); return }
+    if (rawRows.length > 10000) { alert('Máximo 10.000 productos por importación'); return }
     const allRows: ParsedRow[] = rawRows.map(row => {
       const get = (col: string) => col ? String(row[headers.indexOf(col)] ?? '').trim() : ''
       const costPrice = parseFloat(get(mapping.costPrice).replace(',', '.')) || 0

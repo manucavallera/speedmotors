@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { BrowserMultiFormatReader } from '@zxing/browser'
+import { DecodeHintType } from '@zxing/library'
 import type React from 'react'
 
 interface QRScannerFieldProps {
@@ -26,11 +27,16 @@ export function QRScannerField({ value, onChange, onScan, onKeyDown, placeholder
 
   useEffect(() => {
     if (!scanning) return
-    const reader = new BrowserMultiFormatReader()
+    const hints = new Map()
+    hints.set(DecodeHintType.TRY_HARDER, true)
+    const reader = new BrowserMultiFormatReader(hints)
     readerRef.current = reader
 
     firedRef.current = false
-    reader.decodeFromVideoDevice(undefined, videoRef.current!, (result, err) => {
+    const constraints: MediaStreamConstraints = {
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+    }
+    reader.decodeFromConstraints(constraints, videoRef.current!, (result, err) => {
       if (result && !firedRef.current) {
         firedRef.current = true
         const text = result.getText()
