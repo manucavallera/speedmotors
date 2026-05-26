@@ -20,9 +20,26 @@ function ColSelect({ field, label, headers, mapping, onChange }: ColSelectProps)
   )
 }
 
+function autoDetect(hdrs: string[]): Record<string, string> {
+  const auto: Record<string, string> = { code: '', name: '', brand: '', costPrice: '', sellPrice: '' }
+  hdrs.forEach(h => {
+    const l = h.toLowerCase()
+    if (!auto.code && (l.includes('cod') || l.includes('código') || l.includes('art'))) auto.code = h
+    if (!auto.name && (l.includes('desc') || l.includes('nombre') || l.includes('product'))) auto.name = h
+    if (!auto.brand && (l.includes('marc') || l.includes('brand'))) auto.brand = h
+    if (!auto.costPrice && (l.includes('costo') || l.includes('precio') || l.includes('cost') || l.includes('neto') || l.includes('ars'))) auto.costPrice = h
+    if (!auto.sellPrice && (l.includes('venta') || l.includes('pvp') || l.includes('sell') || l.includes('iva'))) auto.sellPrice = h
+  })
+  return auto
+}
+
 export function ImportExcelModal({ onClose, onImport }: Props) {
   const fileRef = useRef<HTMLInputElement>(null)
   const [step, setStep] = useState<'upload' | 'map' | 'preview'>('upload')
+  const [wb, setWb] = useState<XLSX.WorkBook | null>(null)
+  const [sheetNames, setSheetNames] = useState<string[]>([])
+  const [selectedSheet, setSelectedSheet] = useState('')
+  const [headerRow, setHeaderRow] = useState(1)
   const [headers, setHeaders] = useState<string[]>([])
   const [rawRows, setRawRows] = useState<any[][]>([])
   const [mapping, setMapping] = useState<Record<string, string>>({ code: '', name: '', brand: '', costPrice: '', sellPrice: '' })
@@ -36,27 +53,34 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
     if (!file) return
     const reader = new FileReader()
     reader.onload = ev => {
-      const wb = XLSX.read(ev.target?.result, { type: 'binary' })
-      const ws = wb.Sheets[wb.SheetNames[0]]
-      const data: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' })
-      if (data.length < 2) return
-      const hdrs = data[0].map((h: any) => String(h).trim())
-      setHeaders(hdrs)
-      setRawRows(data.slice(1).filter(r => r.some((c: any) => c !== '')))
-      // Auto-detect columns
-      const auto: Record<string, string> = { code: '', name: '', brand: '', costPrice: '', sellPrice: '' }
-      hdrs.forEach(h => {
-        const l = h.toLowerCase()
-        if (!auto.code && (l.includes('cod') || l.includes('código') || l.includes('art'))) auto.code = h
-        if (!auto.name && (l.includes('desc') || l.includes('nombre') || l.includes('product'))) auto.name = h
-        if (!auto.brand && (l.includes('marc') || l.includes('brand'))) auto.brand = h
-        if (!auto.costPrice && (l.includes('costo') || l.includes('precio') || l.includes('cost') || l.includes('neto'))) auto.costPrice = h
-        if (!auto.sellPrice && (l.includes('venta') || l.includes('pvp') || l.includes('sell'))) auto.sellPrice = h
-      })
-      setMapping(auto)
-      setStep('map')
+      const workbook = XLSX.read(ev.target?.result, { type: 'binary' })
+      setWb(workbook)
+      setSheetNames(workbook.SheetNames)
+      setSelectedSheet(workbook.SheetNames[0])
+      parseSheet(workbook, workbook.SheetNames[0], 1)
     }
     reader.readAsBinaryString(file)
+  }
+
+  function parseSheet(workbook: XLSX.WorkBook, sheetName: string, hRow: number) {
+    const ws = workbook.Sheets[sheetName]
+    const data: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' })
+    if (data.length < hRow) return
+    const hdrs = data[hRow - 1].map((h: any) => String(h).trim()).filter((h: string) => h !== '')
+    setHeaders(hdrs)
+    setRawRows(data.slice(hRow).filter(r => r.some((c: any) => c !== '')))
+    setMapping(autoDetect(hdrs))
+    setStep('map')
+  }
+
+  function handleSheetChange(name: string) {
+    setSelectedSheet(name)
+    if (wb) parseSheet(wb, name, headerRow)
+  }
+
+  function handleHeaderRowChange(val: number) {
+    setHeaderRow(val)
+    if (wb) parseSheet(wb, selectedSheet, val)
   }
 
   function buildPreview() {
@@ -117,6 +141,21 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
 
       {step === 'map' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Selector de hoja y fila de encabezados */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>Hoja del Excel</label>
+              <select style={inputStyle} value={selectedSheet} onChange={e => handleSheetChange(e.target.value)}>
+                {sheetNames.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <label style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>Fila de encabezados</label>
+              <input style={inputStyle} type="number" min={1} max={10} value={headerRow}
+                onChange={e => handleHeaderRowChange(parseInt(e.target.value) || 1)} />
+            </div>
+          </div>
+
           <p style={{ color: '#64748b', fontSize: '13px' }}>
             {rawRows.length} filas detectadas. Verificá que las columnas coincidan:
           </p>
