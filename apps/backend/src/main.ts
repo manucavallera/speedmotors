@@ -15,6 +15,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
+  app.useBodyParser('json', { limit: '50mb' })
 
   const allowedOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',')
