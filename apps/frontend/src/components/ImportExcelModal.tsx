@@ -20,17 +20,19 @@ function ColSelect({ field, label, headers, mapping, onChange }: ColSelectProps)
   )
 }
 
-// Detecta automáticamente en qué fila están los encabezados reales
+// Detecta automáticamente la fila de encabezados buscando palabras clave de columnas
 function detectHeaderRow(data: any[][]): number {
+  const keywords = ['cod', 'desc', 'nomb', 'prec', 'marc', 'brand', 'cost', 'venta', 'costo', 'artíc', 'artic', 'product', 'unit', 'stock', 'categ', 'subcateg', 'ars', 'usd']
+  let bestRow = 0, bestScore = 0
   for (let i = 0; i < Math.min(10, data.length); i++) {
     const row = data[i]
-    const textCells = row.filter((c: any) => {
-      const s = String(c).trim()
-      return s.length > 0 && s.length < 60 && !/^\d/.test(s) && !s.includes('$') && !s.includes('Cotizacion') && !s.includes('vigencia')
-    })
-    if (textCells.length >= 3) return i + 1
+    const score = row.filter((c: any) => {
+      const s = String(c).toLowerCase().trim()
+      return keywords.some(k => s.includes(k))
+    }).length
+    if (score > bestScore) { bestScore = score; bestRow = i }
   }
-  return 1
+  return bestRow + 1
 }
 
 function autoDetect(hdrs: string[]): Record<string, string> {
