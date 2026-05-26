@@ -9,7 +9,7 @@ export class ProductsService {
   private readonly logger = new Logger(ProductsService.name)
   async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; costSort?: string; page?: number; limit?: number }) {
     const page = Math.max(1, filters?.page ?? 1)
-    const limit = Math.min(200, Math.max(1, filters?.limit ?? 50))
+    const limit = Math.min(5000, Math.max(1, filters?.limit ?? 50))
     const offset = (page - 1) * limit
 
     const conditions = []
