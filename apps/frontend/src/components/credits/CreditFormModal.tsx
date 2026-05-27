@@ -39,6 +39,11 @@ export function CreditFormModal({ mode, credit, clients, onClose, onSubmit, isPe
     <Modal title={mode === 'create' ? 'Nuevo crédito' : 'Editar crédito'} onClose={onClose} width={520}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {mode === 'create' && (
+          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '10px 14px', borderRadius: '8px', fontSize: '12.5px', color: '#1e40af', lineHeight: 1.5 }}>
+            💡 <strong>Para deudores viejos del Excel:</strong> poné en "Monto" el saldo que te deben <strong>hoy</strong> y en "Fecha de inicio" la fecha de hoy. Así el primer interés se cobra a los 30 días desde hoy.
+          </div>
+        )}
+        {mode === 'create' && (
           <FormField label="Cliente">
             <select style={inputStyle} value={clientId} onChange={e => setClientId(Number(e.target.value) || '')}>
               <option value="">Seleccionar cliente...</option>
@@ -56,8 +61,8 @@ export function CreditFormModal({ mode, credit, clients, onClose, onSubmit, isPe
               </select>
             </FormField>
           )}
-          <FormField label="Monto original">
-            <input style={inputStyle} type="number" min="0" step="0.01" value={originalAmount} onChange={e => setOriginalAmount(e.target.value)} />
+          <FormField label="Monto (saldo actual)">
+            <input style={inputStyle} type="number" min="0" step="0.01" value={originalAmount} onChange={e => setOriginalAmount(e.target.value)} placeholder="Lo que te debe hoy" />
           </FormField>
           <FormField label="Tasa mensual (%)">
             <input style={inputStyle} type="number" min="0" step="0.1" value={interestRate} onChange={e => setInterestRate(e.target.value)} />
