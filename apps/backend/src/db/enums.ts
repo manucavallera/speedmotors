@@ -21,3 +21,5 @@ export const reminderStatusEnum = pgEnum('reminder_status', ['pendiente', 'pagad
 export const reminderRecurrenceEnum = pgEnum('reminder_recurrence', ['ninguna', 'mensual', 'trimestral', 'anual'])
 export const transferStatusEnum = pgEnum('transfer_status', ['pendiente', 'en_tramite', 'completada', 'cancelada'])
 export const clientPaymentTypeEnum = pgEnum('client_payment_type', ['pago_cuenta', 'nota_credito', 'nota_debito'])
+export const creditStatusEnum = pgEnum('credit_status', ['activo', 'pagado', 'cancelado'])
+export const creditCurrencyEnum = pgEnum('credit_currency', ['pesos', 'usd'])

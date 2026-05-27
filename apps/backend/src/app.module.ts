@@ -21,6 +21,7 @@ import { AlertsModule } from './alerts/alerts.module'
 import { TransfersModule } from './transfers/transfers.module'
 import { UsersModule } from './users/users.module'
 import { NotificationsModule } from './notifications/notifications.module'
+import { CreditsModule } from './credits/credits.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -47,6 +48,7 @@ import { AppService } from './app.service'
     TransfersModule,
     UsersModule,
     NotificationsModule,
+    CreditsModule,
   ],
   controllers: [AppController],
   providers: [

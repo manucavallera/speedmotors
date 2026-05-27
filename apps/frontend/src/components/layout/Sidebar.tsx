@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Package, Bike, Users,
   ShoppingCart, CreditCard, FileText, Wallet,
-  ArrowLeftRight, Receipt, BarChart2, Settings, LogOut, X, Truck, ClipboardList, BookMarked, Bell, FileCheck, UserCog,
+  ArrowLeftRight, Receipt, BarChart2, Settings, LogOut, X, Truck, ClipboardList, BookMarked, Bell, FileCheck, UserCog, HandCoins,
 } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import { useAlertsCount } from '../../hooks/useAlerts'
@@ -26,6 +26,7 @@ const groups = [
       { to: '/clients', icon: Users, label: 'Clientes' },
       { to: '/sales', icon: ShoppingCart, label: 'Ventas' },
       { to: '/installments', icon: CreditCard, label: 'Cuotas' },
+      { to: '/credits', icon: HandCoins, label: 'Créditos' },
       { to: '/quotes', icon: FileText, label: 'Presupuestos' },
       { to: '/reservations', icon: BookMarked, label: 'Solicitudes de Reserva' },
       { to: '/transfers', icon: FileCheck, label: 'Transferencias' },

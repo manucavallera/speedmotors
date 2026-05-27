@@ -13,6 +13,7 @@ const VehiclesPage        = lazy(() => import('./pages/VehiclesPage').then(m => 
 const ClientsPage         = lazy(() => import('./pages/ClientsPage').then(m => ({ default: m.ClientsPage })))
 const SalesPage           = lazy(() => import('./pages/SalesPage').then(m => ({ default: m.SalesPage })))
 const InstallmentsPage    = lazy(() => import('./pages/InstallmentsPage').then(m => ({ default: m.InstallmentsPage })))
+const CreditsPage         = lazy(() => import('./pages/CreditsPage').then(m => ({ default: m.CreditsPage })))
 const QuotesPage          = lazy(() => import('./pages/QuotesPage').then(m => ({ default: m.QuotesPage })))
 const CashPage            = lazy(() => import('./pages/CashPage').then(m => ({ default: m.CashPage })))
 const StockMovementsPage  = lazy(() => import('./pages/StockMovementsPage').then(m => ({ default: m.StockMovementsPage })))
@@ -49,6 +50,7 @@ export default function App() {
             <Route path="clients" element={<Suspense fallback={PageFallback}><ClientsPage /></Suspense>} />
             <Route path="sales" element={<Suspense fallback={PageFallback}><SalesPage /></Suspense>} />
             <Route path="installments" element={<Suspense fallback={PageFallback}><InstallmentsPage /></Suspense>} />
+            <Route path="credits" element={<Suspense fallback={PageFallback}><CreditsPage /></Suspense>} />
             <Route path="quotes" element={<Suspense fallback={PageFallback}><QuotesPage /></Suspense>} />
             <Route path="cash" element={<Suspense fallback={PageFallback}><CashPage /></Suspense>} />
             <Route path="stock-movements" element={<Suspense fallback={PageFallback}><StockMovementsPage /></Suspense>} />
