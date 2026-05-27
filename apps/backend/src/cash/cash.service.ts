@@ -69,6 +69,17 @@ export class CashService {
     return movement
   }
 
+  async removeSession(id: number) {
+    const [session] = await db.select().from(cashSessions).where(eq(cashSessions.id, id))
+    if (!session) throw new NotFoundException(`Sesión ${id} no encontrada`)
+    if (session.status === 'abierta') throw new BadRequestException('No se puede eliminar una sesión abierta')
+    return db.transaction(async (tx) => {
+      await tx.delete(cashMovements).where(eq(cashMovements.sessionId, id))
+      const [deleted] = await tx.delete(cashSessions).where(eq(cashSessions.id, id)).returning()
+      return deleted
+    })
+  }
+
   async getMovements(sessionId: number) {
     return db.select().from(cashMovements)
       .where(eq(cashMovements.sessionId, sessionId))

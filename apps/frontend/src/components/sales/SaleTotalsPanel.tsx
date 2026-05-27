@@ -103,10 +103,10 @@ export function SaleTotalsPanel({
           {/* Header crédito */}
           <div style={{ background: currencyColor[0], padding: '10px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ color: 'white', fontWeight: 700, fontSize: '12px', letterSpacing: '0.5px' }}>
-              FINANCIACIÓN EN {currencyLabel.toUpperCase()} · {monthlyRate}% MENSUAL TEM
+              FINANCIACIÓN EN {currencyLabel.toUpperCase()} · {monthlyRate}% MENSUAL
             </span>
             <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '20px' }}>
-              INTERÉS COMPUESTO
+              INTERÉS SIMPLE
             </span>
           </div>
 

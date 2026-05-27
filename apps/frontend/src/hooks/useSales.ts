@@ -74,6 +74,12 @@ export function useSales() {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
+  const remove = useMutation({
+    mutationFn: (id: number) => api.delete(`/sales/${id}`),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['sales'] }); setDetail(null); toast.success('Venta eliminada') },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
+
   const updateTransport = useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) => api.patch(`/sales/${id}/transport`, data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['sales'] }),
@@ -89,6 +95,6 @@ export function useSales() {
     dateFrom, setDateFrom: handleSetDateFrom,
     dateTo, setDateTo: handleSetDateTo,
     invoiceFilter, setInvoiceFilter: handleSetInvoiceFilter,
-    create, cancel, updateTransport, createClient,
+    create, cancel, remove, updateTransport, createClient,
   }
 }

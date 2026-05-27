@@ -43,6 +43,12 @@ export function CashPage() {
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
+  const removeSession = useMutation({
+    mutationFn: (id: number) => api.delete(`/cash/sessions/${id}`),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-sessions'] }); qc.invalidateQueries({ queryKey: ['cash-summary'] }); toast.success('Sesión eliminada') },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
+  })
+
   return (
     <div>
       <div className="page-header">
@@ -78,7 +84,7 @@ export function CashPage() {
               </button>
             ))}
           </div>
-          <CashSessionsTable sessions={statusFilter === 'todas' ? sessions : (sessions as any[]).filter((s: any) => s.status === statusFilter)} />
+          <CashSessionsTable sessions={statusFilter === 'todas' ? sessions : (sessions as any[]).filter((s: any) => s.status === statusFilter)} onDelete={id => removeSession.mutate(id)} deletePending={removeSession.isPending} />
         </>
       )}
 

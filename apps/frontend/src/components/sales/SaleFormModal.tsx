@@ -216,7 +216,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
                   <option value="usd">Dólares USD</option>
                 </select>
               </FormField>
-              <FormField label="Tasa mensual TEM (%)">
+              <FormField label="Tasa mensual (%)">
                 <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                   <input style={{ ...inputStyle, flex: 1 }} type="number" min="0" step="0.1"
                     value={customRate ? interestRate : String(DEFAULT_RATES[financingCurrency])}

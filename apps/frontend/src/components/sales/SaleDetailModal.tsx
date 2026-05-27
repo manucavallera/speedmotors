@@ -15,6 +15,8 @@ interface SaleDetailModalProps {
   onClose: () => void
   onCancel: (id: number) => void
   cancelPending: boolean
+  onDelete: (id: number) => void
+  deletePending: boolean
   onUpdateTransport: (id: number, data: any) => void
   transportPending?: boolean
 }
@@ -33,7 +35,7 @@ function toTransportForm(s: any) {
   }
 }
 
-export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPending, onUpdateTransport, transportPending }: SaleDetailModalProps) {
+export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPending, onDelete, deletePending, onUpdateTransport, transportPending }: SaleDetailModalProps) {
   const clientData = clients.find((c: any) => c.id === detail.clientId)
   const invStyle = invoiceColors[detail.invoiceType || 'X'] || invoiceColors.X
   const [showTransport, setShowTransport] = useState(false)
@@ -98,8 +100,8 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
           return (
             <div style={{ border: `1.5px solid ${accentColor}`, borderRadius: '10px', overflow: 'hidden' }}>
               <div style={{ background: accentColor, padding: '8px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>CRÉDITO EN {currency.toUpperCase()} · {detail.interestRate}% MENSUAL TEM</span>
-                <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', padding: '1px 8px', borderRadius: '20px' }}>INTERÉS COMPUESTO</span>
+                <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>CRÉDITO EN {currency.toUpperCase()} · {detail.interestRate}% MENSUAL</span>
+                <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', fontSize: '11px', padding: '1px 8px', borderRadius: '20px' }}>INTERÉS SIMPLE</span>
               </div>
               <div style={{ background: accentBg, padding: '12px 14px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px', textAlign: 'center' }}>
                 <div><div style={{ fontSize: '10px', fontWeight: 600, color: accentColor }}>CUOTA MENSUAL</div><div style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>${fmt(cuota)}</div></div>
@@ -185,16 +187,22 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
           )}
         </div>
 
-        {detail.status !== 'cancelado' && (
-          <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+        <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {detail.status !== 'cancelado' && (
             <button
               onClick={() => { if (confirm('¿Cancelar esta venta? Se restaurará el stock.')) onCancel(detail.id) }}
               style={{ padding: '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
               disabled={cancelPending}>
               {cancelPending ? 'Cancelando...' : 'Cancelar venta'}
             </button>
-          </div>
-        )}
+          )}
+          <button
+            onClick={() => { if (confirm('¿Eliminar esta venta permanentemente? Esta acción no se puede deshacer.')) onDelete(detail.id) }}
+            style={{ padding: '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#991b1b', border: '1px solid #fca5a5', borderRadius: '8px', cursor: 'pointer' }}
+            disabled={deletePending}>
+            {deletePending ? 'Eliminando...' : 'Eliminar venta'}
+          </button>
+        </div>
       </div>
     </Modal>
   )

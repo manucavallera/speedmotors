@@ -1,8 +1,10 @@
 interface CashSessionsTableProps {
   sessions: any[]
+  onDelete?: (id: number) => void
+  deletePending?: boolean
 }
 
-export function CashSessionsTable({ sessions }: CashSessionsTableProps) {
+export function CashSessionsTable({ sessions, onDelete, deletePending }: CashSessionsTableProps) {
   const thStyle = { padding: '10px 16px', textAlign: 'left' as const, fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: '0.05em' }
 
   return (
@@ -12,7 +14,7 @@ export function CashSessionsTable({ sessions }: CashSessionsTableProps) {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
-              {['Apertura', 'Cierre', 'Saldo inicial', 'Esperado', 'Contado', 'Diferencia', 'Estado'].map(h => (
+              {['Apertura', 'Cierre', 'Saldo inicial', 'Esperado', 'Contado', 'Diferencia', 'Estado', ''].map(h => (
                 <th key={h} style={thStyle}>{h}</th>
               ))}
             </tr>
@@ -35,6 +37,16 @@ export function CashSessionsTable({ sessions }: CashSessionsTableProps) {
                     <span style={{ padding: '2px 9px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, background: s.status === 'abierta' ? '#f0fdf4' : '#f1f5f9', color: s.status === 'abierta' ? '#16a34a' : '#64748b' }}>
                       {s.status}
                     </span>
+                  </td>
+                  <td style={{ padding: '11px 16px' }}>
+                    {onDelete && s.status === 'cerrada' && (
+                      <button
+                        onClick={() => { if (confirm('¿Eliminar esta sesión de caja y todos sus movimientos?')) onDelete(s.id) }}
+                        disabled={deletePending}
+                        style={{ padding: '4px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                        Eliminar
+                      </button>
+                    )}
                   </td>
                 </tr>
               )

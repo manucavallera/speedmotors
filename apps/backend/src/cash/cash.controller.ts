@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Request, Param, ParseIntPipe } from '@nestjs/common'
+import { Controller, Get, Post, Delete, Body, UseGuards, Request, Param, ParseIntPipe } from '@nestjs/common'
 import { CashService } from './cash.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -26,6 +26,12 @@ export class CashController {
   @UseGuards(AdminGuard)
   close(@Body() body: { notes?: string; countedBalance?: number }, @Request() req: any) {
     return this.cashService.closeSession(req.user.id, body.notes, body.countedBalance)
+  }
+
+  @Delete('sessions/:id')
+  @UseGuards(AdminGuard)
+  removeSession(@Param('id', ParseIntPipe) id: number) {
+    return this.cashService.removeSession(id)
   }
 
   @Post('movement')

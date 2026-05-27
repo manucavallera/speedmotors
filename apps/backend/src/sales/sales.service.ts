@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common'
 import { db } from '../db'
-import { sales, saleItems, installments, products, vehicles, clients } from '../db/schema'
+import { sales, saleItems, installments, products, vehicles, clients, stockMovements } from '../db/schema'
 import { eq, desc, sql, asc, and, or, gte, lte, ilike, inArray } from 'drizzle-orm'
 import { CreateSaleDto } from './create-sale.dto'
 
@@ -74,7 +74,7 @@ export class SalesService {
     let total: number
     if (isFinanced && n > 1) {
       const r = monthlyRate / 100
-      cuotaAmount = toFinance * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+      cuotaAmount = toFinance * (1 + r * n) / n
       total = downPayment + cuotaAmount * n
     } else {
       total = principal * (1 + monthlyRate / 100)
@@ -188,6 +188,36 @@ export class SalesService {
       }
       const [updated] = await tx.update(sales).set({ status: 'cancelado' }).where(eq(sales.id, id)).returning()
       return updated
+    })
+  }
+
+  async remove(id: number) {
+    return db.transaction(async (tx) => {
+      const [sale] = await tx.select().from(sales).where(eq(sales.id, id))
+      if (!sale) throw new NotFoundException(`Venta ${id} no encontrada`)
+
+      // Restaurar stock/vehículos solo si no estaba cancelada (cancel ya lo hizo)
+      if (sale.status !== 'cancelado') {
+        const items = await tx.select().from(saleItems).where(eq(saleItems.saleId, id))
+        for (const item of items) {
+          if (item.productId) {
+            await tx.update(products)
+              .set({ stock: sql`${products.stock} + ${item.quantity}`, updatedAt: new Date() })
+              .where(eq(products.id, item.productId))
+          }
+          if (item.vehicleId) {
+            await tx.update(vehicles)
+              .set({ status: 'disponible', updatedAt: new Date() })
+              .where(and(eq(vehicles.id, item.vehicleId), eq(vehicles.status, 'vendido')))
+          }
+        }
+      }
+
+      await tx.update(stockMovements).set({ saleId: null }).where(eq(stockMovements.saleId, id))
+      await tx.delete(installments).where(eq(installments.saleId, id))
+      await tx.delete(saleItems).where(eq(saleItems.saleId, id))
+      const [deleted] = await tx.delete(sales).where(eq(sales.id, id)).returning()
+      return deleted
     })
   }
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
+import { Controller, Get, Post, Patch, Delete, Param, Body, Query, UseGuards, ParseIntPipe, Request } from '@nestjs/common'
 import { SalesService } from './sales.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
@@ -67,6 +67,12 @@ export class SalesController {
   @UseGuards(AdminGuard)
   cancelSale(@Param('id', ParseIntPipe) id: number) {
     return this.salesService.cancelSale(id)
+  }
+
+  @Delete(':id')
+  @UseGuards(AdminGuard)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.salesService.remove(id)
   }
 
   @Post('installments/:id/pay')

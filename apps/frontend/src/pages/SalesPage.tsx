@@ -9,7 +9,7 @@ import { Pagination } from '../components/ui/Pagination'
 import { exportSalesCsv, exportSalesPdf } from '../lib/export'
 
 export function SalesPage() {
-  const { clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, updateTransport, createClient, total, page, pages, setPage } = useSales()
+  const { clients, products, vehicles, filtered, isLoading, modal, setModal, detail, setDetail, search, setSearch, dateFrom, setDateFrom, dateTo, setDateTo, invoiceFilter, setInvoiceFilter, create, cancel, remove, updateTransport, createClient, total, page, pages, setPage } = useSales()
 
   return (
     <div>
@@ -77,7 +77,7 @@ export function SalesPage() {
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && <SaleFormModal clients={clients} products={products} vehicles={vehicles} onSubmit={data => create.mutate(data)} onClose={() => setModal(false)} isPending={create.isPending} onCreateClient={data => createClient.mutateAsync(data)} />}
-      {detail && <SaleDetailModal detail={detail} clients={clients} onClose={() => setDetail(null)} onCancel={id => cancel.mutate(id)} cancelPending={cancel.isPending} onUpdateTransport={(id, data) => updateTransport.mutate({ id, data })} transportPending={updateTransport.isPending} />}
+      {detail && <SaleDetailModal detail={detail} clients={clients} onClose={() => setDetail(null)} onCancel={id => cancel.mutate(id)} cancelPending={cancel.isPending} onDelete={id => remove.mutate(id)} deletePending={remove.isPending} onUpdateTransport={(id, data) => updateTransport.mutate({ id, data })} transportPending={updateTransport.isPending} />}
     </div>
   )
 }
