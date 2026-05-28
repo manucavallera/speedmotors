@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common'
 import { db } from '../db'
-import { sales, saleItems, installments, products, vehicles, clients, stockMovements } from '../db/schema'
+import { sales, saleItems, installments, products, vehicles, clients, stockMovements, credits, creditInstallments } from '../db/schema'
 import { eq, desc, sql, asc, and, or, gte, lte, ilike, inArray } from 'drizzle-orm'
 import { CreateSaleDto } from './create-sale.dto'
 
@@ -66,9 +66,10 @@ export class SalesService {
     const toFinance = Math.max(0, principal - downPayment)
 
     const MONTHLY_RATES: Record<string, number> = { pesos: 5, usd: 3 }
-    const isFinanced = data.type === 'cuotas' && !!data.financingCurrency
+    const isCuotasSimples = data.type === 'cuotas' && data.creditType !== 'saldo_compuesto'
+    const isFinanced = isCuotasSimples && !!data.financingCurrency
     const monthlyRate = isFinanced ? (MONTHLY_RATES[data.financingCurrency!] ?? 5) : (data.interestRate || 0)
-    const n = (data.type === 'cuotas' && data.installmentCount) ? data.installmentCount : 1
+    const n = (isCuotasSimples && data.installmentCount) ? data.installmentCount : 1
 
     let cuotaAmount = 0
     let total: number
@@ -76,6 +77,8 @@ export class SalesService {
       const r = monthlyRate / 100
       cuotaAmount = toFinance * (1 + r * n) / n
       total = downPayment + cuotaAmount * n
+    } else if (data.type === 'cuenta_corriente' || (data.type === 'cuotas' && data.creditType === 'saldo_compuesto')) {
+      total = principal
     } else {
       total = principal * (1 + monthlyRate / 100)
     }
@@ -151,15 +154,44 @@ export class SalesService {
         }
       }
 
-      if (data.type === 'cuotas' && n > 1) {
-        const amount = isFinanced ? cuotaAmount : total / n
-        const baseDate = data.firstInstallmentDate ? new Date(data.firstInstallmentDate) : new Date()
-        const cuotas = Array.from({ length: n }, (_, i) => {
-          const dueDate = new Date(baseDate)
-          dueDate.setMonth(dueDate.getMonth() + (data.firstInstallmentDate ? i : i + 1))
-          return { saleId: sale.id, number: i + 1, amount: amount.toFixed(2), dueDate }
-        })
-        await tx.insert(installments).values(cuotas)
+      // Financiado y cuenta corriente viven en el módulo créditos
+      if (data.type === 'cuenta_corriente' || data.type === 'cuotas') {
+        if (!data.clientId) throw new BadRequestException('Se requiere cliente para venta financiada / cuenta corriente')
+
+        const creditType = isCuotasSimples ? 'cuotas_simples' : 'saldo_compuesto'
+        // cuenta corriente: vence en N días; financiado: arranca en la fecha de primer vencimiento elegida
+        const firstDueDate = data.type === 'cuenta_corriente'
+          ? new Date(Date.now() + (data.daysToExpire ?? 30) * 24 * 60 * 60 * 1000)
+          : data.firstInstallmentDate ? new Date(data.firstInstallmentDate) : null
+        const rate = data.type === 'cuenta_corriente' ? 0 : monthlyRate
+
+        const [credit] = await tx.insert(credits).values({
+          clientId: data.clientId,
+          userId: data.userId!,
+          saleId: sale.id,
+          creditType,
+          currency: data.financingCurrency === 'usd' ? 'usd' : 'pesos',
+          originalAmount: toFinance.toFixed(2),
+          interestRate: rate.toString(),
+          startDate: new Date(),
+          firstDueDate,
+          installmentsCount: creditType === 'cuotas_simples' ? n : null,
+        }).returning()
+
+        // Cuotas planificadas con interés simple. amount = cuota con interés; principalAmount = solo capital (pago anticipado 20+ días)
+        if (creditType === 'cuotas_simples') {
+          if (!firstDueDate) throw new BadRequestException('Se requiere fecha de primer vencimiento para financiación en cuotas')
+          if (n < 2) throw new BadRequestException('La financiación en cuotas requiere al menos 2 cuotas')
+          const r = rate / 100
+          const cuotaConInteres = toFinance * (1 + r * n) / n
+          const cuotaBase = toFinance / n
+          const rows = Array.from({ length: n }, (_, i) => {
+            const due = new Date(firstDueDate)
+            due.setMonth(due.getMonth() + i)
+            return { creditId: credit.id, number: i + 1, dueDate: due, amount: cuotaConInteres.toFixed(2), principalAmount: cuotaBase.toFixed(2), surcharge: '0' }
+          })
+          await tx.insert(creditInstallments).values(rows)
+        }
       }
 
       return sale.id
@@ -214,6 +246,7 @@ export class SalesService {
       }
 
       await tx.update(stockMovements).set({ saleId: null }).where(eq(stockMovements.saleId, id))
+      await tx.update(credits).set({ saleId: null }).where(eq(credits.saleId, id))
       await tx.delete(installments).where(eq(installments.saleId, id))
       await tx.delete(saleItems).where(eq(saleItems.saleId, id))
       const [deleted] = await tx.delete(sales).where(eq(sales.id, id)).returning()

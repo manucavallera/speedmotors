@@ -35,8 +35,17 @@ export class CreateSaleDto {
   @IsNumber()
   userId?: number
 
-  @IsIn(['contado', 'cuotas'])
-  type: 'contado' | 'cuotas'
+  @IsIn(['contado', 'cuotas', 'cuenta_corriente'])
+  type: 'contado' | 'cuotas' | 'cuenta_corriente'
+
+  @IsOptional()
+  @IsIn(['cuotas_simples', 'saldo_compuesto'])
+  creditType?: 'cuotas_simples' | 'saldo_compuesto'
+
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  daysToExpire?: number
 
   @IsOptional()
   @IsIn(['A', 'B', 'X', 'mixto'])

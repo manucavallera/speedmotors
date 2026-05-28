@@ -9,6 +9,10 @@ export interface AlertsData {
     overdue: Array<{ id: number; saleId: number; number: number; amount: string; dueDate: string; clientName: string | null; saleNumber: string | null }>
     upcoming: Array<{ id: number; saleId: number; number: number; amount: string; dueDate: string; clientName: string | null; saleNumber: string | null }>
   }
+  cuentaCorriente: {
+    overdue: Array<{ id: number; clientId: number; amount: string; dueDate: string | null; clientName: string | null }>
+    upcoming: Array<{ id: number; clientId: number; amount: string; dueDate: string | null; clientName: string | null }>
+  }
   reservations: Array<{ id: number; reservationNumber: string | null; clientName: string; brand: string; model: string | null; depositAmount: string | null; createdAt: string }>
   purchaseOrders: Array<{ id: number; supplierName: string | null; total: string; status: string; createdAt: string }>
   reminders: {

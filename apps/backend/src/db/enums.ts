@@ -4,7 +4,7 @@ import { pgEnum } from 'drizzle-orm/pg-core'
 export const roleEnum = pgEnum('role', ['admin', 'vendedor'])
 export const vehicleTypeEnum = pgEnum('vehicle_type', ['moto', 'lancha'])
 export const vehicleStatusEnum = pgEnum('vehicle_status', ['disponible', 'reservado', 'vendido'])
-export const saleTypeEnum = pgEnum('sale_type', ['contado', 'cuotas'])
+export const saleTypeEnum = pgEnum('sale_type', ['contado', 'cuotas', 'cuenta_corriente'])
 export const paymentMethodEnum = pgEnum('payment_method', ['efectivo', 'transferencia', 'tarjeta', 'mixto', 'usdt', 'cheque'])
 export const saleStatusEnum = pgEnum('sale_status', ['completado', 'pendiente', 'cancelado'])
 export const invoiceTypeEnum = pgEnum('invoice_type', ['A', 'B', 'X', 'mixto'])

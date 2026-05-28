@@ -50,7 +50,7 @@ export function generateReceipt(sale: any, client?: any) {
   doc.setFont('helvetica', 'bold')
   doc.text('Tipo de pago:', 10, y + 5)
   doc.setFont('helvetica', 'normal')
-  doc.text(`${sale.type === 'cuotas' ? 'Cuotas' : 'Contado'} — ${sale.paymentMethod}`, 40, y + 5)
+  doc.text(`${sale.type === 'cuotas' ? 'Financiado' : sale.type === 'cuenta_corriente' ? 'Cuenta corriente' : 'Contado'} — ${sale.paymentMethod}`, 40, y + 5)
   y += 12
 
   autoTable(doc, {

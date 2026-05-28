@@ -184,7 +184,11 @@ export class CreditsService {
 
     const paid = new Date(paymentDate)
     const due = new Date(inst.dueDate)
-    const baseAmount = Number(inst.amount)
+    // Pago anticipado: 20+ días antes del vencimiento cobra solo capital (sin interés)
+    const cutoff = new Date(due)
+    cutoff.setDate(cutoff.getDate() - 20)
+    const early = paid <= cutoff && inst.principalAmount != null
+    const baseAmount = early ? Number(inst.principalAmount) : Number(inst.amount)
     const surcharge = this.computeSurcharge(baseAmount, due, paid, Number(credit.interestRate))
     const total = baseAmount + surcharge
 
@@ -195,6 +199,7 @@ export class CreditsService {
     }).where(eq(creditInstallments.id, installmentId))
 
     const noteParts = [`Cuota ${inst.number}/${credit.installmentsCount}`]
+    if (early) noteParts.push('(pago anticipado, sin interés)')
     if (surcharge > 0) noteParts.push(`(recargo $${surcharge.toFixed(2)})`)
 
     await db.insert(creditPayments).values({
@@ -277,6 +282,7 @@ export class CreditsService {
     if (credit.creditType !== 'saldo_compuesto') return
 
     const rate = Number(credit.interestRate) / 100
+    if (rate <= 0) return // cuenta corriente sin interés — no generar cargos $0
     const anchor = credit.firstDueDate ? new Date(credit.firstDueDate) : new Date(credit.startDate)
     const useAnchorAsFirst = !!credit.firstDueDate
 

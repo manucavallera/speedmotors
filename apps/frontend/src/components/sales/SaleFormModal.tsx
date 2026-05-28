@@ -9,6 +9,7 @@ import { SaleTotalsPanel } from './SaleTotalsPanel'
 import { ClientFormModal } from '../clients/ClientFormModal'
 import { ProductFormModal } from '../products/ProductFormModal'
 import { api } from '../../lib/api'
+import { toast } from '../../lib/toast'
 
 interface SaleFormModalProps {
   clients: any[]
@@ -36,7 +37,9 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   })
   const [creatingClient, setCreatingClient] = useState(false)
   const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
-  const [type, setType] = useState<'contado' | 'cuotas'>('contado')
+  const [type, setType] = useState<'contado' | 'cuotas' | 'cuenta_corriente'>('contado')
+  const [financingSubtype, setFinancingSubtype] = useState<'cuotas_simples' | 'saldo_compuesto'>('cuotas_simples')
+  const [daysToExpire, setDaysToExpire] = useState('30')
   const [paymentMethod, setPaymentMethod] = useState('efectivo')
   const [discount, setDiscount] = useState('0')
   const [downPayment, setDownPayment] = useState(initialData?.downPayment ? String(initialData.downPayment) : '0')
@@ -87,27 +90,43 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   const interest = parseFloat(interestRate) || 0
   const principal = subtotal - discountAmt
   const toFinance = Math.max(0, principal - downPaymentAmt)
-  const effectiveRate = type === 'cuotas' ? (customRate ? interest : DEFAULT_RATES[financingCurrency]) : 0
+  const isCuotasSimples = type === 'cuotas' && financingSubtype === 'cuotas_simples'
+  const effectiveRate = isCuotasSimples ? (customRate ? interest : DEFAULT_RATES[financingCurrency]) : 0
   const monthlyRate = effectiveRate
   const n = Number(installmentCount)
   const r = monthlyRate / 100
-  const cuota = type === 'cuotas' && r > 0 && n > 1
-    ? toFinance * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+  // Interés simple (igual que módulo créditos): cuota = capital * (1 + tasa*n) / n
+  const cuota = isCuotasSimples && n > 1
+    ? toFinance * (1 + r * n) / n
     : toFinance / Math.max(n, 1)
-  const total = type === 'cuotas' ? downPaymentAmt + cuota * n : principal * (1 + interest / 100)
+  const total = isCuotasSimples
+    ? downPaymentAmt + cuota * n
+    : (type === 'cuenta_corriente' || (type === 'cuotas' && financingSubtype === 'saldo_compuesto'))
+      ? principal
+      : principal * (1 + interest / 100)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if ((type === 'cuenta_corriente' || type === 'cuotas') && !clientId) {
+      toast.error('Seleccioná un cliente para venta financiada o cuenta corriente')
+      return
+    }
+    if (isCuotasSimples && !firstInstallmentDate) {
+      toast.error('Indicá la fecha de primer vencimiento de la cuota')
+      return
+    }
     onSubmit({
       clientId: clientId ? Number(clientId) : undefined,
       invoiceType, type, paymentMethod,
       discount: discountAmt,
-      downPayment: type === 'cuotas' ? downPaymentAmt : 0,
-      downPaymentMethod: type === 'cuotas' && downPaymentAmt > 0 ? downPaymentMethod : undefined,
-      interestRate: monthlyRate,
-      financingCurrency: type === 'cuotas' ? financingCurrency : undefined,
-      installmentCount: type === 'cuotas' ? n : 1,
+      downPayment: isCuotasSimples ? downPaymentAmt : 0,
+      downPaymentMethod: isCuotasSimples && downPaymentAmt > 0 ? downPaymentMethod : undefined,
+      interestRate: isCuotasSimples ? monthlyRate : (type === 'cuotas' && financingSubtype === 'saldo_compuesto' ? interest : 0),
+      financingCurrency: isCuotasSimples ? financingCurrency : undefined,
+      installmentCount: isCuotasSimples ? n : 1,
       firstInstallmentDate: type === 'cuotas' && firstInstallmentDate ? firstInstallmentDate : undefined,
+      creditType: type === 'cuotas' ? financingSubtype : undefined,
+      daysToExpire: type === 'cuenta_corriente' ? Number(daysToExpire) : undefined,
       notes,
       items: items.map(it => ({ ...it, quantity: Number(it.quantity), unitPrice: Number(it.unitPrice) })),
     })
@@ -177,10 +196,11 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
           <FormField label="Tipo de venta">
             <select style={inputStyle} value={type} onChange={e => setType(e.target.value as any)}>
               <option value="contado">Contado</option>
-              <option value="cuotas">Financiado en cuotas</option>
+              <option value="cuenta_corriente">Cuenta corriente del cliente</option>
+              <option value="cuotas">Financiado</option>
             </select>
           </FormField>
-          <FormField label={type === 'cuotas' ? 'Forma de pago de cuotas' : 'Forma de pago'}>
+          <FormField label={type === 'cuotas' ? 'Forma de pago' : 'Forma de pago'}>
             <select style={inputStyle} value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
               <option value="efectivo">Efectivo</option>
               <option value="transferencia">Transferencia bancaria</option>
@@ -198,61 +218,104 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
           </div>
         )}
 
-        {type === 'cuotas' ? (
+        {type === 'cuenta_corriente' && (
           <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Condiciones de financiación</div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Condiciones de cuenta corriente</div>
             <div className="form-grid-2">
               <FormField label="Descuento ($)">
                 <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
               </FormField>
-              <FormField label="N° cuotas">
-                <input style={inputStyle} type="number" min="2" max="60" value={installmentCount} onChange={e => setInstallmentCount(e.target.value)} />
+              <FormField label="Días para vencer">
+                <input style={inputStyle} type="number" min="1" value={daysToExpire} onChange={e => setDaysToExpire(e.target.value)} />
               </FormField>
             </div>
-            <div className="form-grid-2">
-              <FormField label="Moneda">
-                <select style={inputStyle} value={financingCurrency} onChange={e => { setFinancingCurrency(e.target.value as 'pesos' | 'usd'); setCustomRate(false) }}>
-                  <option value="pesos">Pesos AR</option>
-                  <option value="usd">Dólares USD</option>
-                </select>
-              </FormField>
-              <FormField label="Tasa mensual (%)">
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <input style={{ ...inputStyle, flex: 1 }} type="number" min="0" step="0.1"
-                    value={customRate ? interestRate : String(DEFAULT_RATES[financingCurrency])}
-                    onChange={e => { setCustomRate(true); setInterestRate(e.target.value) }}
-                  />
-                  {customRate && (
-                    <button type="button" onClick={() => { setCustomRate(false); setInterestRate(String(DEFAULT_RATES[financingCurrency])) }}
-                      style={{ padding: '6px 10px', fontSize: '11px', background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                      Reset
-                    </button>
-                  )}
-                </div>
-              </FormField>
-            </div>
-            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '12px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '10px' }}>Seña / Anticipo</div>
-              <div className="form-grid-2">
-                <FormField label="Monto de la seña ($)">
-                  <input style={inputStyle} type="number" min="0" value={downPayment} onChange={e => setDownPayment(e.target.value)} placeholder="0" />
-                </FormField>
-                <FormField label="Forma de pago de la seña">
-                  <select style={inputStyle} value={downPaymentMethod} onChange={e => setDownPaymentMethod(e.target.value)} disabled={!downPaymentAmt}>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="transferencia">Transferencia bancaria</option>
-                    <option value="tarjeta">Tarjeta débito/crédito</option>
-                    <option value="cheque">Cheque</option>
-                    <option value="usdt">USDT / Cripto</option>
-                  </select>
-                </FormField>
-              </div>
-            </div>
-            <FormField label="Fecha de primera cuota">
-              <input style={inputStyle} type="date" value={firstInstallmentDate} onChange={e => setFirstInstallmentDate(e.target.value)} />
-            </FormField>
           </div>
-        ) : (
+        )}
+
+        {type === 'cuotas' && (
+          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Tipo de financiación</div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {(['cuotas_simples', 'saldo_compuesto'] as const).map(sub => (
+                <label key={sub} style={{ display: 'flex', alignItems: 'center', gap: '7px', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', border: `1.5px solid ${financingSubtype === sub ? '#2563eb' : '#e2e8f0'}`, background: financingSubtype === sub ? '#eff6ff' : '#fff', color: financingSubtype === sub ? '#2563eb' : '#64748b', fontSize: '13px', fontWeight: 600 }}>
+                  <input type="radio" name="financingSubtype" value={sub} checked={financingSubtype === sub} onChange={() => setFinancingSubtype(sub)} style={{ display: 'none' }} />
+                  {sub === 'cuotas_simples' ? 'Cuotas fijas (interés simple)' : 'Cuota libre (interés compuesto)'}
+                </label>
+              ))}
+            </div>
+
+            {isCuotasSimples ? (
+              <>
+                <div className="form-grid-2">
+                  <FormField label="Descuento ($)">
+                    <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
+                  </FormField>
+                  <FormField label="N° cuotas">
+                    <input style={inputStyle} type="number" min="2" max="60" value={installmentCount} onChange={e => setInstallmentCount(e.target.value)} />
+                  </FormField>
+                </div>
+                <div className="form-grid-2">
+                  <FormField label="Moneda">
+                    <select style={inputStyle} value={financingCurrency} onChange={e => { setFinancingCurrency(e.target.value as 'pesos' | 'usd'); setCustomRate(false) }}>
+                      <option value="pesos">Pesos AR</option>
+                      <option value="usd">Dólares USD</option>
+                    </select>
+                  </FormField>
+                  <FormField label="Tasa mensual (%)">
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <input style={{ ...inputStyle, flex: 1 }} type="number" min="0" step="0.1"
+                        value={customRate ? interestRate : String(DEFAULT_RATES[financingCurrency])}
+                        onChange={e => { setCustomRate(true); setInterestRate(e.target.value) }}
+                      />
+                      {customRate && (
+                        <button type="button" onClick={() => { setCustomRate(false); setInterestRate(String(DEFAULT_RATES[financingCurrency])) }}
+                          style={{ padding: '6px 10px', fontSize: '11px', background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                          Reset
+                        </button>
+                      )}
+                    </div>
+                  </FormField>
+                </div>
+                <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '12px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '10px' }}>Seña / Anticipo</div>
+                  <div className="form-grid-2">
+                    <FormField label="Monto de la seña ($)">
+                      <input style={inputStyle} type="number" min="0" value={downPayment} onChange={e => setDownPayment(e.target.value)} placeholder="0" />
+                    </FormField>
+                    <FormField label="Forma de pago de la seña">
+                      <select style={inputStyle} value={downPaymentMethod} onChange={e => setDownPaymentMethod(e.target.value)} disabled={!downPaymentAmt}>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="transferencia">Transferencia bancaria</option>
+                        <option value="tarjeta">Tarjeta débito/crédito</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="usdt">USDT / Cripto</option>
+                      </select>
+                    </FormField>
+                  </div>
+                </div>
+                <FormField label="Fecha de primera cuota">
+                  <input style={inputStyle} type="date" value={firstInstallmentDate} onChange={e => setFirstInstallmentDate(e.target.value)} />
+                </FormField>
+              </>
+            ) : (
+              <>
+                <div className="form-grid-2">
+                  <FormField label="Descuento ($)">
+                    <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
+                  </FormField>
+                  <FormField label="Tasa mensual (%)">
+                    <input style={inputStyle} type="number" min="0" step="0.1" value={interestRate} onChange={e => setInterestRate(e.target.value)} placeholder="0" />
+                  </FormField>
+                </div>
+                <FormField label="Fecha de primer vencimiento (arranque de interés)">
+                  <input style={inputStyle} type="date" value={firstInstallmentDate} onChange={e => setFirstInstallmentDate(e.target.value)} />
+                </FormField>
+              </>
+            )}
+          </div>
+        )}
+
+        {type === 'contado' && (
           <div className="form-grid-2">
             <FormField label="Descuento ($)">
               <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
@@ -265,12 +328,12 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
 
         <div style={sec}>RESUMEN</div>
         <SaleTotalsPanel
-          subtotal={subtotal} discountAmt={discountAmt} downPaymentAmt={type === 'cuotas' ? downPaymentAmt : 0}
+          subtotal={subtotal} discountAmt={discountAmt} downPaymentAmt={isCuotasSimples ? downPaymentAmt : 0}
           interest={interest} total={total}
-          invoiceType={invoiceType} type={type} installmentCount={installmentCount}
+          invoiceType={invoiceType} type={type === 'cuenta_corriente' ? 'contado' : type} installmentCount={installmentCount}
           subtotalFormal={subtotalFormal} subtotalInformal={subtotalInformal}
-          financingCurrency={type === 'cuotas' ? financingCurrency : undefined}
-          monthlyRate={type === 'cuotas' ? effectiveRate : undefined}
+          financingCurrency={isCuotasSimples ? financingCurrency : undefined}
+          monthlyRate={isCuotasSimples ? effectiveRate : undefined}
         />
 
         <FormField label="Notas">

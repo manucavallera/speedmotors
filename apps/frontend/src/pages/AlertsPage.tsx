@@ -40,7 +40,7 @@ export function AlertsPage() {
 
   if (isLoading || !data) return <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Cargando alertas...</div>
 
-  const { summary: s, installments: inst, reservations: res, purchaseOrders: po, reminders: rem } = data
+  const { summary: s, installments: inst, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem } = data
 
   const q = search.toLowerCase()
   const filt = <T extends { clientName?: string | null; title?: string | null; supplierName?: string | null; brand?: string | null; model?: string | null }>(arr: T[]) =>
@@ -82,6 +82,42 @@ export function AlertsPage() {
           <SectionTitle label="Cuotas próximas (7 días)" count={filt(inst.upcoming).length} color="#d97706" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {filt(inst.upcoming).map(i => <AlertInstallmentCard key={i.id} item={i} variant="upcoming" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
+          </div>
+        </SectionBox>
+      )}
+
+      {show('cuotas') && cc && filt(cc.overdue).length > 0 && (
+        <SectionBox border="#fecaca">
+          <SectionTitle label="Cuentas corrientes vencidas" count={filt(cc.overdue).length} color="#dc2626" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {filt(cc.overdue).map(c => (
+              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#fff5f5', borderRadius: '8px', border: '1px solid #fecaca' }}>
+                <div style={{ width: '36px', height: '36px', background: '#dc2626', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px', fontWeight: 700, flexShrink: 0 }}>CC</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600, fontSize: '13.5px', color: '#0f172a' }}>{c.clientName || 'Cliente'}</div>
+                  <div style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600 }}>Venció {c.dueDate ? new Date(c.dueDate).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</div>
+                </div>
+                <div style={{ fontWeight: 700, color: '#dc2626', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
+              </div>
+            ))}
+          </div>
+        </SectionBox>
+      )}
+
+      {show('cuotas') && cc && filt(cc.upcoming).length > 0 && (
+        <SectionBox border="#fde68a">
+          <SectionTitle label="Cuentas corrientes próximas (7 días)" count={filt(cc.upcoming).length} color="#d97706" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {filt(cc.upcoming).map(c => (
+              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#fffbeb', borderRadius: '8px', border: '1px solid #fde68a' }}>
+                <div style={{ width: '36px', height: '36px', background: '#d97706', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px', fontWeight: 700, flexShrink: 0 }}>CC</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600, fontSize: '13.5px', color: '#0f172a' }}>{c.clientName || 'Cliente'}</div>
+                  <div style={{ fontSize: '12px', color: '#d97706' }}>Vence {c.dueDate ? new Date(c.dueDate).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</div>
+                </div>
+                <div style={{ fontWeight: 700, color: '#d97706', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
+              </div>
+            ))}
           </div>
         </SectionBox>
       )}

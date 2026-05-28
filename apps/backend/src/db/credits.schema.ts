@@ -3,11 +3,13 @@ import { pgTable, serial, integer, numeric, text, timestamp } from 'drizzle-orm/
 import { creditStatusEnum, creditCurrencyEnum, creditTypeEnum } from './enums'
 import { clients } from './clients.schema'
 import { users } from './users.schema'
+import { sales } from './sales.schema'
 
 export const credits = pgTable('credits', {
   id: serial('id').primaryKey(),
   clientId: integer('client_id').references(() => clients.id).notNull(),
   userId: integer('user_id').references(() => users.id).notNull(),
+  saleId: integer('sale_id').references(() => sales.id),
   creditType: creditTypeEnum('credit_type').notNull().default('saldo_compuesto'),
   currency: creditCurrencyEnum('currency').notNull().default('pesos'),
   originalAmount: numeric('original_amount', { precision: 12, scale: 2 }).notNull(),

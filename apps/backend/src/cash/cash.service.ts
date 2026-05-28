@@ -25,7 +25,8 @@ export class CashService {
     const session = await this.getOpenSession()
     if (!session) throw new BadRequestException('No hay caja abierta')
 
-    const salesData = await db.select({ total: sql<string>`coalesce(sum(${sales.total}),0)` })
+    // Caja solo cuenta efectivo recibido: contado completo, cuotas solo la seña, cuenta_corriente nada
+    const salesData = await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)` })
       .from(sales).where(gte(sales.createdAt, session.openedAt))
 
     const expensesData = await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)` })
@@ -90,7 +91,8 @@ export class CashService {
     const session = await this.getOpenSession()
     if (!session) return null
 
-    const salesData = await db.select({ total: sql<string>`coalesce(sum(${sales.total}),0)`, count: sql<string>`count(*)` })
+    // Caja solo cuenta efectivo recibido: contado completo, cuotas solo la seña, cuenta_corriente nada
+    const salesData = await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)`, count: sql<string>`count(*)` })
       .from(sales).where(gte(sales.createdAt, session.openedAt))
 
     const expensesData = await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)`, count: sql<string>`count(*)` })
