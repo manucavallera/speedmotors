@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Pars
 import { CreditsService } from './credits.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
-import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto'
+import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto } from './credit.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('credits')
@@ -33,5 +33,15 @@ export class CreditsController {
   @Delete('payments/:paymentId') @UseGuards(AdminGuard)
   removePayment(@Param('paymentId', ParseIntPipe) paymentId: number) {
     return this.creditsService.removePayment(paymentId)
+  }
+
+  @Post('installments/:installmentId/pay')
+  payInstallment(@Param('installmentId', ParseIntPipe) installmentId: number, @Body() body: PayInstallmentDto, @Request() req: { user: { id: number } }) {
+    return this.creditsService.payInstallment(installmentId, body.paymentDate, req.user.id)
+  }
+
+  @Post('installments/:installmentId/unpay') @UseGuards(AdminGuard)
+  unpayInstallment(@Param('installmentId', ParseIntPipe) installmentId: number) {
+    return this.creditsService.unpayInstallment(installmentId)
   }
 }

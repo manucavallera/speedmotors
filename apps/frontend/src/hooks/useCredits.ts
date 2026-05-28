@@ -7,10 +7,13 @@ export interface Credit {
   id: number
   clientId: number
   client?: { id: number; name: string }
+  creditType: 'saldo_compuesto' | 'cuotas_simples'
   currency: 'pesos' | 'usd'
   originalAmount: string
   interestRate: string
   startDate: string
+  firstDueDate?: string | null
+  installmentsCount?: number | null
   status: 'activo' | 'pagado' | 'cancelado'
   notes?: string | null
   balance: number
@@ -18,10 +21,22 @@ export interface Credit {
 
 export interface CreditPayment { id: number; creditId: number; amount: string; paymentDate: string; notes?: string | null }
 export interface CreditInterestCharge { id: number; creditId: number; chargeDate: string; balanceBefore: string; amount: string }
+export interface CreditInstallment {
+  id: number
+  creditId: number
+  number: number
+  dueDate: string
+  amount: string
+  principalAmount: string | null
+  surcharge: string
+  paidAt: string | null
+  paidAmount: string | null
+}
 
 export interface CreditDetail extends Credit {
   payments: CreditPayment[]
   charges: CreditInterestCharge[]
+  installments: CreditInstallment[]
 }
 
 export function useCredits() {
@@ -78,6 +93,19 @@ export function useCredits() {
     onError: (e: any) => toast.error(apiError(e)),
   })
 
+  const payInstallment = useMutation({
+    mutationFn: ({ installmentId, paymentDate }: { installmentId: number; paymentDate: string }) =>
+      api.post(`/credits/installments/${installmentId}/pay`, { paymentDate }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Cuota marcada como pagada') },
+    onError: (e: any) => toast.error(apiError(e)),
+  })
+
+  const unpayInstallment = useMutation({
+    mutationFn: (installmentId: number) => api.post(`/credits/installments/${installmentId}/unpay`),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Cuota desmarcada') },
+    onError: (e: any) => toast.error(apiError(e)),
+  })
+
   return {
     credits, clients, isLoading,
     modal, setModal,
@@ -85,5 +113,6 @@ export function useCredits() {
     detailId, setDetailId, detail, detailLoading,
     statusFilter, setStatusFilter,
     create, update, remove, addPayment, removePayment,
+    payInstallment, unpayInstallment,
   }
 }

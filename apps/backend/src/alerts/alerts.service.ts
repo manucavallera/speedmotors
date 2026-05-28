@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { db } from '../db'
-import { installments, sales, clients, reservations, purchaseOrders, reminders, suppliers } from '../db/schema'
-import { eq, lt, lte, and, gte, desc, inArray } from 'drizzle-orm'
+import { installments, sales, clients, reservations, purchaseOrders, reminders, suppliers, creditInstallments, credits } from '../db/schema'
+import { eq, lt, lte, and, gte, desc, inArray, isNull } from 'drizzle-orm'
 
 @Injectable()
 export class AlertsService {
   async getAlerts() {
     const now = new Date()
     const in7Days = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+    const in10Days = new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000)
     const ago30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-    const [overdueInstallments, upcomingInstallments, activeReservations, pendingOrders, allReminders] =
+    const [overdueInstallments, upcomingInstallments, activeReservations, pendingOrders, allReminders, overdueCreditInsts, upcomingCreditInsts] =
       await Promise.all([
         db
           .select({
@@ -80,6 +81,38 @@ export class AlertsService {
           .from(reminders)
           .where(inArray(reminders.status, ['pendiente', 'vencido']))
           .orderBy(reminders.dueDate),
+
+        db
+          .select({
+            id: creditInstallments.id,
+            creditId: creditInstallments.creditId,
+            number: creditInstallments.number,
+            amount: creditInstallments.amount,
+            dueDate: creditInstallments.dueDate,
+            clientName: clients.name,
+          })
+          .from(creditInstallments)
+          .leftJoin(credits, eq(creditInstallments.creditId, credits.id))
+          .leftJoin(clients, eq(credits.clientId, clients.id))
+          .where(and(isNull(creditInstallments.paidAt), lt(creditInstallments.dueDate, now)))
+          .orderBy(creditInstallments.dueDate)
+          .limit(50),
+
+        db
+          .select({
+            id: creditInstallments.id,
+            creditId: creditInstallments.creditId,
+            number: creditInstallments.number,
+            amount: creditInstallments.amount,
+            dueDate: creditInstallments.dueDate,
+            clientName: clients.name,
+          })
+          .from(creditInstallments)
+          .leftJoin(credits, eq(creditInstallments.creditId, credits.id))
+          .leftJoin(clients, eq(credits.clientId, clients.id))
+          .where(and(isNull(creditInstallments.paidAt), gte(creditInstallments.dueDate, now), lte(creditInstallments.dueDate, in10Days)))
+          .orderBy(creditInstallments.dueDate)
+          .limit(50),
       ])
 
     // Auto-mark reminders as vencido if past due
@@ -107,13 +140,14 @@ export class AlertsService {
       r => r.status === 'pendiente' && new Date(r.dueDate) > in7Days,
     )
 
-    const criticalCount = overdueInstallments.length + remindersOverdue.length
-    const upcomingCount = upcomingInstallments.length + remindersUpcoming.length + activeReservations.length
+    const criticalCount = overdueInstallments.length + remindersOverdue.length + overdueCreditInsts.length
+    const upcomingCount = upcomingInstallments.length + remindersUpcoming.length + activeReservations.length + upcomingCreditInsts.length
     const totalCount = criticalCount + upcomingCount + pendingOrders.length
 
     return {
       summary: { critical: criticalCount, upcoming: upcomingCount, total: totalCount },
       installments: { overdue: overdueInstallments, upcoming: upcomingInstallments },
+      creditInstallments: { overdue: overdueCreditInsts, upcoming: upcomingCreditInsts },
       reservations: activeReservations,
       purchaseOrders: pendingOrders,
       reminders: { overdue: remindersOverdue, upcoming: remindersUpcoming, pending: remindersPending },

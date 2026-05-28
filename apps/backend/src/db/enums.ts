@@ -23,3 +23,4 @@ export const transferStatusEnum = pgEnum('transfer_status', ['pendiente', 'en_tr
 export const clientPaymentTypeEnum = pgEnum('client_payment_type', ['pago_cuenta', 'nota_credito', 'nota_debito'])
 export const creditStatusEnum = pgEnum('credit_status', ['activo', 'pagado', 'cancelado'])
 export const creditCurrencyEnum = pgEnum('credit_currency', ['pesos', 'usd'])
+export const creditTypeEnum = pgEnum('credit_type', ['saldo_compuesto', 'cuotas_simples'])
