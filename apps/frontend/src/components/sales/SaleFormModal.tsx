@@ -67,13 +67,6 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
     else setInvoiceType('B')
   }, [clientId, clients])
 
-  // Auto-descuento 10% cuando es contado
-  useEffect(() => {
-    if (type === 'contado' && discountIsAuto) {
-      setDiscount(Math.round(subtotal * 0.10).toString())
-    }
-  }, [type, subtotal, discountIsAuto])
-
   function addItemFromProduct(p: any) {
     setItems(prev => {
       const idx = prev.findIndex(it => it.productId === p.id)
@@ -90,6 +83,14 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   const ventaEnBlanco = invoiceType !== 'X' && invoiceType !== 'mixto'
   const conflictos = items.filter(it => it.ingresoTipo === 'negro' && ventaEnBlanco)
   const subtotal = items.reduce((s, it) => s + it.quantity * it.unitPrice, 0)
+
+  // Auto-descuento 10% cuando es contado
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (type === 'contado' && discountIsAuto) {
+      setDiscount(Math.round(subtotal * 0.10).toString())
+    }
+  }, [type, subtotal, discountIsAuto])
   const subtotalFormal = items.filter(it => it.ingresoTipo === 'blanco').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
   const subtotalInformal = items.filter(it => it.ingresoTipo === 'negro').reduce((s, it) => s + it.quantity * it.unitPrice, 0)
   const DEFAULT_RATES: Record<'pesos' | 'usd', number> = { pesos: 5, usd: 3 }
