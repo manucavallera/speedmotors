@@ -66,7 +66,7 @@ export function AlertsPage() {
       </InfoBanner>
 
       <AlertSummaryCards summary={s} />
-      <AlertFilters active={filter} onChange={setFilter} search={search} onSearch={setSearch} counts={{ cuotas: inst.overdue.length + inst.upcoming.length, recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
+      <AlertFilters active={filter} onChange={setFilter} search={search} onSearch={setSearch} counts={{ cuotas: inst.overdue.length + inst.upcoming.length + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
 
       {show('cuotas') && filt(inst.overdue).length > 0 && (
         <SectionBox border="#fecaca">
