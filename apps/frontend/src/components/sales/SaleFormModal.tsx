@@ -42,6 +42,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   const [daysToExpire, setDaysToExpire] = useState('30')
   const [paymentMethod, setPaymentMethod] = useState('efectivo')
   const [discount, setDiscount] = useState('0')
+  const [discountIsAuto, setDiscountIsAuto] = useState(true)
   const [downPayment, setDownPayment] = useState(initialData?.downPayment ? String(initialData.downPayment) : '0')
   const [downPaymentMethod, setDownPaymentMethod] = useState('efectivo')
   const [customRate, setCustomRate] = useState(false)
@@ -65,6 +66,13 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
     if (client?.condicionIva === 'responsable_inscripto') setInvoiceType('A')
     else setInvoiceType('B')
   }, [clientId, clients])
+
+  // Auto-descuento 10% cuando es contado
+  useEffect(() => {
+    if (type === 'contado' && discountIsAuto) {
+      setDiscount(Math.round(subtotal * 0.10).toString())
+    }
+  }, [type, subtotal, discountIsAuto])
 
   function addItemFromProduct(p: any) {
     setItems(prev => {
@@ -194,7 +202,11 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         <div style={sec}>CONDICIONES DE PAGO</div>
         <div className="form-grid-2">
           <FormField label="Tipo de venta">
-            <select style={inputStyle} value={type} onChange={e => setType(e.target.value as any)}>
+            <select style={inputStyle} value={type} onChange={e => {
+              const newType = e.target.value as typeof type
+              setType(newType)
+              if (newType === 'contado') setDiscountIsAuto(true)
+            }}>
               <option value="contado">Contado</option>
               <option value="cuenta_corriente">Cuenta corriente del cliente</option>
               <option value="cuotas">Financiado</option>
@@ -317,8 +329,8 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
 
         {type === 'contado' && (
           <div className="form-grid-2">
-            <FormField label="Descuento ($)">
-              <input style={inputStyle} type="number" min="0" value={discount} onChange={e => setDiscount(e.target.value)} />
+            <FormField label={`Descuento ($)${discountIsAuto ? ' — 10% auto' : ''}`}>
+              <input style={inputStyle} type="number" min="0" value={discount} onChange={e => { setDiscountIsAuto(false); setDiscount(e.target.value) }} />
             </FormField>
             <FormField label="Interés (%)">
               <input style={inputStyle} type="number" min="0" step="0.1" value={interestRate} onChange={e => setInterestRate(e.target.value)} placeholder="0" />

@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-13T18:10:03.974Z
-> Files: 304 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-29T18:37:20.309Z
+> Files: 335 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -11,12 +11,17 @@
 ## ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/
 
 - `feedback_component_size.md` (~164 tok)
-- `MEMORY.md` — Memory Index (~224 tok)
+- `MEMORY.md` — Memory Index (~398 tok)
+- `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
+- `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~874 tok)
+- `project_infra.md` (~119 tok)
+- `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
 - `project_produccion_roadmap.md` — Fixes aplicados hoy (2026-05-06/07) (~541 tok)
 - `project_roadmap_features.md` — Regla de tokens (CRÍTICA) (~324 tok)
+- `project_smoke_test_pendiente.md` — Funcional crítico (~332 tok)
 - `project_sprint1_pendiente.md` — Sprint 1 ✅ COMPLETO (2026-05-07) (~341 tok)
-- `project_sprint3_roadmap.md` — Operativo inmediato (~282 tok)
+- `project_sprint3_roadmap.md` — Estado real verificado 2026-05-20 (~286 tok)
 
 ## ../../.claude-code-router/
 
@@ -35,6 +40,14 @@
 ## ../../.gemini/antigravity/scratch/sorteo-solidario/
 
 - `Dockerfile` — Docker container definition (~104 tok)
+
+## ../../Desktop/tablas emi/
+
+- `convert_to_erpnext.mjs` — Convierte tablas de Emi al formato ERPNext para importación masiva (~1304 tok)
+
+## ../dolibarr/
+
+- `docker-compose.yml` — Docker Compose services (~214 tok)
 
 ## ./
 
@@ -123,6 +136,13 @@
 - `0020_sales_down_payment.sql` (~24 tok)
 - `0021_payment_methods_financing.sql` (~71 tok)
 - `0022_products_photos.sql` (~55 tok)
+- `0023_unique_constraints.sql` — UNIQUE en saleNumber para evitar comprobantes duplicados (~367 tok)
+- `0024_fk_policies_remaining.sql` — FK policies para tablas omitidas en 0018 (~1393 tok)
+- `0025_product_barcode.sql` (~47 tok)
+- `0026_credits_module.sql` — SQL: tables: credits, credit_payments, credit_interest_charges (~390 tok)
+- `0027_credits_cuotas.sql` — Tipo de crédito: saldo compuesto (viejo) o cuotas simples (nuevo) (~257 tok)
+- `0028_credits_principal_amount.sql` — Monto base (sin interés). Si paga antes de 20 días previos al vto se cobra principal_amount en lugar (~51 tok)
+- `0029_sale_cuenta_corriente.sql` — Add cuenta_corriente to sale_type enum (~67 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -137,15 +157,15 @@
 
 - `app.controller.spec.ts` — Declares app (~183 tok)
 - `app.controller.ts` — Exports AppController (~122 tok)
-- `app.module.ts` — Exports AppModule (~594 tok)
+- `app.module.ts` — Exports AppModule (~615 tok)
 - `app.service.ts` — Exports AppService (~43 tok)
-- `main.ts` — Declares bootstrap (~357 tok)
+- `main.ts` — Declares bootstrap (~370 tok)
 
 ## apps/backend/src/alerts/
 
 - `alerts.controller.ts` — Exports AlertsController (~352 tok)
 - `alerts.module.ts` — Exports AlertsModule (~112 tok)
-- `alerts.service.ts` — Exports AlertsService (~1340 tok)
+- `alerts.service.ts` — Exports AlertsService (~2184 tok)
 - `reminders.service.ts` — Exports CreateReminderDto, RemindersService (~903 tok)
 
 ## apps/backend/src/auth/
@@ -159,9 +179,9 @@
 
 ## apps/backend/src/cash/
 
-- `cash.controller.ts` — Exports CashController (~417 tok)
+- `cash.controller.ts` — Exports CashController (~465 tok)
 - `cash.module.ts` — Exports CashModule (~74 tok)
-- `cash.service.ts` — Exports CashService (~1423 tok)
+- `cash.service.ts` — Exports CashService (~1702 tok)
 
 ## apps/backend/src/clients/
 
@@ -170,14 +190,22 @@
 - `clients.module.ts` — Exports ClientsModule (~83 tok)
 - `clients.service.ts` — Exports ClientsService (~2649 tok)
 
+## apps/backend/src/credits/
+
+- `credit.dto.ts` — Exports CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto (~427 tok)
+- `credits.controller.ts` — Exports CreditsController (~599 tok)
+- `credits.module.ts` — Exports CreditsModule (~81 tok)
+- `credits.service.ts` — Exports CreditsService (~4621 tok)
+
 ## apps/backend/src/db/
 
 - `cash.schema.ts` — Exports cashSessions, cashMovements (~445 tok)
-- `catalog.schema.ts` — Exports categories, suppliers, products (~583 tok)
+- `catalog.schema.ts` — Exports categories, suppliers, products (~596 tok)
 - `client-payments.schema.ts` — Exports clientPayments (~261 tok)
 - `clients.schema.ts` — Exports clients (~195 tok)
+- `credits.schema.ts` — Exports credits, creditPayments, creditInterestCharges, creditInstallments (~886 tok)
 - `db.module.ts` — Exports DbModule (~56 tok)
-- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 16 more (~617 tok)
+- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 19 more (~697 tok)
 - `expenses.schema.ts` — Exports expenses (~231 tok)
 - `index.ts` — Exports db (~73 tok)
 - `orders.schema.ts` — Exports purchaseOrders, purchaseOrderItems (~484 tok)
@@ -187,7 +215,7 @@
 - `reminders.schema.ts` — Exports reminders (~255 tok)
 - `reservations.schema.ts` — Exports reservations (~862 tok)
 - `sales.schema.ts` — Exports sales, saleItems, installments (~1038 tok)
-- `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~197 tok)
+- `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~206 tok)
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
 - `types.ts` — Exports User, NewUser, Client, NewClient + 19 more (~608 tok)
@@ -214,10 +242,10 @@
 
 ## apps/backend/src/products/
 
-- `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~309 tok)
-- `products.controller.ts` — Exports ProductsController (~612 tok)
+- `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~322 tok)
+- `products.controller.ts` — Exports ProductsController (~936 tok)
 - `products.module.ts` — Exports ProductsModule (~85 tok)
-- `products.service.ts` — Exports ProductsService (~1404 tok)
+- `products.service.ts` — Exports ProductsService (~2569 tok)
 
 ## apps/backend/src/purchase-orders/
 
@@ -225,15 +253,15 @@
 - `purchase-order.dto.ts` — Exports PurchaseOrderItemDto, CreatePurchaseOrderDto, UpdatePurchaseOrderDto (~321 tok)
 - `purchase-orders.controller.ts` — Exports PurchaseOrdersController (~382 tok)
 - `purchase-orders.module.ts` — Exports PurchaseOrdersModule (~89 tok)
-- `purchase-orders.service.ts` — Exports PurchaseOrdersService (~1483 tok)
+- `purchase-orders.service.ts` — Exports PurchaseOrdersService (~1575 tok)
 
 ## apps/backend/src/quotes/
 
 - `create-quote.dto.ts` — Exports QuoteItemDto, CreateQuoteDto (~78 tok)
 - `quote.dto.ts` — Exports QuoteItemDto, CreateQuoteDto, UpdateQuoteDto (~234 tok)
-- `quotes.controller.ts` — Exports QuotesController (~447 tok)
+- `quotes.controller.ts` — Exports QuotesController (~531 tok)
 - `quotes.module.ts` — Exports QuotesModule (~100 tok)
-- `quotes.service.ts` — Exports QuotesService (~1416 tok)
+- `quotes.service.ts` — Exports QuotesService (~1584 tok)
 
 ## apps/backend/src/reports/
 
@@ -244,23 +272,23 @@
 ## apps/backend/src/reservations/
 
 - `create-reservation.dto.ts` — Exports CreateReservationDto (~644 tok)
-- `reservations.controller.ts` — Exports ReservationsController (~362 tok)
+- `reservations.controller.ts` — Exports ReservationsController (~430 tok)
 - `reservations.module.ts` — Exports ReservationsModule (~103 tok)
-- `reservations.service.ts` — Exports ReservationsService (~1808 tok)
+- `reservations.service.ts` — Exports ReservationsService (~1937 tok)
 
 ## apps/backend/src/sales/
 
-- `create-sale.dto.ts` — Exports SaleItemDto, CreateSaleDto (~430 tok)
-- `sales.controller.ts` — Exports SalesController (~654 tok)
+- `create-sale.dto.ts` — Exports SaleItemDto, CreateSaleDto (~494 tok)
+- `sales.controller.ts` — Exports SalesController (~716 tok)
 - `sales.module.ts` — Exports SalesModule (~78 tok)
 - `sales.service.spec.ts` — Tests de lógica de cálculo pura en SalesService (sin DB). (~2320 tok)
-- `sales.service.ts` — Exports SalesService (~3668 tok)
+- `sales.service.ts` — Exports SalesService (~4674 tok)
 
 ## apps/backend/src/stock-movements/
 
-- `stock-movements.controller.ts` — Exports StockMovementsController (~281 tok)
+- `stock-movements.controller.ts` — Exports StockMovementsController (~348 tok)
 - `stock-movements.module.ts` — Exports StockMovementsModule (~97 tok)
-- `stock-movements.service.ts` — Exports StockMovementsService (~520 tok)
+- `stock-movements.service.ts` — Exports StockMovementsService (~702 tok)
 
 ## apps/backend/src/suppliers/
 
@@ -272,7 +300,7 @@
 ## apps/backend/src/transfers/
 
 - `create-transfer.dto.ts` — Exports CreateTransferDto (~272 tok)
-- `transfers.controller.ts` — Exports TransfersController (~299 tok)
+- `transfers.controller.ts` — Exports TransfersController (~328 tok)
 - `transfers.module.ts` — Exports TransfersModule (~97 tok)
 - `transfers.service.ts` — Exports TransfersService (~1472 tok)
 
@@ -292,7 +320,7 @@
 - `vehicle.dto.ts` — Exports CreateVehicleDto, UpdateVehicleDto, BulkCreateVehiclesDto (~332 tok)
 - `vehicles.controller.ts` — Exports VehiclesController (~875 tok)
 - `vehicles.module.ts` — Exports VehiclesModule (~85 tok)
-- `vehicles.service.ts` — Exports VehiclesService (~1840 tok)
+- `vehicles.service.ts` — Exports VehiclesService (~1895 tok)
 
 ## apps/backend/test/
 
@@ -306,29 +334,29 @@
 - `CLAUDE.md` — SpeedMotors -- Guia tecnica Claude (~605 tok)
 - `Dockerfile` — Docker container definition (~78 tok)
 - `eslint.config.js` — ESLint flat configuration (~176 tok)
-- `index.html` — frontend (~96 tok)
+- `index.html` — frontend (~100 tok)
 - `nginx.conf` (~220 tok)
 - `package.json` — Node.js package manifest (~342 tok)
 - `README.md` — Project documentation (~607 tok)
 - `tsconfig.app.json` (~177 tok)
 - `tsconfig.json` — TypeScript configuration (~34 tok)
 - `tsconfig.node.json` (~169 tok)
-- `vite.config.ts` (~537 tok)
+- `vite.config.ts` (~449 tok)
 
 ## apps/frontend/src/
 
 - `App.css` (~11 tok)
-- `App.tsx` — DashboardPage (~1492 tok)
+- `App.tsx` — DashboardPage (~1554 tok)
 - `index.css` — Styles: 14 rules (~959 tok)
-- `main.tsx` (~66 tok)
+- `main.tsx` — Auto-reload on chunk load failure (stale SW after deploy) (~106 tok)
 
 ## apps/frontend/src/components/
 
-- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3141 tok)
+- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3989 tok)
 
 ## apps/frontend/src/components/alerts/
 
-- `AlertFilters.tsx` — filters (~654 tok)
+- `AlertFilters.tsx` — filters (~831 tok)
 - `AlertInstallmentCard.tsx` — fmt (~665 tok)
 - `AlertReminderCard.tsx` — typeLabel (~924 tok)
 - `AlertSummaryCards.tsx` — AlertSummaryCards (~362 tok)
@@ -336,6 +364,7 @@
 
 ## apps/frontend/src/components/cash/
 
+- `CashSessionsTable.tsx` — CashSessionsTable — renders table (~1041 tok)
 - `CashStatusPanel.tsx` — CashStatusPanel (~2179 tok)
 
 ## apps/frontend/src/components/clients/
@@ -344,6 +373,13 @@
 - `ClientFormModal.tsx` — toForm — renders form, modal (~1435 tok)
 - `ClientPaymentFormModal.tsx` — typeOptions — renders form, modal (~1622 tok)
 - `ClientsTable.tsx` — ClientsTable — renders table (~1601 tok)
+
+## apps/frontend/src/components/credits/
+
+- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3476 tok)
+- `CreditFormModal.tsx` — CreditFormModal — renders form, modal (~2732 tok)
+- `CreditPaymentModal.tsx` — CreditPaymentModal — renders form, modal (~679 tok)
+- `CreditsTable.tsx` — statusStyles — renders table (~929 tok)
 
 ## apps/frontend/src/components/dashboard/
 
@@ -356,21 +392,23 @@
 ## apps/frontend/src/components/layout/
 
 - `AppLayout.tsx` — routeTitles (~1276 tok)
-- `Sidebar.tsx` — groups (~2410 tok)
+- `Sidebar.tsx` — groups (~2459 tok)
 
 ## apps/frontend/src/components/products/
 
-- `ProductFormModal.tsx` — toForm — renders form, modal (~1741 tok)
-- `ProductsTable.tsx` — HEADERS — renders table (~1760 tok)
+- `ProductFormModal.tsx` — toForm — renders form, modal (~1865 tok)
+- `ProductRemitoModal.tsx` — ProductRemitoModal — renders form, table, modal (~2026 tok)
+- `ProductsTable.tsx` — HEADERS — renders table (~2967 tok)
 
 ## apps/frontend/src/components/purchase-orders/
 
 - `PurchaseOrderDetailModal.tsx` — statusColors — renders modal (~1283 tok)
-- `PurchaseOrderFormModal.tsx` — emptyItem — renders form, modal (~2136 tok)
+- `PurchaseOrderFormModal.tsx` — emptyItem — renders form, modal (~2188 tok)
 - `PurchaseOrdersTable.tsx` — statusColors — renders table (~1290 tok)
 
 ## apps/frontend/src/components/quotes/
 
+- `QuoteFormModal.tsx` — emptyItem — renders form, modal (~2013 tok)
 - `QuotesTable.tsx` — statusConfig — renders table (~2276 tok)
 
 ## apps/frontend/src/components/reports/
@@ -383,15 +421,19 @@
 ## apps/frontend/src/components/reservations/
 
 - `ReservationDetailModal.tsx` — statusStyles — renders modal (~2024 tok)
-- `ReservationFormModal.tsx` — sectionStyle — renders form, modal (~4817 tok)
+- `ReservationFormModal.tsx` — sectionStyle — renders form, modal (~5215 tok)
 
 ## apps/frontend/src/components/sales/
 
-- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3586 tok)
-- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~3725 tok)
-- `SaleItemsEditor.tsx` — SaleItemsEditor (~1449 tok)
-- `SalesTable.tsx` — statusColors — renders table (~1260 tok)
-- `SaleTotalsPanel.tsx` — fmt — renders table (~2593 tok)
+- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3756 tok)
+- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5825 tok)
+- `SaleItemsEditor.tsx` — SaleItemsEditor (~2147 tok)
+- `SalesTable.tsx` — statusColors — renders table (~1301 tok)
+- `SaleTotalsPanel.tsx` — fmt — renders table (~2591 tok)
+
+## apps/frontend/src/components/stock-movements/
+
+- `StockMovementFormModal.tsx` — StockMovementFormModal — renders form, modal (~1416 tok)
 
 ## apps/frontend/src/components/suppliers/
 
@@ -400,7 +442,7 @@
 ## apps/frontend/src/components/transfers/
 
 - `TransferDetailModal.tsx` — statusStyles — renders modal (~1434 tok)
-- `TransferFormModal.tsx` — empty — renders form, modal (~2439 tok)
+- `TransferFormModal.tsx` — empty — renders form, modal (~2476 tok)
 
 ## apps/frontend/src/components/ui/
 
@@ -411,7 +453,8 @@
 - `Pagination.tsx` — Pagination (~305 tok)
 - `PhotoCarouselField.tsx` — PhotoCarouselField (~1413 tok)
 - `QRModal.tsx` — QRBlock — renders chart, modal — uses useState, useEffect (~1168 tok)
-- `QRScannerField.tsx` — inputStyle (~1060 tok)
+- `QRScannerField.tsx` — inputStyle (~1241 tok)
+- `SearchableSelect.tsx` — SearchableSelect (~1248 tok)
 - `Toaster.tsx` — BG (~504 tok)
 
 ## apps/frontend/src/components/users/
@@ -423,18 +466,19 @@
 
 - `RemitoImportModal.tsx` — defaultShared — renders form, table, modal (~2788 tok)
 - `VehicleFormModal.tsx` — emptyForm — renders form, modal (~2181 tok)
-- `VehiclesGrid.tsx` — statusColors (~3170 tok)
+- `VehiclesGrid.tsx` — PhotoLightbox (~4400 tok)
 
 ## apps/frontend/src/hooks/
 
-- `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1137 tok)
+- `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1182 tok)
 - `useAuth.ts` — Exports useAuth (~180 tok)
 - `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
 - `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~732 tok)
-- `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1204 tok)
+- `useCredits.ts` — API routes: GET, POST, PUT, DELETE (10 endpoints) (~1404 tok)
+- `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1326 tok)
 - `useReports.ts` — API routes: GET (1 endpoints) (~236 tok)
-- `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~566 tok)
-- `useSales.ts` — API routes: GET, POST, PATCH (7 endpoints) (~987 tok)
+- `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~611 tok)
+- `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1160 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
@@ -452,7 +496,7 @@
 - `helpers.ts` — Exports PdfSettings, getSettings (~162 tok)
 - `index.ts` (~79 tok)
 - `invoice.ts` — Exports generateInvoice (~2249 tok)
-- `receipt.ts` — Exports generateReceipt (~1204 tok)
+- `receipt.ts` — Exports generateReceipt (~1222 tok)
 - `remito.ts` — Exports generateRemito (~1942 tok)
 - `reservation.ts` — Exports generateReservationPdf, printReservation (~3274 tok)
 
@@ -462,31 +506,32 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~2782 tok)
-- `CashPage.tsx` — CashPage (~1010 tok)
-- `ClientsPage.tsx` — ClientsPage (~1123 tok)
-- `DashboardPage.tsx` — KPICard (~3751 tok)
+- `AlertsPage.tsx` — SectionBox (~3740 tok)
+- `CashPage.tsx` — CashPage (~1415 tok)
+- `ClientsPage.tsx` — ClientsPage (~1274 tok)
+- `CreditsPage.tsx` — CreditsPage (~1160 tok)
+- `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `InstallmentsPage.tsx` — InstallmentsPage (~1817 tok)
+- `InstallmentsPage.tsx` — InstallmentsPage (~1941 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
-- `ProductsPage.tsx` — ProductsPage (~2730 tok)
-- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~1961 tok)
-- `QuotesPage.tsx` — QuotesPage (~1472 tok)
+- `ProductsPage.tsx` — ProductsPage (~3378 tok)
+- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~2114 tok)
+- `QuotesPage.tsx` — QuotesPage (~1762 tok)
 - `ReportsPage.tsx` — ReportsPage (~1027 tok)
-- `ReservationsPage.tsx` — statusColors — renders table (~3075 tok)
-- `SalesPage.tsx` — SalesPage (~1669 tok)
+- `ReservationsPage.tsx` — statusColors — renders table (~3338 tok)
+- `SalesPage.tsx` — SalesPage (~1974 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
-- `StockMovementsPage.tsx` — StockMovementsPage (~938 tok)
+- `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
 - `TransfersPage.tsx` — statusStyles (~2815 tok)
 - `UsersPage.tsx` — roleStyle — renders table (~1938 tok)
-- `VehiclesPage.tsx` — VehiclesPage (~1283 tok)
+- `VehiclesPage.tsx` — VehiclesPage (~1603 tok)
 
 ## apps/frontend/src/types/
 
 - `api.types.ts` — Exports PaginatedResponse, Client, Product, Sale + 3 more (~690 tok)
 - `clients.types.ts` — Exports ClientForm, emptyClientForm, condicionIvaOptions, condicionIvaLabel + 2 more (~374 tok)
-- `products.types.ts` — Exports ProductForm, emptyProductForm (~156 tok)
+- `products.types.ts` — Exports ProductForm, emptyProductForm (~165 tok)
 - `reservations.types.ts` — Exports CreateReservationDto (~120 tok)
 - `sales.types.ts` — Exports SaleItem, CreateSaleData (~148 tok)
 
@@ -512,4 +557,5 @@
 
 - `backup.bat` (~150 tok)
 - `backup.sh` — Backup PostgreSQL via docker exec. Guardar en scripts/backups/ (~143 tok)
-- `gen-presupuesto.mjs` — doc: header, sectionTitle (~1856 tok)
+- `gen-presupuesto.mjs` — doc: header, sectionTitle (~1850 tok)
+- `remito-prueba.html` — Remito de Prueba (~612 tok)

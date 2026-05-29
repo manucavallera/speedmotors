@@ -1532,3 +1532,956 @@
 | 18:09 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: photos | ~46 |
 | 18:09 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: photos | ~47 |
 | 18:10 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | 3→3 lines | ~50 |
+| 18:10 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 72 reads | ~94404 tok |
+| 18:12 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 72 reads | ~94404 tok |
+| 18:17 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 72 reads | ~94404 tok |
+| 18:18 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 72 reads | ~94404 tok |
+| 18:19 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 91 reads | ~110135 tok |
+| 18:19 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 109 reads | ~120359 tok |
+| 18:20 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 124 reads | ~127569 tok |
+| 18:20 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 124 reads | ~127569 tok |
+| 18:20 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 124 reads | ~127569 tok |
+| 18:21 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 124 reads | ~127569 tok |
+| 18:22 | Session end: 47 writes across 23 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 124 reads | ~127569 tok |
+| 18:23 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_audit_pendiente.md | — | ~1400 |
+| 18:23 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~62 |
+| 18:23 | Session end: 49 writes across 25 files (StockMovementsPage.tsx, DashboardPage.tsx, ProductFormModal.tsx, VehicleFormModal.tsx, useBreakpoint.ts) | 125 reads | ~129135 tok |
+
+## Session: 2026-05-13 19:46
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:54 | Edited apps/backend/src/reservations/reservations.controller.ts | added 1 import(s) | ~30 |
+| 19:54 | Edited apps/backend/src/transfers/transfers.controller.ts | added 1 import(s) | ~30 |
+| 19:54 | Edited apps/backend/src/reservations/reservations.controller.ts | 12→14 lines | ~134 |
+| 19:54 | Edited apps/backend/src/transfers/transfers.controller.ts | 7→9 lines | ~80 |
+| 19:54 | Edited apps/backend/src/stock-movements/stock-movements.service.ts | inline fix | ~24 |
+| 19:54 | Edited apps/backend/src/stock-movements/stock-movements.service.ts | added 2 condition(s) | ~135 |
+| 19:54 | Edited apps/backend/src/purchase-orders/purchase-orders.service.ts | inline fix | ~24 |
+| 19:54 | Edited apps/backend/src/purchase-orders/purchase-orders.service.ts | added 1 condition(s) | ~199 |
+| 19:55 | Edited apps/backend/src/quotes/quotes.controller.ts | expanded (+9 lines) | ~162 |
+| 19:55 | Edited apps/backend/src/quotes/quotes.service.ts | modified convertToSale() | ~404 |
+| 19:55 | Created apps/backend/drizzle/0023_unique_constraints.sql | — | ~91 |
+| 19:56 | Created apps/backend/drizzle/0024_fk_policies_remaining.sql | — | ~1393 |
+| 19:56 | Edited apps/backend/src/reservations/reservations.service.ts | inline fix | ~20 |
+| 19:57 | Edited apps/backend/src/reservations/reservations.service.ts | added 2 condition(s) | ~284 |
+| 19:57 | Edited apps/backend/src/reservations/reservations.controller.ts | 2→5 lines | ~91 |
+| 19:57 | Edited apps/frontend/src/hooks/useReservations.ts | modified useReservations() | ~204 |
+| 19:57 | Edited apps/frontend/src/pages/ReservationsPage.tsx | CSS: status | ~51 |
+| 19:57 | Edited apps/frontend/src/hooks/useReservations.ts | 2→2 lines | ~23 |
+| 19:57 | Edited apps/frontend/src/hooks/useReservations.ts | modified useReservations() | ~86 |
+| 19:58 | Edited apps/backend/src/sales/sales.service.ts | added 1 condition(s) | ~159 |
+| 19:58 | Edited apps/backend/src/sales/sales.controller.ts | 14→16 lines | ~148 |
+| 19:58 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | 2→2 lines | ~23 |
+| 19:59 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | CSS: search | ~120 |
+| 19:59 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | 6→2 lines | ~38 |
+| 20:01 | Edited apps/backend/src/sales/sales.service.ts | modified select() | ~206 |
+| 20:03 | Session end: 25 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18120 tok |
+| 20:04 | Created apps/backend/drizzle/0023_unique_constraints.sql | — | ~367 |
+| 20:05 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:09 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:09 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:10 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:13 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:13 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:13 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:14 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:15 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 13 reads | ~18514 tok |
+| 20:16 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19907 tok |
+| 20:16 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19907 tok |
+| 20:17 | Session end: 26 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19907 tok |
+| 20:21 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | inline fix | ~10 |
+| 20:22 | Session end: 27 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19912 tok |
+| 20:22 | Session end: 27 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19912 tok |
+| 20:23 | Session end: 27 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19912 tok |
+| 20:24 | Session end: 27 writes across 14 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 14 reads | ~19912 tok |
+| 20:25 | Edited apps/frontend/src/main.tsx | CSS: vite | ~92 |
+| 20:25 | Session end: 28 writes across 15 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 15 reads | ~20070 tok |
+| 20:25 | Edited apps/frontend/src/pages/ReservationsPage.tsx | CSS: alignItems, lineHeight | ~325 |
+| 20:26 | Session end: 29 writes across 15 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 15 reads | ~20351 tok |
+| 20:27 | Edited apps/frontend/src/components/products/ProductsTable.tsx | modified PhotoLightbox() | ~832 |
+| 20:27 | Edited apps/frontend/src/components/products/ProductsTable.tsx | modified ProductsTable() | ~100 |
+| 20:28 | Edited apps/frontend/src/components/products/ProductsTable.tsx | added optional chaining | ~450 |
+| 20:28 | Edited apps/frontend/src/components/products/ProductsTable.tsx | 4→5 lines | ~33 |
+| 20:28 | Session end: 33 writes across 16 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 17 reads | ~27244 tok |
+| 20:34 | Edited apps/frontend/vite.config.ts | reduced (-7 lines) | ~77 |
+| 20:35 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | modified PhotoLightbox() | ~760 |
+| 20:35 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | modified VehiclesGrid() | ~76 |
+| 20:35 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | expanded (+7 lines) | ~242 |
+| 20:35 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | 2→4 lines | ~37 |
+| 20:36 | Session end: 38 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~33426 tok |
+| 20:36 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | added 1 condition(s) | ~543 |
+| 20:36 | Edited apps/frontend/src/components/vehicles/VehiclesGrid.tsx | removed 13 lines | ~40 |
+| 20:37 | Session end: 40 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~34924 tok |
+| 20:37 | Edited apps/frontend/src/components/products/ProductsTable.tsx | modified RowCarousel() | ~484 |
+| 20:37 | Edited apps/frontend/src/components/products/ProductsTable.tsx | reduced (-14 lines) | ~184 |
+| 20:38 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 20:40 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 20:40 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 21:08 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 21:08 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 21:09 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 21:14 | Session end: 42 writes across 18 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 20 reads | ~35617 tok |
+| 21:16 | Edited apps/frontend/src/pages/DashboardPage.tsx | added optional chaining | ~95 |
+| 21:16 | Edited apps/frontend/src/pages/DashboardPage.tsx | modified DashboardPage() | ~56 |
+| 21:16 | Edited apps/frontend/src/pages/DashboardPage.tsx | added 1 import(s) | ~102 |
+| 21:16 | Edited apps/frontend/src/pages/DashboardPage.tsx | added optional chaining | ~292 |
+| 21:17 | Edited apps/frontend/src/pages/DashboardPage.tsx | CSS: enabled, enabled | ~115 |
+| 21:17 | Edited apps/frontend/src/pages/DashboardPage.tsx | added 1 condition(s) | ~246 |
+| 21:17 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 1→4 lines | ~74 |
+| 21:18 | Session end: 49 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~42803 tok |
+| 21:18 | Session end: 49 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~42803 tok |
+| 21:22 | Edited apps/frontend/src/components/products/ProductsTable.tsx | 5→5 lines | ~33 |
+| 21:22 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:26 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:27 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:27 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:28 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:29 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:30 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:31 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:31 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:31 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:32 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:32 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:33 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:33 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:33 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:34 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:35 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:36 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:37 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:37 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:39 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:40 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:40 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:41 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:43 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:44 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:44 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:45 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:45 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 21:46 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 22:23 | Session end: 50 writes across 20 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 22 reads | ~43029 tok |
+| 22:25 | Edited apps/frontend/src/hooks/useSales.ts | 5→5 lines | ~66 |
+| 22:25 | Edited apps/frontend/src/hooks/useSales.ts | inline fix | ~24 |
+| 22:25 | Session end: 52 writes across 21 files (reservations.controller.ts, transfers.controller.ts, stock-movements.service.ts, purchase-orders.service.ts, quotes.controller.ts) | 23 reads | ~44133 tok |
+
+## Session: 2026-05-13 22:33
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:34 | Created apps/frontend/src/components/ui/SearchableSelect.tsx | — | ~1248 |
+| 22:34 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 import(s) | ~107 |
+| 22:34 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | setClientId() → String() | ~103 |
+| 22:34 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | added 1 import(s) | ~57 |
+| 22:34 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | modified if() | ~498 |
+| 22:36 | Session end: 5 writes across 3 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx) | 3 reads | ~7187 tok |
+| 22:36 | Session end: 5 writes across 3 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx) | 3 reads | ~7187 tok |
+| 22:56 | Edited apps/frontend/src/components/quotes/QuoteFormModal.tsx | added 1 import(s) | ~60 |
+| 22:56 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | added 1 import(s) | ~60 |
+| 22:56 | Edited apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx | added 1 import(s) | ~60 |
+| 22:56 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | added 1 import(s) | ~60 |
+| 22:56 | Edited apps/frontend/src/components/quotes/QuoteFormModal.tsx | setClientId() → String() | ~98 |
+| 22:56 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | fillFromClient() → String() | ~107 |
+| 22:56 | Edited apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx | setSupplierId() → String() | ~106 |
+| 22:56 | Edited apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx | CSS: value, label | ~133 |
+| 22:57 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | CSS: productId, value, label | ~120 |
+| 22:57 | Session end: 14 writes across 7 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 7 reads | ~14944 tok |
+| 22:58 | Session end: 14 writes across 7 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 7 reads | ~14944 tok |
+| 22:59 | Session end: 14 writes across 7 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 7 reads | ~14944 tok |
+| 23:09 | Edited apps/frontend/src/components/transfers/TransferFormModal.tsx | added 1 import(s) | ~87 |
+| 23:09 | Edited apps/frontend/src/components/transfers/TransferFormModal.tsx | handleVehicleChange() → String() | ~136 |
+| 23:09 | Edited apps/frontend/src/components/transfers/TransferFormModal.tsx | handleClientChange() → String() | ~125 |
+| 23:11 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | 4→5 lines | ~56 |
+| 23:11 | Edited apps/frontend/src/components/alerts/AlertFilters.tsx | CSS: search, onSearch, v | ~84 |
+| 23:12 | Edited apps/frontend/src/components/alerts/AlertFilters.tsx | modified AlertFilters() | ~268 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | 1→2 lines | ~30 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | added optional chaining | ~139 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~80 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | 23→23 lines | ~384 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | 5→5 lines | ~88 |
+| 23:12 | Edited apps/frontend/src/pages/AlertsPage.tsx | 27→27 lines | ~534 |
+| 23:12 | Edited apps/frontend/src/pages/CashPage.tsx | 1→2 lines | ~44 |
+| 23:13 | Edited apps/frontend/src/pages/CashPage.tsx | expanded (+12 lines) | ~245 |
+| 23:16 | Session end: 28 writes across 12 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 14 reads | ~25067 tok |
+| 23:44 | Session end: 28 writes across 12 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 14 reads | ~25067 tok |
+| 23:44 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_smoke_test_pendiente.md | — | ~334 |
+| 23:44 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~67 |
+| 23:44 | Session end: 30 writes across 14 files (SearchableSelect.tsx, SaleFormModal.tsx, SaleItemsEditor.tsx, QuoteFormModal.tsx, ReservationFormModal.tsx) | 15 reads | ~25495 tok |
+
+## Session: 2026-05-14 18:30
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 18:43 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_ux.md | — | ~142 |
+| 18:44 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~57 |
+| 18:44 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:45 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:47 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:47 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:48 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:48 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:49 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:49 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:49 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:50 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:50 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:51 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:51 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:52 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:52 | Session end: 2 writes across 2 files (project_pendientes_ux.md, MEMORY.md) | 7 reads | ~8141 tok |
+| 18:53 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | inline fix | ~25 |
+| 18:53 | Session end: 3 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 8 reads | ~9117 tok |
+| 18:54 | Session end: 3 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 8 reads | ~9117 tok |
+| 18:55 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | inline fix | ~43 |
+| 18:55 | Session end: 4 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 8 reads | ~9160 tok |
+| 18:55 | Session end: 4 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 8 reads | ~9160 tok |
+| 18:56 | Session end: 4 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 9 reads | ~10554 tok |
+| 18:56 | Session end: 4 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 9 reads | ~10554 tok |
+| 18:57 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_ux.md | venta() → disponibles() | ~167 |
+| 18:57 | Session end: 5 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 9 reads | ~10733 tok |
+| 18:58 | Session end: 5 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 9 reads | ~10733 tok |
+| 18:59 | Session end: 5 writes across 3 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx) | 9 reads | ~10733 tok |
+| 19:03 | Edited apps/frontend/src/pages/CashPage.tsx | 8→8 lines | ~162 |
+| 19:03 | Session end: 6 writes across 4 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx) | 10 reads | ~12156 tok |
+| 19:04 | Session end: 6 writes across 4 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx) | 10 reads | ~12156 tok |
+| 19:04 | Session end: 6 writes across 4 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx) | 10 reads | ~12156 tok |
+| 19:07 | Edited apps/frontend/src/pages/QuotesPage.tsx | expanded (+12 lines) | ~188 |
+| 19:09 | Edited apps/frontend/src/pages/QuotesPage.tsx | 2→4 lines | ~43 |
+| 19:09 | Created apps/frontend/src/components/quotes/QuoteFormModal.tsx | — | ~2013 |
+| 19:10 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | CSS: vehicles | ~54 |
+| 19:10 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | CSS: vehicleId | ~72 |
+| 19:10 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | inline fix | ~38 |
+| 19:10 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | CSS: vehicleId | ~46 |
+| 19:11 | Edited apps/frontend/src/components/reservations/ReservationFormModal.tsx | added optional chaining | ~561 |
+| 19:11 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 5→6 lines | ~58 |
+| 19:11 | Edited apps/frontend/src/hooks/useSales.ts | expanded (+6 lines) | ~141 |
+| 19:11 | Edited apps/frontend/src/hooks/useSales.ts | inline fix | ~15 |
+| 19:11 | Edited apps/frontend/src/pages/SalesPage.tsx | inline fix | ~80 |
+| 19:11 | Edited apps/frontend/src/pages/SalesPage.tsx | inline fix | ~71 |
+| 19:11 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 import(s) | ~124 |
+| 19:11 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 9→10 lines | ~82 |
+| 19:11 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | inline fix | ~41 |
+| 19:11 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified useState() | ~64 |
+| 19:12 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: data | ~130 |
+| 19:12 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+10 lines) | ~271 |
+| 19:12 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+11 lines) | ~73 |
+| 19:12 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 2→3 lines | ~23 |
+| 19:12 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 14→14 lines | ~74 |
+| 19:13 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:14 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:15 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:15 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:15 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:16 | Session end: 28 writes across 11 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 13 reads | ~26177 tok |
+| 19:17 | Edited apps/frontend/src/pages/SalesPage.tsx | expanded (+9 lines) | ~346 |
+| 19:17 | Edited apps/frontend/src/pages/ReservationsPage.tsx | expanded (+8 lines) | ~352 |
+| 19:17 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | 3→8 lines | ~219 |
+| 19:17 | Edited apps/frontend/src/pages/QuotesPage.tsx | 3→8 lines | ~234 |
+| 19:18 | Edited apps/frontend/src/pages/ClientsPage.tsx | 3→8 lines | ~242 |
+| 19:18 | Edited apps/frontend/src/pages/VehiclesPage.tsx | expanded (+6 lines) | ~259 |
+| 19:18 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | expanded (+6 lines) | ~256 |
+| 19:19 | Session end: 35 writes across 15 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 17 reads | ~34264 tok |
+| 19:21 | Edited apps/frontend/src/pages/ProductsPage.tsx | CSS: fontSize, color, marginTop | ~198 |
+| 19:21 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:24 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:24 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:25 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:25 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:25 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:26 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:31 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:31 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:32 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:33 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:33 | Session end: 36 writes across 16 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 18 reads | ~37192 tok |
+| 19:34 | Edited scripts/gen-presupuesto.mjs | inline fix | ~11 |
+| 19:34 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:34 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:35 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:35 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:36 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:37 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:37 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:38 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:41 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:42 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 19 reads | ~39060 tok |
+| 19:43 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:50 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:52 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:55 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:55 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:55 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 19:55 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 20:00 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 20:00 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 20:02 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+| 23:41 | Session end: 37 writes across 17 files (project_pendientes_ux.md, MEMORY.md, StockMovementsPage.tsx, CashPage.tsx, QuotesPage.tsx) | 20 reads | ~39248 tok |
+
+## Session: 2026-05-20 18:35
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 18:42 | Edited apps/backend/src/products/products.service.ts | added 1 import(s) | ~84 |
+| 18:42 | Edited apps/backend/src/products/products.service.ts | added error handling | ~512 |
+| 18:42 | Edited apps/backend/src/products/products.controller.ts | added 2 import(s) | ~133 |
+| 18:42 | Edited apps/backend/src/products/products.controller.ts | added 1 condition(s) | ~198 |
+| 18:42 | Edited apps/backend/src/stock-movements/stock-movements.service.ts | modified bulkCreate() | ~133 |
+| 18:42 | Edited apps/backend/src/stock-movements/stock-movements.controller.ts | expanded (+8 lines) | ~151 |
+| 18:43 | Created apps/frontend/src/components/products/ProductRemitoModal.tsx | — | ~2442 |
+| 18:43 | Edited apps/frontend/src/pages/ProductsPage.tsx | added 1 import(s) | ~59 |
+| 18:43 | Edited apps/frontend/src/pages/ProductsPage.tsx | 4→5 lines | ~52 |
+| 18:44 | Edited apps/frontend/src/pages/ProductsPage.tsx | added 1 import(s) | ~69 |
+| 18:44 | Edited apps/frontend/src/pages/ProductsPage.tsx | 2→3 lines | ~106 |
+| 18:44 | Edited apps/frontend/src/pages/ProductsPage.tsx | 6→10 lines | ~97 |
+| 18:46 | feat: recibir remito productos con IA → bulk stock entrada | products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx, ProductsPage.tsx | OK — TS limpio | ~800 |
+| 18:46 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 11 reads | ~20074 tok |
+| 18:47 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 11 reads | ~20074 tok |
+| 18:47 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 11 reads | ~20074 tok |
+| 18:50 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 11 reads | ~20074 tok |
+| 18:50 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~20074 tok |
+| 18:51 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~20074 tok |
+| 18:51 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~20074 tok |
+| 18:52 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~20074 tok |
+| 18:52 | Session end: 12 writes across 6 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~20074 tok |
+| 18:54 | Edited apps/backend/src/products/products.service.ts | 7→8 lines | ~94 |
+| 18:57 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_sprint3_roadmap.md | — | ~306 |
+| 18:57 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~21010 tok |
+| 19:00 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~21010 tok |
+| 19:06 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~21010 tok |
+| 19:06 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~21010 tok |
+| 19:10 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 13 reads | ~21010 tok |
+| 19:10 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24151 tok |
+| 19:12 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24151 tok |
+| 19:12 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24151 tok |
+| 19:13 | Session end: 14 writes across 7 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24151 tok |
+| 19:14 | Created scripts/remito-prueba.html | — | ~612 |
+| 19:14 | Session end: 15 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24807 tok |
+| 19:16 | Session end: 15 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24807 tok |
+| 19:17 | Session end: 15 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24807 tok |
+| 19:17 | Session end: 15 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~24807 tok |
+| 19:18 | Edited apps/frontend/src/components/products/ProductRemitoModal.tsx | CSS: allProducts | ~86 |
+| 19:18 | Edited apps/frontend/src/components/products/ProductRemitoModal.tsx | added optional chaining | ~57 |
+| 19:18 | Edited apps/frontend/src/components/products/ProductRemitoModal.tsx | inline fix | ~15 |
+| 19:18 | Edited apps/frontend/src/components/products/ProductRemitoModal.tsx | added optional chaining | ~97 |
+| 19:19 | Session end: 19 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~25062 tok |
+| 19:19 | Session end: 19 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~25062 tok |
+| 19:20 | Edited apps/backend/src/products/products.service.ts | added nullish coalescing | ~488 |
+| 19:20 | Edited apps/backend/src/products/products.controller.ts | expanded (+9 lines) | ~116 |
+| 19:20 | Edited apps/backend/src/products/products.controller.ts | inline fix | ~44 |
+| 19:21 | Created apps/frontend/src/components/products/ProductRemitoModal.tsx | — | ~2026 |
+| 19:22 | Edited apps/backend/src/products/products.service.ts | inline fix | ~20 |
+| 19:22 | Edited apps/backend/src/products/products.service.ts | 2→1 lines | ~7 |
+| 19:22 | Edited apps/backend/src/products/products.service.ts | modified if() | ~141 |
+| 19:23 | Session end: 26 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28373 tok |
+| 19:26 | Session end: 26 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28373 tok |
+| 19:26 | Session end: 26 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28373 tok |
+| 19:27 | Edited apps/backend/src/products/products.service.ts | added 1 condition(s) | ~152 |
+| 19:28 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:31 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:32 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:32 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:33 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:33 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:33 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:34 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:34 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:34 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:44 | Session end: 27 writes across 8 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 14 reads | ~28525 tok |
+| 19:47 | Edited apps/frontend/src/pages/AlertsPage.tsx | 2→2 lines | ~86 |
+| 19:48 | Session end: 28 writes across 9 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 15 reads | ~31537 tok |
+| 19:52 | Session end: 28 writes across 9 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 15 reads | ~31537 tok |
+| 19:53 | Session end: 28 writes across 9 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 15 reads | ~31537 tok |
+| 19:53 | Session end: 28 writes across 9 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 15 reads | ~31537 tok |
+| 19:54 | Session end: 28 writes across 9 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 15 reads | ~31537 tok |
+| 22:21 | Edited apps/backend/src/products/products.service.ts | added 1 condition(s) | ~158 |
+| 22:21 | Edited apps/backend/src/products/products.service.ts | inline fix | ~52 |
+| 22:21 | Edited apps/backend/src/products/products.controller.ts | modified findAll() | ~92 |
+| 22:21 | Edited apps/frontend/src/hooks/useProducts.ts | 1→2 lines | ~36 |
+| 22:21 | Edited apps/frontend/src/hooks/useProducts.ts | 11→12 lines | ~128 |
+| 22:22 | Edited apps/frontend/src/hooks/useProducts.ts | modified handleSetSupplierFilter() | ~48 |
+| 22:22 | Edited apps/frontend/src/hooks/useProducts.ts | 2→3 lines | ~38 |
+| 22:22 | Edited apps/frontend/src/pages/ProductsPage.tsx | 2→2 lines | ~46 |
+| 22:22 | Edited apps/frontend/src/pages/ProductsPage.tsx | CSS: flex, Ej | ~376 |
+| 22:24 | Session end: 37 writes across 10 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 16 reads | ~33794 tok |
+| 22:25 | Edited apps/frontend/src/pages/VehiclesPage.tsx | inline fix | ~24 |
+| 22:25 | Edited apps/frontend/src/pages/VehiclesPage.tsx | CSS: search, placeholderData, prev | ~99 |
+| 22:25 | Edited apps/frontend/src/pages/VehiclesPage.tsx | expanded (+9 lines) | ~123 |
+| 22:26 | Session end: 40 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~35488 tok |
+| 22:27 | Edited apps/backend/src/products/products.service.ts | inline fix | ~57 |
+| 22:27 | Edited apps/backend/src/products/products.service.ts | 6→6 lines | ~122 |
+| 22:27 | Edited apps/backend/src/products/products.controller.ts | modified findAll() | ~96 |
+| 22:27 | Edited apps/frontend/src/hooks/useProducts.ts | 1→2 lines | ~40 |
+| 22:27 | Edited apps/frontend/src/hooks/useProducts.ts | 12→13 lines | ~142 |
+| 22:27 | Edited apps/frontend/src/hooks/useProducts.ts | modified handleSetPriceSort() | ~59 |
+| 22:27 | Edited apps/frontend/src/hooks/useProducts.ts | 1→2 lines | ~27 |
+| 22:27 | Edited apps/frontend/src/pages/ProductsPage.tsx | 2→2 lines | ~52 |
+| 22:28 | Edited apps/frontend/src/pages/ProductsPage.tsx | expanded (+14 lines) | ~365 |
+| 22:29 | Session end: 49 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36583 tok |
+| 22:30 | Edited apps/backend/src/products/products.service.ts | inline fix | ~24 |
+| 22:30 | Edited apps/backend/src/products/products.service.ts | "(${ilike(products.name, " → "%${filters.search}%" | ~39 |
+| 22:32 | Session end: 51 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36646 tok |
+| 22:33 | Session end: 51 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36646 tok |
+| 22:34 | Edited apps/frontend/src/pages/ProductsPage.tsx | "Nombre..." → "Nombre, código..." | ~39 |
+| 22:35 | Session end: 52 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36685 tok |
+| 22:36 | Session end: 52 writes across 11 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36685 tok |
+| 22:37 | Edited apps/backend/src/vehicles/vehicles.service.ts | inline fix | ~16 |
+| 22:37 | Edited apps/backend/src/vehicles/vehicles.service.ts | 1→6 lines | ~79 |
+| 22:39 | Session end: 54 writes across 12 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36780 tok |
+| 22:42 | Session end: 54 writes across 12 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36780 tok |
+| 22:45 | Session end: 54 writes across 12 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36780 tok |
+| 23:26 | Session end: 54 writes across 12 files (products.service.ts, products.controller.ts, stock-movements.service.ts, stock-movements.controller.ts, ProductRemitoModal.tsx) | 17 reads | ~36780 tok |
+
+## Session: 2026-05-22 19:45
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:58 | Created apps/backend/drizzle/0025_product_barcode.sql | — | ~47 |
+| 19:59 | Edited apps/backend/src/db/catalog.schema.ts | 2→3 lines | ~47 |
+| 19:59 | Edited apps/backend/src/products/product.dto.ts | 2→3 lines | ~48 |
+| 19:59 | Edited apps/frontend/src/types/products.types.ts | 19→20 lines | ~142 |
+| 19:59 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | CSS: e | ~64 |
+| 20:00 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | inline fix | ~33 |
+| 20:00 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | added optional chaining | ~38 |
+| 20:00 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | 3→4 lines | ~41 |
+| 20:00 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | 7→8 lines | ~57 |
+| 20:00 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: barcode | ~122 |
+| 20:00 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | modified ProductFormModal() | ~71 |
+| 20:00 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: barcode | ~38 |
+| 20:01 | Edited apps/frontend/src/components/products/ProductFormModal.tsx | CSS: barcode | ~171 |
+| 20:01 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | added optional chaining | ~340 |
+| 20:01 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | added 1 condition(s) | ~532 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 3 import(s) | ~172 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified SaleFormModal() | ~79 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+9 lines) | ~113 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: p, productId, ingresoTipo | ~85 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 5→7 lines | ~88 |
+| 20:02 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: barcode | ~159 |
+| 20:02 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | added 1 import(s) | ~75 |
+| 20:02 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | CSS: barcode | ~57 |
+| 20:02 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | CSS: code, x | ~239 |
+| 20:03 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | added 1 condition(s) | ~458 |
+| 20:03 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | added 1 import(s) | ~182 |
+| 20:03 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | added optional chaining | ~133 |
+| 20:03 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | CSS: barcode | ~178 |
+| 20:03 | feat(barcode): campo barcode en productos + búsqueda por código en ventas y stock movements | catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx, ProductFormModal.tsx, SaleItemsEditor.tsx, SaleFormModal.tsx, StockMovementFormModal.tsx, StockMovementsPage.tsx | OK | ~800 |
+| 20:04 | Session end: 28 writes across 10 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 11 reads | ~16962 tok |
+| 20:05 | Session end: 28 writes across 10 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 11 reads | ~16962 tok |
+| 20:05 | Session end: 28 writes across 10 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 11 reads | ~16962 tok |
+| 20:06 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_infra.md | — | ~106 |
+| 20:06 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~51 |
+| 20:06 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:10 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:11 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:11 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:11 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:12 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:12 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:13 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:13 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:20 | Session end: 30 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 12 reads | ~17131 tok |
+| 20:52 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | inline fix | ~21 |
+| 20:52 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | inline fix | ~21 |
+| 20:52 | Session end: 32 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 13 reads | ~17173 tok |
+| 20:54 | Session end: 32 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 13 reads | ~17173 tok |
+| 20:55 | Session end: 32 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 13 reads | ~17173 tok |
+| 21:04 | Session end: 32 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17173 tok |
+| 21:04 | Session end: 32 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17173 tok |
+| 21:05 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | added optional chaining | ~43 |
+| 21:05 | Edited apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx | added optional chaining | ~43 |
+| 21:05 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | 500 → 2000 | ~24 |
+| 21:05 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:06 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:09 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:10 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:14 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:14 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:15 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 14 reads | ~17283 tok |
+| 21:23 | Session end: 35 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 15 reads | ~17283 tok |
+| 21:24 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 condition(s) | ~112 |
+| 21:24 | Session end: 36 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 16 reads | ~17395 tok |
+| 21:25 | Session end: 36 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 16 reads | ~17395 tok |
+| 21:26 | Session end: 36 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 16 reads | ~17395 tok |
+| 21:28 | Session end: 36 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 17 reads | ~17395 tok |
+| 21:31 | Session end: 36 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 17 reads | ~17395 tok |
+| 21:40 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | added 1 import(s) | ~40 |
+| 21:40 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | 4→5 lines | ~69 |
+| 21:40 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | modified if() | ~85 |
+| 21:40 | Session end: 39 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 17 reads | ~17589 tok |
+| 22:45 | fix(barcode): cámara dispara una sola vez + cantidad suma en vez de duplicar | QRScannerField.tsx, SaleFormModal.tsx | OK | ~200 |
+| 22:46 | Session end: 39 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 17 reads | ~17589 tok |
+| 22:46 | Session end: 39 writes across 12 files (0025_product_barcode.sql, catalog.schema.ts, product.dto.ts, products.types.ts, QRScannerField.tsx) | 17 reads | ~17589 tok |
+
+## Session: 2026-05-26 15:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:15 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | added 1 import(s) | ~54 |
+| 15:15 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | decodeFromVideoDevice() → decodeFromConstraints() | ~78 |
+| 15:15 | Edited apps/frontend/src/components/ui/QRScannerField.tsx | 2→4 lines | ~46 |
+| 15:15 | Session end: 3 writes across 1 files (QRScannerField.tsx) | 1 reads | ~1337 tok |
+| 15:18 | Edited apps/frontend/src/hooks/useSales.ts | 500 → 2000 | ~25 |
+| 15:18 | Session end: 4 writes across 2 files (QRScannerField.tsx, useSales.ts) | 3 reads | ~4588 tok |
+| 15:20 | Session end: 4 writes across 2 files (QRScannerField.tsx, useSales.ts) | 3 reads | ~4588 tok |
+| 15:21 | Session end: 4 writes across 2 files (QRScannerField.tsx, useSales.ts) | 3 reads | ~4588 tok |
+| 15:21 | Session end: 4 writes across 2 files (QRScannerField.tsx, useSales.ts) | 3 reads | ~4588 tok |
+| 15:22 | Edited apps/frontend/src/components/ImportExcelModal.tsx | "Máximo 500 productos por " → "Máximo 10.000 productos p" | ~27 |
+| 15:22 | Session end: 5 writes across 3 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx) | 4 reads | ~7756 tok |
+| 15:22 | Session end: 5 writes across 3 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx) | 5 reads | ~10325 tok |
+| 15:24 | Session end: 5 writes across 3 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx) | 6 reads | ~10325 tok |
+| 15:24 | Edited apps/frontend/index.html | "en" → "es" | ~9 |
+| 15:24 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:25 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:25 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:26 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:26 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:27 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 7 reads | ~10430 tok |
+| 15:44 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 8 reads | ~10430 tok |
+| 15:45 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 9 reads | ~10430 tok |
+| 15:46 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 9 reads | ~10430 tok |
+| 15:46 | Session end: 6 writes across 4 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html) | 9 reads | ~10430 tok |
+| 15:47 | Edited apps/backend/src/products/products.service.ts | 200 → 5000 | ~20 |
+| 15:49 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 9 reads | ~10450 tok |
+| 15:52 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 9 reads | ~10450 tok |
+| 16:07 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 9 reads | ~10450 tok |
+| 16:08 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 9 reads | ~10450 tok |
+| 16:08 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:09 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:09 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:10 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:10 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:10 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:11 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:11 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:11 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:12 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:12 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:14 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:15 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:16 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:17 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:18 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:20 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:21 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:27 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:27 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:27 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:51 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:51 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 10 reads | ~10450 tok |
+| 16:53 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~10451 tok |
+| 16:53 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~10451 tok |
+| 16:54 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~10451 tok |
+| 16:54 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~10451 tok |
+| 16:58 | Session end: 7 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~10451 tok |
+| 17:14 | Created apps/frontend/src/components/ImportExcelModal.tsx | — | ~3683 |
+| 17:15 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~14134 tok |
+| 17:19 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~14134 tok |
+| 17:40 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~14134 tok |
+| 17:41 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 11 reads | ~14134 tok |
+| 17:42 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~14134 tok |
+| 17:44 | Session end: 8 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~14134 tok |
+| 17:46 | Edited apps/frontend/src/components/ImportExcelModal.tsx | CSS: data, c | ~156 |
+| 17:46 | Edited apps/frontend/src/components/ImportExcelModal.tsx | CSS: data, header, defval | ~138 |
+| 17:46 | Edited apps/frontend/src/components/ImportExcelModal.tsx | CSS: data, header, defval | ~90 |
+| 17:46 | Session end: 11 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15059 tok |
+| 17:50 | Session end: 11 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15059 tok |
+| 17:50 | Edited apps/frontend/src/components/ImportExcelModal.tsx | modified detectHeaderRow() | ~190 |
+| 17:51 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:53 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:55 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:56 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:56 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:57 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:57 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 17:58 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 12 reads | ~15249 tok |
+| 18:00 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:01 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:05 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:05 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:06 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:06 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:07 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:08 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:08 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:09 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:09 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:10 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:11 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:12 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:12 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:13 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:13 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:13 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:16 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:17 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:17 | Session end: 12 writes across 5 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~15249 tok |
+| 18:21 | Created ../../Desktop/tablas emi/convert_to_erpnext.mjs | — | ~1327 |
+| 18:21 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:22 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:23 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:24 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:26 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:26 | Session end: 13 writes across 6 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 13 reads | ~16670 tok |
+| 18:28 | Edited apps/backend/src/main.ts | 1→2 lines | ~36 |
+| 18:28 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:37 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:39 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:39 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:41 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:42 | Session end: 14 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17063 tok |
+| 18:43 | Edited ../../Desktop/tablas emi/convert_to_erpnext.mjs | 13→10 lines | ~117 |
+| 18:43 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:44 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:45 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:45 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:46 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:46 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:47 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:48 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:49 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:49 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:50 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:50 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:50 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:51 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:52 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:52 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:52 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:53 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:54 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:54 | Session end: 15 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17189 tok |
+| 18:55 | Edited ../../Desktop/tablas emi/convert_to_erpnext.mjs | inline fix | ~10 |
+| 18:55 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:56 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:56 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:57 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:57 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:58 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:59 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 18:59 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:00 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:06 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:06 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:14 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:15 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:15 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:16 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:16 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:18 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:18 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:19 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:19 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:20 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:20 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:21 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:22 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:23 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:23 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 19:24 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:14 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:14 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:16 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:16 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:17 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:17 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:17 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:18 | Session end: 16 writes across 7 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17199 tok |
+| 20:18 | Created ../dolibarr/docker-compose.yml | — | ~144 |
+| 20:18 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:19 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:19 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:22 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:22 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:24 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:25 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:25 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:25 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:31 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:32 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:33 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:33 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:34 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:34 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:34 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:35 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:35 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:35 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:36 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:37 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:37 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:38 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:38 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:39 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:39 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:39 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:40 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:40 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:41 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:41 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+| 20:41 | Session end: 17 writes across 8 files (QRScannerField.tsx, useSales.ts, ImportExcelModal.tsx, index.html, products.service.ts) | 14 reads | ~17343 tok |
+
+## Session: 2026-05-26 20:44
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:27 | Created ../dolibarr/docker-compose.yml | — | ~218 |
+| 22:27 | Session end: 1 writes across 1 files (docker-compose.yml) | 2 reads | ~577 tok |
+| 22:37 | Session end: 1 writes across 1 files (docker-compose.yml) | 2 reads | ~577 tok |
+| 22:37 | Session end: 1 writes across 1 files (docker-compose.yml) | 2 reads | ~577 tok |
+| 22:38 | Session end: 1 writes across 1 files (docker-compose.yml) | 2 reads | ~577 tok |
+| 22:38 | Session end: 1 writes across 1 files (docker-compose.yml) | 2 reads | ~577 tok |
+| 22:39 | Edited ../dolibarr/docker-compose.yml | 3→1 lines | ~3 |
+| 22:39 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 22:39 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 22:40 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 22:43 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:02 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:03 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:04 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:04 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:04 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:05 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:05 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 23:05 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:10 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:10 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:11 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:11 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:11 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+| 00:12 | Session end: 2 writes across 1 files (docker-compose.yml) | 2 reads | ~580 tok |
+
+## Session: 2026-05-27 15:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:28 | Edited apps/backend/src/sales/sales.service.ts | added 4 condition(s) | ~360 |
+| 15:28 | Edited apps/backend/src/sales/sales.controller.ts | inline fix | ~36 |
+| 15:28 | Edited apps/backend/src/sales/sales.controller.ts | expanded (+6 lines) | ~80 |
+| 15:28 | Edited apps/backend/src/cash/cash.service.ts | added 2 condition(s) | ~172 |
+| 15:28 | Edited apps/backend/src/cash/cash.controller.ts | inline fix | ~32 |
+| 15:28 | Edited apps/backend/src/cash/cash.controller.ts | expanded (+6 lines) | ~58 |
+| 15:29 | Edited apps/frontend/src/hooks/useSales.ts | expanded (+6 lines) | ~149 |
+| 15:29 | Edited apps/frontend/src/hooks/useSales.ts | inline fix | ~17 |
+| 15:29 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | CSS: onDelete, deletePending | ~82 |
+| 15:29 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | inline fix | ~50 |
+| 15:29 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | CSS: display, gap, flexWrap | ~318 |
+| 15:29 | Edited apps/frontend/src/pages/SalesPage.tsx | inline fix | ~82 |
+| 15:29 | Edited apps/frontend/src/pages/SalesPage.tsx | inline fix | ~102 |
+| 15:29 | Edited apps/frontend/src/components/cash/CashSessionsTable.tsx | CSS: id | ~33 |
+| 15:29 | Edited apps/frontend/src/components/cash/CashSessionsTable.tsx | inline fix | ~28 |
+| 15:29 | Edited apps/frontend/src/components/cash/CashSessionsTable.tsx | inline fix | ~30 |
+| 15:30 | Edited apps/frontend/src/components/cash/CashSessionsTable.tsx | CSS: border, cursor | ~292 |
+| 15:30 | Edited apps/frontend/src/pages/CashPage.tsx | CSS: id | ~196 |
+| 15:30 | Edited apps/frontend/src/pages/CashPage.tsx | inline fix | ~66 |
+| 15:30 | Session end: 19 writes across 9 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 12 reads | ~17837 tok |
+| 15:39 | Session end: 19 writes across 9 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 12 reads | ~18184 tok |
+| 15:40 | Edited apps/backend/src/sales/sales.service.ts | inline fix | ~14 |
+| 15:40 | Session end: 20 writes across 9 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 12 reads | ~18198 tok |
+| 15:41 | Session end: 20 writes across 9 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 14 reads | ~18198 tok |
+| 15:42 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | inline fix | ~4 |
+| 15:42 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | inline fix | ~8 |
+| 15:42 | Session end: 22 writes across 10 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 15 reads | ~20803 tok |
+| 15:43 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | "Tasa mensual TEM (%)" → "Tasa mensual (%)" | ~11 |
+| 15:43 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | inline fix | ~20 |
+| 15:43 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | inline fix | ~24 |
+| 15:43 | Session end: 25 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 16 reads | ~25552 tok |
+| 15:43 | Session end: 25 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 16 reads | ~25552 tok |
+| 15:44 | Session end: 25 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 16 reads | ~25552 tok |
+| 15:44 | Session end: 25 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 16 reads | ~25552 tok |
+| 15:46 | Edited apps/backend/src/sales/sales.service.ts | inline fix | ~31 |
+| 15:47 | Edited apps/backend/src/sales/sales.service.ts | 4→5 lines | ~96 |
+| 15:48 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 16:00 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 16:01 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 16:01 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 19:21 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 19:22 | Session end: 27 writes across 11 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 19 reads | ~27230 tok |
+| 19:24 | Edited apps/backend/src/db/enums.ts | 1→3 lines | ~81 |
+| 19:24 | Created apps/backend/src/db/credits.schema.ts | — | ~566 |
+| 19:24 | Edited apps/backend/src/db/schema.ts | 2→3 lines | ~29 |
+| 19:24 | Created apps/backend/drizzle/0026_credits_module.sql | — | ~390 |
+| 19:25 | Created apps/backend/src/credits/credit.dto.ts | — | ~298 |
+| 19:25 | Created apps/backend/src/credits/credits.service.ts | — | ~1882 |
+| 19:25 | Created apps/backend/src/credits/credits.controller.ts | — | ~447 |
+| 19:25 | Created apps/backend/src/credits/credits.module.ts | — | ~81 |
+| 19:26 | Edited apps/backend/src/app.module.ts | added 1 import(s) | ~38 |
+| 19:26 | Edited apps/backend/src/app.module.ts | 2→3 lines | ~14 |
+| 19:29 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 2→2 lines | ~44 |
+| 19:29 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 1→2 lines | ~37 |
+| 19:30 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~66 |
+| 19:30 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~65 |
+| 19:30 | Created apps/frontend/src/hooks/useCredits.ts | — | ~1057 |
+| 19:31 | Created apps/frontend/src/components/credits/CreditFormModal.tsx | — | ~1069 |
+| 19:31 | Created apps/frontend/src/components/credits/CreditPaymentModal.tsx | — | ~679 |
+| 19:31 | Created apps/frontend/src/components/credits/CreditsTable.tsx | — | ~929 |
+| 19:32 | Created apps/frontend/src/components/credits/CreditDetailModal.tsx | — | ~2044 |
+| 19:32 | Created apps/frontend/src/pages/CreditsPage.tsx | — | ~1100 |
+| 19:32 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:38 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:40 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:40 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:41 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:43 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:44 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:45 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:45 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:45 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:46 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:48 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:48 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:51 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:51 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:55 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:56 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:57 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 19:58 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 20:08 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 20:09 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 20:10 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 20:10 | Session end: 47 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 29 reads | ~45819 tok |
+| 20:17 | Edited apps/frontend/src/components/credits/CreditFormModal.tsx | 30→35 lines | ~611 |
+| 20:18 | Session end: 48 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 30 reads | ~47499 tok |
+| 20:20 | Session end: 48 writes across 28 files (sales.service.ts, sales.controller.ts, cash.service.ts, cash.controller.ts, useSales.ts) | 30 reads | ~47499 tok |
+
+## Session: 2026-05-28 13:57
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 14:05 | Created apps/backend/drizzle/0027_credits_cuotas.sql | — | ~257 |
+| 14:05 | Session end: 1 writes across 1 files (0027_credits_cuotas.sql) | 6 reads | ~4524 tok |
+| 14:11 | Session end: 1 writes across 1 files (0027_credits_cuotas.sql) | 6 reads | ~4524 tok |
+| 14:12 | Session end: 1 writes across 1 files (0027_credits_cuotas.sql) | 6 reads | ~4524 tok |
+| 14:13 | Session end: 1 writes across 1 files (0027_credits_cuotas.sql) | 6 reads | ~4524 tok |
+| 14:16 | Session end: 1 writes across 1 files (0027_credits_cuotas.sql) | 6 reads | ~4524 tok |
+| 14:19 | Edited apps/backend/src/db/enums.ts | 2→3 lines | ~74 |
+| 14:20 | Created apps/backend/src/db/credits.schema.ts | — | ~836 |
+| 14:21 | Created apps/backend/src/credits/credits.service.ts | — | ~4042 |
+| 14:21 | Created apps/backend/src/credits/credit.dto.ts | — | ~427 |
+| 14:21 | Created apps/backend/src/credits/credits.controller.ts | — | ~599 |
+| 14:22 | Edited apps/frontend/src/hooks/useCredits.ts | expanded (+14 lines) | ~285 |
+| 14:22 | Edited apps/frontend/src/hooks/useCredits.ts | expanded (+14 lines) | ~402 |
+| 14:23 | Created apps/frontend/src/components/credits/CreditFormModal.tsx | — | ~2590 |
+| 14:24 | Created apps/frontend/src/components/credits/CreditDetailModal.tsx | — | ~3391 |
+| 14:24 | Edited apps/frontend/src/pages/CreditsPage.tsx | 11→13 lines | ~206 |
+| 14:25 | Session end: 11 writes across 10 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 12 reads | ~23074 tok |
+| 14:28 | Session end: 11 writes across 10 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 12 reads | ~23074 tok |
+| 14:29 | Session end: 11 writes across 10 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 12 reads | ~23074 tok |
+| 14:31 | Created apps/backend/drizzle/0028_credits_principal_amount.sql | — | ~51 |
+| 14:31 | Edited apps/backend/src/db/credits.schema.ts | 4→5 lines | ~90 |
+| 14:32 | Edited apps/backend/src/credits/credits.service.ts | modified generateInstallments() | ~324 |
+| 14:32 | Edited apps/backend/src/credits/credits.service.ts | added 3 condition(s) | ~556 |
+| 14:32 | Edited apps/frontend/src/hooks/useCredits.ts | 10→11 lines | ~65 |
+| 14:32 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | CSS: anticipado | ~720 |
+| 14:34 | Edited apps/backend/src/credits/credits.service.ts | startDate() → firstDueDate() | ~381 |
+| 14:34 | Edited apps/backend/src/credits/credits.service.ts | 13→14 lines | ~133 |
+| 14:34 | Edited apps/frontend/src/components/credits/CreditFormModal.tsx | added 1 condition(s) | ~115 |
+| 14:35 | Edited apps/frontend/src/components/credits/CreditFormModal.tsx | 5→5 lines | ~122 |
+| 14:35 | Edited apps/frontend/src/components/credits/CreditFormModal.tsx | expanded (+6 lines) | ~258 |
+| 14:36 | Session end: 22 writes across 11 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 12 reads | ~28410 tok |
+| 14:37 | Session end: 22 writes across 11 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 12 reads | ~28410 tok |
+| 14:54 | Edited apps/backend/src/credits/credits.service.ts | modified payInstallment() | ~405 |
+| 14:55 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | modified fmt() | ~622 |
+| 14:55 | Edited apps/frontend/src/components/credits/CreditFormModal.tsx | 5→5 lines | ~109 |
+| 14:55 | Edited apps/backend/src/alerts/alerts.service.ts | 2→2 lines | ~62 |
+| 14:55 | Edited apps/backend/src/alerts/alerts.service.ts | modified getAlerts() | ~118 |
+| 14:55 | Edited apps/backend/src/alerts/alerts.service.ts | expanded (+32 lines) | ~436 |
+| 14:56 | Edited apps/backend/src/alerts/alerts.service.ts | 13→14 lines | ~226 |
+| 14:57 | Session end: 29 writes across 12 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 13 reads | ~31728 tok |
+
+| 19:18 | Cuotas simples crédito | credits + alerts | feature completa, falta migration | ~12000 |
+| 19:18 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md | — | ~383 |
+| 19:18 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~64 |
+| 19:19 | Session end: 31 writes across 14 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 14 reads | ~32207 tok |
+| 19:23 | Session end: 31 writes across 14 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 14 reads | ~32207 tok |
+| 19:24 | Session end: 31 writes across 14 files (0027_credits_cuotas.sql, enums.ts, credits.schema.ts, credits.service.ts, credit.dto.ts) | 14 reads | ~32207 tok |
+
+## Session: 2026-05-28 19:50
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 20:12 | Created apps/backend/drizzle/0029_sale_cuenta_corriente.sql | — | ~67 |
+| 20:12 | Edited apps/backend/src/db/enums.ts | inline fix | ~26 |
+| 20:12 | Edited apps/backend/src/db/credits.schema.ts | added 1 import(s) | ~161 |
+| 20:12 | Edited apps/backend/src/sales/create-sale.dto.ts | expanded (+9 lines) | ~81 |
+| 20:12 | Edited apps/backend/src/sales/sales.service.ts | inline fix | ~33 |
+| 20:12 | Edited apps/backend/src/sales/sales.service.ts | added 1 condition(s) | ~241 |
+| 20:12 | Edited apps/backend/src/sales/sales.service.ts | added nullish coalescing | ~398 |
+| 20:13 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~25 |
+| 20:13 | Edited apps/backend/src/alerts/alerts.service.ts | 2→2 lines | ~60 |
+| 20:13 | Edited apps/backend/src/alerts/alerts.service.ts | expanded (+18 lines) | ~382 |
+| 20:13 | Edited apps/backend/src/alerts/alerts.service.ts | 12→13 lines | ~264 |
+| 20:13 | Edited apps/frontend/src/hooks/useAlerts.ts | 14→18 lines | ~310 |
+| 20:13 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 1→3 lines | ~75 |
+| 20:14 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | CSS: principal | ~191 |
+| 20:14 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified onSubmit() | ~266 |
+| 20:14 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 7→8 lines | ~134 |
+| 20:14 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | expanded (+38 lines) | ~1934 |
+| 20:15 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 8→8 lines | ~154 |
+| 20:15 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~36 |
+| 20:15 | Edited apps/frontend/src/pages/AlertsPage.tsx | modified toLocaleDateString() | ~964 |
+| 20:16 | Session end: 20 writes across 9 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 9 reads | ~23473 tok |
+| 20:17 | Edited apps/backend/src/sales/sales.service.ts | 3→4 lines | ~90 |
+| 20:18 | Edited apps/backend/src/credits/credits.service.ts | added 1 condition(s) | ~70 |
+| 20:19 | Edited apps/backend/src/cash/cash.service.ts | 5→6 lines | ~155 |
+| 20:19 | Edited apps/backend/src/cash/cash.service.ts | 2→3 lines | ~114 |
+| 20:20 | Edited apps/frontend/src/components/sales/SalesTable.tsx | 3→3 lines | ~129 |
+| 20:20 | Edited apps/frontend/src/lib/pdf/receipt.ts | inline fix | ~45 |
+| 20:22 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 13 reads | ~32687 tok |
+| 20:23 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 13 reads | ~32687 tok |
+| 20:23 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:24 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:25 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:26 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:26 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:27 | Session end: 26 writes across 13 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 15 reads | ~32995 tok |
+| 20:28 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md | — | ~612 |
+| 20:28 | Session end: 27 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~33651 tok |
+| 20:30 | Session end: 27 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~33651 tok |
+| 20:31 | Session end: 27 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~33651 tok |
+| 20:33 | Session end: 27 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~33651 tok |
+| 20:37 | Session end: 27 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~33674 tok |
+| 20:39 | Edited apps/backend/src/sales/sales.service.ts | inline fix | ~39 |
+| 20:39 | Edited apps/backend/src/sales/sales.service.ts | added 2 condition(s) | ~636 |
+| 20:39 | Edited apps/backend/src/credits/credits.service.ts | modified Number() | ~150 |
+| 20:39 | Edited apps/backend/src/credits/credits.service.ts | added 1 condition(s) | ~62 |
+| 20:39 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | pow() → simple() | ~55 |
+| 20:39 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 3→3 lines | ~64 |
+| 20:40 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 10→15 lines | ~247 |
+| 20:40 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 2 condition(s) | ~116 |
+| 20:40 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 import(s) | ~22 |
+| 20:41 | Session end: 36 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36233 tok |
+| 20:43 | Session end: 36 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36233 tok |
+| 20:43 | Session end: 36 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36233 tok |
+| 20:46 | Session end: 36 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36233 tok |
+| 20:48 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md | 5→7 lines | ~295 |
+| 20:48 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 20:49 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 20:50 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 20:50 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 20:51 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 20:53 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 22:27 | Session end: 37 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36549 tok |
+| 22:28 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | inline fix | ~33 |
+| 22:28 | Session end: 38 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36593 tok |
+| 22:29 | Session end: 38 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36593 tok |
+| 22:32 | Session end: 38 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36593 tok |
+| 22:38 | Session end: 38 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36593 tok |
+| 22:44 | Session end: 38 writes across 14 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 16 reads | ~36593 tok |
+| 22:44 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | inline fix | ~41 |
+| 22:44 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md | expanded (+6 lines) | ~156 |
+| 22:44 | Session end: 40 writes across 15 files (0029_sale_cuenta_corriente.sql, enums.ts, credits.schema.ts, create-sale.dto.ts, sales.service.ts) | 17 reads | ~36804 tok |
+
+## Session: 2026-05-29 18:19
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 18:36 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 1→2 lines | ~31 |
+| 18:36 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 condition(s) | ~151 |
+| 18:36 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | added 1 condition(s) | ~82 |
+| 18:36 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | 5→5 lines | ~97 |
+| 18:37 | Edited apps/backend/src/credits/credits.service.ts | added 1 condition(s) | ~773 |
+| 18:37 | feat: descuento 10% auto en contado + regla 20d para saldo_compuesto | SaleFormModal.tsx, credits.service.ts | ok | ~25k |
+| 18:37 | Session end: 5 writes across 2 files (SaleFormModal.tsx, credits.service.ts) | 4 reads | ~13797 tok |
+| 18:39 | Session end: 5 writes across 2 files (SaleFormModal.tsx, credits.service.ts) | 4 reads | ~13797 tok |
+| 18:40 | Session end: 5 writes across 2 files (SaleFormModal.tsx, credits.service.ts) | 4 reads | ~13797 tok |
