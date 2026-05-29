@@ -25,8 +25,16 @@ export function CreditsPage() {
         <button onClick={() => c.setModal(true)} style={btnPrimary}>+ Nuevo crédito</button>
       </div>
 
-      <InfoBanner title="Créditos cuenta corriente">
-        Deudores que <strong>pagan lo que pueden cada mes</strong> sobre un saldo abierto. Cada 30 días se aplica automáticamente la tasa de interés sobre el saldo. Podés registrar entregas parciales en cualquier momento. Para deudores del sistema viejo, cargá solo el saldo actual y la fecha desde la que querés que empiecen a correr los próximos intereses.
+      <InfoBanner title="Créditos y financiaciones">
+        Acá aparecen todos los clientes que te deben plata: los que compraron en <strong>cuotas fijas</strong> (interés simple, cuotas generadas automáticamente desde la venta), los que quedaron en <strong>cuenta corriente</strong> (sin interés, con fecha de vencimiento), y los que tienen <strong>cuota libre</strong> (pagan lo que pueden, interés compuesto mensual sobre el saldo).
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <span><strong>Cuotas fijas</strong> — cuotas calculadas al momento de la venta. Si paga 20+ días antes del vencimiento de una cuota, se le cobra solo el capital (sin interés).</span>
+          <span><strong>Cuota libre</strong> — paga cuando puede. Interés se aplica cada 30 días sobre el saldo. Si paga 20+ días antes del vencimiento mensual, ese mes no corre el interés.</span>
+          <span><strong>Cuenta corriente</strong> — sin interés, con fecha de vencimiento. Si no paga, genera alerta automática.</span>
+        </div>
+        <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>
+          Para deudores del sistema viejo: cargá el saldo actual y la fecha desde la que querés que empiecen a correr los próximos intereses.
+        </div>
       </InfoBanner>
 
       <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>

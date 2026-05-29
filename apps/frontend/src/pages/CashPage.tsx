@@ -62,7 +62,7 @@ export function CashPage() {
       </div>
 
       <InfoBanner title="Caja diaria">
-        Llevá el control del efectivo del día. <strong>Abrís caja</strong> al empezar con un saldo inicial, y <strong>cerrás caja</strong> al final del día declarando lo que contaste. El sistema te muestra cuánto debería haber según las ventas en efectivo y los gastos. Si hay diferencia entre lo declarado y lo esperado, queda registrada.
+        Llevá el control del efectivo del día. <strong>Abrís caja</strong> al empezar con un saldo inicial, y <strong>cerrás caja</strong> al final del día declarando lo que contaste. El sistema calcula cuánto debería haber: las ventas al <strong>contado</strong> suman el total, las ventas <strong>financiadas</strong> suman solo la seña cobrada, las ventas en <strong>cuenta corriente</strong> no suman nada (el efectivo entra cuando el cliente paga). Los gastos descuentan del saldo esperado. Si hay diferencia entre lo declarado y lo calculado, queda registrada.
       </InfoBanner>
 
       <CashStatusPanel

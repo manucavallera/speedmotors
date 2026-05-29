@@ -57,10 +57,10 @@ export function InstallmentsPage() {
       </div>
 
       <InfoBanner title="Cobranza de cuotas">
-        Todas las cuotas de ventas financiadas que <strong>todavía no fueron cobradas</strong>, ordenadas por vencimiento. Las <strong style={{ color: '#dc2626' }}>vencidas aparecen en rojo</strong> — esas son las que tenés que reclamar primero.
+        Cuotas pendientes de las ventas financiadas con <strong>cuotas fijas (interés simple)</strong>, ordenadas por vencimiento. Las <strong style={{ color: '#dc2626' }}>vencidas aparecen en rojo</strong> con recargo automático calculado. Para créditos de <strong>cuota libre o cuenta corriente</strong>, los pagos se registran desde el módulo Créditos.
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-          <span>Cuando el cliente paga, hacé clic en <strong>Cobrar</strong> y registrá el método de pago</span>
-          <span>Al cobrar se genera un <strong>recibo de pago</strong> para entregar al cliente</span>
+          <span>Si el cliente paga <strong>20+ días antes</strong> del vencimiento, se cobra solo el capital (sin interés)</span>
+          <span>Si paga tarde, se suma un <strong>recargo mensual</strong> proporcional a los días de atraso</span>
           <span>Buscá por nombre de cliente para ver todas sus cuotas pendientes juntas</span>
         </div>
       </InfoBanner>

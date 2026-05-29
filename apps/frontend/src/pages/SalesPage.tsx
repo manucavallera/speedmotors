@@ -26,7 +26,7 @@ export function SalesPage() {
       </div>
 
       <InfoBanner title="Ventas registradas">
-        Historial completo de todo lo que vendiste. Podés registrar ventas al <strong>contado</strong> (un solo pago) o en <strong>cuotas</strong> — en ese caso el sistema arma el plan de pagos automáticamente con la tasa que vos definís. El stock de productos y el estado de los vehículos se actualiza solo al confirmar la venta.
+        Registrá cada venta con tres modalidades: <strong>Contado</strong> (pago inmediato, descuento del 10% se aplica automáticamente), <strong>Cuenta corriente</strong> (queda como deuda abierta en el cliente con vencimiento configurable), o <strong>Financiado</strong> (cuotas fijas con interés simple, o cuota libre con interés compuesto mensual). El stock de productos y el estado de los vehículos se actualiza solo al confirmar.
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
           <span><strong>Factura A</strong> — para clientes Responsables Inscriptos (CUIT)</span>
           <span><strong>Factura B</strong> — para consumidores finales</span>
@@ -34,7 +34,7 @@ export function SalesPage() {
           <span><strong>Mixto</strong> — parte con factura, parte sin factura</span>
         </div>
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>
-          Desde el detalle de cada venta podés generar el <strong>Remito</strong> y el <strong>Comprobante PDF</strong> para entregar al cliente. Las ventas financiadas (cuotas o cuenta corriente) se gestionan desde el módulo <strong>Créditos</strong>.
+          Desde el detalle podés generar el <strong>Remito</strong> y el <strong>Comprobante PDF</strong>. Las ventas financiadas o en cuenta corriente generan automáticamente un crédito en el módulo <strong>Créditos</strong> donde se gestionan los pagos.
         </div>
       </InfoBanner>
 

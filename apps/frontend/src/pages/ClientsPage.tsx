@@ -30,11 +30,11 @@ export function ClientsPage() {
       </div>
 
       <InfoBanner title="Clientes del negocio">
-        Datos de contacto y fiscales (CUIT, DNI, condición de IVA) de tus clientes. Asociá ventas y presupuestos a un cliente para <strong>llevar su cuenta corriente</strong>: ver qué cuotas debe, cuánto pagó y cuánto le falta. Generá el estado de cuenta en PDF para mandárselo.
+        Datos de contacto y fiscales de tus clientes. La <strong>condición de IVA</strong> (Responsable Inscripto o Consumidor Final) determina automáticamente si las ventas salen como Factura A o B. Podés ver el historial de compras de cada cliente y su situación crediticia desde el ícono de cuenta.
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-          <span>La <strong>condición de IVA</strong> del cliente determina si la venta sale como Factura A o B automáticamente</span>
-          <span>Hacé clic en el ícono 📋 para ver el historial completo de compras y pagos del cliente</span>
-          <span>Podés registrar <strong>pagos a cuenta</strong> independientes de una venta específica</span>
+          <span>Las deudas en cuotas o cuenta corriente se gestionan en el módulo <strong>Créditos</strong></span>
+          <span>El filtro <strong>"Con deuda"</strong> muestra solo clientes que tienen créditos activos</span>
+          <span>Desde la cuenta del cliente podés ver todas sus compras y el estado de cada crédito</span>
         </div>
       </InfoBanner>
 

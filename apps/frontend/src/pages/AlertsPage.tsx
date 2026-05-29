@@ -62,7 +62,7 @@ export function AlertsPage() {
       </div>
 
       <InfoBanner title="Centro de alertas">
-        Todo lo que necesitás atender hoy en un solo lugar: <strong>cuotas vencidas</strong> de clientes, <strong>reservas que llevan mucho tiempo</strong> sin concretarse, <strong>órdenes de compra</strong> que no llegaron, y tus <strong>recordatorios manuales</strong>. Usá el botón "+ Nuevo recordatorio" para agendar cualquier cosa con fecha — pagos de impuestos, llamadas, vencimientos de seguros, lo que sea.
+        Todo lo que necesitás atender hoy en un solo lugar. El sistema genera alertas automáticas para: <strong>cuotas vencidas o próximas a vencer</strong> (avisa 10 días antes), <strong>cuentas corrientes</strong> por vencer (avisa 7 días antes), <strong>reservas</strong> sin concretar, y <strong>órdenes de compra</strong> pendientes de recepción. Usá <strong>"+ Nuevo recordatorio"</strong> para agendar cualquier cosa con fecha — pagos de impuestos, llamadas, vencimientos de seguros, lo que sea.
       </InfoBanner>
 
       <AlertSummaryCards summary={s} />
