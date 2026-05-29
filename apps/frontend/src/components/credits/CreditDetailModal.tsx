@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import type { CreditDetail } from '../../hooks/useCredits'
+import { generateCreditStatement } from '../../lib/pdf'
 
 interface Props {
   detail: CreditDetail
@@ -86,6 +87,9 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
               + Registrar pago
             </button>
           )}
+          <button onClick={() => generateCreditStatement(detail)} style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 600, background: '#f0fdf4', color: '#15803d', border: '1px solid #bbf7d0', borderRadius: '8px', cursor: 'pointer' }}>
+            PDF estado de cuenta
+          </button>
           <button onClick={onEdit} style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 600, background: '#f1f5f9', color: '#374151', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
             Editar
           </button>
