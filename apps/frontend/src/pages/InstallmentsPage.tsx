@@ -1,11 +1,12 @@
 import { toast } from '../lib/toast'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { inputStyle } from '../components/ui/FormField'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { InstallmentsSection } from '../components/installments/InstallmentsSection'
 import { Pagination } from '../components/ui/Pagination'
+import { generateInstallmentReceipt } from '../lib/pdf'
 
 export function InstallmentsPage() {
   const qc = useQueryClient()
@@ -31,9 +32,19 @@ export function InstallmentsPage() {
   const upcomingCount: number = data?.upcomingCount ?? 0
   const upcomingTotal: number = data?.upcomingTotal ?? 0
 
+  const pendingInstRef = useRef<any>(null)
+
   const pay = useMutation({
-    mutationFn: (id: number) => api.post(`/sales/installments/${id}/pay`),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['installments-pending'] }),
+    mutationFn: ({ id }: { id: number }) => api.post(`/sales/installments/${id}/pay`),
+    onSuccess: (res) => {
+      qc.invalidateQueries({ queryKey: ['installments-pending'] })
+      const inst = pendingInstRef.current
+      if (inst) {
+        const { total = Number(inst.amount), surcharge = 0 } = res.data || {}
+        generateInstallmentReceipt(inst, total, surcharge, new Date())
+        pendingInstRef.current = null
+      }
+    },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
@@ -110,8 +121,8 @@ export function InstallmentsPage() {
         </div>
       ) : (
         <>
-          <InstallmentsSection title="Vencidas" items={overdue} color="#dc2626" today={today} onPay={id => pay.mutate(id)} isPending={pay.isPending} />
-          <InstallmentsSection title="Próximas" items={upcoming} color="#d97706" today={today} onPay={id => pay.mutate(id)} isPending={pay.isPending} />
+          <InstallmentsSection title="Vencidas" items={overdue} color="#dc2626" today={today} onPay={(id, inst) => { pendingInstRef.current = inst; pay.mutate({ id }) }} isPending={pay.isPending} />
+          <InstallmentsSection title="Próximas" items={upcoming} color="#d97706" today={today} onPay={(id, inst) => { pendingInstRef.current = inst; pay.mutate({ id }) }} isPending={pay.isPending} />
         </>
       )}
 

@@ -5,7 +5,7 @@ interface InstallmentsSectionProps {
   items: any[]
   color: string
   today: Date
-  onPay: (id: number) => void
+  onPay: (id: number, inst: any) => void
   isPending: boolean
 }
 
@@ -57,7 +57,7 @@ export function InstallmentsSection({ title, items, color, today, onPay, isPendi
                     </span>
                   </td>
                   <td style={{ padding: '12px 16px' }}>
-                    <button onClick={() => { if (confirm('¿Marcar como pagada?')) onPay(inst.id) }}
+                    <button onClick={() => { if (confirm('¿Marcar como pagada?')) onPay(inst.id, inst) }}
                       style={{ ...btnPrimary, padding: '5px 14px', fontSize: '12px' }} disabled={isPending}>
                       Cobrar
                     </button>
