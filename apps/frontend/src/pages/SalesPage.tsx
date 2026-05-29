@@ -34,7 +34,7 @@ export function SalesPage() {
           <span><strong>Mixto</strong> — parte con factura, parte sin factura</span>
         </div>
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>
-          Desde el detalle de cada venta podés generar el <strong>Remito</strong> y el <strong>Comprobante PDF</strong> para entregar al cliente. Si vendiste en cuotas, las cuotas aparecen en la sección <strong>Cobranza</strong>.
+          Desde el detalle de cada venta podés generar el <strong>Remito</strong> y el <strong>Comprobante PDF</strong> para entregar al cliente. Las ventas financiadas (cuotas o cuenta corriente) se gestionan desde el módulo <strong>Créditos</strong>.
         </div>
       </InfoBanner>
 
