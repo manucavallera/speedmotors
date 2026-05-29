@@ -147,7 +147,7 @@ sectionTitle('Opciones de pago')
 
 const cuotas = [
   ['Contado',  'U$D 1.500  —  pago único'],
-  ['2 cuotas', 'U$D 800 al inicio  +  U$D 700 a la entrega'],
+  ['2 cuotas', 'U$D 750  ×  2 cuotas'],
   ['3 cuotas', 'U$D 500  ×  3 meses'],
   ['4 cuotas', 'U$D 400  ×  4 meses'],
   ['5 cuotas', 'U$D 320  ×  5 meses'],

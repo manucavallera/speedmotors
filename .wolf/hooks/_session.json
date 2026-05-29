@@ -1,680 +1,274 @@
 {
-  "session_id": "session-2026-05-13-1501",
-  "started": "2026-05-13T15:01:14.635Z",
+  "session_id": "session-2026-05-29-1819",
+  "started": "2026-05-29T18:19:50.429Z",
   "files_read": {
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/stock-movements/StockMovementsTable.tsx": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales": {
       "count": 1,
       "tokens": 0,
-      "first_read": "2026-05-13T15:15:16.166Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/StockMovementsPage.tsx": {
-      "count": 3,
-      "tokens": 938,
-      "first_read": "2026-05-13T15:15:20.999Z"
-    },
-    "/mnt/c/Users/coco/Desktop/Captura de pantalla 2026-05-13 122633.png": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-05-13T15:27:17.270Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx": {
-      "count": 6,
-      "tokens": 3728,
-      "first_read": "2026-05-13T15:27:28.579Z"
-    },
-    "/mnt/c/Users/coco/Desktop/captura final.png": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-05-13T15:48:09.091Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx": {
-      "count": 4,
-      "tokens": 1716,
-      "first_read": "2026-05-13T15:58:47.044Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx": {
-      "count": 4,
-      "tokens": 2200,
-      "first_read": "2026-05-13T15:58:59.540Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicle.dto.ts": {
-      "count": 2,
-      "tokens": 332,
-      "first_read": "2026-05-13T15:58:59.848Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/AUDIT_REPORT.md": {
-      "count": 1,
-      "tokens": 4929,
-      "first_read": "2026-05-13T16:00:13.012Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientFormModal.tsx": {
-      "count": 1,
-      "tokens": 1435,
-      "first_read": "2026-05-13T16:00:18.078Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/client.dto.ts": {
-      "count": 1,
-      "tokens": 160,
-      "first_read": "2026-05-13T16:00:18.293Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/products/product.dto.ts": {
-      "count": 2,
-      "tokens": 286,
-      "first_read": "2026-05-13T16:00:20.868Z"
+      "first_read": "2026-05-29T18:28:49.533Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx": {
-      "count": 3,
-      "tokens": 3725,
-      "first_read": "2026-05-13T16:00:21.049Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/sales/create-sale.dto.ts": {
-      "count": 1,
-      "tokens": 430,
-      "first_read": "2026-05-13T16:00:21.321Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/reservations/ReservationFormModal.tsx": {
       "count": 2,
-      "tokens": 4817,
-      "first_read": "2026-05-13T16:00:24.107Z"
+      "tokens": 5825,
+      "first_read": "2026-05-29T18:28:52.559Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/reservations/create-reservation.dto.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleTotalsPanel.tsx": {
       "count": 1,
-      "tokens": 644,
-      "first_read": "2026-05-13T16:00:24.158Z"
+      "tokens": 2591,
+      "first_read": "2026-05-29T18:28:52.998Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useSales.ts": {
-      "count": 2,
-      "tokens": 987,
-      "first_read": "2026-05-13T16:00:26.390Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useReservations.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/credits/credits.service.ts": {
       "count": 1,
-      "tokens": 566,
-      "first_read": "2026-05-13T16:00:26.828Z"
+      "tokens": 4386,
+      "first_read": "2026-05-29T18:29:17.616Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useProducts.ts": {
-      "count": 2,
-      "tokens": 1204,
-      "first_read": "2026-05-13T16:00:29.707Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/expenses/ExpenseFormModal.tsx": {
+    "/home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md": {
       "count": 1,
       "tokens": 0,
-      "first_read": "2026-05-13T16:00:29.875Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/expenses/expense.dto.ts": {
-      "count": 1,
-      "tokens": 144,
-      "first_read": "2026-05-13T16:00:30.114Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/transfers/TransferFormModal.tsx": {
-      "count": 1,
-      "tokens": 2439,
-      "first_read": "2026-05-13T16:00:32.662Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/transfers/create-transfer.dto.ts": {
-      "count": 1,
-      "tokens": 272,
-      "first_read": "2026-05-13T16:00:33.075Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/quotes/QuoteFormModal.tsx": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-05-13T16:00:33.284Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx": {
-      "count": 2,
-      "tokens": 2136,
-      "first_read": "2026-05-13T16:00:36.391Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/users/UserFormModal.tsx": {
-      "count": 1,
-      "tokens": 841,
-      "first_read": "2026-05-13T16:00:42.282Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/alerts/ReminderFormModal.tsx": {
-      "count": 1,
-      "tokens": 1192,
-      "first_read": "2026-05-13T16:00:42.607Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientPaymentFormModal.tsx": {
-      "count": 1,
-      "tokens": 1622,
-      "first_read": "2026-05-13T16:00:45.533Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useAlerts.ts": {
-      "count": 2,
-      "tokens": 1137,
-      "first_read": "2026-05-13T16:00:51.820Z"
+      "first_read": "2026-05-29T18:42:35.491Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx": {
-      "count": 3,
-      "tokens": 1669,
-      "first_read": "2026-05-13T16:00:53.846Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx": {
-      "count": 2,
-      "tokens": 2730,
-      "first_read": "2026-05-13T16:00:54.110Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useClients.ts": {
-      "count": 2,
-      "tokens": 732,
-      "first_read": "2026-05-13T16:01:19.068Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useTransfers.ts": {
       "count": 1,
-      "tokens": 703,
-      "first_read": "2026-05-13T16:01:19.332Z"
+      "tokens": 1974,
+      "first_read": "2026-05-29T18:57:12.821Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleItemsEditor.tsx": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/CreditsPage.tsx": {
       "count": 1,
-      "tokens": 1449,
-      "first_read": "2026-05-13T16:01:29.153Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/sales.types.ts": {
-      "count": 1,
-      "tokens": 148,
-      "first_read": "2026-05-13T16:01:35.578Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.controller.ts": {
-      "count": 1,
-      "tokens": 875,
-      "first_read": "2026-05-13T16:01:56.166Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/vehicles/vehicles.service.ts": {
-      "count": 1,
-      "tokens": 1840,
-      "first_read": "2026-05-13T16:01:58.209Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/clients/clients.service.ts": {
-      "count": 1,
-      "tokens": 2649,
-      "first_read": "2026-05-13T16:02:08.569Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/PurchaseOrdersPage.tsx": {
-      "count": 3,
-      "tokens": 1926,
-      "first_read": "2026-05-13T16:02:21.403Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/CashPage.tsx": {
-      "count": 2,
-      "tokens": 1010,
-      "first_read": "2026-05-13T16:02:40.312Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ExpensesPage.tsx": {
-      "count": 2,
-      "tokens": 1074,
-      "first_read": "2026-05-13T16:02:40.577Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/cash/cash.controller.ts": {
-      "count": 1,
-      "tokens": 417,
-      "first_read": "2026-05-13T16:02:46.238Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/clients/ClientAccountModal.tsx": {
-      "count": 1,
-      "tokens": 2536,
-      "first_read": "2026-05-13T16:02:58.768Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SalesTable.tsx": {
-      "count": 1,
-      "tokens": 1260,
-      "first_read": "2026-05-13T16:04:59.633Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/layout/AppLayout.tsx": {
-      "count": 1,
-      "tokens": 1276,
-      "first_read": "2026-05-13T16:13:10.742Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/index.css": {
-      "count": 1,
-      "tokens": 753,
-      "first_read": "2026-05-13T16:13:17.810Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/VehiclesPage.tsx": {
-      "count": 2,
-      "tokens": 1283,
-      "first_read": "2026-05-13T16:13:49.242Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TransfersPage.tsx": {
-      "count": 2,
-      "tokens": 2815,
-      "first_read": "2026-05-13T16:16:12.691Z"
+      "tokens": 1160,
+      "first_read": "2026-05-29T18:59:14.821Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ClientsPage.tsx": {
-      "count": 2,
-      "tokens": 1123,
-      "first_read": "2026-05-13T16:17:27.714Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/upload/upload.controller.ts": {
       "count": 1,
-      "tokens": 600,
-      "first_read": "2026-05-13T16:22:22.369Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/nginx.conf": {
-      "count": 1,
-      "tokens": 152,
-      "first_read": "2026-05-13T16:23:04.626Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ReservationsPage.tsx": {
-      "count": 1,
-      "tokens": 3075,
-      "first_read": "2026-05-13T16:28:32.298Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SuppliersPage.tsx": {
-      "count": 1,
-      "tokens": 1075,
-      "first_read": "2026-05-13T16:28:38.594Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/QuotesPage.tsx": {
-      "count": 1,
-      "tokens": 1472,
-      "first_read": "2026-05-13T16:28:43.209Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/UsersPage.tsx": {
-      "count": 1,
-      "tokens": 1938,
-      "first_read": "2026-05-13T16:28:43.425Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useUsers.ts": {
-      "count": 1,
-      "tokens": 474,
-      "first_read": "2026-05-13T16:28:45.886Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/users/users.controller.ts": {
-      "count": 1,
-      "tokens": 347,
-      "first_read": "2026-05-13T16:28:52.987Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/users/users.service.ts": {
-      "count": 1,
-      "tokens": 854,
-      "first_read": "2026-05-13T16:28:54.959Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/suppliers/suppliers.controller.ts": {
-      "count": 1,
-      "tokens": 378,
-      "first_read": "2026-05-13T16:28:59.355Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/api.types.ts": {
-      "count": 1,
-      "tokens": 690,
-      "first_read": "2026-05-13T16:29:01.352Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/purchase-orders/purchase-orders.controller.ts": {
-      "count": 2,
-      "tokens": 382,
-      "first_read": "2026-05-13T16:29:03.345Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-05-13T16:29:19.422Z"
+      "tokens": 1274,
+      "first_read": "2026-05-29T18:59:33.033Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/AlertsPage.tsx": {
       "count": 1,
-      "tokens": 2782,
-      "first_read": "2026-05-13T16:29:19.551Z"
+      "tokens": 3740,
+      "first_read": "2026-05-29T18:59:57.505Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/purchase-orders/purchase-order.dto.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/CashPage.tsx": {
+      "count": 1,
+      "tokens": 1415,
+      "first_read": "2026-05-29T19:00:16.387Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx": {
       "count": 2,
-      "tokens": 316,
-      "first_read": "2026-05-13T16:29:25.028Z"
+      "tokens": 1981,
+      "first_read": "2026-05-29T19:00:30.307Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/purchase-orders/purchase-orders.service.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/account.ts": {
       "count": 1,
-      "tokens": 1483,
-      "first_read": "2026-05-13T16:29:31.028Z"
+      "tokens": 1963,
+      "first_read": "2026-05-29T19:05:58.849Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/purchase-orders/create-purchase-order.dto.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/helpers.ts": {
       "count": 1,
-      "tokens": 90,
-      "first_read": "2026-05-13T16:29:39.460Z"
+      "tokens": 162,
+      "first_read": "2026-05-29T19:05:59.030Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/main.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/credits/CreditDetailModal.tsx": {
       "count": 1,
-      "tokens": 357,
-      "first_read": "2026-05-13T16:29:47.364Z"
+      "tokens": 3476,
+      "first_read": "2026-05-29T19:06:09.966Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/vite.config.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/index.ts": {
       "count": 2,
-      "tokens": 503,
-      "first_read": "2026-05-13T16:38:22.912Z"
+      "tokens": 102,
+      "first_read": "2026-05-29T19:06:17.374Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehiclesGrid.tsx": {
-      "count": 2,
-      "tokens": 3050,
-      "first_read": "2026-05-13T16:48:20.880Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/catalog.schema.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/receipt.ts": {
       "count": 1,
-      "tokens": 562,
-      "first_read": "2026-05-13T18:07:28.662Z"
+      "tokens": 1222,
+      "first_read": "2026-05-29T19:08:11.685Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/products/products.service.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/installments/InstallmentsSection.tsx": {
       "count": 1,
-      "tokens": 1404,
-      "first_read": "2026-05-13T18:08:15.711Z"
+      "tokens": 0,
+      "first_read": "2026-05-29T19:08:21.437Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/products.types.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/credit.ts": {
       "count": 1,
-      "tokens": 147,
-      "first_read": "2026-05-13T18:09:34.081Z"
+      "tokens": 2525,
+      "first_read": "2026-05-29T19:15:21.331Z"
     }
   },
   "files_written": [
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/StockMovementsPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 22,
-      "at": "2026-05-13T15:16:33.844Z"
+      "tokens": 31,
+      "at": "2026-05-29T18:36:31.007Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 62,
-      "at": "2026-05-13T15:29:51.876Z"
+      "tokens": 151,
+      "at": "2026-05-29T18:36:43.271Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 62,
-      "at": "2026-05-13T15:33:36.676Z"
+      "tokens": 82,
+      "at": "2026-05-29T18:36:48.113Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 286,
-      "at": "2026-05-13T15:50:09.748Z"
+      "tokens": 97,
+      "at": "2026-05-29T18:36:53.246Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/credits/credits.service.ts",
       "action": "edit",
-      "tokens": 70,
-      "at": "2026-05-13T15:59:18.605Z"
+      "tokens": 773,
+      "at": "2026-05-29T18:37:20.332Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 68,
-      "at": "2026-05-13T15:59:23.798Z"
+      "tokens": 12,
+      "at": "2026-05-29T18:52:14.217Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useBreakpoint.ts",
-      "action": "create",
-      "tokens": 253,
-      "at": "2026-05-13T16:14:22.435Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/tokens.ts",
-      "action": "create",
-      "tokens": 253,
-      "at": "2026-05-13T16:14:28.956Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/index.css",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/sales/SaleFormModal.tsx",
       "action": "edit",
-      "tokens": 257,
-      "at": "2026-05-13T16:14:36.703Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
-      "action": "edit",
-      "tokens": 90,
-      "at": "2026-05-13T16:14:54.732Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
-      "action": "edit",
-      "tokens": 59,
-      "at": "2026-05-13T16:14:59.093Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
-      "action": "edit",
-      "tokens": 56,
-      "at": "2026-05-13T16:15:07.302Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/DashboardPage.tsx",
-      "action": "edit",
-      "tokens": 60,
-      "at": "2026-05-13T16:15:11.801Z"
+      "tokens": 100,
+      "at": "2026-05-29T18:52:18.720Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx",
       "action": "edit",
-      "tokens": 866,
-      "at": "2026-05-13T16:15:33.409Z"
+      "tokens": 72,
+      "at": "2026-05-29T18:57:18.469Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TransfersPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/SalesPage.tsx",
       "action": "edit",
-      "tokens": 255,
-      "at": "2026-05-13T16:16:22.447Z"
+      "tokens": 384,
+      "at": "2026-05-29T18:59:11.714Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/CreditsPage.tsx",
       "action": "edit",
-      "tokens": 68,
-      "at": "2026-05-13T16:17:07.249Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ProductsPage.tsx",
-      "action": "edit",
-      "tokens": 31,
-      "at": "2026-05-13T16:17:11.330Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ReservationsPage.tsx",
-      "action": "edit",
-      "tokens": 68,
-      "at": "2026-05-13T16:17:15.671Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ReservationsPage.tsx",
-      "action": "edit",
-      "tokens": 31,
-      "at": "2026-05-13T16:17:19.687Z"
+      "tokens": 390,
+      "at": "2026-05-29T18:59:29.562Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ClientsPage.tsx",
       "action": "edit",
-      "tokens": 68,
-      "at": "2026-05-13T16:17:32.527Z"
+      "tokens": 242,
+      "at": "2026-05-29T18:59:42.740Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/ClientsPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/AlertsPage.tsx",
       "action": "edit",
-      "tokens": 31,
-      "at": "2026-05-13T16:17:36.858Z"
+      "tokens": 162,
+      "at": "2026-05-29T19:00:07.629Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/nginx.conf",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/CashPage.tsx",
       "action": "edit",
-      "tokens": 62,
-      "at": "2026-05-13T16:23:08.591Z"
+      "tokens": 179,
+      "at": "2026-05-29T19:00:23.293Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/PurchaseOrdersPage.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx",
       "action": "edit",
-      "tokens": 115,
-      "at": "2026-05-13T16:30:40.901Z"
+      "tokens": 259,
+      "at": "2026-05-29T19:00:42.552Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/purchase-orders/purchase-order.dto.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/credit.ts",
+      "action": "create",
+      "tokens": 2525,
+      "at": "2026-05-29T19:07:02.662Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/index.ts",
+      "action": "edit",
+      "tokens": 35,
+      "at": "2026-05-29T19:07:10.305Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "action": "edit",
+      "tokens": 53,
+      "at": "2026-05-29T19:07:15.560Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "action": "edit",
+      "tokens": 365,
+      "at": "2026-05-29T19:07:26.886Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/receipt.ts",
+      "action": "edit",
+      "tokens": 823,
+      "at": "2026-05-29T19:09:09.128Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/pdf/index.ts",
       "action": "edit",
       "tokens": 21,
-      "at": "2026-05-13T16:31:12.875Z"
+      "at": "2026-05-29T19:09:13.062Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/vite.config.ts",
-      "action": "edit",
-      "tokens": 18,
-      "at": "2026-05-13T16:38:35.375Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/nginx.conf",
-      "action": "edit",
-      "tokens": 73,
-      "at": "2026-05-13T16:41:54.605Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/vite.config.ts",
-      "action": "edit",
-      "tokens": 79,
-      "at": "2026-05-13T16:42:47.009Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
-      "action": "edit",
-      "tokens": 251,
-      "at": "2026-05-13T16:48:33.839Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
-      "action": "edit",
-      "tokens": 119,
-      "at": "2026-05-13T16:48:43.551Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/upload/upload.controller.ts",
-      "action": "create",
-      "tokens": 389,
-      "at": "2026-05-13T18:07:15.984Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/0022_products_photos.sql",
-      "action": "create",
-      "tokens": 58,
-      "at": "2026-05-13T18:07:20.721Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/catalog.schema.ts",
-      "action": "edit",
-      "tokens": 28,
-      "at": "2026-05-13T18:07:33.641Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/catalog.schema.ts",
-      "action": "edit",
-      "tokens": 33,
-      "at": "2026-05-13T18:07:45.518Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/products/product.dto.ts",
-      "action": "edit",
-      "tokens": 28,
-      "at": "2026-05-13T18:08:02.737Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/products/product.dto.ts",
-      "action": "edit",
-      "tokens": 34,
-      "at": "2026-05-13T18:08:06.547Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/PhotoCarouselField.tsx",
-      "action": "create",
-      "tokens": 1413,
-      "at": "2026-05-13T18:08:37.497Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
-      "action": "edit",
-      "tokens": 18,
-      "at": "2026-05-13T18:08:56.384Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
-      "action": "edit",
-      "tokens": 69,
-      "at": "2026-05-13T18:09:00.867Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
-      "action": "edit",
-      "tokens": 8,
-      "at": "2026-05-13T18:09:05.089Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
-      "action": "edit",
-      "tokens": 39,
-      "at": "2026-05-13T18:09:10.719Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/vehicles/VehicleFormModal.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/installments/InstallmentsSection.tsx",
       "action": "edit",
       "tokens": 46,
-      "at": "2026-05-13T18:09:15.126Z"
+      "at": "2026-05-29T19:09:19.977Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/products.types.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/installments/InstallmentsSection.tsx",
+      "action": "edit",
+      "tokens": 78,
+      "at": "2026-05-29T19:09:29.392Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx",
+      "action": "edit",
+      "tokens": 146,
+      "at": "2026-05-29T19:09:36.429Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx",
+      "action": "edit",
+      "tokens": 175,
+      "at": "2026-05-29T19:09:43.524Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/InstallmentsPage.tsx",
+      "action": "edit",
+      "tokens": 114,
+      "at": "2026-05-29T19:09:48.930Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/credits/CreditDetailModal.tsx",
       "action": "edit",
       "tokens": 18,
-      "at": "2026-05-13T18:09:38.103Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/products.types.ts",
-      "action": "edit",
-      "tokens": 29,
-      "at": "2026-05-13T18:09:42.609Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx",
-      "action": "edit",
-      "tokens": 18,
-      "at": "2026-05-13T18:09:47.787Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx",
-      "action": "edit",
-      "tokens": 46,
-      "at": "2026-05-13T18:09:52.063Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx",
-      "action": "edit",
-      "tokens": 47,
-      "at": "2026-05-13T18:09:59.366Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/products/ProductFormModal.tsx",
-      "action": "edit",
-      "tokens": 50,
-      "at": "2026-05-13T18:10:03.997Z"
+      "at": "2026-05-29T19:18:38.839Z"
     }
   ],
   "edit_counts": {
-    "apps/frontend/src/pages/StockMovementsPage.tsx": 1,
-    "apps/frontend/src/pages/DashboardPage.tsx": 7,
-    "apps/frontend/src/components/products/ProductFormModal.tsx": 5,
-    "apps/frontend/src/components/vehicles/VehicleFormModal.tsx": 6,
-    "apps/frontend/src/hooks/useBreakpoint.ts": 1,
-    "apps/frontend/src/lib/tokens.ts": 1,
-    "apps/frontend/src/index.css": 1,
-    "apps/frontend/src/pages/SalesPage.tsx": 1,
-    "apps/frontend/src/pages/TransfersPage.tsx": 1,
-    "apps/frontend/src/pages/ProductsPage.tsx": 2,
-    "apps/frontend/src/pages/ReservationsPage.tsx": 2,
-    "apps/frontend/src/pages/ClientsPage.tsx": 2,
-    "apps/frontend/nginx.conf": 2,
-    "apps/frontend/src/pages/PurchaseOrdersPage.tsx": 1,
-    "apps/backend/src/purchase-orders/purchase-order.dto.ts": 1,
-    "apps/frontend/vite.config.ts": 2,
-    "apps/frontend/src/components/vehicles/VehiclesGrid.tsx": 2,
-    "apps/backend/src/upload/upload.controller.ts": 1,
-    "apps/backend/drizzle/0022_products_photos.sql": 1,
-    "apps/backend/src/db/catalog.schema.ts": 2,
-    "apps/backend/src/products/product.dto.ts": 2,
-    "apps/frontend/src/components/ui/PhotoCarouselField.tsx": 1,
-    "apps/frontend/src/types/products.types.ts": 2
+    "apps/frontend/src/components/sales/SaleFormModal.tsx": 6,
+    "apps/backend/src/credits/credits.service.ts": 1,
+    "apps/frontend/src/pages/SalesPage.tsx": 2,
+    "apps/frontend/src/pages/CreditsPage.tsx": 1,
+    "apps/frontend/src/pages/ClientsPage.tsx": 1,
+    "apps/frontend/src/pages/AlertsPage.tsx": 1,
+    "apps/frontend/src/pages/CashPage.tsx": 1,
+    "apps/frontend/src/pages/InstallmentsPage.tsx": 4,
+    "apps/frontend/src/lib/pdf/credit.ts": 1,
+    "apps/frontend/src/lib/pdf/index.ts": 2,
+    "apps/frontend/src/components/credits/CreditDetailModal.tsx": 3,
+    "apps/frontend/src/lib/pdf/receipt.ts": 1,
+    "apps/frontend/src/components/installments/InstallmentsSection.tsx": 2
   },
-  "anatomy_hits": 67,
-  "anatomy_misses": 5,
-  "repeated_reads_warned": 37,
+  "anatomy_hits": 15,
+  "anatomy_misses": 3,
+  "repeated_reads_warned": 3,
   "cerebrum_warnings": 0,
-  "stop_count": 48
+  "stop_count": 21
 }

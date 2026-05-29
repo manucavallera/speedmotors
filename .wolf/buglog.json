@@ -4144,6 +4144,2073 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-13T18:09:59.383Z"
+    },
+    {
+      "id": "bug-260",
+      "timestamp": "2026-05-13T19:54:29.811Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/backend/src/stock-movements/stock-movements.service.ts",
+      "root_cause": "No early return/throw for edge case: type === 'salida' && quantity > previousStock",
+      "fix": "Added guard clause: if (type === 'salida' && quantity > previous)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T19:54:29.811Z"
+    },
+    {
+      "id": "bug-261",
+      "timestamp": "2026-05-13T19:55:28.075Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/quotes/quotes.controller.ts",
+      "root_cause": "Was returning: this.quotesService.convertToSale(id, req.user.id, ",
+      "fix": "Now returns: this.quotesService.convertToSale(id, req.user.id, ",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T19:55:28.075Z"
+    },
+    {
+      "id": "bug-262",
+      "timestamp": "2026-05-13T19:57:00.032Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/reservations/reservations.service.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T19:57:00.032Z"
+    },
+    {
+      "id": "bug-263",
+      "timestamp": "2026-05-13T19:57:04.312Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/reservations/reservations.controller.ts",
+      "root_cause": "Was returning: this.svc.findAll({ page: page ? +page : undefined,",
+      "fix": "Now returns: this.svc.findAll({ page: page ? +page : undefined,",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T19:57:04.312Z"
+    },
+    {
+      "id": "bug-264",
+      "timestamp": "2026-05-13T19:59:01.346Z",
+      "error_message": "CSS fix: queryKey, params",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "queryKey: ['installments-pending', { page, overdueOnly → ['installments-pending', { page, overdueOnly, clientSearch; params: { page, limit: 50, overdue: overdueOnly || undefined → { page, limit: 50, overdue: overdueOnly || undefined, search: clientSearch || undefined",
+      "fix": "Changed queryKey: ['installments-pending', { page, overdueOnly → ['installments-pending', { page, overdueOnly, clientSearch; params: { page, limit: 50, overdue: overdueOnly || undefined → { page, limit: 50, overdue: overdueOnly || undefined, search: clientSearch || undefined",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T19:59:01.346Z"
+    },
+    {
+      "id": "bug-265",
+      "timestamp": "2026-05-13T20:21:54.725Z",
+      "error_message": "Wrong reference: filtered should be items",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "Used \"filtered\" instead of \"items\"",
+      "fix": "Changed filtered → items",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:21:54.725Z"
+    },
+    {
+      "id": "bug-266",
+      "timestamp": "2026-05-13T20:25:51.482Z",
+      "error_message": "CSS fix: padding, display",
+      "file": "apps/frontend/src/pages/ReservationsPage.tsx",
+      "root_cause": "padding: '4px 10px', fontSize: '12px', background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 → '5px 9px', fontSize: '13px', background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: '7px', cursor: 'pointer', lineHeight: 1; display: 'flex', gap: '6px' → 'flex', gap: '8px', alignItems: 'center'",
+      "fix": "Changed padding: '4px 10px', fontSize: '12px', background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 → '5px 9px', fontSize: '13px', background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: '7px', cursor: 'pointer', lineHeight: 1; display: 'flex', gap: '6px' → 'flex', gap: '8px', alignItems: 'center'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:25:51.482Z"
+    },
+    {
+      "id": "bug-267",
+      "timestamp": "2026-05-13T20:28:07.740Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/products/ProductsTable.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:28:07.740Z"
+    },
+    {
+      "id": "bug-268",
+      "timestamp": "2026-05-13T20:34:52.668Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/vite.config.ts",
+      "root_cause": "8 lines replaced/restructured",
+      "fix": "Rewrote 17→10 lines (8 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:34:52.668Z"
+    },
+    {
+      "id": "bug-269",
+      "timestamp": "2026-05-13T20:35:14.342Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:35:14.342Z"
+    },
+    {
+      "id": "bug-270",
+      "timestamp": "2026-05-13T20:36:50.684Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "root_cause": "No early return/throw for edge case: !photos.length",
+      "fix": "Added guard clause: if (!photos.length)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:36:50.684Z"
+    },
+    {
+      "id": "bug-271",
+      "timestamp": "2026-05-13T20:36:57.031Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/components/vehicles/VehiclesGrid.tsx",
+      "root_cause": "11 lines replaced/restructured",
+      "fix": "Rewrote 13→3 lines (11 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:36:57.031Z"
+    },
+    {
+      "id": "bug-272",
+      "timestamp": "2026-05-13T20:37:40.878Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/products/ProductsTable.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:37:40.878Z"
+    },
+    {
+      "id": "bug-273",
+      "timestamp": "2026-05-13T20:37:51.232Z",
+      "error_message": "CSS fix: padding, width",
+      "file": "apps/frontend/src/components/products/ProductsTable.tsx",
+      "root_cause": "padding: '8px 8px 8px 16px', width: '52px' → '8px 8px 8px 16px', width: '60px'; width: '44px', height: '44px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' → '52px', height: '52px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px'",
+      "fix": "Changed padding: '8px 8px 8px 16px', width: '52px' → '8px 8px 8px 16px', width: '60px'; width: '44px', height: '44px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' → '52px', height: '52px', borderRadius: '8px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T20:37:51.232Z"
+    },
+    {
+      "id": "bug-274",
+      "timestamp": "2026-05-13T21:16:40.047Z",
+      "error_message": "Missing error handling in DashboardPage",
+      "file": "apps/frontend/src/pages/DashboardPage.tsx",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T21:16:40.047Z"
+    },
+    {
+      "id": "bug-275",
+      "timestamp": "2026-05-13T21:16:59.288Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/DashboardPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T21:16:59.288Z"
+    },
+    {
+      "id": "bug-276",
+      "timestamp": "2026-05-13T21:17:13.937Z",
+      "error_message": "Wrong operator: !== should be ===",
+      "file": "apps/frontend/src/pages/DashboardPage.tsx",
+      "root_cause": "Used \"!==\" instead of \"===\"",
+      "fix": "Changed operator !== → ===",
+      "tags": [
+        "auto-detected",
+        "operator-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T21:17:13.937Z"
+    },
+    {
+      "id": "bug-277",
+      "timestamp": "2026-05-13T22:34:25.591Z",
+      "error_message": "CSS fix: c",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "fix": "Changed c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T22:34:25.591Z"
+    },
+    {
+      "id": "bug-278",
+      "timestamp": "2026-05-13T22:34:44.123Z",
+      "error_message": "CSS fix: v, p",
+      "file": "apps/frontend/src/components/sales/SaleItemsEditor.tsx",
+      "root_cause": "v: ${v.id → ')) {; p: ${p.id → ${item.productId",
+      "fix": "Changed v: ${v.id → ')) {; p: ${p.id → ${item.productId",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T22:34:44.123Z"
+    },
+    {
+      "id": "bug-279",
+      "timestamp": "2026-05-13T22:56:49.625Z",
+      "error_message": "CSS fix: c",
+      "file": "apps/frontend/src/components/quotes/QuoteFormModal.tsx",
+      "root_cause": "c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "fix": "Changed c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T22:56:49.625Z"
+    },
+    {
+      "id": "bug-280",
+      "timestamp": "2026-05-13T22:56:51.661Z",
+      "error_message": "CSS fix: c",
+      "file": "apps/frontend/src/components/reservations/ReservationFormModal.tsx",
+      "root_cause": "c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "fix": "Changed c: any) => <option key={c.id → any) => ({ value: String(c.id), label: c.name",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T22:56:51.661Z"
+    },
+    {
+      "id": "bug-281",
+      "timestamp": "2026-05-13T22:56:57.205Z",
+      "error_message": "CSS fix: s",
+      "file": "apps/frontend/src/components/purchase-orders/PurchaseOrderFormModal.tsx",
+      "root_cause": "s: any) => <option key={s.id → any) => ({ value: String(s.id), label: s.name",
+      "fix": "Changed s: any) => <option key={s.id → any) => ({ value: String(s.id), label: s.name",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-13T22:56:58.538Z"
+    },
+    {
+      "id": "bug-282",
+      "timestamp": "2026-05-13T22:57:04.143Z",
+      "error_message": "CSS fix: p, stock",
+      "file": "apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx",
+      "root_cause": "p: any) => <option key={p.id → any) => ({ value: String(p.id), label: `${p.name; stock: {p.stock → ${p.stock",
+      "fix": "Changed p: any) => <option key={p.id → any) => ({ value: String(p.id), label: `${p.name; stock: {p.stock → ${p.stock",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T22:57:04.143Z"
+    },
+    {
+      "id": "bug-283",
+      "timestamp": "2026-05-13T23:09:15.520Z",
+      "error_message": "CSS fix: v",
+      "file": "apps/frontend/src/components/transfers/TransferFormModal.tsx",
+      "root_cause": "v: any) => ( → any) => ({ value: String(v.id), label: `${v.brand",
+      "fix": "Changed v: any) => ( → any) => ({ value: String(v.id), label: `${v.brand",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-13T23:09:17.536Z"
+    },
+    {
+      "id": "bug-284",
+      "timestamp": "2026-05-13T23:11:12.721Z",
+      "error_message": "CSS fix: data, queryFn",
+      "file": "apps/frontend/src/pages/StockMovementsPage.tsx",
+      "root_cause": "data: products = [] → productsData; queryFn: () => api.get('/products').then(r => r.data?.items ?? r.data), → () => api.get('/products').then(r => r.data),",
+      "fix": "Changed data: products = [] → productsData; queryFn: () => api.get('/products').then(r => r.data?.items ?? r.data), → () => api.get('/products').then(r => r.data),",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T23:11:12.721Z"
+    },
+    {
+      "id": "bug-285",
+      "timestamp": "2026-05-13T23:12:13.299Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T23:12:13.299Z"
+    },
+    {
+      "id": "bug-286",
+      "timestamp": "2026-05-13T23:13:02.728Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/CashPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-13T23:13:02.728Z"
+    },
+    {
+      "id": "bug-287",
+      "timestamp": "2026-05-14T18:53:34.232Z",
+      "error_message": "CSS fix: queryFn",
+      "file": "apps/frontend/src/pages/StockMovementsPage.tsx",
+      "root_cause": "queryFn: () => api.get('/products').then(r => r.data), → () => api.get('/products', { params: { limit: 500",
+      "fix": "Changed queryFn: () => api.get('/products').then(r => r.data), → () => api.get('/products', { params: { limit: 500",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-14T18:55:20.536Z"
+    },
+    {
+      "id": "bug-288",
+      "timestamp": "2026-05-14T18:57:18.649Z",
+      "error_message": "Significant refactor of ",
+      "file": "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_ux.md",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 4→8 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T18:57:18.649Z"
+    },
+    {
+      "id": "bug-289",
+      "timestamp": "2026-05-14T19:03:54.627Z",
+      "error_message": "CSS fix: onSuccess",
+      "file": "apps/frontend/src/pages/CashPage.tsx",
+      "root_cause": "onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] → () => { qc.invalidateQueries({ queryKey: ['cash-summary']",
+      "fix": "Changed onSuccess: () => qc.invalidateQueries({ queryKey: ['cash-summary', 'cash-sessions'] → () => { qc.invalidateQueries({ queryKey: ['cash-summary']",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:03:54.627Z"
+    },
+    {
+      "id": "bug-290",
+      "timestamp": "2026-05-14T19:07:35.913Z",
+      "error_message": "CSS fix: data, queryKey, queryFn",
+      "file": "apps/frontend/src/pages/QuotesPage.tsx",
+      "root_cause": "data: clientsData → vehiclesData; queryKey: ['clients'], → ['vehicles', 'disponible'],; queryFn: () => api.get('/clients').then(r => r.data), → () => api.get('/vehicles', { params: { status: 'disponible'",
+      "fix": "Changed data: clientsData → vehiclesData; queryKey: ['clients'], → ['vehicles', 'disponible'],; queryFn: () => api.get('/clients').then(r => r.data), → () => api.get('/vehicles', { params: { status: 'disponible'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:07:35.913Z"
+    },
+    {
+      "id": "bug-291",
+      "timestamp": "2026-05-14T19:11:04.642Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/reservations/ReservationFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:11:04.642Z"
+    },
+    {
+      "id": "bug-292",
+      "timestamp": "2026-05-14T19:12:05.866Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "No early return/throw for edge case: !onCreateClient",
+      "fix": "Added guard clause: if (!onCreateClient)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:12:05.866Z"
+    },
+    {
+      "id": "bug-293",
+      "timestamp": "2026-05-14T19:17:14.792Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/SalesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:17:14.792Z"
+    },
+    {
+      "id": "bug-294",
+      "timestamp": "2026-05-14T19:17:26.136Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/ReservationsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:17:26.136Z"
+    },
+    {
+      "id": "bug-295",
+      "timestamp": "2026-05-14T19:17:57.542Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/QuotesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:17:57.542Z"
+    },
+    {
+      "id": "bug-296",
+      "timestamp": "2026-05-14T19:18:17.296Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/ClientsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:18:17.296Z"
+    },
+    {
+      "id": "bug-297",
+      "timestamp": "2026-05-14T19:18:29.996Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:18:29.996Z"
+    },
+    {
+      "id": "bug-298",
+      "timestamp": "2026-05-14T19:18:38.341Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/PurchaseOrdersPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:18:38.341Z"
+    },
+    {
+      "id": "bug-299",
+      "timestamp": "2026-05-14T19:21:32.328Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:21:32.328Z"
+    },
+    {
+      "id": "bug-300",
+      "timestamp": "2026-05-14T19:34:02.103Z",
+      "error_message": "Incorrect value in code",
+      "file": "scripts/gen-presupuesto.mjs",
+      "root_cause": "Had 'U$D 800 al inicio  +  U$D 700 a la entrega'",
+      "fix": "Changed to 'U$D 750  ×  2 cuotas'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-14T19:34:02.104Z"
+    },
+    {
+      "id": "bug-301",
+      "timestamp": "2026-05-20T18:42:13.938Z",
+      "error_message": "Missing error handling in parseRemito",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Code path had no error handling — exceptions would propagate uncaught",
+      "fix": "Added try/catch block",
+      "tags": [
+        "auto-detected",
+        "error-handling",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T18:42:13.938Z"
+    },
+    {
+      "id": "bug-302",
+      "timestamp": "2026-05-20T18:42:34.031Z",
+      "error_message": "Missing await",
+      "file": "apps/backend/src/stock-movements/stock-movements.service.ts",
+      "root_cause": "Async call without await — returned Promise instead of value",
+      "fix": "Added await to async call",
+      "tags": [
+        "auto-detected",
+        "async-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T18:42:34.031Z"
+    },
+    {
+      "id": "bug-303",
+      "timestamp": "2026-05-20T18:43:26.512Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Had '../hooks/useProducts'",
+      "fix": "Changed to '../components/products/ProductRemitoModal'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-20T18:44:00.360Z"
+    },
+    {
+      "id": "bug-304",
+      "timestamp": "2026-05-20T18:44:06.356Z",
+      "error_message": "CSS fix: fontSize",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "fontSize: '13px', color: '#16a34a' → '13px', color: '#0369a1'",
+      "fix": "Changed fontSize: '13px', color: '#16a34a' → '13px', color: '#0369a1'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T18:44:06.356Z"
+    },
+    {
+      "id": "bug-305",
+      "timestamp": "2026-05-20T00:00:00.000Z",
+      "error_message": "Importar Excel dice completado pero productos no aparecen en sistema tras haber sido borrados",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "onConflictDoUpdate no incluía active:true — productos soft-deleted (active=false) se actualizaban pero quedaban inactivos",
+      "fix": "Agregar active: true al set de onConflictDoUpdate en importProducts",
+      "tags": [
+        "import",
+        "products",
+        "soft-delete",
+        "excel"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20"
+    },
+    {
+      "id": "bug-306",
+      "timestamp": "2026-05-20T19:18:19.507Z",
+      "error_message": "CSS fix: p",
+      "file": "apps/frontend/src/components/products/ProductRemitoModal.tsx",
+      "root_cause": "p: any) => ({ → any) => [p.code?.toLowerCase(), String(p.id)]))",
+      "fix": "Changed p: any) => ({ → any) => [p.code?.toLowerCase(), String(p.id)]))",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T19:18:19.507Z"
+    },
+    {
+      "id": "bug-307",
+      "timestamp": "2026-05-20T19:18:29.574Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/products/ProductRemitoModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check) | Also: // Re-match by code when products load after parse; useEffect(() => {",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-20T19:18:38.532Z"
+    },
+    {
+      "id": "bug-308",
+      "timestamp": "2026-05-20T19:20:33.299Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T19:20:33.299Z"
+    },
+    {
+      "id": "bug-309",
+      "timestamp": "2026-05-20T19:20:48.254Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/products/products.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T19:20:48.254Z"
+    },
+    {
+      "id": "bug-310",
+      "timestamp": "2026-05-20T19:22:27.474Z",
+      "error_message": "Wrong reference: stockMovements should be results",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Used \"stockMovements\" instead of \"results\"",
+      "fix": "Changed stockMovements → results",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T19:22:27.474Z"
+    },
+    {
+      "id": "bug-311",
+      "timestamp": "2026-05-20T19:27:24.265Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 7→13 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T19:27:24.265Z"
+    },
+    {
+      "id": "bug-312",
+      "timestamp": "2026-05-20T22:22:35.606Z",
+      "error_message": "Wrong reference: suppliers should be brandFilter",
+      "file": "apps/frontend/src/hooks/useProducts.ts",
+      "root_cause": "Used \"suppliers\" instead of \"brandFilter\"",
+      "fix": "Changed suppliers → brandFilter",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:22:35.606Z"
+    },
+    {
+      "id": "bug-313",
+      "timestamp": "2026-05-20T22:22:42.795Z",
+      "error_message": "Wrong reference: suppliers should be brandFilter",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Used \"suppliers\" instead of \"brandFilter\"",
+      "fix": "Changed suppliers → brandFilter",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:22:42.795Z"
+    },
+    {
+      "id": "bug-314",
+      "timestamp": "2026-05-20T22:22:56.040Z",
+      "error_message": "CSS fix: display",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "display: 'flex', flexDirection: 'column', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '140px'",
+      "fix": "Changed display: 'flex', flexDirection: 'column', gap: '6px' → 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '140px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:22:56.040Z"
+    },
+    {
+      "id": "bug-315",
+      "timestamp": "2026-05-20T22:25:23.068Z",
+      "error_message": "CSS fix: queryKey, queryFn",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "queryKey: ['vehicles', page], → ['vehicles', page, search],; queryFn: () => api.get('/vehicles', { params: { page, limit: 50 → () => api.get('/vehicles', { params: { page, limit: 50, search: search || undefined",
+      "fix": "Changed queryKey: ['vehicles', page], → ['vehicles', page, search],; queryFn: () => api.get('/vehicles', { params: { page, limit: 50 → () => api.get('/vehicles', { params: { page, limit: 50, search: search || undefined",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:25:23.068Z"
+    },
+    {
+      "id": "bug-316",
+      "timestamp": "2026-05-20T22:25:34.140Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/VehiclesPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:25:34.140Z"
+    },
+    {
+      "id": "bug-317",
+      "timestamp": "2026-05-20T22:27:07.132Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 6→6 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:27:07.132Z"
+    },
+    {
+      "id": "bug-318",
+      "timestamp": "2026-05-20T22:27:37.087Z",
+      "error_message": "Wrong reference: resetPage should be setCostSort",
+      "file": "apps/frontend/src/hooks/useProducts.ts",
+      "root_cause": "Used \"resetPage\" instead of \"setCostSort\"",
+      "fix": "Changed resetPage → setCostSort",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:27:37.087Z"
+    },
+    {
+      "id": "bug-319",
+      "timestamp": "2026-05-20T22:28:00.312Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:28:00.312Z"
+    },
+    {
+      "id": "bug-320",
+      "timestamp": "2026-05-20T22:30:57.590Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Had `(${ilike(products.name, `",
+      "fix": "Changed to `%${filters.search}%`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:30:57.590Z"
+    },
+    {
+      "id": "bug-321",
+      "timestamp": "2026-05-20T22:34:39.514Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ProductsPage.tsx",
+      "root_cause": "Had \"Nombre...\"",
+      "fix": "Changed to \"Nombre, código...\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-20T22:34:39.514Z"
+    },
+    {
+      "id": "bug-322",
+      "timestamp": "2026-05-22T19:59:29.580Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/db/catalog.schema.ts",
+      "root_cause": "Had 'ingreso_tipo'",
+      "fix": "Changed to 'barcode'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T19:59:29.580Z"
+    },
+    {
+      "id": "bug-323",
+      "timestamp": "2026-05-22T20:00:07.851Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/ui/QRScannerField.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:00:07.851Z"
+    },
+    {
+      "id": "bug-324",
+      "timestamp": "2026-05-22T20:00:42.307Z",
+      "error_message": "CSS fix: serialNumber",
+      "file": "apps/frontend/src/components/products/ProductFormModal.tsx",
+      "root_cause": "serialNumber: p.serialNumber || '', ingresoTipo: p.ingresoTipo || '', → p.serialNumber || '', barcode: p.barcode || '', ingresoTipo: p.ingresoTipo || '',",
+      "fix": "Changed serialNumber: p.serialNumber || '', ingresoTipo: p.ingresoTipo || '', → p.serialNumber || '', barcode: p.barcode || '', ingresoTipo: p.ingresoTipo || '',",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:00:42.307Z"
+    },
+    {
+      "id": "bug-325",
+      "timestamp": "2026-05-22T20:01:37.752Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/sales/SaleItemsEditor.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:01:37.752Z"
+    },
+    {
+      "id": "bug-326",
+      "timestamp": "2026-05-22T20:02:14.680Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:02:14.680Z"
+    },
+    {
+      "id": "bug-327",
+      "timestamp": "2026-05-22T20:02:36.347Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:02:36.347Z"
+    },
+    {
+      "id": "bug-328",
+      "timestamp": "2026-05-22T20:02:59.492Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx",
+      "root_cause": "No early return/throw for edge case: !c",
+      "fix": "Added guard clause: if (!c)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:02:59.492Z"
+    },
+    {
+      "id": "bug-329",
+      "timestamp": "2026-05-22T20:03:13.706Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:03:13.706Z"
+    },
+    {
+      "id": "bug-330",
+      "timestamp": "2026-05-22T20:03:28.732Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/StockMovementsPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check) | Also: onCreateProduct={setNewProductBarcode}; {newProductBarcode !== null && (",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-22T20:03:35.494Z"
+    },
+    {
+      "id": "bug-331",
+      "timestamp": "2026-05-22T20:52:20.580Z",
+      "error_message": "CSS fix: x",
+      "file": "apps/frontend/src/components/sales/SaleItemsEditor.tsx",
+      "root_cause": "x: any) => x.barcode === c) → any) => x.barcode === c || x.code === c)",
+      "fix": "Changed x: any) => x.barcode === c) → any) => x.barcode === c || x.code === c)",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:52:20.580Z"
+    },
+    {
+      "id": "bug-332",
+      "timestamp": "2026-05-22T20:52:21.419Z",
+      "error_message": "CSS fix: x",
+      "file": "apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx",
+      "root_cause": "x: any) => x.barcode === c) → any) => x.barcode === c || x.code === c)",
+      "fix": "Changed x: any) => x.barcode === c) → any) => x.barcode === c || x.code === c)",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T20:52:21.419Z"
+    },
+    {
+      "id": "bug-333",
+      "timestamp": "2026-05-22T21:05:27.033Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/sales/SaleItemsEditor.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T21:05:27.033Z"
+    },
+    {
+      "id": "bug-334",
+      "timestamp": "2026-05-22T21:05:28.254Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/stock-movements/StockMovementFormModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T21:05:28.254Z"
+    },
+    {
+      "id": "bug-335",
+      "timestamp": "2026-05-22T21:05:40.516Z",
+      "error_message": "Wrong reference: 500 should be 2000",
+      "file": "apps/frontend/src/pages/StockMovementsPage.tsx",
+      "root_cause": "Used \"500\" instead of \"2000\"",
+      "fix": "Changed 500 → 2000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T21:05:40.516Z"
+    },
+    {
+      "id": "bug-336",
+      "timestamp": "2026-05-22T21:24:43.225Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "No early return/throw for edge case: idx >= 0",
+      "fix": "Added guard clause: if (idx >= 0)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-22T21:24:43.225Z"
+    },
+    {
+      "id": "bug-337",
+      "timestamp": "2026-05-26T15:15:08.988Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/ui/QRScannerField.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T15:15:08.988Z"
+    },
+    {
+      "id": "bug-338",
+      "timestamp": "2026-05-26T15:18:08.982Z",
+      "error_message": "Wrong reference: 500 should be 2000",
+      "file": "apps/frontend/src/hooks/useSales.ts",
+      "root_cause": "Used \"500\" instead of \"2000\"",
+      "fix": "Changed 500 → 2000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T15:18:08.982Z"
+    },
+    {
+      "id": "bug-339",
+      "timestamp": "2026-05-26T15:22:28.110Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/ImportExcelModal.tsx",
+      "root_cause": "Had 'Máximo 500 productos por importación'",
+      "fix": "Changed to 'Máximo 10.000 productos por importación'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T15:22:28.110Z"
+    },
+    {
+      "id": "bug-340",
+      "timestamp": "2026-05-26T15:24:33.760Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/index.html",
+      "root_cause": "Had \"en\"",
+      "fix": "Changed to \"es\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "html"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T15:24:33.760Z"
+    },
+    {
+      "id": "bug-341",
+      "timestamp": "2026-05-26T15:47:42.404Z",
+      "error_message": "Wrong reference: 200 should be 5000",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Used \"200\" instead of \"5000\"",
+      "fix": "Changed 200 → 5000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T15:47:42.404Z"
+    },
+    {
+      "id": "bug-342",
+      "timestamp": "2026-05-26T17:46:20.646Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/components/ImportExcelModal.tsx",
+      "root_cause": "No early return/throw for edge case: textCells.length >= 3",
+      "fix": "Added guard clause: if (textCells.length >= 3)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T17:46:20.646Z"
+    },
+    {
+      "id": "bug-343",
+      "timestamp": "2026-05-26T17:50:51.923Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/components/ImportExcelModal.tsx",
+      "root_cause": "7 lines replaced/restructured",
+      "fix": "Rewrote 12→14 lines (7 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T17:50:51.923Z"
+    },
+    {
+      "id": "bug-344",
+      "timestamp": "2026-05-26T18:55:15.324Z",
+      "error_message": "Incorrect value in code",
+      "file": "../../Desktop/tablas emi/convert_to_erpnext.mjs",
+      "root_cause": "Had 'All Customer Groups'",
+      "fix": "Changed to 'Individual'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "mjs"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T18:55:15.324Z"
+    },
+    {
+      "id": "bug-345",
+      "timestamp": "2026-05-26T22:39:02.293Z",
+      "error_message": "Wrong reference: version should be services",
+      "file": "../dolibarr/docker-compose.yml",
+      "root_cause": "Used \"version\" instead of \"services\"",
+      "fix": "Changed version → services",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "yml"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-26T22:39:02.293Z"
+    },
+    {
+      "id": "bug-346",
+      "timestamp": "2026-05-27T15:28:29.233Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "No early return/throw for edge case: !sale",
+      "fix": "Added guard clause: if (!sale)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:28:29.233Z"
+    },
+    {
+      "id": "bug-347",
+      "timestamp": "2026-05-27T15:28:38.197Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/sales/sales.controller.ts",
+      "root_cause": "Was returning: this.salesService.payInstallment(id)",
+      "fix": "Now returns: this.salesService.remove(id)",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:28:38.197Z"
+    },
+    {
+      "id": "bug-348",
+      "timestamp": "2026-05-27T15:28:43.140Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/backend/src/cash/cash.service.ts",
+      "root_cause": "No early return/throw for edge case: !session",
+      "fix": "Added guard clause: if (!session)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:28:43.140Z"
+    },
+    {
+      "id": "bug-349",
+      "timestamp": "2026-05-27T15:28:53.571Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/cash/cash.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:28:53.571Z"
+    },
+    {
+      "id": "bug-350",
+      "timestamp": "2026-05-27T15:29:32.456Z",
+      "error_message": "CSS fix: borderTop, padding",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "borderTop: '1px solid #f1f5f9', paddingTop: '14px' → '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', gap: '8px', flexWrap: 'wrap'; padding: '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' → '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#991b1b', border: '1px solid #fca5a5', borderRadius: '8px', cursor: 'pointer'",
+      "fix": "Changed borderTop: '1px solid #f1f5f9', paddingTop: '14px' → '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', gap: '8px', flexWrap: 'wrap'; padding: '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' → '7px 16px', fontSize: '13px', fontWeight: 600, background: '#fef2f2', color: '#991b1b', border: '1px solid #fca5a5', borderRadius: '8px', cursor: 'pointer'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:29:32.456Z"
+    },
+    {
+      "id": "bug-351",
+      "timestamp": "2026-05-27T15:29:52.109Z",
+      "error_message": "Wrong reference: CashSessionsTableProps should be onDelete",
+      "file": "apps/frontend/src/components/cash/CashSessionsTable.tsx",
+      "root_cause": "Used \"CashSessionsTableProps\" instead of \"onDelete\"",
+      "fix": "Changed CashSessionsTableProps → onDelete",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:29:52.109Z"
+    },
+    {
+      "id": "bug-352",
+      "timestamp": "2026-05-27T15:30:05.332Z",
+      "error_message": "CSS fix: padding",
+      "file": "apps/frontend/src/components/cash/CashSessionsTable.tsx",
+      "root_cause": "padding: '2px 9px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, background: s.status === 'abierta' ? '#f0fdf4' : '#f1f5f9', color: s.status === 'abierta' ? '#16a34a' : '#64748b' → '4px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer'",
+      "fix": "Changed padding: '2px 9px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, background: s.status === 'abierta' ? '#f0fdf4' : '#f1f5f9', color: s.status === 'abierta' ? '#16a34a' : '#64748b' → '4px 10px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:30:05.332Z"
+    },
+    {
+      "id": "bug-353",
+      "timestamp": "2026-05-27T15:30:14.222Z",
+      "error_message": "CSS fix: mutationFn, onSuccess",
+      "file": "apps/frontend/src/pages/CashPage.tsx",
+      "root_cause": "mutationFn: (d: CashMovementData) => api.post('/cash/movement', d), → (id: number) => api.delete(`/cash/sessions/${id; onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] → () => { qc.invalidateQueries({ queryKey: ['cash-sessions']",
+      "fix": "Changed mutationFn: (d: CashMovementData) => api.post('/cash/movement', d), → (id: number) => api.delete(`/cash/sessions/${id; onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] → () => { qc.invalidateQueries({ queryKey: ['cash-sessions']",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:30:14.222Z"
+    },
+    {
+      "id": "bug-354",
+      "timestamp": "2026-05-27T15:42:25.761Z",
+      "error_message": "Wrong reference: COMPUESTO should be SIMPLE",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "Used \"COMPUESTO\" instead of \"SIMPLE\"",
+      "fix": "Changed COMPUESTO → SIMPLE",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:42:25.761Z"
+    },
+    {
+      "id": "bug-355",
+      "timestamp": "2026-05-27T15:42:40.389Z",
+      "error_message": "Wrong reference: COMPUESTO should be SIMPLE",
+      "file": "apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "root_cause": "Used \"COMPUESTO\" instead of \"SIMPLE\"",
+      "fix": "Changed COMPUESTO → SIMPLE",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:42:40.389Z"
+    },
+    {
+      "id": "bug-356",
+      "timestamp": "2026-05-27T15:43:14.985Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "Had \"Tasa mensual TEM (%)\"",
+      "fix": "Changed to \"Tasa mensual (%)\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T15:43:14.985Z"
+    },
+    {
+      "id": "bug-357",
+      "timestamp": "2026-05-27T19:24:41.498Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/db/schema.ts",
+      "root_cause": "Had './relations'",
+      "fix": "Changed to './credits.schema'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T19:24:41.498Z"
+    },
+    {
+      "id": "bug-358",
+      "timestamp": "2026-05-27T19:29:54.402Z",
+      "error_message": "CSS fix: to",
+      "file": "apps/frontend/src/components/layout/Sidebar.tsx",
+      "root_cause": "to: '/installments', icon: CreditCard, label: 'Cuotas' → '/credits', icon: HandCoins, label: 'Créditos'",
+      "fix": "Changed to: '/installments', icon: CreditCard, label: 'Cuotas' → '/credits', icon: HandCoins, label: 'Créditos'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T19:29:54.402Z"
+    },
+    {
+      "id": "bug-359",
+      "timestamp": "2026-05-27T19:30:13.272Z",
+      "error_message": "Missing import: ./pages/CreditsPage",
+      "file": "apps/frontend/src/App.tsx",
+      "root_cause": "Module(s) not imported: ./pages/CreditsPage",
+      "fix": "Added import(s) for ./pages/CreditsPage",
+      "tags": [
+        "auto-detected",
+        "missing-import",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T19:30:13.272Z"
+    },
+    {
+      "id": "bug-360",
+      "timestamp": "2026-05-27T20:17:57.834Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/components/credits/CreditFormModal.tsx",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 30→35 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-27T20:17:57.834Z"
+    },
+    {
+      "id": "bug-361",
+      "timestamp": "2026-05-28T14:32:19.979Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 26→47 lines (4 removed) | Also: // Aplica intereses pendientes: cada 30 días desde; const startDate = new Date(credit.startDate)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-28T14:34:32.637Z"
+    },
+    {
+      "id": "bug-362",
+      "timestamp": "2026-05-28T14:32:47.072Z",
+      "error_message": "CSS fix: display, background, fontSize",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "display: 'grid', gridTemplateColumns: '50px 1fr 1fr 1fr 90px 110px', → 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 1fr 80px 100px',; background: inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : 'white', → inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : earlyWindow ? '#eff6ff' : 'white',; fontSize: '11px', color: '#dc2626' → '11px', color: '#2563eb'",
+      "fix": "Changed display: 'grid', gridTemplateColumns: '50px 1fr 1fr 1fr 90px 110px', → 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 1fr 80px 100px',; background: inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : 'white', → inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : earlyWindow ? '#eff6ff' : 'white',; fontSize: '11px', color: '#dc2626' → '11px', color: '#2563eb'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T14:32:47.072Z"
+    },
+    {
+      "id": "bug-363",
+      "timestamp": "2026-05-28T14:35:01.083Z",
+      "error_message": "CSS fix: Excel",
+      "file": "apps/frontend/src/components/credits/CreditFormModal.tsx",
+      "root_cause": "Excel: </strong> poné en \"Monto\" el saldo que te deben <strong>hoy</strong> y en \"Fecha de inicio\" la fecha de hoy. El primer interés se cobra a los 30 días. → </strong> poné en \"Monto\" el saldo que te deben <strong>hoy</strong>. Si dejás la <strong>fecha de vencimiento</strong> en blanco, el primer interés se cobra 30 días después del inicio. Si la cargás, el primer interés cae exacto en esa fecha.",
+      "fix": "Changed Excel: </strong> poné en \"Monto\" el saldo que te deben <strong>hoy</strong> y en \"Fecha de inicio\" la fecha de hoy. El primer interés se cobra a los 30 días. → </strong> poné en \"Monto\" el saldo que te deben <strong>hoy</strong>. Si dejás la <strong>fecha de vencimiento</strong> en blanco, el primer interés se cobra 30 días después del inicio. Si la cargás, el primer interés cae exacto en esa fecha.",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T14:35:01.083Z"
+    },
+    {
+      "id": "bug-364",
+      "timestamp": "2026-05-28T14:55:11.909Z",
+      "error_message": "CSS fix: display, background, fontSize",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "display: 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 1fr 80px 100px', → 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 80px 110px',; background: inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : earlyWindow ? '#eff6ff' : 'white', → inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : soon ? '#fffbeb' : 'white',; fontSize: '11px', color: '#2563eb' → '11px', color: '#d97706'",
+      "fix": "Changed display: 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 1fr 80px 100px', → 'grid', gridTemplateColumns: '40px 1.2fr 1fr 1fr 80px 110px',; background: inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : earlyWindow ? '#eff6ff' : 'white', → inst.paidAt ? '#f0fdf4' : overdue ? '#fef2f2' : soon ? '#fffbeb' : 'white',; fontSize: '11px', color: '#2563eb' → '11px', color: '#d97706'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T14:55:11.909Z"
+    },
+    {
+      "id": "bug-365",
+      "timestamp": "2026-05-28T14:55:27.058Z",
+      "error_message": "CSS fix: simples",
+      "file": "apps/frontend/src/components/credits/CreditFormModal.tsx",
+      "root_cause": "simples: </strong> capital + (capital × tasa × meses). Cuota fija = total / N. Si se atrasa, recargo = monto × tasa × meses_vencidos. → </strong> capital + (capital × tasa × meses). Cuota fija = total / N. Monto fijo siempre (no hay descuento por adelanto). Si se atrasa, recargo = monto × tasa × meses_vencidos. Alerta 10 días antes del vencimiento.",
+      "fix": "Changed simples: </strong> capital + (capital × tasa × meses). Cuota fija = total / N. Si se atrasa, recargo = monto × tasa × meses_vencidos. → </strong> capital + (capital × tasa × meses). Cuota fija = total / N. Monto fijo siempre (no hay descuento por adelanto). Si se atrasa, recargo = monto × tasa × meses_vencidos. Alerta 10 días antes del vencimiento.",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T14:55:27.058Z"
+    },
+    {
+      "id": "bug-366",
+      "timestamp": "2026-05-28T20:12:44.688Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 14→17 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:12:44.688Z"
+    },
+    {
+      "id": "bug-367",
+      "timestamp": "2026-05-28T20:12:55.325Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:12:55.325Z"
+    },
+    {
+      "id": "bug-368",
+      "timestamp": "2026-05-28T20:13:56.762Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "Had 'contado'",
+      "fix": "Changed to 'cuenta_corriente'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:13:56.762Z"
+    },
+    {
+      "id": "bug-369",
+      "timestamp": "2026-05-28T20:14:05.155Z",
+      "error_message": "CSS fix: n",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "n: principal * (1 + interest / 100) → (type === 'cuenta_corriente' || (type === 'cuotas' && financingSubtype === 'saldo_compuesto'))",
+      "fix": "Changed n: principal * (1 + interest / 100) → (type === 'cuenta_corriente' || (type === 'cuotas' && financingSubtype === 'saldo_compuesto'))",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-28T20:14:57.193Z"
+    },
+    {
+      "id": "bug-370",
+      "timestamp": "2026-05-28T20:14:13.577Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 13→15 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:14:13.577Z"
+    },
+    {
+      "id": "bug-371",
+      "timestamp": "2026-05-28T20:15:15.004Z",
+      "error_message": "CSS fix: summary",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "summary: s, installments: inst, reservations: res, purchaseOrders: po, reminders: rem → s, installments: inst, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem",
+      "fix": "Changed summary: s, installments: inst, reservations: res, purchaseOrders: po, reminders: rem → s, installments: inst, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-28T20:15:35.602Z"
+    },
+    {
+      "id": "bug-372",
+      "timestamp": "2026-05-28T20:19:36.185Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/cash/cash.service.ts",
+      "root_cause": "Had `coalesce(sum(${sales.total}),0)`",
+      "fix": "Changed to `coalesce(sum(case when ${sales.type}='",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:19:36.185Z"
+    },
+    {
+      "id": "bug-373",
+      "timestamp": "2026-05-28T20:20:46.868Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SalesTable.tsx",
+      "root_cause": "Had '#0284c7'",
+      "fix": "Changed to 'cuenta_corriente'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:20:46.868Z"
+    },
+    {
+      "id": "bug-374",
+      "timestamp": "2026-05-28T20:20:55.633Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/lib/pdf/receipt.ts",
+      "root_cause": "Had ' : '",
+      "fix": "Changed to ' : sale.type === '",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:20:55.633Z"
+    },
+    {
+      "id": "bug-375",
+      "timestamp": "2026-05-28T20:22:08.614717Z",
+      "error_message": "Caja contaba sales.total de TODAS las ventas incluido cuenta_corriente/cuotas como efectivo recibido",
+      "file": "apps/backend/src/cash/cash.service.ts",
+      "root_cause": "closeSession y getStatus sumaban sum(sales.total) sin filtrar por tipo; cuenta_corriente entra $0 a caja pero contaba el total",
+      "fix": "CASE: contado=total, cuotas=down_payment (seña), cuenta_corriente=0",
+      "tags": [
+        "cash",
+        "cuenta_corriente",
+        "accounting",
+        "sql"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:22:08.614717Z"
+    },
+    {
+      "id": "bug-376",
+      "timestamp": "2026-05-28T20:22:08.614717Z",
+      "error_message": "remove(sale) borraría venta con FK violation si tiene crédito auto-generado",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "credits.saleId referencia sales(id); remove() no detachaba el crédito antes de delete sales",
+      "fix": "tx.update(credits).set({saleId:null}) antes de delete sales — preserva deuda y pagos",
+      "tags": [
+        "sales",
+        "credits",
+        "fk",
+        "cuenta_corriente"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:22:08.614717Z"
+    },
+    {
+      "id": "bug-377",
+      "timestamp": "2026-05-28T20:39:16.349Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "15 lines replaced/restructured",
+      "fix": "Rewrote 30→41 lines (15 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:39:16.349Z"
+    },
+    {
+      "id": "bug-378",
+      "timestamp": "2026-05-28T20:39:26.230Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:39:26.230Z"
+    },
+    {
+      "id": "bug-379",
+      "timestamp": "2026-05-28T20:39:32.825Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "Had `(recargo $${surcharge.toFixed(2)})`",
+      "fix": "Changed to '(pago anticipado, sin interés)'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:39:32.825Z"
+    },
+    {
+      "id": "bug-380",
+      "timestamp": "2026-05-28T20:39:48.674Z",
+      "error_message": "CSS fix: firstInstallmentDate",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "firstInstallmentDate: isCuotasSimples && firstInstallmentDate ? firstInstallmentDate : undefined, → type === 'cuotas' && firstInstallmentDate ? firstInstallmentDate : undefined,",
+      "fix": "Changed firstInstallmentDate: isCuotasSimples && firstInstallmentDate ? firstInstallmentDate : undefined, → type === 'cuotas' && firstInstallmentDate ? firstInstallmentDate : undefined,",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:39:48.674Z"
+    },
+    {
+      "id": "bug-381",
+      "timestamp": "2026-05-28T20:48:34.214Z",
+      "error_message": "Significant refactor of ",
+      "file": "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→7 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T20:48:34.214Z"
+    },
+    {
+      "id": "bug-382",
+      "timestamp": "2026-05-28T22:28:22.920Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/sales/SaleFormModal.tsx",
+      "root_cause": "Had 'Cuotas fijas'",
+      "fix": "Changed to 'Cuotas fijas (interés simple)'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-28T22:28:22.920Z"
+    },
+    {
+      "id": "bug-383",
+      "timestamp": "2026-05-29T18:59:29.584Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/CreditsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T18:59:29.584Z"
+    },
+    {
+      "id": "bug-384",
+      "timestamp": "2026-05-29T19:00:23.311Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/CashPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T19:00:23.311Z"
+    },
+    {
+      "id": "bug-385",
+      "timestamp": "2026-05-29T19:09:09.147Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/lib/pdf/receipt.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T19:09:09.147Z"
+    },
+    {
+      "id": "bug-386",
+      "timestamp": "2026-05-29T19:09:19.994Z",
+      "error_message": "CSS fix: onPay",
+      "file": "apps/frontend/src/components/installments/InstallmentsSection.tsx",
+      "root_cause": "onPay: (id: number) => void → (id: number, inst: any) => void",
+      "fix": "Changed onPay: (id: number) => void → (id: number, inst: any) => void",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T19:09:19.994Z"
+    },
+    {
+      "id": "bug-387",
+      "timestamp": "2026-05-29T19:09:43.545Z",
+      "error_message": "CSS fix: mutationFn, onSuccess",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "mutationFn: (id: number) => api.post(`/sales/installments/${id → ({ id; onSuccess: () => qc.invalidateQueries({ queryKey: ['installments-pending'] → (res) => {",
+      "fix": "Changed mutationFn: (id: number) => api.post(`/sales/installments/${id → ({ id; onSuccess: () => qc.invalidateQueries({ queryKey: ['installments-pending'] → (res) => {",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T19:09:43.545Z"
+    },
+    {
+      "id": "bug-388",
+      "timestamp": "2026-05-29T19:18:38.859Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "Had '../../lib/pdf'",
+      "fix": "Changed to '../../lib/pdf/credit'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T19:18:38.859Z"
     }
   ]
 }

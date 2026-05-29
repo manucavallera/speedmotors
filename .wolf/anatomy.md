@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-29T18:37:20.309Z
-> Files: 335 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-29T19:18:38.817Z
+> Files: 337 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -376,7 +376,7 @@
 
 ## apps/frontend/src/components/credits/
 
-- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3476 tok)
+- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3579 tok)
 - `CreditFormModal.tsx` — CreditFormModal — renders form, modal (~2732 tok)
 - `CreditPaymentModal.tsx` — CreditPaymentModal — renders form, modal (~679 tok)
 - `CreditsTable.tsx` — statusStyles — renders table (~929 tok)
@@ -388,6 +388,10 @@
 ## apps/frontend/src/components/expenses/
 
 - `ExpensesTable.tsx` — catColors — renders table (~2271 tok)
+
+## apps/frontend/src/components/installments/
+
+- `InstallmentsSection.tsx` — InstallmentsSection — renders table (~1133 tok)
 
 ## apps/frontend/src/components/layout/
 
@@ -426,7 +430,7 @@
 ## apps/frontend/src/components/sales/
 
 - `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3756 tok)
-- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5825 tok)
+- `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5842 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~2147 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1301 tok)
 - `SaleTotalsPanel.tsx` — fmt — renders table (~2591 tok)
@@ -493,10 +497,11 @@
 ## apps/frontend/src/lib/pdf/
 
 - `account.ts` — Exports generateAccountStatement, generatePriceList (~1963 tok)
+- `credit.ts` — Exports generateCreditStatement (~2525 tok)
 - `helpers.ts` — Exports PdfSettings, getSettings (~162 tok)
-- `index.ts` (~79 tok)
+- `index.ts` (~102 tok)
 - `invoice.ts` — Exports generateInvoice (~2249 tok)
-- `receipt.ts` — Exports generateReceipt (~1222 tok)
+- `receipt.ts` — Exports generateInstallmentReceipt, generateReceipt (~2014 tok)
 - `remito.ts` — Exports generateRemito (~1942 tok)
 - `reservation.ts` — Exports generateReservationPdf, printReservation (~3274 tok)
 
@@ -506,20 +511,20 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~3740 tok)
-- `CashPage.tsx` — CashPage (~1415 tok)
-- `ClientsPage.tsx` — ClientsPage (~1274 tok)
-- `CreditsPage.tsx` — CreditsPage (~1160 tok)
+- `AlertsPage.tsx` — SectionBox (~3766 tok)
+- `CashPage.tsx` — CashPage (~1480 tok)
+- `ClientsPage.tsx` — ClientsPage (~1275 tok)
+- `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `InstallmentsPage.tsx` — InstallmentsPage (~1941 tok)
+- `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~3378 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~2114 tok)
 - `QuotesPage.tsx` — QuotesPage (~1762 tok)
 - `ReportsPage.tsx` — ReportsPage (~1027 tok)
 - `ReservationsPage.tsx` — statusColors — renders table (~3338 tok)
-- `SalesPage.tsx` — SalesPage (~1974 tok)
+- `SalesPage.tsx` — SalesPage (~2012 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)

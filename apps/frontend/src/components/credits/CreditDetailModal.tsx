@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import type { CreditDetail } from '../../hooks/useCredits'
-import { generateCreditStatement } from '../../lib/pdf'
+import { generateCreditStatement } from '../../lib/pdf/credit'
 
 interface Props {
   detail: CreditDetail
