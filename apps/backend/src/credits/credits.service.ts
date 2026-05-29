@@ -153,7 +153,8 @@ export class CreditsService {
     const capital = Number(credit.originalAmount)
     const rate = Number(credit.interestRate) / 100
     const n = credit.installmentsCount
-    const total = capital * (1 + rate * n)
+    // Interés compuesto (igual que saldo_compuesto): total = capital × (1+r)^n, dividido en n cuotas iguales
+    const total = capital * Math.pow(1 + rate, n)
     const cuotaConInteres = total / n
     const cuotaBase = capital / n
     const firstDue = new Date(credit.firstDueDate)
