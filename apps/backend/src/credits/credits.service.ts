@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { credits, creditPayments, creditInterestCharges, creditInstallments, clients } from '../db/schema'
-import { eq, desc, asc, and } from 'drizzle-orm'
+import { eq, desc, asc, and, gt } from 'drizzle-orm'
 import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto'
+import { calcCuotasFijas } from './credit-math'
 
 @Injectable()
 export class CreditsService {
@@ -113,10 +114,6 @@ export class CreditsService {
     if (!credit) throw new NotFoundException(`Crédito ${creditId} no encontrado`)
     if (credit.status !== 'activo') throw new BadRequestException('No se pueden registrar pagos en créditos no activos')
 
-    if (credit.creditType === 'saldo_compuesto') {
-      await this.applyPendingInterest(creditId)
-    }
-
     const [payment] = await db.insert(creditPayments).values({
       creditId,
       userId,
@@ -124,6 +121,11 @@ export class CreditsService {
       paymentDate: new Date(dto.paymentDate),
       notes: dto.notes,
     }).returning()
+
+    // Pago (incluso retroactivo) cambia el saldo de períodos siguientes: recalcular cargos posteriores
+    if (credit.creditType === 'saldo_compuesto') {
+      await this.recomputeChargesAfter(creditId, new Date(dto.paymentDate))
+    }
 
     const balance = await this.computeBalance(creditId)
     if (balance <= 0) {
@@ -137,11 +139,24 @@ export class CreditsService {
     if (!payment) throw new NotFoundException(`Pago ${paymentId} no encontrado`)
     await db.delete(creditPayments).where(eq(creditPayments.id, paymentId))
 
+    // Borrar un pago también cambia el saldo de períodos siguientes
+    const [credit] = await db.select().from(credits).where(eq(credits.id, payment.creditId))
+    if (credit?.creditType === 'saldo_compuesto') {
+      await this.recomputeChargesAfter(payment.creditId, new Date(payment.paymentDate))
+    }
+
     const balance = await this.computeBalance(payment.creditId)
     if (balance > 0) {
       await db.update(credits).set({ status: 'activo', updatedAt: new Date() }).where(eq(credits.id, payment.creditId))
     }
     return { ok: true }
+  }
+
+  // Borra cargos de interés con fecha posterior al pago y los regenera con el saldo correcto.
+  private async recomputeChargesAfter(creditId: number, paymentDate: Date) {
+    await db.delete(creditInterestCharges)
+      .where(and(eq(creditInterestCharges.creditId, creditId), gt(creditInterestCharges.chargeDate, paymentDate)))
+    await this.applyPendingInterest(creditId)
   }
 
   // Genera N cuotas con interés simple. amount = cuota con interés (capital + intereses) / N. principalAmount = capital / N (descuento si paga +20d antes del vto).
@@ -151,12 +166,8 @@ export class CreditsService {
     if (!credit.firstDueDate || !credit.installmentsCount) return
 
     const capital = Number(credit.originalAmount)
-    const rate = Number(credit.interestRate) / 100
     const n = credit.installmentsCount
-    // Interés compuesto (igual que saldo_compuesto): total = capital × (1+r)^n, dividido en n cuotas iguales
-    const total = capital * Math.pow(1 + rate, n)
-    const cuotaConInteres = total / n
-    const cuotaBase = capital / n
+    const { cuota: cuotaConInteres, cuotaBase } = calcCuotasFijas(capital, Number(credit.interestRate), n)
     const firstDue = new Date(credit.firstDueDate)
 
     const rows = Array.from({ length: n }, (_, i) => {
@@ -275,8 +286,8 @@ export class CreditsService {
     return insts.some(i => !!i.paidAt)
   }
 
-  // Aplica intereses pendientes: cada 30 días desde firstDueDate (o startDate si no hay), sobre saldo al momento del cargo.
-  // Si firstDueDate está seteado, el primer interés cae exacto en firstDueDate (no 30 días después).
+  // Aplica intereses pendientes: cada mes (mismo día) desde firstDueDate (o startDate si no hay), sobre saldo al momento del cargo.
+  // Si firstDueDate está seteado, el primer interés cae exacto en firstDueDate (no un mes después).
   // Regla 20 días: si hay un pago en el período que llegó 20+ días antes del vencimiento, se omite el cargo de ese mes.
   async applyPendingInterest(creditId: number) {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
@@ -301,14 +312,14 @@ export class CreditsService {
 
     if (charges.length > 0) {
       nextChargeDate = new Date(charges[0].chargeDate)
-      nextChargeDate.setDate(nextChargeDate.getDate() + 30)
+      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
       periodStart = new Date(charges[0].chargeDate)
     } else if (useAnchorAsFirst) {
       nextChargeDate = new Date(anchor)
       periodStart = new Date(credit.startDate)
     } else {
       nextChargeDate = new Date(anchor)
-      nextChargeDate.setDate(nextChargeDate.getDate() + 30)
+      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
       periodStart = new Date(anchor)
     }
 
@@ -339,7 +350,7 @@ export class CreditsService {
 
       periodStart = new Date(next)
       nextChargeDate = new Date(next)
-      nextChargeDate.setDate(nextChargeDate.getDate() + 30)
+      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
     }
   }
 

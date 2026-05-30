@@ -6211,6 +6211,496 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-29T19:18:38.859Z"
+    },
+    {
+      "id": "bug-389",
+      "timestamp": "2026-05-29T21:17:54.006Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T21:17:54.006Z"
+    },
+    {
+      "id": "bug-390",
+      "timestamp": "2026-05-29T21:43:43.691Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 6→8 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T21:43:43.691Z"
+    },
+    {
+      "id": "bug-245",
+      "timestamp": "2026-05-29T22:00:00.000Z",
+      "error_message": "Cliente: 'lo de cuotas fijas está mal' — el monto de cuota no coincide con su planilla",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "generateInstallments calculaba el total con interés simple (capital × (1 + r×n)). El negocio usa interés compuesto sobre saldo, igual que saldo_compuesto y la planilla de referencia del cliente.",
+      "fix": "total = capital × (1+r)^n dividido en n cuotas iguales. Ej 1000/3%/6 → cuota 199.01 (antes 196.67). Créditos cuotas_simples ya existentes quedan con cálculo viejo, regenerar si no tienen cuotas pagadas.",
+      "tags": [
+        "credits",
+        "cuotas",
+        "interes-compuesto",
+        "calculo"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-29T22:00:00.000Z"
+    },
+    {
+      "id": "bug-392",
+      "timestamp": "2026-05-30T14:30:04.057Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:30:04.057Z"
+    },
+    {
+      "id": "bug-393",
+      "timestamp": "2026-05-30T14:37:27.442Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "5 lines replaced/restructured",
+      "fix": "Rewrote 8→4 lines (5 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:37:27.442Z"
+    },
+    {
+      "id": "bug-394",
+      "timestamp": "2026-05-30T14:37:33.032Z",
+      "error_message": "Wrong reference: simple should be compuesto",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "Used \"simple\" instead of \"compuesto\"",
+      "fix": "Changed simple → compuesto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:37:33.032Z"
+    },
+    {
+      "id": "bug-395",
+      "timestamp": "2026-05-30T14:50:45.351Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:50:45.351Z"
+    },
+    {
+      "id": "bug-396",
+      "timestamp": "2026-05-30T14:50:53.723Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "11 lines replaced/restructured",
+      "fix": "Rewrote 13→5 lines (11 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:50:53.723Z"
+    },
+    {
+      "id": "bug-397",
+      "timestamp": "2026-05-30T14:51:28.679Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/sales/sales.controller.ts",
+      "root_cause": "Was returning: this.salesService.payInstallment(id)",
+      "fix": "Now returns: this.salesService.payInstallment(id, req.user.id)",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:51:28.679Z"
+    },
+    {
+      "id": "bug-398",
+      "timestamp": "2026-05-30T14:53:14.675Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 5→8 lines (2 removed) | Also: SELECT SUM(i.amount) FROM installments i; JOIN sales s ON i.sale_id = s.id",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-05-30T14:53:35.750Z"
+    },
+    {
+      "id": "bug-399",
+      "timestamp": "2026-05-30T14:53:55.078Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:53:55.078Z"
+    },
+    {
+      "id": "bug-400",
+      "timestamp": "2026-05-30T14:55:34.382Z",
+      "error_message": "Wrong reference: simple should be compuesto",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "Used \"simple\" instead of \"compuesto\"",
+      "fix": "Changed simple → compuesto",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T14:55:34.382Z"
+    },
+    {
+      "id": "bug-401",
+      "timestamp": "2026-05-30",
+      "error_message": "Crédito saldo variable: pago retroactivo entre cargos no recalcula interés (interés 10/03 dio 52.500 en vez de 47.500)",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "applyPendingInterest persiste cargos de interés; un pago con fecha anterior cargado después no recalculaba los cargos ya escritos",
+      "fix": "registerPayment/removePayment llaman recomputeChargesAfter(): borran cargos con chargeDate > paymentDate y regeneran con computeBalanceAt correcto",
+      "tags": [
+        "credits",
+        "saldo_compuesto",
+        "interes",
+        "pago_retroactivo"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30"
+    },
+    {
+      "id": "bug-402",
+      "timestamp": "2026-05-30",
+      "error_message": "Venta financiada en cuotas calcula distinto a crédito directo (interés simple vs compuesto)",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "sales.service generaba cuotas con interés simple inline; el módulo créditos ya usaba compuesto (commit bd60b8a). Fórmula duplicada desincronizada",
+      "fix": "helper compartido calcCuotasFijas() en credits/credit-math.ts usado por sales.service y generateInstallments",
+      "tags": [
+        "sales",
+        "credits",
+        "cuotas_fijas",
+        "interes_compuesto",
+        "dry"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30"
+    },
+    {
+      "id": "bug-403",
+      "timestamp": "2026-05-30",
+      "error_message": "Ventas ignoraba la tasa cargada, forzaba tabla 5%/3% por moneda",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "monthlyRate para financiado usaba MONTHLY_RATES y descartaba data.interestRate que el form sí enviaba",
+      "fix": "monthlyRate respeta data.interestRate, cae a tabla solo si no viene",
+      "tags": [
+        "sales",
+        "interes",
+        "tasa"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30"
+    },
+    {
+      "id": "bug-404",
+      "timestamp": "2026-05-30",
+      "error_message": "Interés mensual caía a 30 días (10/03 -> 9/04 -> 9/05) en vez del mismo día del mes",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "applyPendingInterest avanzaba con setDate(+30) en vez de setMonth(+1)",
+      "fix": "setMonth(getMonth()+1) en las 3 ocurrencias del avance de período",
+      "tags": [
+        "credits",
+        "saldo_compuesto",
+        "fechas",
+        "vencimiento"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30"
+    },
+    {
+      "id": "bug-405",
+      "timestamp": "2026-05-30",
+      "error_message": "Cobranza de cuotas y Cuenta corriente del cliente no muestran nada (0 cuotas, deuda $0)",
+      "file": "apps/backend/src/sales/sales.service.ts + apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Ventas financiadas/cuenta corriente escriben en credits/creditInstallments, pero getPendingInstallments y clients.getAccount seguían leyendo la tabla legacy installments (vacía)",
+      "fix": "getPendingInstallments lee creditInstallments+credits; pago delega a creditsService.payInstallment. clients.getAccount y findAll balanceSql calculan deuda desde credits (computeBalance + cuotas impagas). ClientsModule/SalesModule importan CreditsModule",
+      "tags": [
+        "sales",
+        "clients",
+        "credits",
+        "installments",
+        "cuenta_corriente",
+        "tabla_legacy"
+      ],
+      "related_bugs": [
+        "bug-402"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-05-30"
+    },
+    {
+      "id": "bug-406",
+      "timestamp": "2026-05-30T15:17:13.575Z",
+      "error_message": "Wrong reference: compuesto should be simple",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "Used \"compuesto\" instead of \"simple\"",
+      "fix": "Changed compuesto → simple",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T15:17:13.575Z"
+    },
+    {
+      "id": "bug-407",
+      "timestamp": "2026-05-30T15:17:18.589Z",
+      "error_message": "Wrong reference: compuesto should be simple",
+      "file": "apps/backend/src/sales/sales.service.ts",
+      "root_cause": "Used \"compuesto\" instead of \"simple\"",
+      "fix": "Changed compuesto → simple",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T15:17:18.589Z"
+    },
+    {
+      "id": "bug-408",
+      "timestamp": "2026-05-30T15:17:45.430Z",
+      "error_message": "CSS fix: cuota, n",
+      "file": "apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "root_cause": "cuota: n > 0 ? P / n : 0, total: P, interest: 0, rows: [] → 0, total: P, interest: 0, rows: []; n: i + 1, cuota, interes, capital, saldo → i + 1, cuota, interes: interesMensual, capital: capitalMensual, saldo",
+      "fix": "Changed cuota: n > 0 ? P / n : 0, total: P, interest: 0, rows: [] → 0, total: P, interest: 0, rows: []; n: i + 1, cuota, interes, capital, saldo → i + 1, cuota, interes: interesMensual, capital: capitalMensual, saldo",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T15:17:45.430Z"
+    },
+    {
+      "id": "bug-409",
+      "timestamp": "2026-05-30T15:17:50.907Z",
+      "error_message": "Wrong reference: annuity should be cuotasSimples",
+      "file": "apps/frontend/src/components/sales/SaleTotalsPanel.tsx",
+      "root_cause": "Used \"annuity\" instead of \"cuotasSimples\"",
+      "fix": "Changed annuity → cuotasSimples",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T15:17:50.907Z"
+    },
+    {
+      "id": "bug-410",
+      "timestamp": "2026-05-30T15:17:57.313Z",
+      "error_message": "Wrong reference: compuesto should be simple",
+      "file": "apps/frontend/src/pages/InstallmentsPage.tsx",
+      "root_cause": "Used \"compuesto\" instead of \"simple\"",
+      "fix": "Changed compuesto → simple",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T15:17:57.313Z"
+    },
+    {
+      "id": "bug-411",
+      "timestamp": "2026-05-30T20:44:13.850Z",
+      "error_message": "Wrong reference: overdueInstallments should be pendingInstallments",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "Used \"overdueInstallments\" instead of \"pendingInstallments\"",
+      "fix": "Changed overdueInstallments → pendingInstallments",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T20:44:13.850Z"
+    },
+    {
+      "id": "bug-412",
+      "timestamp": "2026-05-30T20:44:29.266Z",
+      "error_message": "Wrong reference: in7Days should be in10Days",
+      "file": "apps/backend/src/alerts/alerts.service.ts",
+      "root_cause": "Used \"in7Days\" instead of \"in10Days\"",
+      "fix": "Changed in7Days → in10Days",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T20:44:29.266Z"
+    },
+    {
+      "id": "bug-413",
+      "timestamp": "2026-05-30T20:49:23.483Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T20:49:23.483Z"
+    },
+    {
+      "id": "bug-414",
+      "timestamp": "2026-05-30T20:53:14.676Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "Had 'saldo_compuesto'",
+      "fix": "Changed to 'Saldo variable'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T20:53:14.676Z"
+    },
+    {
+      "id": "bug-415",
+      "timestamp": "2026-05-30T21:10:44.737Z",
+      "error_message": "CSS fix: d",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "d: string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' → string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'",
+      "fix": "Changed d: string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' → string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T21:10:44.737Z"
+    },
+    {
+      "id": "bug-416",
+      "timestamp": "2026-05-30T21:11:19.092Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "Had '} ${fmtDate(c.dueDate)}`",
+      "fix": "Changed to '} ${fmtDue(c.dueDate)}`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T21:11:19.092Z"
+    },
+    {
+      "id": "bug-417",
+      "timestamp": "2026-05-30T21:14:34.582Z",
+      "error_message": "Wrong reference: span should be timeZone",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "Used \"span\" instead of \"timeZone\"",
+      "fix": "Changed span → timeZone",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T21:14:34.582Z"
+    },
+    {
+      "id": "bug-418",
+      "timestamp": "2026-05-30T21:20:07.354Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T21:20:07.354Z"
     }
   ]
 }

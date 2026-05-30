@@ -1,15 +1,16 @@
 const fmt = (n: number) => n.toLocaleString('es-AR', { minimumFractionDigits: 2 })
 
-function annuity(P: number, r: number, n: number) {
-  if (r === 0 || n === 0) return { cuota: n > 0 ? P / n : 0, total: P, interest: 0, rows: [] }
-  const cuota = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1)
+// Interés simple: total = capital × (1 + tasa·n). Cuota = capital/n + capital·tasa (interés mensual fijo).
+function cuotasSimples(P: number, r: number, n: number) {
+  if (n === 0) return { cuota: 0, total: P, interest: 0, rows: [] }
+  const interesMensual = P * r
+  const capitalMensual = P / n
+  const cuota = capitalMensual + interesMensual
   const total = cuota * n
   let saldo = P
   const rows = Array.from({ length: n }, (_, i) => {
-    const interes = saldo * r
-    const capital = cuota - interes
-    saldo = Math.max(0, saldo - capital)
-    return { n: i + 1, cuota, interes, capital, saldo }
+    saldo = Math.max(0, saldo - capitalMensual)
+    return { n: i + 1, cuota, interes: interesMensual, capital: capitalMensual, saldo }
   })
   return { cuota, total, interest: total - P, rows }
 }
@@ -43,7 +44,7 @@ export function SaleTotalsPanel({
   const principal = subtotal - discountAmt
   const toFinance = Math.max(0, principal - downPaymentAmt)
   const { cuota, total: financedTotal, interest: totalInterest, rows } = isFinanced
-    ? annuity(toFinance, monthlyRate / 100, n)
+    ? cuotasSimples(toFinance, monthlyRate / 100, n)
     : { cuota: 0, total, interest: 0, rows: [] }
 
   const currencyLabel = financingCurrency === 'usd' ? 'USD' : 'Pesos'

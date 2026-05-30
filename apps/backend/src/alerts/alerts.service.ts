@@ -128,7 +128,7 @@ export class AlertsService {
           .select({ id: credits.id, clientId: credits.clientId, amount: credits.originalAmount, dueDate: credits.firstDueDate, clientName: clients.name })
           .from(credits)
           .leftJoin(clients, eq(credits.clientId, clients.id))
-          .where(and(eq(credits.status, 'activo'), eq(credits.creditType, 'saldo_compuesto'), isNotNull(credits.firstDueDate), gte(credits.firstDueDate, now), lte(credits.firstDueDate, in7Days)))
+          .where(and(eq(credits.status, 'activo'), eq(credits.creditType, 'saldo_compuesto'), isNotNull(credits.firstDueDate), gte(credits.firstDueDate, now), lte(credits.firstDueDate, in10Days)))
           .orderBy(credits.firstDueDate)
           .limit(50),
       ])

@@ -2524,3 +2524,158 @@
 | 19:10 | Session end: 25 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 17 reads | ~38563 tok |
 | 19:12 | Session end: 25 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 17 reads | ~38563 tok |
 | 19:18 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | "../../lib/pdf" → "../../lib/pdf/credit" | ~18 |
+| 19:19 | Session end: 26 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 18 reads | ~41129 tok |
+| 21:17 | Edited apps/frontend/src/pages/AlertsPage.tsx | added optional chaining | ~97 |
+| 21:18 | Session end: 27 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 20 reads | ~48110 tok |
+| 21:20 | Session end: 27 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 20 reads | ~48110 tok |
+| 21:20 | Session end: 27 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 20 reads | ~48110 tok |
+| 21:22 | Session end: 27 writes across 13 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 20 reads | ~48110 tok |
+| 21:23 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_credits_cuotas.md | — | ~647 |
+| 21:23 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | inline fix | ~46 |
+| 21:23 | Session end: 29 writes across 15 files (SaleFormModal.tsx, credits.service.ts, SalesPage.tsx, CreditsPage.tsx, ClientsPage.tsx) | 21 reads | ~48853 tok |
+
+## Session: 2026-05-29 21:38
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 21:43 | Edited apps/backend/src/credits/credits.service.ts | 6→8 lines | ~105 |
+| 21:43 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:44 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:44 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:46 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:48 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:50 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:52 | Session end: 1 writes across 1 files (credits.service.ts) | 1 reads | ~4759 tok |
+| 21:55 | Edited apps/backend/src/credits/credits.service.ts | modified compuesto() | ~66 |
+| 21:55 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 21:56 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 21:56 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 21:59 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:00 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:01 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:01 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:02 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:03 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:03 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:04 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:05 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:06 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:07 | Session end: 2 writes across 1 files (credits.service.ts) | 1 reads | ~4825 tok |
+| 22:09 | Created ../../../../../../tmp/test_compuesto.mjs | — | ~480 |
+| 22:10 | Edited ../../../../../../tmp/test_compuesto.mjs | inline fix | ~27 |
+| 22:11 | Session end: 4 writes across 2 files (credits.service.ts, test_compuesto.mjs) | 1 reads | ~5367 tok |
+| 22:14 | Session end: 4 writes across 2 files (credits.service.ts, test_compuesto.mjs) | 1 reads | ~5367 tok |
+| 22:16 | Session end: 4 writes across 2 files (credits.service.ts, test_compuesto.mjs) | 1 reads | ~5367 tok |
+| 00:36 | Session end: 4 writes across 2 files (credits.service.ts, test_compuesto.mjs) | 2 reads | ~5367 tok |
+
+## Session: 2026-05-30 14:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 14:28 | Edited apps/backend/src/credits/credits.service.ts | inline fix | ~15 |
+| 14:29 | Edited apps/backend/src/credits/credits.service.ts | modified if() | ~147 |
+| 14:30 | Edited apps/backend/src/credits/credits.service.ts | added optional chaining | ~288 |
+| 14:34 | Session end: 3 writes across 1 files (credits.service.ts) | 2 reads | ~10015 tok |
+| 14:36 | Created apps/backend/src/credits/credit-math.ts | — | ~126 |
+| 14:37 | Edited apps/backend/src/credits/credits.service.ts | 8→4 lines | ~71 |
+| 14:37 | Edited apps/backend/src/credits/credits.service.ts | inline fix | ~48 |
+| 14:37 | Edited apps/backend/src/credits/credits.service.ts | added 1 import(s) | ~37 |
+| 14:37 | Edited apps/backend/src/credits/credits.service.ts | inline fix | ~18 |
+| 14:37 | Edited apps/backend/src/credits/credits.service.ts | 2→2 lines | ~67 |
+| 14:38 | Edited apps/backend/src/sales/sales.service.ts | modified if() | ~245 |
+| 14:38 | Edited apps/backend/src/sales/sales.service.ts | modified if() | ~165 |
+| 14:38 | Edited apps/backend/src/sales/sales.service.ts | added 1 import(s) | ~31 |
+| 14:41 | Session end: 12 writes across 3 files (credits.service.ts, credit-math.ts, sales.service.ts) | 3 reads | ~16685 tok |
+| 14:44 | Session end: 12 writes across 3 files (credits.service.ts, credit-math.ts, sales.service.ts) | 3 reads | ~16685 tok |
+| 14:47 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/feedback_menos_preguntas.md | — | ~300 |
+| 14:50 | Edited apps/backend/src/sales/sales.service.ts | added 1 import(s) | ~74 |
+| 14:50 | Edited apps/backend/src/sales/sales.service.ts | modified constructor() | ~44 |
+| 14:50 | Edited apps/backend/src/sales/sales.service.ts | modified payInstallment() | ~99 |
+| 14:51 | Edited apps/backend/src/sales/sales.service.ts | modified select() | ~624 |
+| 14:51 | Edited apps/backend/src/sales/sales.controller.ts | 4→4 lines | ~50 |
+| 14:51 | Edited apps/backend/src/sales/sales.module.ts | added 2 import(s) | ~53 |
+| 14:53 | Edited apps/backend/src/clients/clients.service.ts | modified constructor() | ~91 |
+| 14:53 | Edited apps/backend/src/clients/clients.service.ts | expanded (+11 lines) | ~344 |
+| 14:53 | Edited apps/backend/src/clients/clients.service.ts | added nullish coalescing | ~720 |
+| 14:54 | Edited apps/backend/src/clients/clients.module.ts | added 2 import(s) | ~54 |
+| 14:55 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | inline fix | ~38 |
+| 14:55 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified compuesto() | ~56 |
+
+| 09:50 | fix cuotas: pago retroactivo recalcula interés (recomputeChargesAfter) | credits.service.ts | OK | ~3k |
+| 10:05 | helper compartido calcCuotasFijas (compuesto) + ventas respeta tasa cargada | credit-math.ts, sales.service.ts | OK | ~4k |
+| 10:10 | interés mensual mismo día del mes (setMonth+1, no +30d) | credits.service.ts | OK | ~1k |
+| 10:30 | Cobranza + Cuenta corriente leen credits/creditInstallments (no tabla legacy) | sales.service.ts, clients.service.ts, módulos | typecheck OK, falta probar | ~8k |
+| 14:59 | Session end: 25 writes across 10 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~25498 tok |
+| 15:01 | Session end: 25 writes across 10 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~25498 tok |
+| 15:01 | Session end: 25 writes across 10 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~25498 tok |
+| 15:04 | Created apps/backend/drizzle/_local_catchup.sql | — | ~879 |
+| 15:04 | Session end: 26 writes across 11 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~26440 tok |
+| 15:05 | Session end: 26 writes across 11 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~26440 tok |
+| 15:06 | Session end: 26 writes across 11 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 9 reads | ~26440 tok |
+| 15:14 | Session end: 26 writes across 11 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 11 reads | ~31763 tok |
+| 15:15 | Session end: 26 writes across 11 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 11 reads | ~31763 tok |
+| 15:16 | Edited apps/backend/src/credits/credit-math.ts | modified calcCuotasFijas() | ~144 |
+| 15:17 | Edited apps/backend/src/credits/credits.service.ts | inline fix | ~47 |
+| 15:17 | Edited apps/backend/src/sales/sales.service.ts | inline fix | ~39 |
+| 15:17 | Edited apps/frontend/src/components/sales/SaleFormModal.tsx | modified simple() | ~55 |
+| 15:17 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | CSS: simple, interes, capital | ~182 |
+| 15:17 | Edited apps/frontend/src/components/sales/SaleTotalsPanel.tsx | inline fix | ~15 |
+| 15:17 | Edited apps/frontend/src/pages/InstallmentsPage.tsx | inline fix | ~38 |
+| 15:20 | Session end: 33 writes across 12 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 11 reads | ~32283 tok |
+| 15:21 | Session end: 33 writes across 12 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 11 reads | ~32283 tok |
+| 15:22 | Session end: 33 writes across 12 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 11 reads | ~32283 tok |
+| 15:23 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_cuotas_fix_pendiente.md | — | ~583 |
+| 15:23 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→3 lines | ~120 |
+
+## Sesión 2026-05-30 (pausa mediodía)
+- Fórmula cuotas fijas = INTERÉS SIMPLE (confirmado dueño). Revertido el compuesto de ayer (bd60b8a, sin pushear). Unificado en credit-math.ts, ventas, créditos, SaleTotalsPanel (era francés), previews.
+- Fixes: pago retroactivo recalcula intereses; interés mensual mismo día (setMonth+1); Cobranza + Cuenta corriente leen credits/creditInstallments (no tabla legacy installments).
+- DB local: aplicada migración 0025 barcode (faltaba).
+- Back + front typecheck OK. SIN commit, SIN push. Pruebas pendientes para la tarde.
+| 15:23 | Session end: 35 writes across 14 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 12 reads | ~33035 tok |
+| 15:28 | Session end: 35 writes across 14 files (credits.service.ts, credit-math.ts, sales.service.ts, feedback_menos_preguntas.md, sales.controller.ts) | 12 reads | ~33035 tok |
+
+## Session: 2026-05-30 20:18
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 20:36 | pruebas cuotas/créditos 4/4 OK + caso pago entre-medio | API+DB | todas verde, regla 20d confirmada correcta | ~8k |
+| 20:43 | Created apps/frontend/src/components/clients/OverdueInstallments.tsx | — | ~570 |
+| 20:44 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | inline fix | ~29 |
+| 20:44 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~56 |
+| 20:48 | Edited apps/backend/src/clients/clients.service.ts | added 1 condition(s) | ~574 |
+| 20:49 | Edited apps/backend/src/clients/clients.service.ts | 6→7 lines | ~45 |
+| 20:49 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | added optional chaining | ~418 |
+| 20:52 | Edited apps/backend/src/clients/clients.service.ts | 8→9 lines | ~82 |
+| 20:53 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | "saldo_compuesto" → "Saldo variable" | ~26 |
+| 20:54 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 20:55 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 20:55 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 20:59 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 21:01 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 21:02 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 13 reads | ~22132 tok |
+| 21:04 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 14 reads | ~22502 tok |
+| 21:07 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 14 reads | ~22502 tok |
+| 21:08 | Session end: 8 writes across 4 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts) | 14 reads | ~22502 tok |
+| 21:10 | Edited apps/frontend/src/components/clients/OverdueInstallments.tsx | inline fix | ~48 |
+| 21:10 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | CSS: 00, UTC, timeZone | ~107 |
+| 21:11 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | inline fix | ~29 |
+| 21:11 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | inline fix | ~38 |
+| 21:12 | Edited apps/backend/src/sales/sales.service.ts | added 1 condition(s) | ~212 |
+| 21:13 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | CSS: timeZone | ~175 |
+| 21:14 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | inline fix | ~44 |
+| 21:15 | Session end: 15 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~26911 tok |
+| 21:17 | Session end: 15 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~26911 tok |
+| 21:18 | Session end: 15 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~26911 tok |
+| 21:20 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | added optional chaining | ~222 |
+| 21:20 | Session end: 16 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~27133 tok |
+| 21:20 | Session end: 16 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~27133 tok |
+| 21:22 | Session end: 16 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~27133 tok |
+| 21:23 | Session end: 16 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~27133 tok |
+| 21:24 | Session end: 16 writes across 6 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 15 reads | ~27133 tok |
+| 21:26 | limpieza TEST + typecheck OK, listo p/commit | back+front | 0 errores TS, DB limpia | ~6k |
+| 21:27 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_cuotas_fix_pendiente.md | — | ~594 |
+| 21:27 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_limpieza_deuda_tecnica.md | — | ~284 |
+| 21:27 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_setup_local_wsl.md | — | ~337 |
+| 21:27 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→3 lines | ~118 |
+| 21:28 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |

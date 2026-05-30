@@ -76,7 +76,7 @@ export class SalesController {
   }
 
   @Post('installments/:id/pay')
-  payInstallment(@Param('id', ParseIntPipe) id: number) {
-    return this.salesService.payInstallment(id)
+  payInstallment(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
+    return this.salesService.payInstallment(id, req.user.id)
   }
 }

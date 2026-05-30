@@ -1,12 +1,16 @@
 import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common'
 import { db } from '../db'
 import { sales, saleItems, installments, products, vehicles, clients, stockMovements, credits, creditInstallments } from '../db/schema'
-import { eq, desc, sql, asc, and, or, gte, lte, ilike, inArray } from 'drizzle-orm'
+import { eq, desc, sql, asc, and, or, gte, lte, ilike, inArray, isNull } from 'drizzle-orm'
 import { CreateSaleDto } from './create-sale.dto'
+import { calcCuotasFijas } from '../credits/credit-math'
+import { CreditsService } from '../credits/credits.service'
 
 @Injectable()
 export class SalesService {
   private readonly logger = new Logger(SalesService.name)
+
+  constructor(private readonly creditsService: CreditsService) {}
 
   async findAll(params: { page?: number; limit?: number; search?: string; dateFrom?: string; dateTo?: string; invoiceType?: string; userId?: number } = {}) {
     const page = params.page ?? 1
@@ -49,7 +53,22 @@ export class SalesService {
     if (!sale) throw new NotFoundException(`Venta ${id} no encontrada`)
 
     const items = await db.select().from(saleItems).where(eq(saleItems.saleId, id))
-    const cuotas = await db.select().from(installments).where(eq(installments.saleId, id)).orderBy(asc(installments.dueDate))
+
+    // Cuotas viven en creditInstallments (vía el crédito de la venta), no en la tabla legacy installments
+    const [credit] = await db.select().from(credits).where(eq(credits.saleId, id))
+    let cuotas: any[] = []
+    if (credit) {
+      const rows = await db.select().from(creditInstallments)
+        .where(eq(creditInstallments.creditId, credit.id))
+        .orderBy(asc(creditInstallments.dueDate))
+      cuotas = rows.map(r => ({
+        id: r.id,
+        number: r.number,
+        dueDate: r.dueDate,
+        amount: r.amount,
+        status: r.paidAt ? 'pagado' : 'pendiente',
+      }))
+    }
 
     return { ...sale, items, installments: cuotas }
   }
@@ -68,14 +87,16 @@ export class SalesService {
     const MONTHLY_RATES: Record<string, number> = { pesos: 5, usd: 3 }
     const isCuotasSimples = data.type === 'cuotas' && data.creditType !== 'saldo_compuesto'
     const isFinanced = isCuotasSimples && !!data.financingCurrency
-    const monthlyRate = isFinanced ? (MONTHLY_RATES[data.financingCurrency!] ?? 5) : (data.interestRate || 0)
+    // Respeta la tasa cargada; si no viene, cae a la tabla por moneda (solo financiado)
+    const monthlyRate = isFinanced
+      ? (data.interestRate ?? MONTHLY_RATES[data.financingCurrency!] ?? 5)
+      : (data.interestRate || 0)
     const n = (isCuotasSimples && data.installmentCount) ? data.installmentCount : 1
 
     let cuotaAmount = 0
     let total: number
     if (isFinanced && n > 1) {
-      const r = monthlyRate / 100
-      cuotaAmount = toFinance * (1 + r * n) / n
+      cuotaAmount = calcCuotasFijas(toFinance, monthlyRate, n).cuota
       total = downPayment + cuotaAmount * n
     } else if (data.type === 'cuenta_corriente' || (data.type === 'cuotas' && data.creditType === 'saldo_compuesto')) {
       total = principal
@@ -182,9 +203,7 @@ export class SalesService {
         if (creditType === 'cuotas_simples') {
           if (!firstDueDate) throw new BadRequestException('Se requiere fecha de primer vencimiento para financiación en cuotas')
           if (n < 2) throw new BadRequestException('La financiación en cuotas requiere al menos 2 cuotas')
-          const r = rate / 100
-          const cuotaConInteres = toFinance * (1 + r * n) / n
-          const cuotaBase = toFinance / n
+          const { cuota: cuotaConInteres, cuotaBase } = calcCuotasFijas(toFinance, rate, n)
           const rows = Array.from({ length: n }, (_, i) => {
             const due = new Date(firstDueDate)
             due.setMonth(due.getMonth() + i)
@@ -254,18 +273,10 @@ export class SalesService {
     })
   }
 
-  async payInstallment(installmentId: number) {
-    const [existing] = await db.select().from(installments).where(eq(installments.id, installmentId))
-    if (!existing) throw new NotFoundException(`Cuota ${installmentId} no encontrada`)
-    if (existing.status === 'pagado') throw new BadRequestException('La cuota ya fue pagada')
-
-    const [updated] = await db
-      .update(installments)
-      .set({ status: 'pagado', paidAt: new Date() })
-      .where(and(eq(installments.id, installmentId), eq(installments.status, 'pendiente')))
-      .returning()
-    if (!updated) throw new BadRequestException('La cuota ya fue pagada')
-    return updated
+  // Cobranza opera sobre las cuotas del módulo créditos (creditInstallments). Delega el cobro
+  // a CreditsService para reusar recargo por atraso + regla de pago anticipado 20 días.
+  async payInstallment(installmentId: number, userId: number) {
+    return this.creditsService.payInstallment(installmentId, new Date().toISOString(), userId)
   }
 
   async updateTransport(id: number, data: {
@@ -302,40 +313,41 @@ export class SalesService {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
-    const baseConditions = [eq(installments.status, 'pendiente')]
-    if (params.clientId) baseConditions.push(eq(sales.clientId, params.clientId))
+    const baseConditions = [isNull(creditInstallments.paidAt)]
+    if (params.clientId) baseConditions.push(eq(credits.clientId, params.clientId))
     if (params.search) baseConditions.push(ilike(clients.name, `%${params.search}%`))
     const baseWhere = baseConditions.length === 1 ? baseConditions[0] : and(...baseConditions)
 
-    const overdueWhere = and(baseWhere, sql`${installments.dueDate} < ${today}`)
-    const upcomingWhere = and(baseWhere, sql`${installments.dueDate} >= ${today}`)
+    const overdueWhere = and(baseWhere, sql`${creditInstallments.dueDate} < ${today}`)
+    const upcomingWhere = and(baseWhere, sql`${creditInstallments.dueDate} >= ${today}`)
     const filterWhere = params.overdue ? overdueWhere : baseWhere
 
     const [items, countResult, overdueStats, upcomingStats] = await Promise.all([
       db.select({
-        id: installments.id,
-        saleId: installments.saleId,
-        number: installments.number,
-        amount: installments.amount,
-        dueDate: installments.dueDate,
-        status: installments.status,
-        paidAt: installments.paidAt,
-        clientId: sales.clientId,
+        id: creditInstallments.id,
+        saleId: credits.saleId,
+        creditId: creditInstallments.creditId,
+        number: creditInstallments.number,
+        amount: creditInstallments.amount,
+        dueDate: creditInstallments.dueDate,
+        status: sql<string>`'pendiente'`,
+        paidAt: creditInstallments.paidAt,
+        clientId: credits.clientId,
         clientName: clients.name,
       })
-      .from(installments)
-      .leftJoin(sales, eq(installments.saleId, sales.id))
-      .leftJoin(clients, eq(sales.clientId, clients.id))
+      .from(creditInstallments)
+      .leftJoin(credits, eq(creditInstallments.creditId, credits.id))
+      .leftJoin(clients, eq(credits.clientId, clients.id))
       .where(filterWhere)
-      .orderBy(installments.dueDate)
+      .orderBy(creditInstallments.dueDate)
       .limit(limit)
       .offset(offset),
       db.select({ count: sql<number>`count(*)::int` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(filterWhere),
-      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(overdueWhere),
-      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(amount), 0)::numeric` })
-      .from(installments).leftJoin(sales, eq(installments.saleId, sales.id)).leftJoin(clients, eq(sales.clientId, clients.id)).where(upcomingWhere),
+      .from(creditInstallments).leftJoin(credits, eq(creditInstallments.creditId, credits.id)).leftJoin(clients, eq(credits.clientId, clients.id)).where(filterWhere),
+      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(${creditInstallments.amount}), 0)::numeric` })
+      .from(creditInstallments).leftJoin(credits, eq(creditInstallments.creditId, credits.id)).leftJoin(clients, eq(credits.clientId, clients.id)).where(overdueWhere),
+      db.select({ count: sql<number>`count(*)::int`, total: sql<number>`COALESCE(SUM(${creditInstallments.amount}), 0)::numeric` })
+      .from(creditInstallments).leftJoin(credits, eq(creditInstallments.creditId, credits.id)).leftJoin(clients, eq(credits.clientId, clients.id)).where(upcomingWhere),
     ])
 
     const total = countResult[0]?.count ?? 0

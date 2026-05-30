@@ -17,6 +17,8 @@ const paymentTypeLabel: Record<string, { label: string; color: string; sign: str
 
 function fmt(n: number) { return '$' + n.toLocaleString('es-AR') }
 function fmtDate(d: string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }) }
+// Vencimientos se guardan a las 00:00 UTC: formatear en UTC para no restar un día en hora AR
+function fmtDue(d: string) { return new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }) }
 
 interface ClientAccountModalProps {
   client: any
@@ -84,7 +86,26 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
               ))}
             </div>
 
-            <OverdueInstallments items={account.overdueInstallments} onPay={setPayingInstallment} />
+            <OverdueInstallments items={account.pendingInstallments} onPay={setPayingInstallment} />
+
+            {/* Cuenta corriente / saldo variable (deuda sin cuotas) */}
+            {account.accountCredits?.length > 0 && (
+              <div style={{ background: '#f8fafc', borderRadius: '10px', padding: '14px 16px', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', marginBottom: '10px' }}>
+                  Cuenta corriente / saldo ({account.accountCredits.length})
+                </div>
+                {account.accountCredits.map((c: any) => (
+                  <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12.5px', paddingBottom: '6px', marginBottom: '6px', borderBottom: '1px solid #e2e8f0' }}>
+                    <span style={{ color: c.overdue ? '#dc2626' : '#374151' }}>
+                      {Number(c.interestRate) > 0 ? 'Saldo variable' : 'Cuenta corriente'}
+                      {c.saleId ? ` · Venta #${c.saleId}` : ''}
+                      {c.dueDate ? ` · ${c.overdue ? 'Venció' : 'Vence'} ${fmtDue(c.dueDate)}` : ''}
+                    </span>
+                    <span style={{ fontWeight: 700, color: c.overdue ? '#dc2626' : '#0f172a' }}>{fmt(Number(c.balance))}</span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Movimientos de cuenta */}
             {account.payments?.length > 0 && (
@@ -128,7 +149,7 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
             <div style={{ background: '#f8fafc', borderRadius: '10px', padding: '16px' }}>
               <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>Cuota {payingInstallment.number} — Venta #{payingInstallment.saleId}</div>
               <div style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>${Number(payingInstallment.amount).toLocaleString('es-AR')}</div>
-              <div style={{ fontSize: '12px', color: '#dc2626', marginTop: '4px' }}>Vencida el {new Date(payingInstallment.dueDate).toLocaleDateString('es-AR')}</div>
+              <div style={{ fontSize: '12px', color: '#dc2626', marginTop: '4px' }}>Vence {fmtDue(payingInstallment.dueDate)}</div>
             </div>
             <p style={{ fontSize: '13px', color: '#374151' }}>Al confirmar, la cuota quedará marcada como pagada y se registrará un ingreso en caja.</p>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>

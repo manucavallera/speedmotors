@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-29T19:18:38.817Z
-> Files: 337 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-30T21:27:50.667Z
+> Files: 345 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -11,17 +11,25 @@
 ## ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/
 
 - `feedback_component_size.md` (~164 tok)
-- `MEMORY.md` — Memory Index (~398 tok)
+- `feedback_menos_preguntas.md` (~300 tok)
+- `MEMORY.md` — Memory Index (~542 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
-- `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~874 tok)
+- `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
+- `project_cuotas_fix_pendiente.md` (~557 tok)
 - `project_infra.md` (~119 tok)
+- `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
 - `project_produccion_roadmap.md` — Fixes aplicados hoy (2026-05-06/07) (~541 tok)
 - `project_roadmap_features.md` — Regla de tokens (CRÍTICA) (~324 tok)
+- `project_setup_local_wsl.md` (~330 tok)
 - `project_smoke_test_pendiente.md` — Funcional crítico (~332 tok)
 - `project_sprint1_pendiente.md` — Sprint 1 ✅ COMPLETO (2026-05-07) (~341 tok)
 - `project_sprint3_roadmap.md` — Estado real verificado 2026-05-20 (~286 tok)
+
+## ../../../../../../tmp/
+
+- `test_compuesto.mjs` — Replica applyPendingInterest del sistema con los datos del Excel (~484 tok)
 
 ## ../../.claude-code-router/
 
@@ -112,6 +120,7 @@
 
 ## apps/backend/drizzle/
 
+- `_local_catchup.sql` — Catch-up idempotente para DB local: aplica 0025..0029 sin romper si algo ya existe. (~879 tok)
 - `0000_brainy_bloodstrike.sql` — SQL: tables: categories, clients, installments, products, 8 alter(s) (~1671 tok)
 - `0001_salty_lady_ursula.sql` — SQL: tables: cash_sessions, expenses, quote_items, quotes, 10 alter(s) (~1238 tok)
 - `0002_glossy_the_order.sql` — SQL: 1 alter(s) (~17 tok)
@@ -187,15 +196,16 @@
 
 - `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~160 tok)
 - `clients.controller.ts` — Exports ClientsController (~876 tok)
-- `clients.module.ts` — Exports ClientsModule (~83 tok)
-- `clients.service.ts` — Exports ClientsService (~2649 tok)
+- `clients.module.ts` — Exports ClientsModule (~107 tok)
+- `clients.service.ts` — Exports ClientsService (~3309 tok)
 
 ## apps/backend/src/credits/
 
+- `credit-math.ts` — Cuotas fijas con interés simple: total = capital × (1 + tasa × n), repartido en n cuotas iguales. (~145 tok)
 - `credit.dto.ts` — Exports CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto (~427 tok)
 - `credits.controller.ts` — Exports CreditsController (~599 tok)
 - `credits.module.ts` — Exports CreditsModule (~81 tok)
-- `credits.service.ts` — Exports CreditsService (~4621 tok)
+- `credits.service.ts` — Exports CreditsService (~4857 tok)
 
 ## apps/backend/src/db/
 
@@ -279,10 +289,10 @@
 ## apps/backend/src/sales/
 
 - `create-sale.dto.ts` — Exports SaleItemDto, CreateSaleDto (~494 tok)
-- `sales.controller.ts` — Exports SalesController (~716 tok)
-- `sales.module.ts` — Exports SalesModule (~78 tok)
+- `sales.controller.ts` — Exports SalesController (~726 tok)
+- `sales.module.ts` — Exports SalesModule (~103 tok)
 - `sales.service.spec.ts` — Tests de lógica de cálculo pura en SalesService (sin DB). (~2320 tok)
-- `sales.service.ts` — Exports SalesService (~4674 tok)
+- `sales.service.ts` — Exports SalesService (~4860 tok)
 
 ## apps/backend/src/stock-movements/
 
@@ -369,10 +379,11 @@
 
 ## apps/frontend/src/components/clients/
 
-- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2536 tok)
+- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2969 tok)
 - `ClientFormModal.tsx` — toForm — renders form, modal (~1435 tok)
 - `ClientPaymentFormModal.tsx` — typeOptions — renders form, modal (~1622 tok)
 - `ClientsTable.tsx` — ClientsTable — renders table (~1601 tok)
+- `OverdueInstallments.tsx` — Lista TODAS las cuotas pendientes del cliente (próximas + vencidas). Vencidas en rojo con botón Cobr (~576 tok)
 
 ## apps/frontend/src/components/credits/
 
@@ -429,11 +440,11 @@
 
 ## apps/frontend/src/components/sales/
 
-- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3756 tok)
+- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3912 tok)
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5842 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~2147 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1301 tok)
-- `SaleTotalsPanel.tsx` — fmt — renders table (~2591 tok)
+- `SaleTotalsPanel.tsx` — fmt — renders table (~2621 tok)
 
 ## apps/frontend/src/components/stock-movements/
 
@@ -511,7 +522,7 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~3766 tok)
+- `AlertsPage.tsx` — SectionBox (~3782 tok)
 - `CashPage.tsx` — CashPage (~1480 tok)
 - `ClientsPage.tsx` — ClientsPage (~1275 tok)
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)

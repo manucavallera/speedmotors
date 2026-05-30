@@ -27,3 +27,25 @@
 ## Decision Log
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->
+
+## Key Learnings (2026-05-30)
+- **Cuotas/deuda: fuente de verdad = módulo créditos.** Ventas financiadas y cuenta corriente escriben en `credits` + `creditInstallments` (NO en la tabla legacy `installments`, que quedó muerta). Toda lectura de deuda/cuotas debe usar credits/creditInstallments.
+  - Cobranza (`sales.getPendingInstallments`) → `creditInstallments` donde `paidAt IS NULL`. Pago delega a `creditsService.payInstallment`.
+  - Cuenta corriente (`clients.getAccount` + `findAll` balanceSql) → deuda = `computeBalance(credit)` (cuenta corriente) o cuotas impagas (cuotas_simples), menos clientPayments.
+  - `creditInstallments` NO tiene columna `status`: pendiente = `paidAt IS NULL`.
+- **Interés compuesto en cuotas fijas:** `calcCuotasFijas` en `credits/credit-math.ts` es la única fórmula (total = capital×(1+r)^n/n). Ventas y créditos la comparten. No duplicar.
+- **Interés saldo_compuesto avanza por mes (setMonth+1), mismo día**, no +30 días.
+- **Dominio:** cuenta corriente = 30 días para pagar, se registra el pago y baja la deuda. Cobranza = cuotas de créditos financiados.
+
+## Do-Not-Repeat (2026-05-30)
+- No usar la tabla `installments` (legacy) para leer cuotas/deuda. Está vacía. Usar `creditInstallments`.
+- No escribir fórmula de interés inline: usar `calcCuotasFijas`.
+- El usuario (dueño, no dev) se frustra con preguntas de dominio repetidas. Deducir del código, ejecutar, preguntar solo decisiones de negocio reales.
+- NO marcar como bug la "regla 20 días" de saldo variable. Es política a propósito del dueño: cualquier pago que entre 20+ días antes de la fecha de interés mensual → ese mes NO se cobra interés (aunque sea pago parcial). `applyPendingInterest` borra/omite el cargo de ese mes. Comportamiento correcto.
+
+## Decision Log (2026-05-30) — CORRECCIÓN fórmula cuotas fijas
+- **Cuotas fijas = INTERÉS SIMPLE**, NO compuesto. Fórmula correcta confirmada por el dueño: `cuota = capital × (1 + tasa × meses) / meses` = `capital/n + capital·tasa`.
+- El commit de ayer `bd60b8a` ("cuotas fijas usan interés compuesto, no simple") estaba AL REVÉS — sobrecobra. Revertido hoy a simple en `credit-math.ts` (`calcCuotasFijas`).
+- Corrige la entrada previa de hoy que decía "interés compuesto en cuotas fijas": ESO ESTABA MAL, ignorar.
+- Unificado en simple: credit-math.ts, credits.generateInstallments, sales.service, SaleFormModal preview, SaleTotalsPanel (era sistema francés, ahora simple), CreditFormModal preview (ya era simple).
+- **3 modelos posibles** (para 990k/12/5%): francés $111.697 | simple $132.000 (ELEGIDO) | compuesto $148.158.

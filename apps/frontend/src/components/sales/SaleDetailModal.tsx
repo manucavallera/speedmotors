@@ -71,6 +71,17 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
           {detail.invoiceType && detail.invoiceType !== 'X' && (
             <div><span style={{ color: '#94a3b8' }}>Comprobante: </span>Factura {detail.invoiceType}</div>
           )}
+          {detail.installments?.length > 0 && (() => {
+            const paid = detail.installments.filter((i: any) => i.status === 'pagado').length
+            const n = detail.installments.length
+            const done = paid === n
+            return (
+              <div>
+                <span style={{ color: '#94a3b8' }}>Cuotas: </span>
+                <span style={{ fontWeight: 700, color: done ? '#16a34a' : '#d97706' }}>{paid}/{n} pagadas</span>
+              </div>
+            )
+          })()}
         </div>
 
         <div>
@@ -112,7 +123,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
                 <div style={{ fontSize: '11px', fontWeight: 600, color: '#64748b', marginBottom: '6px' }}>PLAN DE PAGOS</div>
                 {detail.installments.map((inst: any) => (
                   <div key={inst.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid #f1f5f9', fontSize: '13px' }}>
-                    <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR')}</span>
+                    <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR', { timeZone: 'UTC' })}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontWeight: 600 }}>${Number(inst.amount).toLocaleString('es-AR')}</span>
                       <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>{inst.status}</span>
@@ -129,7 +140,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
             <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Cuotas</div>
             {detail.installments.map((inst: any) => (
               <div key={inst.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #f1f5f9', fontSize: '13px' }}>
-                <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR')}</span>
+                <span style={{ color: '#64748b' }}>Cuota {inst.number} — {new Date(inst.dueDate).toLocaleDateString('es-AR', { timeZone: 'UTC' })}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontWeight: 600 }}>${Number(inst.amount).toLocaleString('es-AR')}</span>
                   <span style={{ padding: '2px 8px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: inst.status === 'pagado' ? '#f0fdf4' : '#fffbeb', color: inst.status === 'pagado' ? '#16a34a' : '#d97706' }}>{inst.status}</span>

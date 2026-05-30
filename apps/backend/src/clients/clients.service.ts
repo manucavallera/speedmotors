@@ -1,22 +1,36 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
-import { clients, sales, installments, saleItems, clientPayments } from '../db/schema'
-import { eq, ilike, or, inArray, desc, sql } from 'drizzle-orm'
+import { clients, sales, clientPayments, credits, creditInstallments } from '../db/schema'
+import { eq, ilike, or, desc, sql } from 'drizzle-orm'
+import { CreditsService } from '../credits/credits.service'
 
 @Injectable()
 export class ClientsService {
+  constructor(private readonly creditsService: CreditsService) {}
+
   async findAll(params: { search?: string; page?: number; limit?: number; hasDebt?: boolean } = {}) {
     const { search, hasDebt } = params
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
 
+    // Deuda = saldo de créditos activos (cuenta corriente: capital + intereses - pagos; cuotas: cuotas impagas)
+    // menos pagos a cuenta / notas de crédito, más notas de débito.
     const balanceSql = sql<number>`
       COALESCE((
-        SELECT SUM(i.amount) FROM installments i
-        JOIN sales s ON i.sale_id = s.id
-        WHERE s.client_id = clients.id AND i.status = 'pendiente'
+        SELECT SUM(
+          c.original_amount
+          + COALESCE((SELECT SUM(ic.amount) FROM credit_interest_charges ic WHERE ic.credit_id = c.id), 0)
+          - COALESCE((SELECT SUM(cp2.amount) FROM credit_payments cp2 WHERE cp2.credit_id = c.id), 0)
+        )
+        FROM credits c
+        WHERE c.client_id = clients.id AND c.status = 'activo' AND c.credit_type <> 'cuotas_simples'
+      ), 0)
+      + COALESCE((
+        SELECT SUM(ci.amount + ci.surcharge) FROM credit_installments ci
+        JOIN credits c ON ci.credit_id = c.id
+        WHERE c.client_id = clients.id AND c.status = 'activo' AND ci.paid_at IS NULL
       ), 0)
       - COALESCE((
         SELECT SUM(cp.amount) FROM client_payments cp
@@ -99,17 +113,50 @@ export class ClientsService {
       return { client, totalPurchased: 0, totalPending: 0, totalOverdue: 0, balance: totalDebits - totalCredits, pendingInstallments: [], overdueInstallments: [], sales: [], payments }
     }
 
-    const saleIds = clientSales.map(s => s.id)
-    const allInstallments = await db.select().from(installments)
-      .where(inArray(installments.saleId, saleIds))
-      .orderBy(installments.dueDate)
-
+    // Deuda real vive en créditos (cuenta corriente + financiado), no en la tabla installments legacy.
+    const clientCredits = await db.select().from(credits).where(eq(credits.clientId, id))
     const now = new Date()
-    const pendingInstallments = allInstallments.filter(i => i.status === 'pendiente')
-    const overdueInstallments = pendingInstallments.filter(i => new Date(i.dueDate) < now)
 
-    const totalPending = pendingInstallments.reduce((sum, i) => sum + Number(i.amount), 0)
-    const totalOverdue = overdueInstallments.reduce((sum, i) => sum + Number(i.amount), 0)
+    let totalPending = 0
+    let totalOverdue = 0
+    const pendingInstallments: any[] = []
+    const overdueInstallments: any[] = []
+    const accountCredits: any[] = []
+    const saleStatus = new Map<number, { installmentCount: number; pendingCount: number; paidCount: number }>()
+
+    for (const credit of clientCredits) {
+      if (credit.status !== 'activo') continue
+      // saldo_compuesto: materializa intereses pendientes antes de leer el saldo (rate 0 = no-op)
+      await this.creditsService.applyPendingInterest(credit.id)
+      const creditBalance = await this.creditsService.computeBalance(credit.id)
+
+      if (credit.creditType === 'cuotas_simples') {
+        const insts = await db.select().from(creditInstallments)
+          .where(eq(creditInstallments.creditId, credit.id))
+          .orderBy(creditInstallments.dueDate)
+        const pend = insts.filter(i => !i.paidAt)
+        if (credit.saleId) saleStatus.set(credit.saleId, { installmentCount: insts.length, pendingCount: pend.length, paidCount: insts.length - pend.length })
+        for (const i of pend) {
+          const row = { id: i.id, creditId: credit.id, saleId: credit.saleId, number: i.number, amount: i.amount, dueDate: i.dueDate, status: 'pendiente', clientName: client.name }
+          pendingInstallments.push(row)
+          if (new Date(i.dueDate) < now) { overdueInstallments.push(row); totalOverdue += Number(i.amount) }
+        }
+      } else if (creditBalance > 0) {
+        // cuenta corriente / saldo variable: deuda como saldo (sin cuotas). Vencida si pasó firstDueDate.
+        const overdue = !!credit.firstDueDate && new Date(credit.firstDueDate) < now
+        accountCredits.push({
+          id: credit.id,
+          saleId: credit.saleId,
+          creditType: credit.creditType,
+          interestRate: Number(credit.interestRate),
+          balance: creditBalance,
+          dueDate: credit.firstDueDate,
+          overdue,
+        })
+        if (overdue) totalOverdue += creditBalance
+      }
+      if (creditBalance > 0) totalPending += creditBalance
+    }
 
     // Pagos a cuenta y notas reducen saldo; notas débito lo aumentan
     const totalAccountPayments = payments
@@ -121,10 +168,8 @@ export class ClientsService {
     const balance = totalPending - totalAccountPayments + totalDebitNotes
 
     const salesWithStatus = clientSales.map(s => {
-      const saleInst = allInstallments.filter(i => i.saleId === s.id)
-      const pendingCount = saleInst.filter(i => i.status === 'pendiente').length
-      const paidCount = saleInst.filter(i => i.status === 'pagado').length
-      return { ...s, installmentCount: saleInst.length, pendingCount, paidCount }
+      const st = saleStatus.get(s.id) ?? { installmentCount: 0, pendingCount: 0, paidCount: 0 }
+      return { ...s, ...st }
     })
 
     return {
@@ -136,6 +181,7 @@ export class ClientsService {
       totalAccountPayments,
       pendingInstallments,
       overdueInstallments,
+      accountCredits,
       sales: salesWithStatus,
       payments,
     }
