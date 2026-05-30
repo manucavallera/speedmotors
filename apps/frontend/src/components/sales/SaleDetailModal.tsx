@@ -99,7 +99,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
         </div>
 
         {detail.financingCurrency && detail.installments?.length > 0 && (() => {
-          const P = Number(detail.subtotal) - Number(detail.discount)
+          const P = Number(detail.subtotal) - Number(detail.discount) - Number(detail.downPayment || 0)
           const n = detail.installments.length
           const cuota = Number(detail.installments[0]?.amount)
           const totalPagar = cuota * n
