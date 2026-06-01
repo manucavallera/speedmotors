@@ -35,7 +35,7 @@ export function QuotesPage() {
 
   const { data: productsData } = useQuery({
     queryKey: ['products', 'all'],
-    queryFn: () => api.get('/products', { params: { limit: 2000 } }).then(r => r.data),
+    queryFn: () => api.get('/products', { params: { limit: 50000 } }).then(r => r.data),
   })
   const products = productsData?.items ?? productsData ?? []
 

@@ -36,7 +36,7 @@ export function ReservationsPage() {
 
   const { data: productsData } = useQuery({
     queryKey: ['products'],
-    queryFn: () => api.get('/products', { params: { limit: 2000 } }).then(r => r.data),
+    queryFn: () => api.get('/products', { params: { limit: 50000 } }).then(r => r.data),
   })
   const products = productsData?.items ?? productsData ?? []
 
