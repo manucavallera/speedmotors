@@ -303,52 +303,36 @@ export class CreditsService {
       .where(eq(creditInterestCharges.creditId, creditId))
       .orderBy(desc(creditInterestCharges.chargeDate))
 
-    const payments = await db.select().from(creditPayments)
-      .where(eq(creditPayments.creditId, creditId))
-
     const now = new Date()
     let nextChargeDate: Date
-    let periodStart: Date
 
     if (charges.length > 0) {
       nextChargeDate = new Date(charges[0].chargeDate)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
-      periodStart = new Date(charges[0].chargeDate)
     } else if (useAnchorAsFirst) {
       nextChargeDate = new Date(anchor)
-      periodStart = new Date(credit.startDate)
     } else {
       nextChargeDate = new Date(anchor)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
-      periodStart = new Date(anchor)
     }
 
     while (true) {
       const next = nextChargeDate
       if (next > now) break
 
-      // Pago anticipado: si hubo un pago en el período con 20+ días de anticipación al cargo, se omite
-      const cutoff = new Date(next)
-      cutoff.setDate(cutoff.getDate() - 20)
-      const hasEarlyPayment = payments.some(p => {
-        const pd = new Date(p.paymentDate)
-        return pd > periodStart && pd <= cutoff
+      // Interés mensual sobre saldo pendiente. Pago parcial baja el saldo pero no exime el cargo.
+      // Pago total queda cubierto: balanceBefore <= 0 corta el loop.
+      const balanceBefore = await this.computeBalanceAt(creditId, next)
+      if (balanceBefore <= 0) break
+
+      const interestAmount = balanceBefore * rate
+      await db.insert(creditInterestCharges).values({
+        creditId,
+        chargeDate: next,
+        balanceBefore: balanceBefore.toFixed(2),
+        amount: interestAmount.toFixed(2),
       })
 
-      if (!hasEarlyPayment) {
-        const balanceBefore = await this.computeBalanceAt(creditId, next)
-        if (balanceBefore <= 0) break
-
-        const interestAmount = balanceBefore * rate
-        await db.insert(creditInterestCharges).values({
-          creditId,
-          chargeDate: next,
-          balanceBefore: balanceBefore.toFixed(2),
-          amount: interestAmount.toFixed(2),
-        })
-      }
-
-      periodStart = new Date(next)
       nextChargeDate = new Date(next)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
     }
