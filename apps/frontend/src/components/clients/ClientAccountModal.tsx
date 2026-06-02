@@ -7,7 +7,6 @@ import { api } from '../../lib/api'
 import { generateAccountStatement } from '../../lib/pdf'
 import { OverdueInstallments } from './OverdueInstallments'
 import { SalesHistoryList } from './SalesHistoryList'
-import { ClientPaymentFormModal } from './ClientPaymentFormModal'
 
 const paymentTypeLabel: Record<string, { label: string; color: string; sign: string }> = {
   pago_cuenta: { label: 'Pago a cuenta', color: '#16a34a', sign: '-' },
@@ -28,7 +27,6 @@ interface ClientAccountModalProps {
 export function ClientAccountModal({ client, onClose }: ClientAccountModalProps) {
   const qc = useQueryClient()
   const [payingInstallment, setPayingInstallment] = useState<any>(null)
-  const [addingPayment, setAddingPayment] = useState(false)
 
   const { data: account, isLoading } = useQuery({
     queryKey: ['client-account', client.id],
@@ -40,11 +38,6 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
   const payInstallment = useMutation({
     mutationFn: (id: number) => api.post(`/sales/installments/${id}/pay`),
     onSuccess: () => { inv(); setPayingInstallment(null) },
-  })
-
-  const addPayment = useMutation({
-    mutationFn: (data: any) => api.post(`/clients/${client.id}/payments`, data),
-    onSuccess: () => { inv(); setAddingPayment(false) },
   })
 
   const removePayment = useMutation({
@@ -60,13 +53,10 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
         ) : account && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <button onClick={() => setAddingPayment(true)}
-                style={{ padding: '7px 16px', fontSize: '13px', fontWeight: 600, background: 'linear-gradient(135deg,#16a34a,#15803d)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
-                + Registrar movimiento
-              </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '12px', color: '#64748b' }}>Los pagos se registran en la sección <strong style={{ color: '#374151' }}>Créditos</strong>, en cada deuda por separado.</span>
               <button onClick={() => generateAccountStatement(client, account)}
-                style={{ padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer' }}>
+                style={{ padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', flexShrink: 0 }}>
                 Estado de cuenta PDF
               </button>
             </div>
@@ -162,14 +152,6 @@ export function ClientAccountModal({ client, onClose }: ClientAccountModalProps)
         </Modal>
       )}
 
-      {addingPayment && (
-        <ClientPaymentFormModal
-          clientName={client.name}
-          onClose={() => setAddingPayment(false)}
-          onSubmit={d => addPayment.mutate(d)}
-          isPending={addPayment.isPending}
-        />
-      )}
     </>
   )
 }

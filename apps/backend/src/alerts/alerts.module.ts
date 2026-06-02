@@ -3,9 +3,10 @@ import { DbModule } from '../db/db.module'
 import { AlertsController } from './alerts.controller'
 import { AlertsService } from './alerts.service'
 import { RemindersService } from './reminders.service'
+import { CreditsModule } from '../credits/credits.module'
 
 @Module({
-  imports: [DbModule],
+  imports: [DbModule, CreditsModule],
   controllers: [AlertsController],
   providers: [AlertsService, RemindersService],
 })

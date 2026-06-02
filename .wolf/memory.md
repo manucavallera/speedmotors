@@ -2679,3 +2679,123 @@
 | 21:27 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_setup_local_wsl.md | — | ~337 |
 | 21:27 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→3 lines | ~118 |
 | 21:28 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |
+| 21:33 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |
+| 21:33 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |
+| 21:35 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |
+| 21:36 | Session end: 20 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28561 tok |
+| 21:38 | Edited apps/frontend/src/components/sales/SaleDetailModal.tsx | inline fix | ~30 |
+| 21:38 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+| 21:40 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+| 21:40 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+| 21:43 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+| 21:44 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+| 21:45 | entrega: 2 commits push (50e6466, 2d70157) + cliente avisado | back+front | deploy EasyPanel en curso | ~3k |
+| 21:46 | Session end: 21 writes across 10 files (OverdueInstallments.tsx, ClientAccountModal.tsx, alerts.service.ts, clients.service.ts, sales.service.ts) | 16 reads | ~28591 tok |
+
+## Session: 2026-05-31 16:38
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-06-01 15:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:05 | Edited apps/backend/src/credits/credits.service.ts | reduced (-8 lines) | ~151 |
+| 15:05 | Edited apps/backend/src/credits/credits.service.ts | 6→3 lines | ~24 |
+| 15:07 | Edited apps/backend/src/credits/credits.service.ts | modified if() | ~114 |
+| 15:07 | Edited apps/backend/src/credits/credits.service.ts | 3→2 lines | ~28 |
+| 15:10 | saldo_compuesto: removida regla 20d, interes mensual siempre cobra (pago parcial no exime) | credits.service.ts | OK typecheck | ~3k |
+| 15:11 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:15 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:16 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:16 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:17 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:18 | Session end: 4 writes across 1 files (credits.service.ts) | 4 reads | ~8408 tok |
+| 15:20 | Edited apps/backend/src/products/products.service.ts | 5000 → 50000 | ~20 |
+| 15:20 | Edited apps/frontend/src/pages/StockMovementsPage.tsx | 2000 → 50000 | ~15 |
+| 15:20 | Edited apps/frontend/src/hooks/useSales.ts | 2000 → 50000 | ~15 |
+| 15:20 | Edited apps/frontend/src/pages/PurchaseOrdersPage.tsx | 2000 → 50000 | ~15 |
+| 15:20 | Edited apps/frontend/src/pages/QuotesPage.tsx | 2000 → 50000 | ~15 |
+| 15:21 | Edited apps/frontend/src/pages/ReservationsPage.tsx | 2000 → 50000 | ~15 |
+| 15:22 | fix: productos >2000 invisibles en 5 pantallas, cap 2000->50000 front+back | products.service.ts +5 front | OK typecheck, falta deploy | ~6k |
+| 15:23 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:24 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:25 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:27 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:37 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:37 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 15:38 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+| 18:43 | Session end: 10 writes across 7 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 9 reads | ~19446 tok |
+
+## Sesion 2026-06-01
+- Fix interes saldo_compuesto: removida regla 20d (pago parcial cobra interes). Commit d09306c.
+- Fix productos invisibles: cap 2000->50000 en 5 pantallas (front+back). Commit 2ff76f4. Pusheado a master, FALTA deploy EasyPanel (backend+frontend).
+- Pendiente: busqueda server-side en SearchableSelect (solucion real, sin apuro).
+- Pendiente: Antonio reporto "algo en alertas" sin detalle todavia.
+- Tema negocio: dueño va a pedir pago parcial al cliente, redactado mensaje.
+| 18:45 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_2026_06_01.md | — | ~264 |
+| 18:45 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~71 |
+| 18:45 | Session end: 12 writes across 9 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 10 reads | ~19805 tok |
+| 18:45 | Session end: 12 writes across 9 files (credits.service.ts, products.service.ts, StockMovementsPage.tsx, useSales.ts, PurchaseOrdersPage.tsx) | 10 reads | ~19805 tok |
+
+## Session: 2026-06-02 15:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:02 | Edited apps/backend/src/alerts/alerts.service.ts | 2→3 lines | ~61 |
+| 15:02 | Edited apps/backend/src/alerts/alerts.service.ts | 17→17 lines | ~336 |
+| 15:03 | Edited apps/frontend/src/hooks/useAlerts.ts | 4→4 lines | ~92 |
+| 15:03 | Edited apps/frontend/src/pages/AlertsPage.tsx | added 3 condition(s) | ~291 |
+| 15:03 | Edited apps/frontend/src/pages/AlertsPage.tsx | 12→13 lines | ~246 |
+| 15:03 | Edited apps/frontend/src/pages/AlertsPage.tsx | 12→13 lines | ~393 |
+| 15:03 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~37 |
+| 15:05 | feature: alertas cta cte 5d antes + vencidas, botón WhatsApp cliente | alerts.service.ts, useAlerts.ts, AlertsPage.tsx | OK typecheck | ~6k |
+| 15:05 | Session end: 7 writes across 3 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx) | 3 reads | ~8604 tok |
+| 15:05 | Session end: 7 writes across 3 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx) | 3 reads | ~8604 tok |
+| 15:08 | Edited apps/backend/src/alerts/alerts.module.ts | added 1 import(s) | ~100 |
+| 15:08 | Edited apps/backend/src/alerts/alerts.service.ts | modified constructor() | ~79 |
+| 15:08 | Edited apps/backend/src/alerts/alerts.service.ts | expanded (+9 lines) | ~354 |
+| 15:09 | fix alerta cta cte usa computeBalance no originalAmount + analisis pagos por credito (ya existian) | alerts.service.ts, alerts.module.ts | OK typecheck | ~12k |
+| 15:11 | Session end: 10 writes across 4 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts) | 13 reads | ~25526 tok |
+| 15:12 | Session end: 10 writes across 4 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts) | 13 reads | ~25526 tok |
+| 15:14 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | 3→2 lines | ~33 |
+| 15:14 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | 3→2 lines | ~29 |
+| 15:14 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | removed 6 lines | ~11 |
+| 15:14 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | CSS: gap, flexShrink | ~194 |
+| 15:14 | Edited apps/frontend/src/components/clients/ClientAccountModal.tsx | removed 11 lines | ~4 |
+| 15:15 | cliente=solo info: saco pago generico, borro ClientPaymentFormModal, pagos van por credito | ClientAccountModal.tsx | OK typecheck | ~5k |
+| 15:15 | Session end: 15 writes across 5 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 13 reads | ~25797 tok |
+| 15:17 | Edited apps/frontend/src/components/credits/CreditsTable.tsx | added nullish coalescing | ~156 |
+| 15:17 | Edited apps/frontend/src/components/credits/CreditsTable.tsx | inline fix | ~34 |
+| 15:17 | Edited apps/frontend/src/components/credits/CreditsTable.tsx | 2→3 lines | ~112 |
+| 15:17 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | added nullish coalescing | ~78 |
+| 15:17 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | "Crédito · ${detail.client" → "${tipo} · ${detail.client" | ~26 |
+| 15:18 | columna Tipo en tabla creditos + tipo en titulo detalle (cta cte / saldo variable / financiacion) | CreditsTable.tsx, CreditDetailModal.tsx | OK | ~3k |
+| 15:18 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:19 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:21 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:24 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:29 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:30 | Session end: 20 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~27132 tok |
+| 15:34 | Edited apps/backend/src/alerts/alerts.service.ts | 2→2 lines | ~53 |
+| 15:34 | Edited apps/backend/src/alerts/alerts.service.ts | reduced (-9 lines) | ~158 |
+| 15:35 | Edited apps/backend/src/alerts/alerts.service.ts | 18→19 lines | ~438 |
+| 15:36 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~22 |
+| 15:36 | Edited apps/frontend/src/hooks/useAlerts.ts | 4→5 lines | ~134 |
+| 15:36 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~78 |
+| 15:36 | Edited apps/frontend/src/pages/AlertsPage.tsx | expanded (+19 lines) | ~602 |
+| 15:36 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~43 |
+| 15:38 | alertas cta cte muestra TODAS las activas con saldo (vencida/proxima5d/al dia), no solo 5d | alerts.service.ts, useAlerts.ts, AlertsPage.tsx | OK typecheck | ~6k |
+| 15:38 | Session end: 28 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~28875 tok |
+| 15:40 | Edited apps/backend/src/alerts/alerts.service.ts | 31→33 lines | ~408 |
+| 15:40 | Edited apps/backend/src/alerts/alerts.service.ts | 3→2 lines | ~41 |
+| 15:40 | Edited apps/frontend/src/hooks/useAlerts.ts | 5→9 lines | ~232 |
+| 15:40 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~43 |
+| 15:41 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~94 |
+| 15:41 | Edited apps/frontend/src/pages/AlertsPage.tsx | expanded (+38 lines) | ~998 |
+| 15:41 | Edited apps/frontend/src/pages/AlertsPage.tsx | 10 → 7 | ~21 |
+| 15:43 | cuotas financiacion (creditInstallments) ahora SI se muestran en alertas (vencidas+proximas 7d) + WhatsApp; ventana 10->7d | alerts.service.ts, useAlerts.ts, AlertsPage.tsx | OK typecheck | ~5k |
+| 15:43 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+| 15:43 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+| 15:46 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |

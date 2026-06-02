@@ -28,6 +28,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
   const [showHistory, setShowHistory] = useState(true)
   const sym = detail.currency === 'usd' ? 'US$' : '$'
   const isCuotas = detail.creditType === 'cuotas_simples'
+  const tipo = isCuotas ? `Financiación · ${detail.installmentsCount ?? '?'} cuotas` : Number(detail.interestRate) > 0 ? 'Saldo variable' : 'Cuenta corriente'
 
   const items: HistoryItem[] = []
   items.push({ date: detail.startDate, type: 'carga', amount: Number(detail.originalAmount), notes: detail.notes })
@@ -46,7 +47,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
   const today = new Date()
 
   return (
-    <Modal title={`Crédito · ${detail.client?.name || ''}`} onClose={onClose} width={720}>
+    <Modal title={`${tipo} · ${detail.client?.name || ''}`} onClose={onClose} width={720}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }}>
           <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px' }}>

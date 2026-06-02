@@ -12,6 +12,12 @@ const statusStyles: Record<string, { bg: string; color: string }> = {
   cancelado: { bg: '#fef2f2', color: '#dc2626' },
 }
 
+// Etiqueta de qué deuda es: financiación (cuotas) vs cuenta corriente / saldo variable (según tenga interés)
+function tipoLabel(c: Credit): string {
+  if (c.creditType === 'cuotas_simples') return `Financiación · ${c.installmentsCount ?? '?'} cuotas`
+  return Number(c.interestRate) > 0 ? 'Saldo variable' : 'Cuenta corriente'
+}
+
 export function CreditsTable({ credits, isLoading, onView }: Props) {
   const thStyle: React.CSSProperties = { padding: '10px 16px', textAlign: 'left', fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }
 
@@ -23,7 +29,7 @@ export function CreditsTable({ credits, isLoading, onView }: Props) {
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
-            {['Cliente', 'Inicio', 'Moneda', 'Monto original', 'Saldo actual', 'Tasa', 'Estado', ''].map(h => (
+            {['Cliente', 'Tipo', 'Inicio', 'Moneda', 'Monto original', 'Saldo actual', 'Tasa', 'Estado', ''].map(h => (
               <th key={h} style={thStyle}>{h}</th>
             ))}
           </tr>
@@ -35,6 +41,7 @@ export function CreditsTable({ credits, isLoading, onView }: Props) {
             return (
               <tr key={c.id} style={{ borderBottom: i < credits.length - 1 ? '1px solid #f8fafc' : 'none' }}>
                 <td style={{ padding: '11px 16px', fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>{c.client?.name || '—'}</td>
+                <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151' }}>{tipoLabel(c)}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151' }}>{new Date(c.startDate).toLocaleDateString('es-AR')}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151', textTransform: 'uppercase' }}>{c.currency}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px' }}>{sym}{Number(c.originalAmount).toLocaleString('es-AR', { minimumFractionDigits: 2 })}</td>

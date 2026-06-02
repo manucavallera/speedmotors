@@ -28,6 +28,13 @@
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->
 
+### [2026-06-01] saldo_compuesto: eliminada regla de 20 días
+- El dueño confirmó: pago parcial NO exime el interés mensual. Antes `applyPendingInterest` saltaba el cargo del mes si había un pago 20+ días antes del vencimiento (`hasEarlyPayment`). Removido junto con `payments`/`periodStart` (quedaron sin uso). Interés mensual siempre se cobra sobre `balanceBefore`; pago total corta el loop via `balanceBefore<=0`. Commit d09306c.
+
+### [2026-06-01] Límite de carga de productos 2000→50000 (parche, no solución)
+- Con 4386 productos, 5 pantallas cargaban `/products?limit=2000` y filtraban client-side → productos >2000 invisibles en Movimientos, Ventas, Reservas, Presupuestos, OC. Bug reportado como "producto existe pero no aparece al registrar movimiento" (VHRS1A). Subido cap backend 5000→50000 y limit frontend a 50000 en los 5 loaders. Commit 2ff76f4.
+- **Es parche.** Solución real pendiente: búsqueda server-side en `SearchableSelect` (consultar al backend a medida que se escribe). El backend `products.findAll` ya soporta `search` (ilike name/code). Hay colchón hasta 50000 productos, sin apuro.
+
 ## Key Learnings (2026-05-30)
 - **Cuotas/deuda: fuente de verdad = módulo créditos.** Ventas financiadas y cuenta corriente escriben en `credits` + `creditInstallments` (NO en la tabla legacy `installments`, que quedó muerta). Toda lectura de deuda/cuotas debe usar credits/creditInstallments.
   - Cobranza (`sales.getPendingInstallments`) → `creditInstallments` donde `paidAt IS NULL`. Pago delega a `creditsService.payInstallment`.

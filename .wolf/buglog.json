@@ -6701,6 +6701,350 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-05-30T21:20:07.354Z"
+    },
+    {
+      "id": "bug-419",
+      "timestamp": "2026-05-30T18:45:00.000Z",
+      "error_message": "Cuenta de cliente / Cuotas pendientes mostraba '0 cuotas' y deuda $0 con deuda real",
+      "file": "apps/backend/src/sales/sales.service.ts, apps/backend/src/clients/clients.service.ts",
+      "root_cause": "findOne y getAccount leían la tabla legacy 'installments' (vacía) en vez de 'creditInstallments'",
+      "fix": "findOne lee creditInstallments via credit.saleId; getAccount expone accountCredits; modal lista todas las cuotas + seccion cuenta corriente/saldo",
+      "tags": [
+        "creditos",
+        "cuotas",
+        "tabla-legacy",
+        "installments",
+        "display"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T18:45:00.000Z"
+    },
+    {
+      "id": "bug-420",
+      "timestamp": "2026-05-30T18:45:00.000Z",
+      "error_message": "INTERES TOTAL del detalle de venta financiada mostraba menos del real (restaba el anticipo de menos)",
+      "file": "apps/frontend/src/components/sales/SaleDetailModal.tsx",
+      "root_cause": "P = subtotal - discount (precio completo) pero totalPagar son solo las cuotas financiadas; no descontaba downPayment",
+      "fix": "P = subtotal - discount - downPayment, asi interes = cuotas - monto financiado real",
+      "tags": [
+        "ventas",
+        "financiacion",
+        "interes",
+        "anticipo",
+        "display"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-05-30T18:45:00.000Z"
+    },
+    {
+      "id": "bug-421",
+      "timestamp": "2026-06-01T15:05:41.762Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 6→3 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:05:41.762Z"
+    },
+    {
+      "id": "bug-422",
+      "timestamp": "2026-06-01T00:00:00.000Z",
+      "error_message": "saldo_compuesto: pago parcial anticipado omitia el interes mensual (regla 20 dias)",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "applyPendingInterest saltaba el cargo del mes si habia un pago 20+ dias antes del vencimiento (hasEarlyPayment). Pago parcial no debe eximir interes.",
+      "fix": "Removida la regla 20 dias y el calculo hasEarlyPayment/payments/periodStart. Interes mensual siempre se cobra sobre balanceBefore; balance<=0 corta el loop (pago total).",
+      "tags": [
+        "credits",
+        "saldo_compuesto",
+        "interes",
+        "cuenta-corriente"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T00:00:00.000Z"
+    },
+    {
+      "id": "bug-423",
+      "timestamp": "2026-06-01T15:20:24.415Z",
+      "error_message": "Wrong reference: 5000 should be 50000",
+      "file": "apps/backend/src/products/products.service.ts",
+      "root_cause": "Used \"5000\" instead of \"50000\"",
+      "fix": "Changed 5000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:20:24.415Z"
+    },
+    {
+      "id": "bug-424",
+      "timestamp": "2026-06-01T15:20:29.081Z",
+      "error_message": "Wrong reference: 2000 should be 50000",
+      "file": "apps/frontend/src/pages/StockMovementsPage.tsx",
+      "root_cause": "Used \"2000\" instead of \"50000\"",
+      "fix": "Changed 2000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:20:29.081Z"
+    },
+    {
+      "id": "bug-425",
+      "timestamp": "2026-06-01T15:20:40.160Z",
+      "error_message": "Wrong reference: 2000 should be 50000",
+      "file": "apps/frontend/src/hooks/useSales.ts",
+      "root_cause": "Used \"2000\" instead of \"50000\"",
+      "fix": "Changed 2000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:20:40.160Z"
+    },
+    {
+      "id": "bug-426",
+      "timestamp": "2026-06-01T15:20:47.260Z",
+      "error_message": "Wrong reference: 2000 should be 50000",
+      "file": "apps/frontend/src/pages/PurchaseOrdersPage.tsx",
+      "root_cause": "Used \"2000\" instead of \"50000\"",
+      "fix": "Changed 2000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:20:47.260Z"
+    },
+    {
+      "id": "bug-427",
+      "timestamp": "2026-06-01T15:20:57.542Z",
+      "error_message": "Wrong reference: 2000 should be 50000",
+      "file": "apps/frontend/src/pages/QuotesPage.tsx",
+      "root_cause": "Used \"2000\" instead of \"50000\"",
+      "fix": "Changed 2000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:20:57.542Z"
+    },
+    {
+      "id": "bug-428",
+      "timestamp": "2026-06-01T15:21:07.374Z",
+      "error_message": "Wrong reference: 2000 should be 50000",
+      "file": "apps/frontend/src/pages/ReservationsPage.tsx",
+      "root_cause": "Used \"2000\" instead of \"50000\"",
+      "fix": "Changed 2000 → 50000",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T15:21:07.374Z"
+    },
+    {
+      "id": "bug-429",
+      "timestamp": "2026-06-01T00:00:00.000Z",
+      "error_message": "Producto existe en Productos pero \"Codigo no encontrado\" al registrar movimiento de stock (VHRS1A). Afecta tambien Ventas/Reservas/Presupuestos/OC.",
+      "file": "apps/backend/src/products/products.service.ts + 5 frontend product loaders",
+      "root_cause": "4386 productos pero las pantallas cargaban /products?limit=2000 (cliente filtra el array local). Productos >2000 quedaban fuera del array, invisibles para SearchableSelect y el buscador exacto de codigo.",
+      "fix": "Backend findAll cap 5000->50000. Frontend limit 2000->50000 en StockMovementsPage, useSales, PurchaseOrdersPage, QuotesPage, ReservationsPage. Fix real pendiente: busqueda server-side en SearchableSelect.",
+      "tags": [
+        "products",
+        "pagination",
+        "stock-movements",
+        "sales",
+        "searchableselect",
+        "limit"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-01T00:00:00.000Z"
+    },
+    {
+      "id": "bug-430",
+      "timestamp": "2026-06-02T15:03:19.993Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "No early return/throw for edge case: !phone",
+      "fix": "Added guard clause: if (!phone)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:03:19.993Z"
+    },
+    {
+      "id": "bug-431",
+      "timestamp": "2026-06-02T15:08:51.491Z",
+      "error_message": "Missing await",
+      "file": "apps/backend/src/alerts/alerts.service.ts",
+      "root_cause": "Async call without await — returned Promise instead of value",
+      "fix": "Added await to async call",
+      "tags": [
+        "auto-detected",
+        "async-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:08:51.491Z"
+    },
+    {
+      "id": "bug-432",
+      "timestamp": "2026-06-02T15:14:26.898Z",
+      "error_message": "CSS fix: display, padding",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "display: 'flex', justifyContent: 'space-between', alignItems: 'center' → 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px'; padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer' → '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', flexShrink: 0",
+      "fix": "Changed display: 'flex', justifyContent: 'space-between', alignItems: 'center' → 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px'; padding: '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer' → '6px 14px', fontSize: '12px', fontWeight: 600, background: '#f8fafc', color: '#374151', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', flexShrink: 0",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:14:26.898Z"
+    },
+    {
+      "id": "bug-433",
+      "timestamp": "2026-06-02T15:14:31.680Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/components/clients/ClientAccountModal.tsx",
+      "root_cause": "8 lines replaced/restructured",
+      "fix": "Rewrote 11→3 lines (8 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:14:31.680Z"
+    },
+    {
+      "id": "bug-434",
+      "timestamp": "2026-06-02T15:17:16.233Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/credits/CreditsTable.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:17:16.233Z"
+    },
+    {
+      "id": "bug-435",
+      "timestamp": "2026-06-02T15:17:22.270Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/credits/CreditsTable.tsx",
+      "root_cause": "Had 'Inicio'",
+      "fix": "Changed to 'Tipo'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-02T15:17:28.360Z"
+    },
+    {
+      "id": "bug-436",
+      "timestamp": "2026-06-02T15:17:38.833Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:17:38.833Z"
+    },
+    {
+      "id": "bug-437",
+      "timestamp": "2026-06-02T15:17:46.977Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "Had `Crédito · ${detail.client?.name || '",
+      "fix": "Changed to `${tipo} · ${detail.client?.name || '",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:17:46.977Z"
+    },
+    {
+      "id": "bug-438",
+      "timestamp": "2026-06-02T15:34:39.706Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/alerts/alerts.service.ts",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 18→9 lines (6 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T15:34:39.706Z"
+    },
+    {
+      "id": "bug-439",
+      "timestamp": "2026-06-02T15:36:34.498Z",
+      "error_message": "CSS fix: cuotas",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "cuotas: inst.overdue.length + inst.upcoming.length + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length → inst.overdue.length + inst.upcoming.length + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0) + (cc?.current.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length",
+      "fix": "Changed cuotas: inst.overdue.length + inst.upcoming.length + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length → inst.overdue.length + inst.upcoming.length + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0) + (cc?.current.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-06-02T15:41:06.143Z"
     }
   ]
 }

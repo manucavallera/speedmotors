@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-30T21:27:50.667Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-06-02T15:41:39.674Z
 > Files: 345 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
@@ -12,12 +12,13 @@
 
 - `feedback_component_size.md` (~164 tok)
 - `feedback_menos_preguntas.md` (~300 tok)
-- `MEMORY.md` — Memory Index (~542 tok)
+- `MEMORY.md` — Memory Index (~579 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
 - `project_cuotas_fix_pendiente.md` (~557 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
+- `project_pendientes_2026_06_01.md` (~267 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
 - `project_produccion_roadmap.md` — Fixes aplicados hoy (2026-05-06/07) (~541 tok)
@@ -173,8 +174,8 @@
 ## apps/backend/src/alerts/
 
 - `alerts.controller.ts` — Exports AlertsController (~352 tok)
-- `alerts.module.ts` — Exports AlertsModule (~112 tok)
-- `alerts.service.ts` — Exports AlertsService (~2184 tok)
+- `alerts.module.ts` — Exports AlertsModule (~133 tok)
+- `alerts.service.ts` — Exports AlertsService (~2294 tok)
 - `reminders.service.ts` — Exports CreateReminderDto, RemindersService (~903 tok)
 
 ## apps/backend/src/auth/
@@ -205,7 +206,7 @@
 - `credit.dto.ts` — Exports CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto (~427 tok)
 - `credits.controller.ts` — Exports CreditsController (~599 tok)
 - `credits.module.ts` — Exports CreditsModule (~81 tok)
-- `credits.service.ts` — Exports CreditsService (~4857 tok)
+- `credits.service.ts` — Exports CreditsService (~4705 tok)
 
 ## apps/backend/src/db/
 
@@ -255,7 +256,7 @@
 - `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~322 tok)
 - `products.controller.ts` — Exports ProductsController (~936 tok)
 - `products.module.ts` — Exports ProductsModule (~85 tok)
-- `products.service.ts` — Exports ProductsService (~2569 tok)
+- `products.service.ts` — Exports ProductsService (~2570 tok)
 
 ## apps/backend/src/purchase-orders/
 
@@ -379,18 +380,17 @@
 
 ## apps/frontend/src/components/clients/
 
-- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2969 tok)
+- `ClientAccountModal.tsx` — paymentTypeLabel — renders modal (~2777 tok)
 - `ClientFormModal.tsx` — toForm — renders form, modal (~1435 tok)
-- `ClientPaymentFormModal.tsx` — typeOptions — renders form, modal (~1622 tok)
 - `ClientsTable.tsx` — ClientsTable — renders table (~1601 tok)
 - `OverdueInstallments.tsx` — Lista TODAS las cuotas pendientes del cliente (próximas + vencidas). Vencidas en rojo con botón Cobr (~576 tok)
 
 ## apps/frontend/src/components/credits/
 
-- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3579 tok)
+- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3625 tok)
 - `CreditFormModal.tsx` — CreditFormModal — renders form, modal (~2732 tok)
 - `CreditPaymentModal.tsx` — CreditPaymentModal — renders form, modal (~679 tok)
-- `CreditsTable.tsx` — statusStyles — renders table (~929 tok)
+- `CreditsTable.tsx` — statusStyles — renders table (~1057 tok)
 
 ## apps/frontend/src/components/dashboard/
 
@@ -440,7 +440,7 @@
 
 ## apps/frontend/src/components/sales/
 
-- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3912 tok)
+- `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3922 tok)
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5842 tok)
 - `SaleItemsEditor.tsx` — SaleItemsEditor (~2147 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1301 tok)
@@ -485,7 +485,7 @@
 
 ## apps/frontend/src/hooks/
 
-- `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1182 tok)
+- `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1338 tok)
 - `useAuth.ts` — Exports useAuth (~180 tok)
 - `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
 - `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~732 tok)
@@ -522,7 +522,7 @@
 
 ## apps/frontend/src/pages/
 
-- `AlertsPage.tsx` — SectionBox (~3782 tok)
+- `AlertsPage.tsx` — SectionBox (~5560 tok)
 - `CashPage.tsx` — CashPage (~1480 tok)
 - `ClientsPage.tsx` — ClientsPage (~1275 tok)
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
@@ -531,10 +531,10 @@
 - `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~3378 tok)
-- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~2114 tok)
-- `QuotesPage.tsx` — QuotesPage (~1762 tok)
+- `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~2123 tok)
+- `QuotesPage.tsx` — QuotesPage (~1763 tok)
 - `ReportsPage.tsx` — ReportsPage (~1027 tok)
-- `ReservationsPage.tsx` — statusColors — renders table (~3338 tok)
+- `ReservationsPage.tsx` — statusColors — renders table (~3346 tok)
 - `SalesPage.tsx` — SalesPage (~2012 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
