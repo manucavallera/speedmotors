@@ -46,7 +46,7 @@ export class AlertsService {
           .from(installments)
           .leftJoin(sales, eq(installments.saleId, sales.id))
           .leftJoin(clients, eq(sales.clientId, clients.id))
-          .where(and(eq(installments.status, 'pendiente'), gte(installments.dueDate, now), lte(installments.dueDate, in7Days)))
+          .where(and(eq(installments.status, 'pendiente'), gte(installments.dueDate, now), lte(installments.dueDate, in5Days)))
           .orderBy(installments.dueDate)
           .limit(50),
 
@@ -115,7 +115,7 @@ export class AlertsService {
           .from(creditInstallments)
           .leftJoin(credits, eq(creditInstallments.creditId, credits.id))
           .leftJoin(clients, eq(credits.clientId, clients.id))
-          .where(and(isNull(creditInstallments.paidAt), gte(creditInstallments.dueDate, now), lte(creditInstallments.dueDate, in7Days)))
+          .where(and(isNull(creditInstallments.paidAt), gte(creditInstallments.dueDate, now), lte(creditInstallments.dueDate, in5Days)))
           .orderBy(creditInstallments.dueDate)
           .limit(50),
 

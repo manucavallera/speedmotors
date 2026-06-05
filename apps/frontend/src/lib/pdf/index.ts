@@ -1,6 +1,6 @@
 export { generateRemito } from './remito'
 export { generateReservationPdf, printReservation } from './reservation'
-export { generateReceipt, generateInstallmentReceipt } from './receipt'
+export { generateReceipt, generateInstallmentReceipt, generateAccountPaymentReceipt } from './receipt'
 export { generateInvoice } from './invoice'
 export { generateAccountStatement, generatePriceList } from './account'
 export { generateCreditStatement } from './credit'

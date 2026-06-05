@@ -2799,3 +2799,34 @@
 | 15:43 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
 | 15:43 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
 | 15:46 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+| 15:48 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+| 15:54 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+| 19:27 | Session end: 35 writes across 7 files (alerts.service.ts, useAlerts.ts, AlertsPage.tsx, alerts.module.ts, ClientAccountModal.tsx) | 14 reads | ~30605 tok |
+
+## Session: 2026-06-02 20:02
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 20:03 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_2026_06_01.md | modified 02() | ~393 |
+| 20:03 | Session end: 1 writes across 1 files (project_pendientes_2026_06_01.md) | 1 reads | ~421 tok |
+
+## Session: 2026-06-05 13:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:07 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~37 |
+| 13:08 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~39 |
+| 13:09 | Edited apps/frontend/src/pages/AlertsPage.tsx | "Cuotas próximas (7 días)" → "Cuotas próximas (5 días)" | ~32 |
+| 13:09 | Edited apps/frontend/src/pages/AlertsPage.tsx | "Cuotas de financiación pr" → "Cuotas de financiación pr" | ~36 |
+| 13:09 | Edited apps/frontend/src/pages/AlertsPage.tsx | 7 → 5 | ~35 |
+| 13:09 | alertas cuota fija 7d->5d (igual que cta cte) | alerts.service.ts, AlertsPage.tsx | done | ~3k |
+| 13:10 | Session end: 5 writes across 2 files (alerts.service.ts, AlertsPage.tsx) | 2 reads | ~8033 tok |
+| 13:11 | Edited apps/frontend/src/components/sales/SaleItemsEditor.tsx | inline fix | ~34 |
+| 13:12 | fix scan ventas: segundo producto re-agregaba primero (stale state) | SaleItemsEditor.tsx | done | ~4k |
+| 13:12 | Session end: 6 writes across 3 files (alerts.service.ts, AlertsPage.tsx, SaleItemsEditor.tsx) | 5 reads | ~17297 tok |
+| 13:15 | Edited apps/frontend/src/lib/pdf/receipt.ts | added 1 condition(s) | ~780 |
+| 13:18 | Edited apps/frontend/src/lib/pdf/index.ts | inline fix | ~30 |
+| 13:18 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | added 1 import(s) | ~36 |
+| 13:23 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | added optional chaining | ~250 |
+| 13:24 | feature: recibo PDF de pago parcial cta cte | receipt.ts, pdf/index.ts, CreditDetailModal.tsx | done | ~6k |
+| 13:24 | Session end: 10 writes across 6 files (alerts.service.ts, AlertsPage.tsx, SaleItemsEditor.tsx, receipt.ts, index.ts) | 8 reads | ~24134 tok |

@@ -45,7 +45,7 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
               value={barcode}
               onChange={val => { setBarcode(val); setBarcodeStatus('idle') }}
               onScan={searchBarcode}
-              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); searchBarcode(barcode) } }}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); searchBarcode(e.currentTarget.value) } }}
               placeholder="Escanear o escribir código..."
               label="Código de barras"
             />

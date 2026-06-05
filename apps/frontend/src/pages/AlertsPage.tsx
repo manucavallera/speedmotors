@@ -83,7 +83,7 @@ export function AlertsPage() {
       </div>
 
       <InfoBanner title="Centro de alertas">
-        Todo lo que necesitás atender hoy en un solo lugar. El sistema genera alertas automáticas para: <strong>cuotas vencidas o próximas a vencer</strong> (avisa 7 días antes), <strong>cuentas corrientes</strong> con saldo (vencidas, por vencer en 5 días y al día) — con botón para enviar recordatorio por WhatsApp al cliente, <strong>reservas</strong> sin concretar, y <strong>órdenes de compra</strong> pendientes de recepción. Usá <strong>"+ Nuevo recordatorio"</strong> para agendar cualquier cosa con fecha — pagos de impuestos, llamadas, vencimientos de seguros, lo que sea.
+        Todo lo que necesitás atender hoy en un solo lugar. El sistema genera alertas automáticas para: <strong>cuotas vencidas o próximas a vencer</strong> (avisa 5 días antes), <strong>cuentas corrientes</strong> con saldo (vencidas, por vencer en 5 días y al día) — con botón para enviar recordatorio por WhatsApp al cliente, <strong>reservas</strong> sin concretar, y <strong>órdenes de compra</strong> pendientes de recepción. Usá <strong>"+ Nuevo recordatorio"</strong> para agendar cualquier cosa con fecha — pagos de impuestos, llamadas, vencimientos de seguros, lo que sea.
       </InfoBanner>
 
       <AlertSummaryCards summary={s} />
@@ -100,7 +100,7 @@ export function AlertsPage() {
 
       {show('cuotas') && filt(inst.upcoming).length > 0 && (
         <SectionBox border="#fde68a">
-          <SectionTitle label="Cuotas próximas (7 días)" count={filt(inst.upcoming).length} color="#d97706" />
+          <SectionTitle label="Cuotas próximas (5 días)" count={filt(inst.upcoming).length} color="#d97706" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {filt(inst.upcoming).map(i => <AlertInstallmentCard key={i.id} item={i} variant="upcoming" onPay={id => payInstallment.mutate(id)} isPaying={payInstallment.isPending} />)}
           </div>
@@ -128,7 +128,7 @@ export function AlertsPage() {
 
       {show('cuotas') && ci && filt(ci.upcoming).length > 0 && (
         <SectionBox border="#fde68a">
-          <SectionTitle label="Cuotas de financiación próximas (7 días)" count={filt(ci.upcoming).length} color="#d97706" />
+          <SectionTitle label="Cuotas de financiación próximas (5 días)" count={filt(ci.upcoming).length} color="#d97706" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {filt(ci.upcoming).map(c => (
               <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#fffbeb', borderRadius: '8px', border: '1px solid #fde68a' }}>

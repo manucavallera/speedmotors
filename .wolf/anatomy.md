@@ -1,6 +1,6 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-06-02T15:41:39.674Z
+> Auto-maintained by OpenWolf. Last scanned: 2026-06-05T13:23:59.753Z
 > Files: 345 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
@@ -18,7 +18,7 @@
 - `project_cuotas_fix_pendiente.md` (~557 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
-- `project_pendientes_2026_06_01.md` (~267 tok)
+- `project_pendientes_2026_06_01.md` (~368 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
 - `project_produccion_roadmap.md` — Fixes aplicados hoy (2026-05-06/07) (~541 tok)
@@ -387,7 +387,7 @@
 
 ## apps/frontend/src/components/credits/
 
-- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3625 tok)
+- `CreditDetailModal.tsx` — CreditDetailModal — renders modal (~3782 tok)
 - `CreditFormModal.tsx` — CreditFormModal — renders form, modal (~2732 tok)
 - `CreditPaymentModal.tsx` — CreditPaymentModal — renders form, modal (~679 tok)
 - `CreditsTable.tsx` — statusStyles — renders table (~1057 tok)
@@ -442,7 +442,7 @@
 
 - `SaleDetailModal.tsx` — invoiceColors — renders form, modal (~3922 tok)
 - `SaleFormModal.tsx` — SaleFormModal — renders form, modal (~5842 tok)
-- `SaleItemsEditor.tsx` — SaleItemsEditor (~2147 tok)
+- `SaleItemsEditor.tsx` — SaleItemsEditor (~2151 tok)
 - `SalesTable.tsx` — statusColors — renders table (~1301 tok)
 - `SaleTotalsPanel.tsx` — fmt — renders table (~2621 tok)
 
@@ -510,9 +510,9 @@
 - `account.ts` — Exports generateAccountStatement, generatePriceList (~1963 tok)
 - `credit.ts` — Exports generateCreditStatement (~2525 tok)
 - `helpers.ts` — Exports PdfSettings, getSettings (~162 tok)
-- `index.ts` (~102 tok)
+- `index.ts` (~110 tok)
 - `invoice.ts` — Exports generateInvoice (~2249 tok)
-- `receipt.ts` — Exports generateInstallmentReceipt, generateReceipt (~2014 tok)
+- `receipt.ts` — Exports generateInstallmentReceipt, generateAccountPaymentReceipt, generateReceipt (~2777 tok)
 - `remito.ts` — Exports generateRemito (~1942 tok)
 - `reservation.ts` — Exports generateReservationPdf, printReservation (~3274 tok)
 

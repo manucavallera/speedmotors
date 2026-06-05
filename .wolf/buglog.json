@@ -7045,6 +7045,104 @@
       "related_bugs": [],
       "occurrences": 4,
       "last_seen": "2026-06-02T15:41:06.143Z"
+    },
+    {
+      "id": "bug-440",
+      "timestamp": "2026-06-02T20:03:34.540Z",
+      "error_message": "Significant refactor of ",
+      "file": "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_pendientes_2026_06_01.md",
+      "root_cause": "4 lines replaced/restructured",
+      "fix": "Rewrote 16→16 lines (4 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-02T20:03:34.540Z"
+    },
+    {
+      "id": "bug-441",
+      "timestamp": "2026-06-05T13:07:53.649Z",
+      "error_message": "Wrong reference: in7Days should be in5Days",
+      "file": "apps/backend/src/alerts/alerts.service.ts",
+      "root_cause": "Used \"in7Days\" instead of \"in5Days\"",
+      "fix": "Changed in7Days → in5Days",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-05T13:08:54.074Z"
+    },
+    {
+      "id": "bug-442",
+      "timestamp": "2026-06-05T13:09:03.698Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "Had \"Cuotas próximas (7 días)\"",
+      "fix": "Changed to \"Cuotas próximas (5 días)\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-05T13:09:24.278Z"
+    },
+    {
+      "id": "bug-443",
+      "timestamp": "2026-06-05T13:11:37.148Z",
+      "error_message": "Escanear segundo producto en ventas re-agrega el primero y suma cantidad",
+      "file": "apps/frontend/src/components/sales/SaleItemsEditor.tsx",
+      "root_cause": "onKeyDown Enter llamaba searchBarcode(barcode) usando estado React. Scanner fisico teclea rapido y manda Enter antes de que el ultimo onChange commitee, asi el closure lee el codigo viejo (primer producto)",
+      "fix": "searchBarcode(e.currentTarget.value) -- leer valor vivo del DOM, no el estado",
+      "tags": [
+        "barcode",
+        "scanner",
+        "stale-state",
+        "ventas",
+        "react"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-05T13:11:37.148Z"
+    },
+    {
+      "id": "bug-444",
+      "timestamp": "2026-06-05T13:15:54.663Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/lib/pdf/receipt.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-05T13:15:54.663Z"
+    },
+    {
+      "id": "bug-445",
+      "timestamp": "2026-06-05T13:23:59.807Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-05T13:23:59.807Z"
     }
   ]
 }
