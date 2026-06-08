@@ -91,7 +91,7 @@ export class ProductsService {
       const chunk = rows.slice(i, i + CHUNK)
       const values = chunk.map(row => ({
         code: row.code,
-        name: row.name,
+        name: row.name || row.code,
         brand: row.brand ?? null,
         costPrice: (row.costPrice).toFixed(2),
         sellPrice: (row.sellPrice ?? row.costPrice * 1.3).toFixed(2),

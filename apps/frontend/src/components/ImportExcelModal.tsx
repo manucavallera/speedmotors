@@ -107,7 +107,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
   }
 
   function buildPreview() {
-    if (!mapping.code || !mapping.name || !mapping.costPrice) return
+    if (!mapping.code || !mapping.costPrice) return
     const markupFactor = 1 + (parseFloat(markup) || 30) / 100
     const rows: ParsedRow[] = rawRows.slice(0, 200).map(row => {
       const get = (col: string) => col ? String(row[headers.indexOf(col)] ?? '').trim() : ''
@@ -119,7 +119,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
         costPrice,
         sellPrice: mapping.sellPrice ? parseFloat(get(mapping.sellPrice).replace(',', '.')) || costPrice * markupFactor : costPrice * markupFactor,
       }
-    }).filter(r => r.code && r.name && r.costPrice > 0)
+    }).filter(r => r.code && r.costPrice > 0)
     setPreview(rows)
     setStep('preview')
   }
@@ -137,7 +137,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
         costPrice,
         sellPrice: mapping.sellPrice ? parseFloat(get(mapping.sellPrice).replace(',', '.')) || costPrice * markupFactor : costPrice * markupFactor,
       }
-    }).filter(r => r.code && r.name && r.costPrice > 0)
+    }).filter(r => r.code && r.costPrice > 0)
     setLoading(true)
     try {
       const res = await onImport(allRows)
@@ -184,7 +184,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <ColSelect field="code" label="Código *" headers={headers} mapping={mapping} onChange={handleColChange} />
-            <ColSelect field="name" label="Descripción / Nombre *" headers={headers} mapping={mapping} onChange={handleColChange} />
+            <ColSelect field="name" label="Descripción / Nombre (opcional)" headers={headers} mapping={mapping} onChange={handleColChange} />
             <ColSelect field="costPrice" label="Precio costo *" headers={headers} mapping={mapping} onChange={handleColChange} />
             <ColSelect field="sellPrice" label="Precio venta (opcional)" headers={headers} mapping={mapping} onChange={handleColChange} />
             <ColSelect field="brand" label="Marca (opcional)" headers={headers} mapping={mapping} onChange={handleColChange} />
@@ -196,7 +196,7 @@ export function ImportExcelModal({ onClose, onImport }: Props) {
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
             <button onClick={() => setStep('upload')} style={btnSecondary}>Volver</button>
             <button onClick={buildPreview} style={btnPrimary}
-              disabled={!mapping.code || !mapping.name || !mapping.costPrice}>
+              disabled={!mapping.code || !mapping.costPrice}>
               Ver preview →
             </button>
           </div>
