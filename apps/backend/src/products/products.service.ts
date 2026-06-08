@@ -103,8 +103,7 @@ export class ProductsService {
             .onConflictDoUpdate({
               target: products.code,
               set: {
-                name: sql`excluded.name`,
-                brand: sql`COALESCE(excluded.brand, ${products.brand})`,
+                // producto existente: solo precios — NO pisar nombre ni marca
                 costPrice: sql`excluded.cost_price`,
                 sellPrice: sql`excluded.sell_price`,
                 active: true,
