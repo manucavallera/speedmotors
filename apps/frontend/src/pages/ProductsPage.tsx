@@ -55,7 +55,7 @@ export function ProductsPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1, minWidth: '180px' }}>
           <span style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Buscar</span>
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre, código..." style={{ ...inputStyle }} />
+          <input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Nombre, código, cód. barras..." style={{ ...inputStyle }} />
         </div>
 
         <div className="filter-sep" style={{ width: '1px', background: '#e2e8f0', alignSelf: 'stretch' }} />

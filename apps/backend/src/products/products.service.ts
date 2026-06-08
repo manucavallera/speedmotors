@@ -13,7 +13,7 @@ export class ProductsService {
     const offset = (page - 1) * limit
 
     const conditions = []
-    if (filters?.search) conditions.push(or(ilike(products.name, `%${filters.search}%`), ilike(products.code, `%${filters.search}%`)))
+    if (filters?.search) conditions.push(or(ilike(products.name, `%${filters.search}%`), ilike(products.code, `%${filters.search}%`), ilike(products.barcode, `%${filters.search}%`)))
     if (filters?.categoryId) conditions.push(eq(products.categoryId, filters.categoryId))
     if (filters?.supplierId) conditions.push(eq(products.supplierId, filters.supplierId))
     if (filters?.ingresoTipo) conditions.push(eq(products.ingresoTipo, filters.ingresoTipo as 'blanco' | 'negro'))
