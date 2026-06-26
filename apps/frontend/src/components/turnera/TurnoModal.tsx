@@ -46,7 +46,7 @@ export function TurnoModal({ units, services, date, onClose, onSubmit, submittin
   }
 
   return (
-    <Modal title="Agendar botadura" onClose={onClose}>
+    <Modal title="Agendar salida al agua" onClose={onClose}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <FormField label="Lancha (guardería)">
           <SearchableSelect

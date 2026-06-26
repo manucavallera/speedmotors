@@ -43,7 +43,7 @@ export class TurneraService {
     const sameDay = await db.select().from(rentalSlots)
       .where(and(eq(rentalSlots.date, dto.date), eq(rentalSlots.status, 'reservado')))
     const overlap = sameDay.some(s => dto.startTime < s.endTime && dto.endTime > s.startTime)
-    if (overlap) throw new ConflictException('Ya hay otra botadura en ese horario')
+    if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
 
     const [slot] = await db.insert(rentalSlots).values({
       unitId: dto.unitId,
@@ -92,7 +92,7 @@ export class TurneraService {
         await tx.insert(cashMovements).values({
           sessionId: session.id, userId, type: 'deposito',
           amount: Number(row.price).toString(),
-          reason: `Botadura — ${row.clientName ?? 'sin cliente'} · ${row.boatName ?? ''}`,
+          reason: `Salida al agua — ${row.clientName ?? 'sin cliente'} · ${row.boatName ?? ''}`,
         })
       }
       return slot

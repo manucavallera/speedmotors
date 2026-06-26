@@ -115,7 +115,7 @@ export class CashService {
     const rubroDe = (reason: string | null) => {
       if (!reason) return 'Otros'
       if (reason.startsWith('Guardería')) return 'Guardería'
-      if (reason.startsWith('Botadura')) return 'Turnera'
+      if (reason.startsWith('Salida al agua') || reason.startsWith('Botadura')) return 'Turnera'
       if (reason.startsWith('Proveeduría')) return 'Proveeduría'
       return 'Otros'
     }

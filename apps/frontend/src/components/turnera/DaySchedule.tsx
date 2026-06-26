@@ -28,7 +28,7 @@ function rowStyle(s: RentalSlot): React.CSSProperties {
 
 export function DaySchedule({ slots, onCharge, onCancel, onRemove }: Props) {
   if (!slots.length) {
-    return <div style={{ padding: '40px', textAlign: 'center', color: '#cbd5e1', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>Sin botaduras este día</div>
+    return <div style={{ padding: '40px', textAlign: 'center', color: '#cbd5e1', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>Sin salidas al agua este día</div>
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -45,7 +45,7 @@ export function DaySchedule({ slots, onCharge, onCancel, onRemove }: Props) {
               {!s.paidAt && <button onClick={() => onCancel(s.id)} style={{ fontSize: '11px', color: '#64748b', background: 'white', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '2px 8px', cursor: 'pointer' }}>Cancelar</button>}
             </span>
           )}
-          <button onClick={() => { if (window.confirm('¿Eliminar esta botadura?')) onRemove(s.id) }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#cbd5e1', fontSize: '15px' }}>×</button>
+          <button onClick={() => { if (window.confirm('¿Eliminar esta salida?')) onRemove(s.id) }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#cbd5e1', fontSize: '15px' }}>×</button>
         </div>
       ))}
     </div>

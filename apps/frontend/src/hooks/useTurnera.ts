@@ -31,7 +31,7 @@ export function useTurnera(date: string) {
 
   const createSlot = useMutation({
     mutationFn: (data: SlotForm) => api.post('/turnera/slots', data),
-    onSuccess: () => { invalidate(); toast.success('Botadura agendada') },
+    onSuccess: () => { invalidate(); toast.success('Salida agendada') },
     onError: (err: any) => toast.error(apiError(err)),
   })
   const setStatus = useMutation({
@@ -46,7 +46,7 @@ export function useTurnera(date: string) {
   })
   const removeSlot = useMutation({
     mutationFn: (id: number) => api.delete(`/turnera/slots/${id}`),
-    onSuccess: () => { invalidate(); toast.success('Botadura eliminada') },
+    onSuccess: () => { invalidate(); toast.success('Salida eliminada') },
     onError: (err: any) => toast.error(apiError(err)),
   })
 

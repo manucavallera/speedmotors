@@ -19,14 +19,14 @@ export function TurneraPage() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: '160px' }}>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Turnera</h1>
-          <div style={{ fontSize: '13px', color: '#94a3b8' }}>Botaduras · {reserved} este día</div>
+          <div style={{ fontSize: '13px', color: '#94a3b8' }}>Salidas al agua · {reserved} este día</div>
         </div>
         <input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ ...inputStyle, width: 'auto' }} />
         <button
           style={{ padding: '9px 18px', fontSize: '13.5px', fontWeight: 600, background: 'linear-gradient(135deg,#3b82f6,#1d4ed8)', color: 'white', border: 'none', borderRadius: '9px', cursor: 'pointer' }}
           onClick={() => setShowModal(true)}
           disabled={!units.length}
-        >+ Botadura</button>
+        >+ Salida al agua</button>
       </div>
 
       {!units.length ? (
