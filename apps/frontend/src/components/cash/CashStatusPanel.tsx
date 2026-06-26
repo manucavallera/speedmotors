@@ -70,6 +70,20 @@ export function CashStatusPanel({ summary, isLoading, onOpen, onClose, isPending
             ))}
           </div>
 
+          {summary.depositsByRubro?.length > 0 && (
+            <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px' }}>
+              <div style={{ color: '#94a3b8', fontSize: '11px', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase' }}>Ingresos por rubro</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {summary.depositsByRubro.map((r: { rubro: string; total: number }) => (
+                  <div key={r.rubro} style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '8px', padding: '8px 12px' }}>
+                    <div style={{ color: '#94a3b8', fontSize: '10px', marginBottom: '2px' }}>{r.rubro}</div>
+                    <div style={{ color: '#4ade80', fontSize: '14px', fontWeight: 700 }}>${Number(r.total).toLocaleString('es-AR')}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {summary.movements?.length > 0 && (
             <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px' }}>
               <div style={{ color: '#94a3b8', fontSize: '11px', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase' }}>Movimientos manuales</div>

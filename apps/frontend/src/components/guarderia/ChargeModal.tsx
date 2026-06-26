@@ -3,6 +3,7 @@ import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../../components/ui/FormField'
 import { type UnitDetail, type ChargeForm, type StorageService, type ChargeItemForm } from '../../types/guarderia.types'
+import { generateGuarderiaReceipt } from '../../lib/pdf/receipt'
 
 interface Props {
   unit: UnitDetail
@@ -20,6 +21,7 @@ export function ChargeModal({ unit, services, onClose, onSubmit, submitting }: P
   const [picked, setPicked] = useState<Record<number, string>>({})
   const [periodLabel, setPeriodLabel] = useState('')
   const [paid, setPaid] = useState(true)
+  const [printReceipt, setPrintReceipt] = useState(true)
 
   function toggle(s: StorageService) {
     setPicked(prev => {
@@ -43,6 +45,19 @@ export function ChargeModal({ unit, services, onClose, onSubmit, submitting }: P
     }
     if (!items.length) { toast.error('Cargá al menos un ítem'); return }
     onSubmit({ items, periodLabel: periodLabel.trim() || undefined, paid })
+    // Recibo PDF con el mismo detalle del cobro
+    if (printReceipt) {
+      generateGuarderiaReceipt({
+        clientName: unit.clientName,
+        unitDescription: unit.description,
+        spotCode: unit.spotCode,
+        periodLabel: periodLabel.trim() || null,
+        items: items.map(it => ({ concept: it.concept, amount: it.amount })),
+        total,
+        paymentDate: new Date(),
+        paid,
+      })
+    }
   }
 
   return (
@@ -87,6 +102,11 @@ export function ChargeModal({ unit, services, onClose, onSubmit, submitting }: P
         <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: '#374151', cursor: 'pointer' }}>
           <input type="checkbox" checked={paid} onChange={e => setPaid(e.target.checked)} />
           Cobrado ahora (si lo destildás, queda como deuda en la cuenta del cliente)
+        </label>
+
+        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: '#374151', cursor: 'pointer' }}>
+          <input type="checkbox" checked={printReceipt} onChange={e => setPrintReceipt(e.target.checked)} />
+          Generar recibo PDF
         </label>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '4px' }}>

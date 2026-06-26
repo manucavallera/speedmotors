@@ -18,6 +18,9 @@ export interface AlertsData {
     overdue: Array<{ id: number; creditId: number; number: number; amount: string; dueDate: string; clientName: string | null; clientPhone: string | null }>
     upcoming: Array<{ id: number; creditId: number; number: number; amount: string; dueDate: string; clientName: string | null; clientPhone: string | null }>
   }
+  guarderia: {
+    overdue: Array<{ id: number; amount: string; periodLabel: string | null; chargeDate: string; clientName: string | null; clientPhone: string | null; unitDescription: string | null; spotCode: string | null }>
+  }
   reservations: Array<{ id: number; reservationNumber: string | null; clientName: string; brand: string; model: string | null; depositAmount: string | null; createdAt: string }>
   purchaseOrders: Array<{ id: number; supplierName: string | null; total: string; status: string; createdAt: string }>
   reminders: {
@@ -80,6 +83,19 @@ export function usePayInstallment() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['alerts'] })
       qc.invalidateQueries({ queryKey: ['installments-pending'] })
+    },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
+}
+
+export function usePayGuarderiaCharge() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => api.patch(`/guarderia/charges/${id}/pay`).then(r => r.data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['alerts'] })
+      qc.invalidateQueries({ queryKey: ['guarderia'] })
+      toast.success('Cobro saldado')
     },
     onError: (err: any) => toast.error(apiError(err)),
   })

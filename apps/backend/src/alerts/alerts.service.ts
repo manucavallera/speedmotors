@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { db } from '../db'
-import { installments, sales, clients, reservations, purchaseOrders, reminders, suppliers, creditInstallments, credits } from '../db/schema'
+import { installments, sales, clients, reservations, purchaseOrders, reminders, suppliers, creditInstallments, credits, storageCharges, storageUnits, storageSpots } from '../db/schema'
 import { eq, lt, lte, and, gte, desc, inArray, isNull } from 'drizzle-orm'
 import { CreditsService } from '../credits/credits.service'
 
@@ -14,7 +14,7 @@ export class AlertsService {
     const in7Days = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
     const ago30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-    const [overdueInstallments, upcomingInstallments, activeReservations, pendingOrders, allReminders, overdueCreditInsts, upcomingCreditInsts, allCreditsCC] =
+    const [overdueInstallments, upcomingInstallments, activeReservations, pendingOrders, allReminders, overdueCreditInsts, upcomingCreditInsts, allCreditsCC, guarderiaDebt] =
       await Promise.all([
         db
           .select({
@@ -127,6 +127,26 @@ export class AlertsService {
           .where(and(eq(credits.status, 'activo'), eq(credits.creditType, 'saldo_compuesto')))
           .orderBy(credits.firstDueDate)
           .limit(100),
+
+        // Guardería: cobros impagos (paid_at null) = quién debe la cuna/servicios
+        db
+          .select({
+            id: storageCharges.id,
+            amount: storageCharges.amount,
+            periodLabel: storageCharges.periodLabel,
+            chargeDate: storageCharges.chargeDate,
+            clientName: clients.name,
+            clientPhone: clients.phone,
+            unitDescription: storageUnits.description,
+            spotCode: storageSpots.code,
+          })
+          .from(storageCharges)
+          .leftJoin(storageUnits, eq(storageUnits.id, storageCharges.storageUnitId))
+          .leftJoin(clients, eq(clients.id, storageUnits.clientId))
+          .leftJoin(storageSpots, eq(storageSpots.id, storageUnits.spotId))
+          .where(isNull(storageCharges.paidAt))
+          .orderBy(desc(storageCharges.chargeDate))
+          .limit(100),
       ])
 
     // Auto-mark reminders as vencido if past due
@@ -164,7 +184,7 @@ export class AlertsService {
     const ccUpcoming = ccAll.filter(c => c.dueDate && new Date(c.dueDate) >= now && new Date(c.dueDate) <= in5Days)
     const ccCurrent = ccAll.filter(c => !c.dueDate || new Date(c.dueDate) > in5Days)
 
-    const criticalCount = overdueInstallments.length + remindersOverdue.length + overdueCreditInsts.length + ccOverdue.length
+    const criticalCount = overdueInstallments.length + remindersOverdue.length + overdueCreditInsts.length + ccOverdue.length + guarderiaDebt.length
     const upcomingCount = upcomingInstallments.length + remindersUpcoming.length + activeReservations.length + upcomingCreditInsts.length + ccUpcoming.length
     const totalCount = criticalCount + upcomingCount + pendingOrders.length + ccCurrent.length
 
@@ -173,6 +193,7 @@ export class AlertsService {
       installments: { overdue: overdueInstallments, upcoming: upcomingInstallments },
       creditInstallments: { overdue: overdueCreditInsts, upcoming: upcomingCreditInsts },
       cuentaCorriente: { overdue: ccOverdue, upcoming: ccUpcoming, current: ccCurrent },
+      guarderia: { overdue: guarderiaDebt },
       reservations: activeReservations,
       purchaseOrders: pendingOrders,
       reminders: { overdue: remindersOverdue, upcoming: remindersUpcoming, pending: remindersPending },

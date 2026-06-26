@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAlerts, useReminders, usePayInstallment } from '../hooks/useAlerts'
+import { useAlerts, useReminders, usePayInstallment, usePayGuarderiaCharge } from '../hooks/useAlerts'
 import type { CreateReminderData, Reminder } from '../hooks/useAlerts'
 import { ReminderFormModal } from '../components/alerts/ReminderFormModal'
 import { InfoBanner } from '../components/ui/InfoBanner'
@@ -52,6 +52,7 @@ export function AlertsPage() {
   const { data, isLoading } = useAlerts()
   const { create, update, markDone, remove } = useReminders()
   const payInstallment = usePayInstallment()
+  const payGuarderia = usePayGuarderiaCharge()
   const [modal, setModal] = useState<'new' | 'edit' | false>(false)
   const [editing, setEditing] = useState<Reminder | null>(null)
   const [filter, setFilter] = useState<FilterType>('todos')
@@ -61,7 +62,7 @@ export function AlertsPage() {
 
   if (isLoading || !data) return <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>Cargando alertas...</div>
 
-  const { summary: s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem } = data
+  const { summary: s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, guarderia: gd, reservations: res, purchaseOrders: po, reminders: rem } = data
 
   const q = search.toLowerCase()
   const filt = <T extends { clientName?: string | null; title?: string | null; supplierName?: string | null; brand?: string | null; model?: string | null }>(arr: T[]) =>
@@ -87,7 +88,7 @@ export function AlertsPage() {
       </InfoBanner>
 
       <AlertSummaryCards summary={s} />
-      <AlertFilters active={filter} onChange={setFilter} search={search} onSearch={setSearch} counts={{ cuotas: inst.overdue.length + inst.upcoming.length + (ci?.overdue.length ?? 0) + (ci?.upcoming.length ?? 0) + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0) + (cc?.current.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
+      <AlertFilters active={filter} onChange={setFilter} search={search} onSearch={setSearch} counts={{ cuotas: inst.overdue.length + inst.upcoming.length + (ci?.overdue.length ?? 0) + (ci?.upcoming.length ?? 0) + (cc?.overdue.length ?? 0) + (cc?.upcoming.length ?? 0) + (cc?.current.length ?? 0) + (gd?.overdue.length ?? 0), recordatorios: rem.overdue.length + rem.upcoming.length + rem.pending.length, reservas: res.length, ordenes: po.length }} />
 
       {show('cuotas') && filt(inst.overdue).length > 0 && (
         <SectionBox border="#fecaca">
@@ -196,6 +197,29 @@ export function AlertsPage() {
                 </div>
                 <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
                 <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que tenés un saldo de $${Number(c.amount).toLocaleString('es-AR')} en tu cuenta corriente con SpeedMotors${c.dueDate ? `, con vencimiento el ${fmtDate(c.dueDate)}` : ''}. ¡Gracias!`} />
+              </div>
+            ))}
+          </div>
+        </SectionBox>
+      )}
+
+      {show('cuotas') && gd && filt(gd.overdue).length > 0 && (
+        <SectionBox border="#fecaca">
+          <SectionTitle label="Guardería impaga" count={filt(gd.overdue).length} color="#dc2626" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {filt(gd.overdue).map(c => (
+              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', background: '#fff5f5', borderRadius: '8px', border: '1px solid #fecaca' }}>
+                <div style={{ width: '36px', height: '36px', background: '#dc2626', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '15px', flexShrink: 0 }}>⚓</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600, fontSize: '13.5px', color: '#0f172a' }}>{c.clientName || 'Cliente'}</div>
+                  <div style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600 }}>{c.unitDescription || 'Lancha'}{c.spotCode ? ` · Lugar ${c.spotCode}` : ''}{c.periodLabel ? ` · ${c.periodLabel}` : ''}</div>
+                </div>
+                <div style={{ fontWeight: 700, color: '#dc2626', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
+                <button onClick={() => payGuarderia.mutate(c.id)} disabled={payGuarderia.isPending}
+                  style={{ padding: '6px 12px', background: '#16a34a', color: 'white', border: 'none', borderRadius: '7px', fontSize: '12px', fontWeight: 600, cursor: 'pointer', flexShrink: 0 }}>
+                  Saldar
+                </button>
+                <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que tenés un saldo pendiente de guardería con SpeedMotors por $${Number(c.amount).toLocaleString('es-AR')}${c.periodLabel ? ` (${c.periodLabel})` : ''}. Te pedimos regularizar el pago. ¡Gracias!`} />
               </div>
             ))}
           </div>

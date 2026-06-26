@@ -9,6 +9,16 @@ interface Props {
 
 const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
 
+// Etiqueta de estado de la botadura
+const STATUS_LABEL: Record<RentalSlot['status'], string> = { reservado: 'Reservado', completado: 'Completado', cancelado: 'Cancelado' }
+
+// Estilo del badge de estado
+function badgeStyle(s: RentalSlot): React.CSSProperties {
+  if (s.status === 'cancelado') return { background: '#e2e8f0', color: '#64748b' }
+  if (s.paidAt || s.status === 'completado') return { background: '#bbf7d0', color: '#15803d' }
+  return { background: '#bfdbfe', color: '#1d4ed8' }
+}
+
 // Color del chip según estado de la botadura
 function rowStyle(s: RentalSlot): React.CSSProperties {
   if (s.status === 'cancelado') return { background: '#f8fafc', border: '1px solid #e2e8f0', color: '#94a3b8', textDecoration: 'line-through' }
@@ -25,6 +35,7 @@ export function DaySchedule({ slots, onCharge, onCancel, onRemove }: Props) {
       {slots.map(s => (
         <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', ...rowStyle(s), borderRadius: '9px', padding: '9px 12px' }}>
           <span style={{ fontWeight: 700, fontSize: '13px', minWidth: '90px' }}>{s.startTime}–{s.endTime}</span>
+          <span style={{ ...badgeStyle(s), fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.3px', borderRadius: '5px', padding: '2px 7px', textDecoration: 'none' }}>{STATUS_LABEL[s.status]}</span>
           <span style={{ fontSize: '13px', fontWeight: 600, flex: 1, minWidth: '120px' }}>{s.boatName ?? 'lancha'} <span style={{ fontWeight: 400, color: '#64748b' }}>· {s.clientName ?? 'sin cliente'}</span></span>
           {Number(s.price) > 0 && <span style={{ fontSize: '12.5px', fontWeight: 600 }}>{fmt(Number(s.price))}</span>}
           {s.paidAt && <span style={{ fontSize: '11px', fontWeight: 700 }}>✓ cobrado</span>}

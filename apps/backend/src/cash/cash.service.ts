@@ -111,6 +111,22 @@ export class CashService {
 
     const movements = await this.getMovements(session.id)
 
+    // Desglose de depósitos por rubro (según prefijo del motivo). Sirve para el cierre diario.
+    const rubroDe = (reason: string | null) => {
+      if (!reason) return 'Otros'
+      if (reason.startsWith('Guardería')) return 'Guardería'
+      if (reason.startsWith('Botadura')) return 'Turnera'
+      if (reason.startsWith('Proveeduría')) return 'Proveeduría'
+      return 'Otros'
+    }
+    const rubroMap = new Map<string, number>()
+    for (const m of movements) {
+      if (m.type !== 'deposito') continue
+      const k = rubroDe(m.reason)
+      rubroMap.set(k, (rubroMap.get(k) ?? 0) + Number(m.amount))
+    }
+    const depositsByRubro = [...rubroMap.entries()].map(([rubro, total]) => ({ rubro, total }))
+
     return {
       session,
       salesTotal,
@@ -119,6 +135,7 @@ export class CashService {
       expensesCount: parseInt(expensesData[0]?.count || '0'),
       depositos,
       retiros,
+      depositsByRubro,
       movements,
       currentBalance: Number(session.openingBalance) + salesTotal - expensesTotal + depositos - retiros,
     }

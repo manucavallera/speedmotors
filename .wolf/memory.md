@@ -3057,3 +3057,37 @@
 |------|--------|---------|---------|--------|
 | 19:46 | Created apps/frontend/src/pages/TurneraPage.tsx | — | ~736 |
 | 19:47 | Session end: 1 writes across 1 files (TurneraPage.tsx) | 2 reads | ~2160 tok |
+| 19:51 | fix turnera FE concepto viejo + commit 3 módulos marina | TurneraPage.tsx, buglog | typecheck 0 err, commit d5d5bb8 | ~9k |
+| 19:51 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified o() | ~539 |
+| 19:51 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:54 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:55 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:55 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:56 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:56 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 19:57 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 20:10 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 20:12 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 20:16 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 20:17 | Session end: 2 writes across 2 files (TurneraPage.tsx, project_guarderia_ampliacion.md) | 3 reads | ~2738 tok |
+| 20:18 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | added 2 condition(s) | ~289 |
+| 20:18 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | 4→5 lines | ~220 |
+| 20:19 | Edited apps/backend/src/alerts/alerts.service.ts | inline fix | ~53 |
+| 20:19 | Edited apps/backend/src/alerts/alerts.service.ts | 2→2 lines | ~58 |
+| 20:19 | Edited apps/backend/src/alerts/alerts.service.ts | expanded (+20 lines) | ~296 |
+| 20:19 | Edited apps/backend/src/alerts/alerts.service.ts | 13→14 lines | ~286 |
+| 20:19 | Edited apps/frontend/src/hooks/useAlerts.ts | 1→4 lines | ~117 |
+| 20:19 | Edited apps/frontend/src/hooks/useAlerts.ts | modified usePayGuarderiaCharge() | ~132 |
+| 20:20 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~30 |
+| 20:20 | Edited apps/frontend/src/pages/AlertsPage.tsx | 1→2 lines | ~26 |
+| 20:20 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~47 |
+| 20:20 | Edited apps/frontend/src/pages/AlertsPage.tsx | expanded (+23 lines) | ~589 |
+| 20:20 | Edited apps/frontend/src/pages/AlertsPage.tsx | inline fix | ~102 |
+| 20:21 | Edited apps/backend/src/cash/cash.service.ts | added nullish coalescing | ~326 |
+| 20:21 | Edited apps/frontend/src/components/cash/CashStatusPanel.tsx | expanded (+14 lines) | ~378 |
+| 20:22 | Edited apps/frontend/src/lib/pdf/receipt.ts | added 1 condition(s) | ~802 |
+| 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | added 1 import(s) | ~53 |
+| 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | 2→3 lines | ~43 |
+| 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | added 1 condition(s) | ~165 |
+| 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | 4→9 lines | ~178 |
+| 20:34 | 4 features marina: estado turnera, alertas guarderia, cierre x rubro, recibo PDF | alerts/cash service, DaySchedule, AlertsPage, CashStatusPanel, receipt, ChargeModal, useAlerts | typecheck 0err, API verificado | ~14k |

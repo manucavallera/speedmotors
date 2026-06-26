@@ -128,6 +128,66 @@ export function generateAccountPaymentReceipt(p: {
   doc.save(`recibo-pago-${(p.clientName || 'cliente').replace(/\s+/g, '-').toLowerCase()}-${new Date(p.paymentDate).toISOString().slice(0, 10)}.pdf`)
 }
 
+// Recibo de cobro de guardería: cuna mensual + servicios anexos
+export function generateGuarderiaReceipt(p: {
+  clientName: string | null
+  unitDescription?: string | null
+  spotCode?: string | null
+  periodLabel?: string | null
+  items: { concept: string; amount: number | string }[]
+  total: number
+  paymentDate: Date | string
+  paid: boolean
+}) {
+  const doc = new jsPDF({ format: 'a5', unit: 'mm' })
+  const w = doc.internal.pageSize.getWidth()
+  const cfg = getSettings()
+  const fmt = (n: number) => `$${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
+  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+
+  doc.setFillColor(15, 23, 42)
+  doc.rect(0, 0, w, 34, 'F')
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(17); doc.setFont('helvetica', 'bold')
+  doc.text(cfg.businessName, 10, 12)
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(148, 163, 184)
+  doc.text(p.paid ? 'RECIBO DE GUARDERÍA' : 'COMPROBANTE DE GUARDERÍA (DEUDA)', 10, 20)
+  doc.text(fmtDate(p.paymentDate), w - 10, 20, { align: 'right' })
+
+  let y = 44
+  doc.setTextColor(15, 23, 42)
+  doc.setFontSize(13); doc.setFont('helvetica', 'bold')
+  doc.text(p.clientName || 'Sin cliente', 10, y); y += 8
+
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139)
+  const sub = [p.unitDescription, p.spotCode ? `Lugar ${p.spotCode}` : '', p.periodLabel].filter(Boolean).join('  ·  ')
+  if (sub) { doc.text(sub, 10, y); y += 10 } else { y += 2 }
+
+  doc.setDrawColor(226, 232, 240); doc.line(10, y, w - 10, y); y += 8
+
+  autoTable(doc, {
+    startY: y,
+    body: p.items.map((it) => [it.concept, fmt(Number(it.amount))]),
+    styles: { fontSize: 9, cellPadding: 3 },
+    columnStyles: { 0: { fontStyle: 'bold', textColor: [100, 116, 139] }, 1: { halign: 'right' } },
+    margin: { left: 10, right: 10 },
+    theme: 'plain',
+  })
+  y = (doc as any).lastAutoTable.finalY + 4
+
+  doc.setDrawColor(15, 23, 42); doc.line(w - 65, y, w - 10, y); y += 6
+  doc.setFontSize(13); doc.setFont('helvetica', 'bold'); doc.setTextColor(15, 23, 42)
+  doc.text(p.paid ? 'TOTAL COBRADO:' : 'TOTAL ADEUDADO:', 10, y)
+  doc.text(fmt(p.total), w - 10, y, { align: 'right' })
+
+  const pageH = doc.internal.pageSize.getHeight()
+  doc.setFontSize(7); doc.setTextColor(148, 163, 184); doc.setFont('helvetica', 'normal')
+  const footerParts = [cfg.businessName, cfg.cuit ? `CUIT ${cfg.cuit}` : '', cfg.phone].filter(Boolean)
+  doc.text(footerParts.join(' · '), w / 2, pageH - 8, { align: 'center' })
+
+  doc.save(`recibo-guarderia-${(p.clientName || 'cliente').replace(/\s+/g, '-').toLowerCase()}-${new Date(p.paymentDate).toISOString().slice(0, 10)}.pdf`)
+}
+
 export function generateReceipt(sale: any, client?: any) {
   const doc = new jsPDF({ format: 'a5', unit: 'mm' })
   const w = doc.internal.pageSize.getWidth()
