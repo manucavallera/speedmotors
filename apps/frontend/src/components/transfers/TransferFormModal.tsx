@@ -49,7 +49,7 @@ export function TransferFormModal({ editing, onClose, onSubmit, isPending }: Pro
 
   const { data: vehiclesData } = useQuery({ queryKey: ['vehicles'], queryFn: () => api.get('/vehicles').then(r => r.data) })
   const vehicles = vehiclesData?.items ?? vehiclesData ?? []
-  const { data: clientsData } = useQuery({ queryKey: ['clients'], queryFn: () => api.get('/clients').then(r => r.data) })
+  const { data: clientsData } = useQuery({ queryKey: ['clients'], queryFn: () => api.get('/clients', { params: { type: 'concesionaria' } }).then(r => r.data) })
   const clients = clientsData?.items ?? clientsData ?? []
 
   function handleVehicleChange(id: string) {

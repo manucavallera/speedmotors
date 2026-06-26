@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-06-05T13:23:59.753Z
-> Files: 345 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-06-26T19:46:36.485Z
+> Files: 391 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -12,10 +12,11 @@
 
 - `feedback_component_size.md` (~164 tok)
 - `feedback_menos_preguntas.md` (~300 tok)
-- `MEMORY.md` — Memory Index (~579 tok)
+- `MEMORY.md` — Memory Index (~619 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
 - `project_cuotas_fix_pendiente.md` (~557 tok)
+- `project_guarderia_ampliacion.md` — Decisiones de diseño Guardería (2026-06-18) (~2252 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
 - `project_pendientes_2026_06_01.md` (~368 tok)
@@ -66,9 +67,13 @@
 - `AUDIT_REPORT.md` — Auditoría SpeedMotors — 2026-05-11 (~4929 tok)
 - `AUDIT.md` — AUDIT — SpeedMotors (~3727 tok)
 - `CLAUDE.md` — OpenWolf (~718 tok)
+- `COTIZACION-guarderia.md` — Cotización — Ampliación del sistema (~553 tok)
 - `docker-compose.yml` — Docker Compose services (~359 tok)
+- `mockup-guarderia.html` — Guardería Náutica — Mapa de Lugares (~2923 tok)
 - `package-lock.json` — npm lock file (~177904 tok)
 - `package.json` — Node.js package manifest (~82 tok)
+- `PREGUNTAS-tio.md` — Preguntas para definir el sistema (guardería + turnera + proveeduría) (~430 tok)
+- `presupuesto-guarderia.html` (~1450 tok)
 
 ## .claude/
 
@@ -153,6 +158,10 @@
 - `0027_credits_cuotas.sql` — Tipo de crédito: saldo compuesto (viejo) o cuotas simples (nuevo) (~257 tok)
 - `0028_credits_principal_amount.sql` — Monto base (sin interés). Si paga antes de 20 días previos al vto se cobra principal_amount en lugar (~51 tok)
 - `0029_sale_cuenta_corriente.sql` — Add cuenta_corriente to sale_type enum (~67 tok)
+- `0030_guarderia_module.sql` — Guardería náutica: tipo de cliente + lugares + unidades guardadas + cobros (~532 tok)
+- `0031_proveeduria_module.sql` — Proveeduría: área de producto + ventas POS propias (~276 tok)
+- `0032_turnera_module.sql` — Turnera: alquiler de lanchas por franjas horarias (~322 tok)
+- `0033_guarderia_servicios_botaduras.sql` — Rework guardería/turnera tras feedback del cliente (2026-06-25) (~452 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -167,7 +176,7 @@
 
 - `app.controller.spec.ts` — Declares app (~183 tok)
 - `app.controller.ts` — Exports AppController (~122 tok)
-- `app.module.ts` — Exports AppModule (~615 tok)
+- `app.module.ts` — Exports AppModule (~687 tok)
 - `app.service.ts` — Exports AppService (~43 tok)
 - `main.ts` — Declares bootstrap (~370 tok)
 
@@ -195,10 +204,10 @@
 
 ## apps/backend/src/clients/
 
-- `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~160 tok)
-- `clients.controller.ts` — Exports ClientsController (~876 tok)
+- `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~186 tok)
+- `clients.controller.ts` — Exports ClientsController (~888 tok)
 - `clients.module.ts` — Exports ClientsModule (~107 tok)
-- `clients.service.ts` — Exports ClientsService (~3309 tok)
+- `clients.service.ts` — Exports ClientsService (~3368 tok)
 
 ## apps/backend/src/credits/
 
@@ -211,24 +220,27 @@
 ## apps/backend/src/db/
 
 - `cash.schema.ts` — Exports cashSessions, cashMovements (~445 tok)
-- `catalog.schema.ts` — Exports categories, suppliers, products (~596 tok)
+- `catalog.schema.ts` — Exports categories, suppliers, products (~628 tok)
 - `client-payments.schema.ts` — Exports clientPayments (~261 tok)
-- `clients.schema.ts` — Exports clients (~195 tok)
+- `clients.schema.ts` — Exports clients (~226 tok)
 - `credits.schema.ts` — Exports credits, creditPayments, creditInterestCharges, creditInstallments (~886 tok)
 - `db.module.ts` — Exports DbModule (~56 tok)
-- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 19 more (~697 tok)
+- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 23 more (~804 tok)
 - `expenses.schema.ts` — Exports expenses (~231 tok)
 - `index.ts` — Exports db (~73 tok)
 - `orders.schema.ts` — Exports purchaseOrders, purchaseOrderItems (~484 tok)
+- `proveeduria.schema.ts` — Exports proveeduriaSales, proveeduriaSaleItems (~324 tok)
 - `quotes.schema.ts` — Exports quotes, quoteItems (~466 tok)
 - `RELATIONS_MAP.md` — DB Relations Map — SpeedMotors (~657 tok)
 - `relations.ts` — Exports categoriesRelations, productsRelations, salesRelations, saleItemsRelations (~458 tok)
 - `reminders.schema.ts` — Exports reminders (~255 tok)
 - `reservations.schema.ts` — Exports reservations (~862 tok)
 - `sales.schema.ts` — Exports sales, saleItems, installments (~1038 tok)
-- `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~206 tok)
+- `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~236 tok)
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
+- `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~926 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
+- `turnera.schema.ts` — Exports rentalSlots (~396 tok)
 - `types.ts` — Exports User, NewUser, Client, NewClient + 19 more (~608 tok)
 - `users.schema.ts` — Exports users (~184 tok)
 - `vehicles.schema.ts` — Exports vehicles (~380 tok)
@@ -245,6 +257,13 @@
 - `expenses.module.ts` — Exports ExpensesModule (~83 tok)
 - `expenses.service.ts` — Exports ExpensesService (~629 tok)
 
+## apps/backend/src/guarderia/
+
+- `guarderia.controller.ts` — Exports GuarderiaController (~533 tok)
+- `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, ServiceDto, ChargeItemDto, ChargeDto (~467 tok)
+- `guarderia.module.ts` — Exports GuarderiaModule (~97 tok)
+- `guarderia.service.ts` — Exports GuarderiaService (~2760 tok)
+
 ## apps/backend/src/notifications/
 
 - `notifications.controller.ts` — Exports NotificationsController (~187 tok)
@@ -254,9 +273,16 @@
 ## apps/backend/src/products/
 
 - `product.dto.ts` — Exports CreateProductDto, UpdateProductDto (~322 tok)
-- `products.controller.ts` — Exports ProductsController (~936 tok)
+- `products.controller.ts` — Exports ProductsController (~949 tok)
 - `products.module.ts` — Exports ProductsModule (~85 tok)
-- `products.service.ts` — Exports ProductsService (~2570 tok)
+- `products.service.ts` — Exports ProductsService (~2632 tok)
+
+## apps/backend/src/proveeduria/
+
+- `proveeduria.controller.ts` — Exports ProveeduriaController (~320 tok)
+- `proveeduria.dto.ts` — Exports ProveeduriaProductDto, SaleItemDto, CheckoutDto (~221 tok)
+- `proveeduria.module.ts` — Exports ProveeduriaModule (~101 tok)
+- `proveeduria.service.ts` — Exports ProveeduriaService (~1210 tok)
 
 ## apps/backend/src/purchase-orders/
 
@@ -315,6 +341,13 @@
 - `transfers.module.ts` — Exports TransfersModule (~97 tok)
 - `transfers.service.ts` — Exports TransfersService (~1472 tok)
 
+## apps/backend/src/turnera/
+
+- `turnera.controller.ts` — Exports TurneraController (~304 tok)
+- `turnera.dto.ts` — Exports CreateSlotDto (~186 tok)
+- `turnera.module.ts` — Exports TurneraModule (~93 tok)
+- `turnera.service.ts` — Exports TurneraService (~1195 tok)
+
 ## apps/backend/src/upload/
 
 - `upload.controller.ts` — Exports UploadController (~389 tok)
@@ -357,13 +390,13 @@
 ## apps/frontend/src/
 
 - `App.css` (~11 tok)
-- `App.tsx` — DashboardPage (~1554 tok)
-- `index.css` — Styles: 14 rules (~959 tok)
+- `App.tsx` — DashboardPage (~1748 tok)
+- `index.css` — Styles: 14 rules (~996 tok)
 - `main.tsx` — Auto-reload on chunk load failure (stale SW after deploy) (~106 tok)
 
 ## apps/frontend/src/components/
 
-- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3989 tok)
+- `ImportExcelModal.tsx` — ColSelect — renders table, modal (~3976 tok)
 
 ## apps/frontend/src/components/alerts/
 
@@ -400,20 +433,35 @@
 
 - `ExpensesTable.tsx` — catColors — renders table (~2271 tok)
 
+## apps/frontend/src/components/guarderia/
+
+- `ChargeModal.tsx` — fmt — renders form, modal (~1315 tok)
+- `GuardarModal.tsx` — GuardarModal — renders form, modal (~1602 tok)
+- `ServicesModal.tsx` — fmt — renders modal (~930 tok)
+- `SetupModal.tsx` — SetupModal — renders form, modal (~765 tok)
+- `SpotPanel.tsx` — fmt (~1341 tok)
+- `StorageMap.tsx` — spotColors (~791 tok)
+
 ## apps/frontend/src/components/installments/
 
 - `InstallmentsSection.tsx` — InstallmentsSection — renders table (~1133 tok)
 
 ## apps/frontend/src/components/layout/
 
-- `AppLayout.tsx` — routeTitles (~1276 tok)
-- `Sidebar.tsx` — groups (~2459 tok)
+- `AppLayout.tsx` — routeTitles (~1301 tok)
+- `Sidebar.tsx` — groups (~2538 tok)
 
 ## apps/frontend/src/components/products/
 
 - `ProductFormModal.tsx` — toForm — renders form, modal (~1865 tok)
 - `ProductRemitoModal.tsx` — ProductRemitoModal — renders form, table, modal (~2026 tok)
 - `ProductsTable.tsx` — HEADERS — renders table (~2967 tok)
+
+## apps/frontend/src/components/proveeduria/
+
+- `Cart.tsx` — fmt (~982 tok)
+- `ProductGrid.tsx` — fmt (~513 tok)
+- `ProductManageModal.tsx` — fmt — renders modal (~991 tok)
 
 ## apps/frontend/src/components/purchase-orders/
 
@@ -457,7 +505,14 @@
 ## apps/frontend/src/components/transfers/
 
 - `TransferDetailModal.tsx` — statusStyles — renders modal (~1434 tok)
-- `TransferFormModal.tsx` — empty — renders form, modal (~2476 tok)
+- `TransferFormModal.tsx` — empty — renders form, modal (~2488 tok)
+
+## apps/frontend/src/components/turnera/
+
+- `BoatSchedule.tsx` — fmt (~1001 tok)
+- `BoatsModal.tsx` — fmt — renders modal (~868 tok)
+- `DaySchedule.tsx` — fmt (~782 tok)
+- `TurnoModal.tsx` — TurnoModal — renders form, modal (~1088 tok)
 
 ## apps/frontend/src/components/ui/
 
@@ -488,13 +543,16 @@
 - `useAlerts.ts` — API routes: GET, POST, PUT, PATCH, DELETE (8 endpoints) (~1338 tok)
 - `useAuth.ts` — Exports useAuth (~180 tok)
 - `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
-- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~732 tok)
-- `useCredits.ts` — API routes: GET, POST, PUT, DELETE (10 endpoints) (~1404 tok)
+- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~739 tok)
+- `useCredits.ts` — API routes: GET, POST, PUT, DELETE (10 endpoints) (~1411 tok)
+- `useGuarderia.ts` — API routes: GET, POST, PUT, DELETE, PATCH (10 endpoints) (~884 tok)
 - `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1326 tok)
+- `useProveeduria.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~575 tok)
 - `useReports.ts` — API routes: GET (1 endpoints) (~236 tok)
 - `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~611 tok)
-- `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1160 tok)
+- `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1167 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
+- `useTurnera.ts` — API routes: GET, POST, PATCH, DELETE (7 endpoints) (~673 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
 ## apps/frontend/src/lib/
@@ -528,18 +586,21 @@
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
+- `GuarderiaPage.tsx` — Stat (~1458 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
-- `ProductsPage.tsx` — ProductsPage (~3378 tok)
+- `ProductsPage.tsx` — ProductsPage (~3385 tok)
+- `ProveeduriaPage.tsx` — ProveeduriaPage (~1002 tok)
 - `PurchaseOrdersPage.tsx` — PurchaseOrdersPage (~2123 tok)
-- `QuotesPage.tsx` — QuotesPage (~1763 tok)
+- `QuotesPage.tsx` — QuotesPage (~1774 tok)
 - `ReportsPage.tsx` — ReportsPage (~1027 tok)
-- `ReservationsPage.tsx` — statusColors — renders table (~3346 tok)
+- `ReservationsPage.tsx` — statusColors — renders table (~3358 tok)
 - `SalesPage.tsx` — SalesPage (~2012 tok)
 - `SettingsPage.tsx` — STORAGE_KEY — renders form — uses useState (~1256 tok)
 - `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
 - `TransfersPage.tsx` — statusStyles (~2815 tok)
+- `TurneraPage.tsx` — today (~736 tok)
 - `UsersPage.tsx` — roleStyle — renders table (~1938 tok)
 - `VehiclesPage.tsx` — VehiclesPage (~1603 tok)
 
@@ -547,9 +608,12 @@
 
 - `api.types.ts` — Exports PaginatedResponse, Client, Product, Sale + 3 more (~690 tok)
 - `clients.types.ts` — Exports ClientForm, emptyClientForm, condicionIvaOptions, condicionIvaLabel + 2 more (~374 tok)
+- `guarderia.types.ts` — Exports StorageSpot, MapUnit, MapSpot, StorageService + 7 more (~455 tok)
 - `products.types.ts` — Exports ProductForm, emptyProductForm (~165 tok)
+- `proveeduria.types.ts` — Exports ProvProduct, CartItem, ProvProductForm (~123 tok)
 - `reservations.types.ts` — Exports CreateReservationDto (~120 tok)
 - `sales.types.ts` — Exports SaleItem, CreateSaleData (~148 tok)
+- `turnera.types.ts` — Lancha de guardería elegible para botadura (viene de /guarderia/units?status=en_guarderia) (~201 tok)
 
 ## docs/
 

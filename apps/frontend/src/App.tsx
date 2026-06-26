@@ -26,6 +26,9 @@ const ReservationsPage    = lazy(() => import('./pages/ReservationsPage').then(m
 const AlertsPage          = lazy(() => import('./pages/AlertsPage').then(m => ({ default: m.AlertsPage })))
 const TransfersPage       = lazy(() => import('./pages/TransfersPage').then(m => ({ default: m.TransfersPage })))
 const UsersPage           = lazy(() => import('./pages/UsersPage').then(m => ({ default: m.UsersPage })))
+const GuarderiaPage       = lazy(() => import('./pages/GuarderiaPage').then(m => ({ default: m.GuarderiaPage })))
+const ProveeduriaPage     = lazy(() => import('./pages/ProveeduriaPage').then(m => ({ default: m.ProveeduriaPage })))
+const TurneraPage         = lazy(() => import('./pages/TurneraPage').then(m => ({ default: m.TurneraPage })))
 
 const queryClient = new QueryClient()
 
@@ -62,6 +65,9 @@ export default function App() {
             <Route path="reservations" element={<Suspense fallback={PageFallback}><ReservationsPage /></Suspense>} />
             <Route path="alerts" element={<Suspense fallback={PageFallback}><AlertsPage /></Suspense>} />
             <Route path="transfers" element={<Suspense fallback={PageFallback}><TransfersPage /></Suspense>} />
+            <Route path="guarderia" element={<Suspense fallback={PageFallback}><GuarderiaPage /></Suspense>} />
+            <Route path="proveeduria" element={<Suspense fallback={PageFallback}><ProveeduriaPage /></Suspense>} />
+            <Route path="turnera" element={<Suspense fallback={PageFallback}><TurneraPage /></Suspense>} />
             <Route path="users" element={<Suspense fallback={PageFallback}><UsersPage /></Suspense>} />
           </Route>
         </Routes>

@@ -2830,3 +2830,230 @@
 | 13:23 | Edited apps/frontend/src/components/credits/CreditDetailModal.tsx | added optional chaining | ~250 |
 | 13:24 | feature: recibo PDF de pago parcial cta cte | receipt.ts, pdf/index.ts, CreditDetailModal.tsx | done | ~6k |
 | 13:24 | Session end: 10 writes across 6 files (alerts.service.ts, AlertsPage.tsx, SaleItemsEditor.tsx, receipt.ts, index.ts) | 8 reads | ~24134 tok |
+| 13:25 | Session end: 10 writes across 6 files (alerts.service.ts, AlertsPage.tsx, SaleItemsEditor.tsx, receipt.ts, index.ts) | 8 reads | ~24134 tok |
+
+## Session: 2026-06-08 22:54
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:58 | Edited apps/backend/src/products/products.service.ts | inline fix | ~52 |
+| 22:58 | Edited apps/frontend/src/pages/ProductsPage.tsx | "Nombre, código..." → "Nombre, código, cód. barr" | ~13 |
+| 22:58 | productos: buscar por barcode (lector) | products.service.ts:16, ProductsPage.tsx:58 | OK | ~1k |
+| 22:58 | Session end: 2 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~7935 tok |
+| 23:00 | Session end: 2 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~7935 tok |
+| 23:01 | Edited apps/frontend/src/pages/ProductsPage.tsx | inline fix | ~45 |
+| 23:01 | Session end: 3 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~7980 tok |
+| 23:04 | Session end: 3 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~7980 tok |
+| 23:04 | Edited apps/backend/src/products/products.service.ts | 11→10 lines | ~108 |
+| 23:05 | Session end: 4 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~8101 tok |
+| 23:06 | import: upsert solo precios (no pisa nombre/marca) | products.service.ts | OK, pushed | ~2k |
+| 23:06 | Session end: 4 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~8101 tok |
+| 23:07 | Session end: 4 writes across 2 files (products.service.ts, ProductsPage.tsx) | 5 reads | ~8101 tok |
+| 23:09 | Edited apps/frontend/src/components/ImportExcelModal.tsx | modified buildPreview() | ~23 |
+| 23:09 | Edited apps/frontend/src/components/ImportExcelModal.tsx | inline fix | ~13 |
+| 23:09 | Edited apps/frontend/src/components/ImportExcelModal.tsx | inline fix | ~41 |
+| 23:09 | Edited apps/frontend/src/components/ImportExcelModal.tsx | 4→4 lines | ~50 |
+| 23:09 | Edited apps/backend/src/products/products.service.ts | 3→3 lines | ~29 |
+| 23:10 | Session end: 9 writes across 3 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx) | 6 reads | ~12246 tok |
+| 23:10 | Session end: 9 writes across 3 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx) | 6 reads | ~12246 tok |
+| 23:16 | Session end: 9 writes across 3 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx) | 6 reads | ~12246 tok |
+| 23:18 | Session end: 9 writes across 3 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx) | 6 reads | ~12246 tok |
+| 23:19 | Session end: 9 writes across 3 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx) | 6 reads | ~12246 tok |
+| 23:20 | Created COTIZACION-guarderia.md | — | ~535 |
+| 23:20 | Session end: 10 writes across 4 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx, COTIZACION-guarderia.md) | 6 reads | ~12820 tok |
+| 23:21 | Edited COTIZACION-guarderia.md | 8→10 lines | ~144 |
+| 23:21 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | — | ~355 |
+| 23:22 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~82 |
+| 23:22 | Session end: 13 writes across 6 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx, COTIZACION-guarderia.md, project_guarderia_ampliacion.md) | 7 reads | ~13443 tok |
+| 23:34 | Session end: 13 writes across 6 files (products.service.ts, ProductsPage.tsx, ImportExcelModal.tsx, COTIZACION-guarderia.md, project_guarderia_ampliacion.md) | 7 reads | ~13443 tok |
+
+## Session: 2026-06-18 15:10
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:20 | Created mockup-guarderia.html | — | ~2923 |
+| 15:20 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified flexible() | ~265 |
+| 15:20 | Session end: 2 writes across 2 files (mockup-guarderia.html, project_guarderia_ampliacion.md) | 2 reads | ~3969 tok |
+| 15:28 | Edited apps/backend/src/db/enums.ts | 1→3 lines | ~78 |
+| 15:28 | Edited apps/backend/src/db/clients.schema.ts | added 1 import(s) | ~91 |
+| 15:35 | Created apps/backend/src/db/storage.schema.ts | — | ~632 |
+| 15:36 | Edited apps/backend/src/db/schema.ts | 3→4 lines | ~39 |
+| 15:36 | Created apps/backend/drizzle/0030_guarderia_module.sql | — | ~532 |
+| 15:37 | Created apps/backend/src/guarderia/guarderia.dto.ts | — | ~260 |
+| 15:37 | Created apps/backend/src/guarderia/guarderia.service.ts | — | ~1756 |
+| 15:37 | Created apps/backend/src/guarderia/guarderia.controller.ts | — | ~378 |
+| 15:37 | Created apps/backend/src/guarderia/guarderia.module.ts | — | ~97 |
+| 15:37 | Edited apps/backend/src/app.module.ts | added 1 import(s) | ~48 |
+| 15:37 | Edited apps/backend/src/app.module.ts | 3→4 lines | ~20 |
+| 15:53 | Edited apps/backend/src/clients/client.dto.ts | 3→4 lines | ~48 |
+| 15:54 | Edited apps/backend/src/clients/clients.controller.ts | 5→6 lines | ~78 |
+| 15:54 | Edited apps/backend/src/clients/clients.service.ts | modified findAll() | ~46 |
+| 15:54 | Edited apps/backend/src/clients/clients.service.ts | modified eq() | ~111 |
+| 15:55 | Edited apps/backend/src/clients/client.dto.ts | inline fix | ~26 |
+| 15:57 | Created apps/frontend/src/types/guarderia.types.ts | — | ~330 |
+| 15:57 | Created apps/frontend/src/hooks/useGuarderia.ts | — | ~491 |
+| 15:57 | Created apps/frontend/src/components/guarderia/StorageMap.tsx | — | ~791 |
+| 15:58 | Created apps/frontend/src/components/guarderia/SpotPanel.tsx | — | ~1184 |
+| 15:58 | Created apps/frontend/src/components/guarderia/GuardarModal.tsx | — | ~1602 |
+| 15:58 | Created apps/frontend/src/components/guarderia/ChargeModal.tsx | — | ~663 |
+| 15:59 | Created apps/frontend/src/components/guarderia/SetupModal.tsx | — | ~765 |
+| 15:59 | Created apps/frontend/src/pages/GuarderiaPage.tsx | — | ~1231 |
+| 15:59 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~63 |
+| 15:59 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~64 |
+| 15:59 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 2→2 lines | ~46 |
+| 15:59 | Edited apps/frontend/src/components/layout/Sidebar.tsx | CSS: items, to, icon | ~41 |
+| 15:59 | Edited apps/frontend/src/components/layout/AppLayout.tsx | 2→3 lines | ~21 |
+| 16:00 | Edited apps/frontend/src/index.css | 3→4 lines | ~58 |
+| 16:01 | Edited apps/frontend/src/hooks/useClients.ts | inline fix | ~50 |
+| 16:01 | Edited apps/frontend/src/hooks/useCredits.ts | inline fix | ~31 |
+| 16:01 | Edited apps/frontend/src/hooks/useSales.ts | inline fix | ~31 |
+| 16:01 | Edited apps/frontend/src/pages/QuotesPage.tsx | CSS: params, type | ~36 |
+| 16:02 | Edited apps/frontend/src/pages/ReservationsPage.tsx | CSS: params, type | ~36 |
+| 16:02 | Edited apps/frontend/src/components/transfers/TransferFormModal.tsx | inline fix | ~46 |
+| 19:43 | Guardería módulo completo: schema 0030, backend guarderia/, frontend page+5 comps, type cliente concesionaria/guarderia | apps/backend/src/guarderia/*, apps/frontend/src/pages/GuarderiaPage.tsx | OK compila back+front | ~12k |
+| 19:43 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+8 lines) | ~402 |
+| 19:44 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:44 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:44 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:45 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:46 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:50 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:53 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 32 reads | ~46365 tok |
+| 19:56 | Session end: 39 writes across 33 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 33 reads | ~46810 tok |
+| 19:57 | Edited apps/backend/src/guarderia/guarderia.service.ts | 2→2 lines | ~50 |
+| 19:57 | Edited apps/backend/src/guarderia/guarderia.service.ts | added 3 condition(s) | ~768 |
+| 19:57 | Edited apps/backend/src/guarderia/guarderia.controller.ts | 2→2 lines | ~40 |
+| 19:58 | Edited apps/frontend/src/hooks/useGuarderia.ts | expanded (+6 lines) | ~98 |
+| 19:58 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | CSS: onSaldar, chargeId | ~56 |
+| 19:59 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | inline fix | ~25 |
+| 19:59 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | expanded (+8 lines) | ~290 |
+| 19:59 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | inline fix | ~29 |
+| 19:59 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 3→4 lines | ~46 |
+| 20:00 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified CABLEADA() | ~171 |
+| 20:03 | Edited apps/backend/src/db/enums.ts | 2→3 lines | ~77 |
+| 20:03 | Edited apps/backend/src/db/catalog.schema.ts | added 1 import(s) | ~45 |
+| 20:04 | Edited apps/backend/src/db/catalog.schema.ts | 3→4 lines | ~59 |
+| 20:04 | Created apps/backend/src/db/proveeduria.schema.ts | — | ~324 |
+| 20:04 | Edited apps/backend/src/db/schema.ts | 2→3 lines | ~28 |
+| 20:04 | Created apps/backend/drizzle/0031_proveeduria_module.sql | — | ~276 |
+| 20:05 | Edited apps/backend/src/products/products.service.ts | inline fix | ~61 |
+| 20:05 | Edited apps/backend/src/products/products.service.ts | added nullish coalescing | ~89 |
+| 20:05 | Edited apps/backend/src/products/products.controller.ts | modified findAll() | ~140 |
+| 20:05 | Created apps/backend/src/proveeduria/proveeduria.dto.ts | — | ~221 |
+| 20:06 | Created apps/backend/src/proveeduria/proveeduria.service.ts | — | ~1210 |
+| 20:06 | Created apps/backend/src/proveeduria/proveeduria.controller.ts | — | ~320 |
+| 20:06 | Created apps/backend/src/proveeduria/proveeduria.module.ts | — | ~101 |
+| 20:06 | Edited apps/backend/src/app.module.ts | added 1 import(s) | ~52 |
+| 20:06 | Edited apps/backend/src/app.module.ts | 3→4 lines | ~20 |
+| 20:07 | Created apps/frontend/src/types/proveeduria.types.ts | — | ~123 |
+| 20:07 | Created apps/frontend/src/hooks/useProveeduria.ts | — | ~575 |
+| 20:07 | Created apps/frontend/src/components/proveeduria/ProductGrid.tsx | — | ~513 |
+| 20:08 | Created apps/frontend/src/components/proveeduria/Cart.tsx | — | ~982 |
+| 20:08 | Created apps/frontend/src/components/proveeduria/ProductManageModal.tsx | — | ~991 |
+| 20:08 | Created apps/frontend/src/pages/ProveeduriaPage.tsx | — | ~1002 |
+| 20:08 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~66 |
+| 20:09 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~65 |
+| 20:09 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 2→2 lines | ~48 |
+| 20:09 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 5→6 lines | ~50 |
+| 20:09 | Edited apps/frontend/src/components/layout/AppLayout.tsx | 2→3 lines | ~18 |
+| 20:09 | Edited apps/frontend/src/index.css | 1→2 lines | ~37 |
+| 20:13 | Proveeduría POS completo: migration 0031, products.area, backend proveeduria/, front ProveeduriaPage+grid+cart+manage, venta descuenta stock + deposito caja | apps/backend/src/proveeduria/*, apps/frontend/src/pages/ProveeduriaPage.tsx | OK compila | ~10k |
+| 20:13 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+8 lines) | ~403 |
+| 20:15 | Edited apps/backend/src/db/enums.ts | 1→2 lines | ~56 |
+| 20:16 | Created apps/backend/src/db/turnera.schema.ts | — | ~440 |
+| 20:16 | Edited apps/backend/src/db/schema.ts | 2→3 lines | ~28 |
+| 20:16 | Created apps/backend/drizzle/0032_turnera_module.sql | — | ~322 |
+| 20:16 | Created apps/backend/src/turnera/turnera.dto.ts | — | ~188 |
+| 20:17 | Created apps/backend/src/turnera/turnera.service.ts | — | ~1352 |
+| 20:17 | Created apps/backend/src/turnera/turnera.controller.ts | — | ~424 |
+| 20:17 | Created apps/backend/src/turnera/turnera.module.ts | — | ~93 |
+| 20:17 | Edited apps/backend/src/app.module.ts | added 1 import(s) | ~50 |
+| 20:17 | Edited apps/backend/src/app.module.ts | 3→4 lines | ~20 |
+| 20:18 | Created apps/frontend/src/types/turnera.types.ts | — | ~179 |
+| 20:18 | Created apps/frontend/src/hooks/useTurnera.ts | — | ~769 |
+| 20:19 | Created apps/frontend/src/components/turnera/TurnoModal.tsx | — | ~1543 |
+| 20:19 | Created apps/frontend/src/components/turnera/BoatsModal.tsx | — | ~868 |
+| 20:19 | Created apps/frontend/src/components/turnera/BoatSchedule.tsx | — | ~1001 |
+| 20:20 | Created apps/frontend/src/pages/TurneraPage.tsx | — | ~994 |
+| 20:20 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~65 |
+| 20:20 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~64 |
+| 20:20 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 2→2 lines | ~52 |
+| 20:20 | Edited apps/frontend/src/components/layout/Sidebar.tsx | 3→4 lines | ~57 |
+| 20:20 | Edited apps/frontend/src/components/layout/AppLayout.tsx | 3→4 lines | ~26 |
+| 20:22 | Turnera completa: migration 0032, backend turnera/, front TurneraPage+BoatSchedule+TurnoModal+BoatsModal, turnos franja horaria + cobro caja + check solapamiento | apps/backend/src/turnera/*, apps/frontend/src/pages/TurneraPage.tsx | OK compila, 3/3 modulos ampliacion hechos | ~11k |
+| 20:23 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified FINAL() | ~442 |
+| 20:23 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:24 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:24 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:26 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:28 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:28 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:29 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:30 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:36 | Session end: 99 writes across 60 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~71522 tok |
+| 20:37 | Created PREGUNTAS-tio.md | — | ~459 |
+| 20:37 | Session end: 100 writes across 61 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~72014 tok |
+| 20:39 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+7 lines) | ~316 |
+| 20:39 | Session end: 101 writes across 61 files (mockup-guarderia.html, project_guarderia_ampliacion.md, enums.ts, clients.schema.ts, storage.schema.ts) | 38 reads | ~72352 tok |
+
+## Session: 2026-06-23 19:58
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-06-23 19:59
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 20:09 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | 1→6 lines | ~173 |
+| 20:10 | Session end: 1 writes across 1 files (project_guarderia_ampliacion.md) | 3 reads | ~1168 tok |
+| 20:12 | Created presupuesto-guarderia.html | — | ~1450 |
+| 20:13 | Session end: 2 writes across 2 files (project_guarderia_ampliacion.md, presupuesto-guarderia.html) | 3 reads | ~2722 tok |
+| 20:16 | Session end: 2 writes across 2 files (project_guarderia_ampliacion.md, presupuesto-guarderia.html) | 3 reads | ~2722 tok |
+| 20:17 | Session end: 2 writes across 2 files (project_guarderia_ampliacion.md, presupuesto-guarderia.html) | 3 reads | ~2722 tok |
+| 20:21 | Session end: 2 writes across 2 files (project_guarderia_ampliacion.md, presupuesto-guarderia.html) | 3 reads | ~2722 tok |
+| 20:21 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified o() | ~209 |
+| 20:21 | Session end: 3 writes across 2 files (project_guarderia_ampliacion.md, presupuesto-guarderia.html) | 3 reads | ~2946 tok |
+
+## Session: 2026-06-25 19:28
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:34 | Created apps/backend/drizzle/0033_guarderia_servicios_botaduras.sql | — | ~452 |
+| 19:38 | Created apps/backend/src/db/turnera.schema.ts | — | ~396 |
+| 19:38 | Edited apps/backend/src/db/storage.schema.ts | expanded (+9 lines) | ~167 |
+| 19:38 | Edited apps/backend/src/db/storage.schema.ts | 5→5 lines | ~32 |
+| 19:39 | Edited apps/backend/src/db/storage.schema.ts | PLACEHOLDER_SERVICES() → configurable() | ~47 |
+| 19:39 | Edited apps/backend/src/db/storage.schema.ts | expanded (+10 lines) | ~201 |
+| 19:39 | Edited apps/backend/src/guarderia/guarderia.dto.ts | added 1 import(s) | ~51 |
+| 19:39 | Edited apps/backend/src/guarderia/guarderia.dto.ts | expanded (+35 lines) | ~279 |
+| 19:39 | Edited apps/backend/src/guarderia/guarderia.service.ts | 3→3 lines | ~88 |
+| 19:40 | Edited apps/backend/src/guarderia/guarderia.service.ts | expanded (+6 lines) | ~180 |
+| 19:40 | Edited apps/backend/src/guarderia/guarderia.service.ts | modified Date() | ~260 |
+| 19:40 | Edited apps/backend/src/guarderia/guarderia.service.ts | added nullish coalescing | ~325 |
+| 19:40 | Edited apps/backend/src/guarderia/guarderia.controller.ts | 3→3 lines | ~74 |
+| 19:40 | Edited apps/backend/src/guarderia/guarderia.controller.ts | expanded (+12 lines) | ~179 |
+| 19:40 | Created apps/backend/src/turnera/turnera.dto.ts | — | ~186 |
+| 19:41 | Created apps/backend/src/turnera/turnera.service.ts | — | ~1195 |
+| 19:41 | Created apps/backend/src/turnera/turnera.controller.ts | — | ~304 |
+| 19:42 | Created apps/frontend/src/types/turnera.types.ts | — | ~201 |
+| 19:43 | Created apps/frontend/src/hooks/useTurnera.ts | — | ~673 |
+| 19:43 | Edited apps/frontend/src/types/guarderia.types.ts | expanded (+22 lines) | ~149 |
+| 19:43 | Edited apps/frontend/src/types/guarderia.types.ts | expanded (+6 lines) | ~60 |
+| 19:43 | Edited apps/frontend/src/hooks/useGuarderia.ts | modified useGuarderia() | ~418 |
+| 19:43 | Edited apps/frontend/src/hooks/useGuarderia.ts | inline fix | ~45 |
+| 19:44 | Created apps/frontend/src/components/guarderia/ChargeModal.tsx | — | ~1315 |
+| 19:44 | Created apps/frontend/src/components/guarderia/ServicesModal.tsx | — | ~930 |
+| 19:44 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | added 1 import(s) | ~57 |
+| 19:44 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 5→6 lines | ~138 |
+| 19:44 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~85 |
+| 19:44 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | expanded (+12 lines) | ~204 |
+| 19:45 | Created apps/frontend/src/components/turnera/TurnoModal.tsx | — | ~1088 |
+| 19:45 | Created apps/frontend/src/components/turnera/DaySchedule.tsx | — | ~782 |
+
+## Session: 2026-06-26 19:41
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:46 | Created apps/frontend/src/pages/TurneraPage.tsx | — | ~736 |
+| 19:47 | Session end: 1 writes across 1 files (TurneraPage.tsx) | 2 reads | ~2160 tok |

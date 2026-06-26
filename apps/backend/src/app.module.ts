@@ -22,6 +22,9 @@ import { TransfersModule } from './transfers/transfers.module'
 import { UsersModule } from './users/users.module'
 import { NotificationsModule } from './notifications/notifications.module'
 import { CreditsModule } from './credits/credits.module'
+import { GuarderiaModule } from './guarderia/guarderia.module'
+import { ProveeduriaModule } from './proveeduria/proveeduria.module'
+import { TurneraModule } from './turnera/turnera.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -49,6 +52,9 @@ import { AppService } from './app.service'
     UsersModule,
     NotificationsModule,
     CreditsModule,
+    GuarderiaModule,
+    ProveeduriaModule,
+    TurneraModule,
   ],
   controllers: [AppController],
   providers: [

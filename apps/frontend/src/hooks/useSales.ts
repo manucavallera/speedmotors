@@ -40,7 +40,7 @@ export function useSales() {
 
   const { data: clientsData } = useQuery<PaginatedResponse<Client>>({
     queryKey: ['clients'],
-    queryFn: () => api.get('/clients', { params: { limit: 500 } }).then(r => r.data),
+    queryFn: () => api.get('/clients', { params: { limit: 500, type: 'concesionaria' } }).then(r => r.data),
   })
   const clients = clientsData?.items ?? []
 

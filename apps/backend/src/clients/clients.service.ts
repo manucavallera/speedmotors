@@ -9,8 +9,8 @@ import { CreditsService } from '../credits/credits.service'
 export class ClientsService {
   constructor(private readonly creditsService: CreditsService) {}
 
-  async findAll(params: { search?: string; page?: number; limit?: number; hasDebt?: boolean } = {}) {
-    const { search, hasDebt } = params
+  async findAll(params: { search?: string; page?: number; limit?: number; hasDebt?: boolean; type?: string } = {}) {
+    const { search, hasDebt, type } = params
     const page = params.page ?? 1
     const limit = Math.min(200, params.limit ?? 100)
     const offset = (page - 1) * limit
@@ -54,12 +54,16 @@ export class ClientsService {
       ? sql`(${balanceSql}) > 0`
       : undefined
 
-    const where = searchWhere && debtWhere
-      ? sql`(${searchWhere}) AND (${debtWhere})`
-      : searchWhere ?? debtWhere
+    const typeWhere = type ? eq(clients.type, type as 'concesionaria' | 'guarderia') : undefined
+
+    const parts = [searchWhere, debtWhere, typeWhere].filter(Boolean)
+    const where = parts.length
+      ? sql`${sql.join(parts.map((p) => sql`(${p})`), sql` AND `)}`
+      : undefined
 
     const selectFields = {
       id: clients.id,
+      type: clients.type,
       name: clients.name,
       phone: clients.phone,
       email: clients.email,

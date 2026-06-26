@@ -22,6 +22,7 @@ export class ProductsController {
     @Query('supplierId') supplierId?: string,
     @Query('brand') brand?: string,
     @Query('costSort') costSort?: string,
+    @Query('area') area?: string,
   ) {
     return this.productsService.findAll({
       search,
@@ -33,6 +34,7 @@ export class ProductsController {
       costSort,
       page: page ? parseInt(page) : undefined,
       limit: limit ? parseInt(limit) : undefined,
+      area,
     })
   }
 

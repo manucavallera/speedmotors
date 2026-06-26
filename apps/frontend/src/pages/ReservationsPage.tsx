@@ -30,7 +30,7 @@ export function ReservationsPage() {
 
   const { data: clientsData } = useQuery({
     queryKey: ['clients'],
-    queryFn: () => api.get('/clients').then(r => r.data),
+    queryFn: () => api.get('/clients', { params: { type: 'concesionaria' } }).then(r => r.data),
   })
   const clients = clientsData?.items ?? clientsData ?? []
 

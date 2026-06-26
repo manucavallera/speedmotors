@@ -53,7 +53,7 @@ export function useCredits() {
 
   const { data: clientsData } = useQuery({
     queryKey: ['clients'],
-    queryFn: () => api.get('/clients', { params: { limit: 500 } }).then(r => r.data),
+    queryFn: () => api.get('/clients', { params: { limit: 500, type: 'concesionaria' } }).then(r => r.data),
   })
   const clients = clientsData?.items ?? []
 

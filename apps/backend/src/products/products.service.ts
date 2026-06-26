@@ -7,7 +7,7 @@ import { eq, ilike, and, or, lte, gt, asc, desc, sql, inArray } from 'drizzle-or
 @Injectable()
 export class ProductsService {
   private readonly logger = new Logger(ProductsService.name)
-  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; costSort?: string; page?: number; limit?: number }) {
+  async findAll(filters?: { search?: string; categoryId?: number; supplierId?: number; ingresoTipo?: string; brand?: string; priceSort?: string; costSort?: string; page?: number; limit?: number; area?: string }) {
     const page = Math.max(1, filters?.page ?? 1)
     const limit = Math.min(50000, Math.max(1, filters?.limit ?? 50))
     const offset = (page - 1) * limit
@@ -18,6 +18,8 @@ export class ProductsService {
     if (filters?.supplierId) conditions.push(eq(products.supplierId, filters.supplierId))
     if (filters?.ingresoTipo) conditions.push(eq(products.ingresoTipo, filters.ingresoTipo as 'blanco' | 'negro'))
     if (filters?.brand) conditions.push(ilike(products.brand, `%${filters.brand}%`))
+    // Por defecto solo concesionaria; proveeduría se pide explícito
+    conditions.push(eq(products.area, (filters?.area ?? 'concesionaria') as 'concesionaria' | 'proveeduria'))
     conditions.push(eq(products.active, true))
     const where = and(...conditions)
 

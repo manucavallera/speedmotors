@@ -1,5 +1,6 @@
 // @contract: Tablas categories (self-ref parentId), suppliers, products. products → categories + suppliers. Referenciada por saleItems, quoteItems, stockMovements, purchaseOrderItems.
 import { pgTable, serial, varchar, text, integer, numeric, boolean, timestamp, jsonb } from 'drizzle-orm/pg-core'
+import { productAreaEnum } from './enums'
 
 export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
@@ -20,6 +21,7 @@ export const suppliers = pgTable('suppliers', {
 
 export const products = pgTable('products', {
   id: serial('id').primaryKey(),
+  area: productAreaEnum('area').notNull().default('concesionaria'),
   code: varchar('code', { length: 50 }).notNull().unique(),
   name: varchar('name', { length: 255 }).notNull(),
   description: text('description'),

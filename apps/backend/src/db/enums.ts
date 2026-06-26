@@ -24,3 +24,7 @@ export const clientPaymentTypeEnum = pgEnum('client_payment_type', ['pago_cuenta
 export const creditStatusEnum = pgEnum('credit_status', ['activo', 'pagado', 'cancelado'])
 export const creditCurrencyEnum = pgEnum('credit_currency', ['pesos', 'usd'])
 export const creditTypeEnum = pgEnum('credit_type', ['saldo_compuesto', 'cuotas_simples'])
+export const clientTypeEnum = pgEnum('client_type', ['concesionaria', 'guarderia'])
+export const storageUnitStatusEnum = pgEnum('storage_unit_status', ['en_guarderia', 'retirada'])
+export const productAreaEnum = pgEnum('product_area', ['concesionaria', 'proveeduria'])
+export const rentalSlotStatusEnum = pgEnum('rental_slot_status', ['reservado', 'cancelado', 'completado'])

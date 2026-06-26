@@ -20,7 +20,7 @@ export function useClients() {
 
   const { data: clientsData, isLoading } = useQuery<PaginatedResponse<Client>>({
     queryKey: ['clients', { search, page, hasDebt }],
-    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50, hasDebt: hasDebt || undefined } }).then(r => r.data),
+    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50, hasDebt: hasDebt || undefined, type: 'concesionaria' } }).then(r => r.data),
     placeholderData: prev => prev,
   })
   const clients = clientsData?.items ?? []

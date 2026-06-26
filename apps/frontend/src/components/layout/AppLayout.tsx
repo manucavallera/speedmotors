@@ -19,6 +19,9 @@ const routeTitles: Record<string, string> = {
   '/settings': 'Configuración',
   '/suppliers': 'Proveedores',
   '/purchase-orders': 'Órdenes de compra',
+  '/guarderia': 'Guardería',
+  '/proveeduria': 'Proveeduría',
+  '/turnera': 'Turnera',
 }
 
 function greeting() {
