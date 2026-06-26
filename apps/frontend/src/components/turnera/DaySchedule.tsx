@@ -28,7 +28,13 @@ function rowStyle(s: RentalSlot): React.CSSProperties {
 
 export function DaySchedule({ slots, onCharge, onCancel, onRemove }: Props) {
   if (!slots.length) {
-    return <div style={{ padding: '40px', textAlign: 'center', color: '#cbd5e1', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>Sin salidas al agua este día</div>
+    return (
+      <div style={{ padding: '48px 24px', textAlign: 'center', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>
+        <div style={{ fontSize: '34px', marginBottom: '8px' }}>🌊</div>
+        <div style={{ fontSize: '15px', fontWeight: 600, color: '#64748b', marginBottom: '4px' }}>Sin salidas al agua este día</div>
+        <div style={{ fontSize: '13px', color: '#94a3b8' }}>Tocá "+ Salida al agua" para agendar la primera</div>
+      </div>
+    )
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

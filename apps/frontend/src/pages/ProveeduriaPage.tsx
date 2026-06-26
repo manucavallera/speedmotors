@@ -7,10 +7,24 @@ import { inputStyle, btnSecondary } from '../components/ui/FormField'
 import { toast } from '../lib/toast'
 import { type ProvProduct, type CartItem } from '../types/proveeduria.types'
 
+const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
+
+function Stat({ value, label, color }: { value: string | number; label: string; color: string }) {
+  return (
+    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0 }}>
+      <div style={{ fontSize: '22px', fontWeight: 700, color, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{value}</div>
+      <div style={{ fontSize: '12.5px', color: '#94a3b8' }}>{label}</div>
+    </div>
+  )
+}
+
 export function ProveeduriaPage() {
   const { products, productsQuery, search, setSearch, createProduct, updateProduct, removeProduct, checkout } = useProveeduria()
   const [cart, setCart] = useState<CartItem[]>([])
   const [manage, setManage] = useState(false)
+
+  const bajoStock = products.filter(p => p.stock <= p.minStock).length
+  const valorInventario = products.reduce((a, p) => a + p.stock * Number(p.sellPrice), 0)
 
   function addToCart(p: ProvProduct) {
     setCart(prev => {
@@ -46,6 +60,12 @@ export function ProveeduriaPage() {
           <div style={{ fontSize: '13px', color: '#94a3b8' }}>Venta rápida</div>
         </div>
         <button style={btnSecondary} onClick={() => setManage(true)}>Productos</button>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' }}>
+        <Stat value={products.length} label="Productos" color="#2563eb" />
+        <Stat value={bajoStock} label="Bajo stock" color={bajoStock > 0 ? '#dc2626' : '#16a34a'} />
+        <Stat value={fmt(valorInventario)} label="Valor inventario" color="#0f172a" />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 340px', gap: '20px', alignItems: 'start' }} className="proveeduria-layout">

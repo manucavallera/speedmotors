@@ -6,13 +6,27 @@ import { inputStyle } from '../components/ui/FormField'
 import { type SlotForm } from '../types/turnera.types'
 
 function today() { return new Date().toISOString().slice(0, 10) }
+const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
+
+function Stat({ value, label, color, small }: { value: string | number; label: string; color: string; small?: boolean }) {
+  return (
+    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0 }}>
+      <div style={{ fontSize: small ? '15px' : '22px', fontWeight: 700, color, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{value}</div>
+      <div style={{ fontSize: '12.5px', color: '#94a3b8' }}>{label}</div>
+    </div>
+  )
+}
 
 export function TurneraPage() {
   const [date, setDate] = useState(today())
   const { units, services, slots, slotsQuery, createSlot, setStatus, charge, removeSlot } = useTurnera(date)
   const [showModal, setShowModal] = useState(false)
 
-  const reserved = slots.filter(s => s.status !== 'cancelado').length
+  const activos = slots.filter(s => s.status !== 'cancelado')
+  const reserved = activos.length
+  const cobradoHoy = slots.filter(s => s.paidAt).reduce((a, s) => a + Number(s.price), 0)
+  // Próxima salida pendiente del día (por hora de inicio)
+  const proxima = [...slots].filter(s => s.status === 'reservado').sort((a, b) => a.startTime.localeCompare(b.startTime))[0]
 
   return (
     <div>
@@ -27,6 +41,12 @@ export function TurneraPage() {
           onClick={() => setShowModal(true)}
           disabled={!units.length}
         >+ Salida al agua</button>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' }}>
+        <Stat value={reserved} label="Salidas del día" color="#1d4ed8" />
+        <Stat value={fmt(cobradoHoy)} label="Cobrado" color="#16a34a" />
+        <Stat value={proxima ? `${proxima.startTime} · ${proxima.boatName ?? 'lancha'}` : '—'} label="Próxima salida" color="#0f172a" small />
       </div>
 
       {!units.length ? (

@@ -9,10 +9,10 @@ import { SetupModal } from '../components/guarderia/SetupModal'
 import { btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { type UnitDetail } from '../types/guarderia.types'
 
-function Stat({ n, label, color }: { n: number; label: string; color: string }) {
+function Stat({ value, label, color }: { value: string | number; label: string; color: string }) {
   return (
-    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' }}>
-      <div style={{ fontSize: '24px', fontWeight: 700, color }}>{n}</div>
+    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0 }}>
+      <div style={{ fontSize: '22px', fontWeight: 700, color, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{value}</div>
       <div style={{ fontSize: '12.5px', color: '#94a3b8' }}>{label}</div>
     </div>
   )
@@ -30,7 +30,9 @@ export function GuarderiaPage() {
   const libres = spots.filter(s => !s.occupied).length
   const ocupados = spots.filter(s => s.occupied).length
   const conDeuda = spots.filter(s => s.occupied && s.debt > 0).length
+  const deudaTotal = spots.reduce((a, s) => a + (s.debt || 0), 0)
   const selected = spots.find(s => s.spotId === selectedId) ?? null
+  const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
 
   function handleRetirar(unitId: number) {
     if (!window.confirm('¿Retirar esta embarcación del lugar? El lugar queda libre.')) return
@@ -49,11 +51,12 @@ export function GuarderiaPage() {
         <button style={btnPrimary} onClick={() => setGuardarSpot('open')}>+ Guardar embarcación</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '20px' }}>
-        <Stat n={total} label="Lugares" color="#2563eb" />
-        <Stat n={libres} label="Libres" color="#16a34a" />
-        <Stat n={ocupados} label="Ocupados" color="#0f172a" />
-        <Stat n={conDeuda} label="Con deuda" color="#dc2626" />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '10px', marginBottom: '20px' }}>
+        <Stat value={total} label="Lugares" color="#2563eb" />
+        <Stat value={libres} label="Libres" color="#16a34a" />
+        <Stat value={ocupados} label="Ocupados" color="#0f172a" />
+        <Stat value={conDeuda} label="Con deuda" color="#dc2626" />
+        <Stat value={fmt(deudaTotal)} label="$ en deuda" color={deudaTotal > 0 ? '#dc2626' : '#16a34a'} />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: '20px', alignItems: 'start' }} className="guarderia-layout">
