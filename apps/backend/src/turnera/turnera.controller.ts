@@ -11,6 +11,9 @@ export class TurneraController {
   @Get('slots')
   listSlots(@Query('date') date: string) { return this.svc.listSlots(date) }
 
+  @Get('month')
+  monthSummary(@Query('month') month: string) { return this.svc.monthSummary(month) }
+
   @Post('slots')
   createSlot(@Body() dto: CreateSlotDto, @Request() req: any) { return this.svc.createSlot(dto, req.user.id) }
 

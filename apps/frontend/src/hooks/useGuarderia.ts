@@ -1,7 +1,7 @@
 import { toast } from '../lib/toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
-import { type MapSpot, type CreateUnitForm, type ChargeForm, type StorageService, type ServiceForm } from '../types/guarderia.types'
+import { type MapSpot, type CreateUnitForm, type ChargeForm, type StorageService, type ServiceForm, type GuarderiaStats } from '../types/guarderia.types'
 
 export function useGuarderia() {
   const qc = useQueryClient()
@@ -12,6 +12,12 @@ export function useGuarderia() {
     queryFn: () => api.get('/guarderia/mapa').then(r => r.data),
   })
   const spots = mapaQuery.data ?? []
+
+  const statsQuery = useQuery<GuarderiaStats>({
+    queryKey: ['guarderia', 'stats'],
+    queryFn: () => api.get('/guarderia/stats').then(r => r.data),
+  })
+  const stats = statsQuery.data ?? { ingresosMes: 0 }
 
   const servicesQuery = useQuery<StorageService[]>({
     queryKey: ['guarderia', 'services'],
@@ -66,5 +72,5 @@ export function useGuarderia() {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { mapaQuery, spots, services, servicesQuery, createService, updateService, removeService, createSpots, createUnit, retireUnit, charge, payCharge }
+  return { mapaQuery, spots, stats, services, servicesQuery, createService, updateService, removeService, createSpots, createUnit, retireUnit, charge, payCharge }
 }

@@ -42,6 +42,7 @@ input, button, textarea, select {
   .form-grid-3 { grid-template-columns: 1fr; }
   .guarderia-layout { grid-template-columns: 1fr !important; }
   .proveeduria-layout { grid-template-columns: 1fr !important; }
+  .turnera-layout { grid-template-columns: 1fr !important; }
   .hide-mobile { display: none !important; }
 
   /* Sidebar */

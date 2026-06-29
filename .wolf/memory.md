@@ -3091,3 +3091,112 @@
 | 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | added 1 condition(s) | ~165 |
 | 20:22 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | 4→9 lines | ~178 |
 | 20:34 | 4 features marina: estado turnera, alertas guarderia, cierre x rubro, recibo PDF | alerts/cash service, DaySchedule, AlertsPage, CashStatusPanel, receipt, ChargeModal, useAlerts | typecheck 0err, API verificado | ~14k |
+| 20:34 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified API() | ~525 |
+| 20:34 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 20:43 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 20:43 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 21:18 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 21:19 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 21:28 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 21:31 | Session end: 23 writes across 10 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 12 reads | ~28197 tok |
+| 21:32 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | inline fix | ~54 |
+| 21:32 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | "¿Eliminar esta botadura?" → "¿Eliminar esta salida?" | ~28 |
+| 21:32 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | "Agendar botadura" → "Agendar salida al agua" | ~18 |
+| 21:32 | Edited apps/frontend/src/hooks/useTurnera.ts | "Botadura agendada" → "Salida agendada" | ~21 |
+| 21:32 | Edited apps/frontend/src/hooks/useTurnera.ts | "Botadura eliminada" → "Salida eliminada" | ~21 |
+| 21:32 | Edited apps/frontend/src/pages/TurneraPage.tsx | inline fix | ~30 |
+| 21:32 | Edited apps/frontend/src/pages/TurneraPage.tsx | inline fix | ~10 |
+| 21:33 | Edited apps/backend/src/turnera/turnera.service.ts | "Ya hay otra botadura en e" → "Ya hay otra salida al agu" | ~26 |
+| 21:33 | Edited apps/backend/src/turnera/turnera.service.ts | "Botadura — ${row.clientNa" → "Salida al agua — ${row.cl" | ~28 |
+| 21:33 | Edited apps/backend/src/cash/cash.service.ts | "Botadura" → "Salida al agua" | ~28 |
+| 21:35 | Session end: 33 writes across 13 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 15 reads | ~31629 tok |
+| 21:37 | Edited apps/frontend/src/pages/TurneraPage.tsx | modified today() | ~323 |
+| 21:37 | Edited apps/frontend/src/pages/TurneraPage.tsx | added nullish coalescing | ~139 |
+| 21:37 | Edited apps/frontend/src/pages/TurneraPage.tsx | modified Stat() | ~148 |
+| 21:37 | Edited apps/frontend/src/pages/TurneraPage.tsx | inline fix | ~41 |
+| 21:37 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | CSS: marginBottom, fontWeight, marginBottom | ~142 |
+| 21:38 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | modified Stat() | ~274 |
+| 21:38 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | CSS: marginBottom | ~184 |
+| 21:38 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | modified Stat() | ~136 |
+| 21:38 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | CSS: n | ~116 |
+| 21:38 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 6→7 lines | ~148 |
+| 21:39 | Session end: 43 writes across 15 files (TurneraPage.tsx, project_guarderia_ampliacion.md, DaySchedule.tsx, alerts.service.ts, useAlerts.ts) | 17 reads | ~35740 tok |
+
+## Session: 2026-06-29 14:38
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 14:55 | Edited apps/backend/src/turnera/turnera.service.ts | inline fix | ~14 |
+| 14:55 | Edited apps/backend/src/turnera/turnera.service.ts | modified monthSummary() | ~187 |
+| 14:55 | Edited apps/backend/src/turnera/turnera.controller.ts | 2→5 lines | ~56 |
+| 14:55 | Edited apps/frontend/src/types/turnera.types.ts | expanded (+7 lines) | ~46 |
+| 14:56 | Edited apps/frontend/src/hooks/useTurnera.ts | inline fix | ~33 |
+| 14:56 | Edited apps/frontend/src/hooks/useTurnera.ts | modified mes() | ~176 |
+| 14:56 | Edited apps/frontend/src/hooks/useTurnera.ts | inline fix | ~36 |
+| 14:57 | Created apps/frontend/src/components/turnera/CalendarPicker.tsx | — | ~1068 |
+| 14:57 | Created apps/frontend/src/components/turnera/RampTimeline.tsx | — | ~1081 |
+| 14:57 | Created apps/frontend/src/pages/TurneraPage.tsx | — | ~1371 |
+| 14:58 | Edited apps/frontend/src/index.css | 2→3 lines | ~54 |
+| 15:09 | Edited apps/backend/src/guarderia/guarderia.service.ts | 5→6 lines | ~43 |
+| 15:09 | Edited apps/backend/src/guarderia/guarderia.service.ts | added optional chaining | ~179 |
+| 15:09 | Edited apps/backend/src/guarderia/guarderia.controller.ts | modified mapa() | ~30 |
+| 15:09 | Edited apps/frontend/src/types/guarderia.types.ts | 8→13 lines | ~65 |
+| 15:09 | Edited apps/frontend/src/hooks/useGuarderia.ts | inline fix | ~44 |
+| 15:09 | Edited apps/frontend/src/hooks/useGuarderia.ts | expanded (+6 lines) | ~71 |
+| 15:09 | Edited apps/frontend/src/hooks/useGuarderia.ts | inline fix | ~47 |
+| 15:10 | Created apps/frontend/src/components/guarderia/DeudoresPanel.tsx | — | ~913 |
+| 15:10 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | added 1 import(s) | ~79 |
+| 15:10 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | CSS: q | ~414 |
+| 15:10 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | expanded (+20 lines) | ~696 |
+| 15:11 | Edited apps/backend/src/proveeduria/proveeduria.service.ts | inline fix | ~17 |
+| 15:12 | Edited apps/backend/src/proveeduria/proveeduria.service.ts | added optional chaining | ~303 |
+| 15:12 | Edited apps/backend/src/proveeduria/proveeduria.controller.ts | modified listSales() | ~34 |
+| 15:12 | Edited apps/frontend/src/types/proveeduria.types.ts | expanded (+18 lines) | ~83 |
+| 15:12 | Edited apps/frontend/src/hooks/useProveeduria.ts | inline fix | ~37 |
+| 15:12 | Edited apps/frontend/src/hooks/useProveeduria.ts | expanded (+12 lines) | ~139 |
+| 15:12 | Edited apps/frontend/src/hooks/useProveeduria.ts | inline fix | ~36 |
+| 15:12 | Created apps/frontend/src/components/proveeduria/ProvInsights.tsx | — | ~1023 |
+| 15:12 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | added 1 import(s) | ~64 |
+| 15:12 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | inline fix | ~41 |
+| 15:12 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | 5→8 lines | ~191 |
+| 15:12 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | 9→11 lines | ~92 |
+| 15:16 | Marina enriquecida: turnera calendario+grilla horaria (RampTimeline/CalendarPicker + monthSummary), guardería ocupación+deudores+ingresos mes (DeudoresPanel + stats), proveeduría ventas día+top+historial (ProvInsights + stats) | 18 files | back+front typecheck 0 err, sin migración, sin commit | ~38000 |
+| 15:16 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+9 lines) | ~529 |
+| 15:17 | Session end: 35 writes across 21 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 19 reads | ~30784 tok |
+| 15:35 | Created ../../../../../../tmp/claude-1000/-mnt-c-Users-coco-proyectos-speedmotors/8f1a3533-a52f-449b-aee2-3753438d73d4/scratchpad/smoke_marina.sh | — | ~1669 |
+| 15:36 | Session end: 36 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 19 reads | ~32572 tok |
+| 15:37 | Session end: 36 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 19 reads | ~32572 tok |
+| 15:40 | Edited apps/backend/src/turnera/turnera.service.ts | 3→3 lines | ~37 |
+| 15:43 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | modified corrido() | ~221 |
+| 15:43 | Session end: 38 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 20 reads | ~33242 tok |
+| 15:46 | Session end: 38 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 20 reads | ~33242 tok |
+| 15:49 | Session end: 38 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 20 reads | ~33242 tok |
+| 16:16 | Session end: 38 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 20 reads | ~33242 tok |
+| 16:16 | Session end: 38 writes across 22 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 20 reads | ~33242 tok |
+| 16:18 | Created apps/frontend/src/lib/turneraConfig.ts | — | ~475 |
+| 16:19 | Created apps/frontend/src/components/turnera/SlotGrid.tsx | — | ~1018 |
+| 16:19 | Created apps/frontend/src/components/turnera/TurneraConfigModal.tsx | — | ~840 |
+| 16:19 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | added nullish coalescing | ~144 |
+| 16:20 | Edited apps/frontend/src/pages/TurneraPage.tsx | added 2 import(s) | ~162 |
+| 16:20 | Edited apps/frontend/src/pages/TurneraPage.tsx | modified reserveSlot() | ~235 |
+| 16:20 | Edited apps/frontend/src/pages/TurneraPage.tsx | setShowModal() → setShowConfig() | ~196 |
+| 16:20 | Edited apps/frontend/src/pages/TurneraPage.tsx | 9→9 lines | ~108 |
+| 16:20 | Edited apps/frontend/src/pages/TurneraPage.tsx | added optional chaining | ~183 |
+| 16:21 | Created apps/frontend/src/components/ui/HelpModal.tsx | — | ~422 |
+| 16:21 | Created apps/frontend/src/lib/helpContent.ts | — | ~1248 |
+| 16:21 | Edited apps/frontend/src/pages/TurneraPage.tsx | added 2 import(s) | ~77 |
+| 16:21 | Edited apps/frontend/src/pages/TurneraPage.tsx | 1→2 lines | ~30 |
+| 16:21 | Edited apps/frontend/src/pages/TurneraPage.tsx | 4→5 lines | ~98 |
+| 16:21 | Edited apps/frontend/src/pages/TurneraPage.tsx | 10→12 lines | ~91 |
+| 16:21 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | added 2 import(s) | ~78 |
+| 16:21 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~44 |
+| 16:21 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 1→2 lines | ~44 |
+| 16:22 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 10→12 lines | ~111 |
+| 16:22 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | added 2 import(s) | ~75 |
+| 16:22 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | 2→3 lines | ~42 |
+| 16:22 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | 2→3 lines | ~45 |
+| 16:22 | Edited apps/frontend/src/pages/ProveeduriaPage.tsx | 1→3 lines | ~69 |
+| 16:29 | Turnera grilla configurable (intervalo+rango en localStorage, SlotGrid libre/ocupado, TurneraConfigModal, reservar preset) + guías por sección (HelpModal/HelpButton + helpContent en las 3 pages); borrado RampTimeline | 12 files | front typecheck 0 err, sin backend/migración | ~30000 |
+| 16:29 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+7 lines) | ~465 |
+| 16:29 | Session end: 62 writes across 28 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 22 reads | ~41133 tok |
+| 20:09 | Session end: 62 writes across 28 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 22 reads | ~41133 tok |

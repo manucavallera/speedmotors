@@ -23,6 +23,9 @@ export class ProveeduriaController {
   @Get('sales')
   listSales() { return this.svc.listSales() }
 
+  @Get('stats')
+  stats() { return this.svc.stats() }
+
   @Post('sales')
   checkout(@Body() dto: CheckoutDto, @Request() req: any) { return this.svc.checkout(dto, req.user.id) }
 }

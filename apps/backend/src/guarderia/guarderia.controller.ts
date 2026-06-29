@@ -11,6 +11,9 @@ export class GuarderiaController {
   @Get('mapa')
   mapa() { return this.svc.mapa() }
 
+  @Get('stats')
+  stats() { return this.svc.stats() }
+
   @Get('spots')
   listSpots() { return this.svc.listSpots() }
 

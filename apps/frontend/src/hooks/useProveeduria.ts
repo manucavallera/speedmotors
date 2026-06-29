@@ -2,7 +2,7 @@ import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
-import { type ProvProduct, type ProvProductForm, type CartItem } from '../types/proveeduria.types'
+import { type ProvProduct, type ProvProductForm, type CartItem, type ProvStats, type ProvSale } from '../types/proveeduria.types'
 
 export function useProveeduria() {
   const qc = useQueryClient()
@@ -15,6 +15,18 @@ export function useProveeduria() {
     placeholderData: prev => prev,
   })
   const products = productsQuery.data ?? []
+
+  const statsQuery = useQuery<ProvStats>({
+    queryKey: ['proveeduria', 'stats'],
+    queryFn: () => api.get('/proveeduria/stats').then(r => r.data),
+  })
+  const stats = statsQuery.data ?? { ventasHoy: 0, totalHoy: 0, ticketProm: 0, top: [] }
+
+  const salesQuery = useQuery<ProvSale[]>({
+    queryKey: ['proveeduria', 'sales'],
+    queryFn: () => api.get('/proveeduria/sales').then(r => r.data),
+  })
+  const sales = salesQuery.data ?? []
 
   const createProduct = useMutation({
     mutationFn: (data: ProvProductForm) => api.post('/proveeduria/products', data),
@@ -40,5 +52,5 @@ export function useProveeduria() {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { products, productsQuery, search, setSearch, createProduct, updateProduct, removeProduct, checkout }
+  return { products, productsQuery, stats, sales, search, setSearch, createProduct, updateProduct, removeProduct, checkout }
 }

@@ -16,6 +16,24 @@ export interface CartItem {
   stock: number
 }
 
+export interface ProvSale {
+  id: number
+  total: string
+  createdAt: string
+}
+
+export interface ProvTopItem {
+  name: string
+  qty: number
+}
+
+export interface ProvStats {
+  ventasHoy: number
+  totalHoy: number
+  ticketProm: number
+  top: ProvTopItem[]
+}
+
 export interface ProvProductForm {
   name: string
   sellPrice: number

@@ -1,7 +1,7 @@
 import { toast } from '../lib/toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
-import { type RentalSlot, type SlotForm, type GuarderiaUnitOption } from '../types/turnera.types'
+import { type RentalSlot, type SlotForm, type GuarderiaUnitOption, type DaySummary } from '../types/turnera.types'
 import { type StorageService } from '../types/guarderia.types'
 
 export function useTurnera(date: string) {
@@ -29,6 +29,15 @@ export function useTurnera(date: string) {
   })
   const slots = slotsQuery.data ?? []
 
+  // Resumen del mes (para el calendario): días con salidas + cobrado
+  const month = date.slice(0, 7)
+  const monthQuery = useQuery<DaySummary[]>({
+    queryKey: ['turnera', 'month', month],
+    queryFn: () => api.get('/turnera/month', { params: { month } }).then(r => r.data),
+    placeholderData: prev => prev,
+  })
+  const monthDays = monthQuery.data ?? []
+
   const createSlot = useMutation({
     mutationFn: (data: SlotForm) => api.post('/turnera/slots', data),
     onSuccess: () => { invalidate(); toast.success('Salida agendada') },
@@ -50,5 +59,5 @@ export function useTurnera(date: string) {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { units, unitsQuery, services, slots, slotsQuery, createSlot, setStatus, charge, removeSlot }
+  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, charge, removeSlot }
 }

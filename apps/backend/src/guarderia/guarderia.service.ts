@@ -21,6 +21,7 @@ export class GuarderiaService {
         entryDate: storageUnits.entryDate,
         clientId: clients.id,
         clientName: clients.name,
+        clientPhone: clients.phone,
         debt,
       })
       .from(storageSpots)
@@ -42,8 +43,20 @@ export class GuarderiaService {
         entryDate: r.entryDate,
         clientId: r.clientId,
         clientName: r.clientName,
+        clientPhone: r.clientPhone,
       },
     }))
+  }
+
+  // Métricas para los cards de la página
+  async stats() {
+    const month = new Date().toISOString().slice(0, 7)
+    const [r] = await db
+      .select({
+        ingresosMes: sql<number>`coalesce(sum(${storageCharges.amount}) filter (where ${storageCharges.paidAt} is not null and to_char(${storageCharges.paidAt}, 'YYYY-MM') = ${month}), 0)::float`,
+      })
+      .from(storageCharges)
+    return { ingresosMes: r?.ingresosMes ?? 0 }
   }
 
   // --- Lugares ---

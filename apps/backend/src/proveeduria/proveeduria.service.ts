@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { products, stockMovements, proveeduriaSales, proveeduriaSaleItems, cashSessions, cashMovements } from '../db/schema'
-import { eq, and, ilike, or, desc } from 'drizzle-orm'
+import { eq, and, ilike, or, desc, sql } from 'drizzle-orm'
 import { ProveeduriaProductDto, CheckoutDto } from './proveeduria.dto'
 
 @Injectable()
@@ -51,7 +51,31 @@ export class ProveeduriaService {
 
   // --- Ventas POS ---
   listSales() {
-    return db.select().from(proveeduriaSales).orderBy(desc(proveeduriaSales.createdAt)).limit(100)
+    return db.select().from(proveeduriaSales).orderBy(desc(proveeduriaSales.createdAt)).limit(30)
+  }
+
+  // Métricas para los cards: ventas de hoy, ticket promedio, más vendidos
+  async stats() {
+    const today = new Date().toISOString().slice(0, 10)
+    const [v] = await db
+      .select({
+        count: sql<number>`count(*)::int`,
+        total: sql<number>`coalesce(sum(${proveeduriaSales.total}), 0)::float`,
+      })
+      .from(proveeduriaSales)
+      .where(sql`to_char(${proveeduriaSales.createdAt}, 'YYYY-MM-DD') = ${today}`)
+    const top = await db
+      .select({
+        name: proveeduriaSaleItems.name,
+        qty: sql<number>`sum(${proveeduriaSaleItems.quantity})::int`,
+      })
+      .from(proveeduriaSaleItems)
+      .groupBy(proveeduriaSaleItems.name)
+      .orderBy(sql`sum(${proveeduriaSaleItems.quantity}) desc`)
+      .limit(5)
+    const ventasHoy = v?.count ?? 0
+    const totalHoy = v?.total ?? 0
+    return { ventasHoy, totalHoy, ticketProm: ventasHoy ? totalHoy / ventasHoy : 0, top }
   }
 
   async checkout(dto: CheckoutDto, userId: number) {

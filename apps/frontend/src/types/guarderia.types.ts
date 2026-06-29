@@ -12,6 +12,11 @@ export interface MapUnit {
   entryDate: string
   clientId: number
   clientName: string
+  clientPhone: string | null
+}
+
+export interface GuarderiaStats {
+  ingresosMes: number
 }
 
 export interface MapSpot {

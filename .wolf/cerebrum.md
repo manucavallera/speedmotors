@@ -22,6 +22,8 @@
 
 [2026-05-22] BrowserMultiFormatReader.decodeFromVideoDevice dispara el callback múltiples veces por segundo mientras detecta el código. Siempre usar un ref `firedRef` para que onScan solo se ejecute una vez por sesión de escaneo.
 
+[2026-06-29] En Drizzle raw sql, para filtrar por mes/día sobre columnas tipo `date` o `timestamp` usar SIEMPRE `to_char(col,'YYYY-MM')=$mes`, NUNCA `col LIKE 'YYYY-MM%'` — Postgres no tiene operador LIKE para `date` (tira 500 "operator does not exist: date ~~ unknown"). Engaña porque con tabla vacía devuelve [] sin evaluar (falso-verde). Ver bug-510.
+
 [2026-05-22] Cuando se agrega un producto por barcode en ventas, verificar si ya existe en items (por productId) e incrementar cantidad en vez de agregar nueva línea.
 
 ## Decision Log

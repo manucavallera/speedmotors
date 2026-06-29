@@ -3,6 +3,9 @@ import { useProveeduria } from '../hooks/useProveeduria'
 import { ProductGrid } from '../components/proveeduria/ProductGrid'
 import { Cart } from '../components/proveeduria/Cart'
 import { ProductManageModal } from '../components/proveeduria/ProductManageModal'
+import { ProvInsights } from '../components/proveeduria/ProvInsights'
+import { HelpModal, HelpButton } from '../components/ui/HelpModal'
+import { PROVEEDURIA_HELP } from '../lib/helpContent'
 import { inputStyle, btnSecondary } from '../components/ui/FormField'
 import { toast } from '../lib/toast'
 import { type ProvProduct, type CartItem } from '../types/proveeduria.types'
@@ -19,9 +22,10 @@ function Stat({ value, label, color }: { value: string | number; label: string; 
 }
 
 export function ProveeduriaPage() {
-  const { products, productsQuery, search, setSearch, createProduct, updateProduct, removeProduct, checkout } = useProveeduria()
+  const { products, productsQuery, stats, sales, search, setSearch, createProduct, updateProduct, removeProduct, checkout } = useProveeduria()
   const [cart, setCart] = useState<CartItem[]>([])
   const [manage, setManage] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
 
   const bajoStock = products.filter(p => p.stock <= p.minStock).length
   const valorInventario = products.reduce((a, p) => a + p.stock * Number(p.sellPrice), 0)
@@ -59,10 +63,14 @@ export function ProveeduriaPage() {
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Proveeduría</h1>
           <div style={{ fontSize: '13px', color: '#94a3b8' }}>Venta rápida</div>
         </div>
+        <HelpButton onClick={() => setShowHelp(true)} />
         <button style={btnSecondary} onClick={() => setManage(true)}>Productos</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px', marginBottom: '20px' }}>
+        <Stat value={stats.ventasHoy} label="Ventas hoy" color="#1d4ed8" />
+        <Stat value={fmt(stats.totalHoy)} label="$ vendido hoy" color="#16a34a" />
+        <Stat value={fmt(Math.round(stats.ticketProm))} label="Ticket promedio" color="#0f172a" />
         <Stat value={products.length} label="Productos" color="#2563eb" />
         <Stat value={bajoStock} label="Bajo stock" color={bajoStock > 0 ? '#dc2626' : '#16a34a'} />
         <Stat value={fmt(valorInventario)} label="Valor inventario" color="#0f172a" />
@@ -90,6 +98,10 @@ export function ProveeduriaPage() {
           submitting={checkout.isPending}
         />
       </div>
+
+      <ProvInsights products={products} sales={sales} top={stats.top} onManage={() => setManage(true)} />
+
+      {showHelp && <HelpModal title="Cómo funciona la Proveeduría" sections={PROVEEDURIA_HELP} onClose={() => setShowHelp(false)} />}
 
       {manage && (
         <ProductManageModal

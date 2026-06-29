@@ -10,15 +10,17 @@ interface Props {
   units: GuarderiaUnitOption[]
   services: StorageService[]
   date: string
+  presetStart?: string
+  presetEnd?: string
   onClose: () => void
   onSubmit: (data: SlotForm) => void
   submitting: boolean
 }
 
-export function TurnoModal({ units, services, date, onClose, onSubmit, submitting }: Props) {
+export function TurnoModal({ units, services, date, presetStart, presetEnd, onClose, onSubmit, submitting }: Props) {
   const [unitId, setUnitId] = useState('')
-  const [startTime, setStartTime] = useState('')
-  const [endTime, setEndTime] = useState('')
+  const [startTime, setStartTime] = useState(presetStart ?? '')
+  const [endTime, setEndTime] = useState(presetEnd ?? '')
   const [serviceId, setServiceId] = useState('')
   const [price, setPrice] = useState('')
 

@@ -7679,10 +7679,565 @@
       "file": "apps/frontend/src/pages/TurneraPage.tsx",
       "root_cause": "Rework turnera (botaduras sobre storage_units) migró schema+backend+hook+types pero TurneraPage y BoatSchedule/BoatsModal quedaron en concepto viejo de alquiler de lanchas",
       "fix": "Reescrita TurneraPage usando units/services/slots + DaySchedule + TurnoModal; borrados BoatsModal.tsx y BoatSchedule.tsx",
-      "tags": ["turnera", "tsx", "concepto-viejo", "migracion-incompleta"],
-      "related_bugs": ["bug-478"],
+      "tags": [
+        "turnera",
+        "tsx",
+        "concepto-viejo",
+        "migracion-incompleta"
+      ],
+      "related_bugs": [
+        "bug-478"
+      ],
       "occurrences": 1,
       "last_seen": "2026-06-26T00:00:00.000Z"
+    },
+    {
+      "id": "bug-480",
+      "timestamp": "2026-06-26T20:19:52.145Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/hooks/useAlerts.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T20:19:52.145Z"
+    },
+    {
+      "id": "bug-481",
+      "timestamp": "2026-06-26T20:20:19.371Z",
+      "error_message": "CSS fix: summary",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "summary: s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem → s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, guarderia: gd, reservations: res, purchaseOrders: po, reminders: rem",
+      "fix": "Changed summary: s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, reservations: res, purchaseOrders: po, reminders: rem → s, installments: inst, creditInstallments: ci, cuentaCorriente: cc, guarderia: gd, reservations: res, purchaseOrders: po, reminders: rem",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-26T20:20:43.227Z"
+    },
+    {
+      "id": "bug-482",
+      "timestamp": "2026-06-26T20:20:35.146Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/AlertsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T20:20:35.146Z"
+    },
+    {
+      "id": "bug-483",
+      "timestamp": "2026-06-26T20:21:10.830Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/cash/cash.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T20:21:10.830Z"
+    },
+    {
+      "id": "bug-484",
+      "timestamp": "2026-06-26T20:22:05.244Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/lib/pdf/receipt.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T20:22:05.244Z"
+    },
+    {
+      "id": "bug-485",
+      "timestamp": "2026-06-26T20:22:46.556Z",
+      "error_message": "CSS fix: periodLabel",
+      "file": "apps/frontend/src/components/guarderia/ChargeModal.tsx",
+      "root_cause": "periodLabel: periodLabel.trim() || undefined, paid → periodLabel.trim() || null,",
+      "fix": "Changed periodLabel: periodLabel.trim() || undefined, paid → periodLabel.trim() || null,",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T20:22:46.556Z"
+    },
+    {
+      "id": "bug-486",
+      "timestamp": "2026-06-26T21:32:05.527Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/components/turnera/DaySchedule.tsx",
+      "root_cause": "Was returning: <div style={{ padding: '40px', textAlign: 'center'",
+      "fix": "Now returns: <div style={{ padding: '40px', textAlign: 'center'",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:32:05.527Z"
+    },
+    {
+      "id": "bug-487",
+      "timestamp": "2026-06-26T21:32:10.511Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/turnera/DaySchedule.tsx",
+      "root_cause": "Had '¿Eliminar esta botadura?'",
+      "fix": "Changed to '¿Eliminar esta salida?'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:32:10.511Z"
+    },
+    {
+      "id": "bug-488",
+      "timestamp": "2026-06-26T21:32:25.481Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Had \"Agendar botadura\"",
+      "fix": "Changed to \"Agendar salida al agua\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:32:25.481Z"
+    },
+    {
+      "id": "bug-489",
+      "timestamp": "2026-06-26T21:32:39.118Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "Had 'Botadura agendada'",
+      "fix": "Changed to 'Salida agendada'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-26T21:32:43.557Z"
+    },
+    {
+      "id": "bug-490",
+      "timestamp": "2026-06-26T21:33:13.660Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "Had 'Ya hay otra botadura en ese horario'",
+      "fix": "Changed to 'Ya hay otra salida al agua en ese horario'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-26T21:33:23.576Z"
+    },
+    {
+      "id": "bug-491",
+      "timestamp": "2026-06-26T21:33:34.772Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/cash/cash.service.ts",
+      "root_cause": "Had 'Botadura'",
+      "fix": "Changed to 'Salida al agua'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:33:34.772Z"
+    },
+    {
+      "id": "bug-492",
+      "timestamp": "2026-06-26T21:37:16.520Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:37:16.520Z"
+    },
+    {
+      "id": "bug-493",
+      "timestamp": "2026-06-26T21:37:30.967Z",
+      "error_message": "CSS fix: background",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0",
+      "fix": "Changed background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:37:30.967Z"
+    },
+    {
+      "id": "bug-494",
+      "timestamp": "2026-06-26T21:37:43.945Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/components/turnera/DaySchedule.tsx",
+      "root_cause": "Was returning: <div style={{ padding: '40px', textAlign: 'center'",
+      "fix": "Now returns: (",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-26T21:37:43.945Z"
+    },
+    {
+      "id": "bug-495",
+      "timestamp": "2026-06-26T21:38:27.137Z",
+      "error_message": "CSS fix: background",
+      "file": "apps/frontend/src/pages/GuarderiaPage.tsx",
+      "root_cause": "background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0",
+      "fix": "Changed background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px' → 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px 16px', minWidth: 0",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-06-26T21:38:43.794Z"
+    },
+    {
+      "id": "bug-496",
+      "timestamp": "2026-06-29T14:55:58.880Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/types/turnera.types.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T14:55:58.880Z"
+    },
+    {
+      "id": "bug-497",
+      "timestamp": "2026-06-29T14:56:05.949Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "Was returning: { units, unitsQuery, services, slots, slotsQuery, ",
+      "fix": "Now returns: { units, unitsQuery, services, slots, slotsQuery, ",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T14:56:05.949Z"
+    },
+    {
+      "id": "bug-498",
+      "timestamp": "2026-06-29T15:09:32.736Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:09:32.736Z"
+    },
+    {
+      "id": "bug-499",
+      "timestamp": "2026-06-29T15:09:46.992Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/hooks/useGuarderia.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:09:46.992Z"
+    },
+    {
+      "id": "bug-500",
+      "timestamp": "2026-06-29T15:09:48.582Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/hooks/useGuarderia.ts",
+      "root_cause": "Was returning: { mapaQuery, spots, services, servicesQuery, creat",
+      "fix": "Now returns: { mapaQuery, spots, stats, services, servicesQuery",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:09:48.582Z"
+    },
+    {
+      "id": "bug-501",
+      "timestamp": "2026-06-29T15:10:34.891Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/frontend/src/pages/GuarderiaPage.tsx",
+      "root_cause": "No early return/throw for edge case: !term",
+      "fix": "Added guard clause: if (!term)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:10:34.891Z"
+    },
+    {
+      "id": "bug-502",
+      "timestamp": "2026-06-29T15:10:50.734Z",
+      "error_message": "CSS fix: display",
+      "file": "apps/frontend/src/pages/GuarderiaPage.tsx",
+      "root_cause": "display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: '20px', alignItems: 'start' → 'flex', flexDirection: 'column', gap: '16px'",
+      "fix": "Changed display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: '20px', alignItems: 'start' → 'flex', flexDirection: 'column', gap: '16px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:10:50.734Z"
+    },
+    {
+      "id": "bug-503",
+      "timestamp": "2026-06-29T15:12:02.920Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/proveeduria/proveeduria.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:02.920Z"
+    },
+    {
+      "id": "bug-504",
+      "timestamp": "2026-06-29T15:12:13.474Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/types/proveeduria.types.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:13.474Z"
+    },
+    {
+      "id": "bug-505",
+      "timestamp": "2026-06-29T15:12:17.767Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/hooks/useProveeduria.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:17.767Z"
+    },
+    {
+      "id": "bug-506",
+      "timestamp": "2026-06-29T15:12:19.420Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/hooks/useProveeduria.ts",
+      "root_cause": "Was returning: { products, productsQuery, search, setSearch, crea",
+      "fix": "Now returns: { products, productsQuery, stats, sales, search, s",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:19.420Z"
+    },
+    {
+      "id": "bug-507",
+      "timestamp": "2026-06-29T15:12:44.258Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/pages/ProveeduriaPage.tsx",
+      "root_cause": "Had '../components/ui/FormField'",
+      "fix": "Changed to '../components/proveeduria/ProvInsights'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:44.258Z"
+    },
+    {
+      "id": "bug-508",
+      "timestamp": "2026-06-29T15:12:50.734Z",
+      "error_message": "CSS fix: display",
+      "file": "apps/frontend/src/pages/ProveeduriaPage.tsx",
+      "root_cause": "display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' → 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px', marginBottom: '20px'",
+      "fix": "Changed display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' → 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px', marginBottom: '20px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:12:50.734Z"
+    },
+    {
+      "id": "bug-509",
+      "timestamp": "2026-06-29T15:40:55.086Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "Had `${rentalSlots.date} like ${month + '",
+      "fix": "Changed to `to_char(${rentalSlots.date}, '",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T15:40:55.086Z"
+    },
+    {
+      "id": "bug-510",
+      "timestamp": "2026-06-29T00:00:00.000Z",
+      "error_message": "GET /turnera/month -> 500 Internal server error cuando hay filas (operator does not exist: date ~~ unknown)",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "monthSummary filtraba con `date LIKE 'YYYY-MM%'` pero la columna `date` es tipo date, Postgres no tiene operador LIKE para date. Devolvia [] cuando la tabla del mes estaba vacia (sin filas no evalua), de ahi el falso-verde en el smoke test.",
+      "fix": "Reemplazado por `to_char(date,'YYYY-MM') = month` (mismo patron que guarderia/proveeduria stats).",
+      "tags": [
+        "turnera",
+        "drizzle",
+        "postgres",
+        "sql",
+        "date",
+        "like",
+        "stats"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T00:00:00.000Z"
+    },
+    {
+      "id": "bug-511",
+      "timestamp": "2026-06-29T16:19:46.388Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T16:19:46.388Z"
+    },
+    {
+      "id": "bug-512",
+      "timestamp": "2026-06-29T16:20:12.867Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T16:20:12.867Z"
+    },
+    {
+      "id": "bug-513",
+      "timestamp": "2026-06-29T16:20:36.358Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-29T16:20:36.358Z"
     }
   ]
 }

@@ -22,6 +22,13 @@ export interface RentalSlot {
   notes: string | null
 }
 
+// Resumen por día para el calendario del mes
+export interface DaySummary {
+  date: string
+  reserved: number
+  cobrado: number
+}
+
 export interface SlotForm {
   unitId: number
   date: string

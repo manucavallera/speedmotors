@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { rentalSlots, storageUnits, clients, cashSessions, cashMovements } from '../db/schema'
-import { eq, and, asc } from 'drizzle-orm'
+import { eq, and, asc, sql } from 'drizzle-orm'
 import { CreateSlotDto } from './turnera.dto'
 
 @Injectable()
@@ -29,6 +29,20 @@ export class TurneraService {
       .leftJoin(clients, eq(clients.id, rentalSlots.clientId))
       .where(eq(rentalSlots.date, date))
       .orderBy(asc(rentalSlots.startTime))
+  }
+
+  // Resumen del mes para el calendario: por día, cuántas salidas y cuánto se cobró
+  async monthSummary(month: string) {
+    // month = 'YYYY-MM' → matchea las fechas de ese mes
+    return db
+      .select({
+        date: rentalSlots.date,
+        reserved: sql<number>`count(*) filter (where ${rentalSlots.status} <> 'cancelado')::int`,
+        cobrado: sql<number>`coalesce(sum(${rentalSlots.price}) filter (where ${rentalSlots.paidAt} is not null), 0)::float`,
+      })
+      .from(rentalSlots)
+      .where(sql`to_char(${rentalSlots.date}, 'YYYY-MM') = ${month}`)
+      .groupBy(rentalSlots.date)
   }
 
   async createSlot(dto: CreateSlotDto, userId: number) {
