@@ -8238,6 +8238,18 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-06-29T16:20:36.358Z"
+    },
+    {
+      "id": "bug-514",
+      "timestamp": "2026-06-30T14:30:00.000Z",
+      "error_message": "Internal server error al listar/cargar clientes en PROD. column \"type\" does not exist (code 42703) en ClientsService.findAll",
+      "file": "apps/backend/drizzle/0030_guarderia_module.sql",
+      "root_cause": "Deploy de codigo nuevo (schema espera clients.type, products.area, tablas guarderia/turnera/proveeduria) sin correr migrations 0030-0033 en PROD. El auto-migrate de drizzle en main.ts tiene drizzle/meta/_journal.json cortado en 0013, asi que en deploy solo aplica hasta 0013 — todo 0014+ se aplica a mano en la consola DB de EasyPanel.",
+      "fix": "Correr migrations 0030-0033 a mano en consola psql de EasyPanel (servicio Postgres > Console). Conexion PROD: psql -U postgres -d \"speedmotors-db\". SQL idempotente (IF NOT EXISTS / DO $$ enum). La consola web corta pastes largos: pegar de a bloques chicos.",
+      "tags": ["migration", "drizzle", "prod", "easypanel", "deploy", "clients", "guarderia", "42703"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-30T14:30:00.000Z"
     }
   ]
 }
