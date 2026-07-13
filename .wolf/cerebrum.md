@@ -58,3 +58,14 @@
 - Corrige la entrada previa de hoy que decía "interés compuesto en cuotas fijas": ESO ESTABA MAL, ignorar.
 - Unificado en simple: credit-math.ts, credits.generateInstallments, sales.service, SaleFormModal preview, SaleTotalsPanel (era sistema francés, ahora simple), CreditFormModal preview (ya era simple).
 - **3 modelos posibles** (para 990k/12/5%): francés $111.697 | simple $132.000 (ELEGIDO) | compuesto $148.158.
+
+## Dominio Marina — aprendido de audios del tío (2026-07-13)
+- **Guardería NO es alquiler de lanchas.** Las lanchas son de los clientes. El tío alquila "cunas" (lugar en estante, como cochera) + servicios.
+- **Turnera = agenda de botaduras** (bajar la lancha al agua), no alquiler. Pico los domingos 7 AM.
+- **El CLIENTE reserva su turno**, no el operador: "el tipo tiene que entrar y elegir la opción, no yo dárselo". Pide servicios en el mismo paso.
+- **Cunas**: 4 líneas (A/B/C/D), 48 por línea, códigos correlativos A1..A48. C y D sin piso todavía. Reasignables (el de A1 puede pasar a A35).
+- **Lanchas sueltas sobre trailer**: fuera de cunas, también hay que gestionarlas.
+- **Tarifas por categoría**: escalas por HP (2-35, 40-90, 90+) y por eslora.
+- **Proveeduría = servicios** (dixit el sobrino): combustible, hielo, asado, batería, parrilla son ítems del catálogo de servicios, no un módulo POS aparte.
+- **Precios siempre editables desde la UI**, nunca hardcodeados.
+- Canal de difusión = lista de difusión de WhatsApp manual (la API oficial se paga por conversación; no se justifica para ~100 clientes).

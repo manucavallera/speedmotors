@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-06-29T16:29:39.436Z
-> Files: 401 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-13T22:28:14.007Z
+> Files: 419 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -12,16 +12,17 @@
 
 - `feedback_component_size.md` (~164 tok)
 - `feedback_menos_preguntas.md` (~300 tok)
-- `MEMORY.md` — Memory Index (~619 tok)
+- `MEMORY.md` — Memory Index (~658 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
 - `project_cuotas_fix_pendiente.md` (~557 tok)
-- `project_guarderia_ampliacion.md` — Decisiones de diseño Guardería (2026-06-18) (~4127 tok)
+- `project_guarderia_ampliacion.md` — Decisiones de diseño Guardería (2026-06-18) (~4449 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
 - `project_pendientes_2026_06_01.md` (~368 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
+- `project_prod_migrations_manual.md` (~432 tok)
 - `project_produccion_roadmap.md` — Fixes aplicados hoy (2026-05-06/07) (~541 tok)
 - `project_roadmap_features.md` — Regla de tokens (CRÍTICA) (~324 tok)
 - `project_setup_local_wsl.md` (~330 tok)
@@ -32,6 +33,11 @@
 ## ../../../../../../tmp/
 
 - `test_compuesto.mjs` — Replica applyPendingInterest del sistema con los datos del Excel (~484 tok)
+
+## ../../../../../../tmp/claude-1000/-mnt-c-Users-coco-proyectos-speedmotors/7a873f90-1c4b-4b40-82a9-8e9bccefb1f7/scratchpad/
+
+- `frames.py` (~174 tok)
+- `transcribe.py` (~127 tok)
 
 ## ../../../../../../tmp/claude-1000/-mnt-c-Users-coco-proyectos-speedmotors/8f1a3533-a52f-449b-aee2-3753438d73d4/scratchpad/
 
@@ -70,7 +76,7 @@
 - `.mcp.json` (~83 tok)
 - `AUDIT_REPORT.md` — Auditoría SpeedMotors — 2026-05-11 (~4929 tok)
 - `AUDIT.md` — AUDIT — SpeedMotors (~3727 tok)
-- `CLAUDE.md` — OpenWolf (~718 tok)
+- `CLAUDE.md` — OpenWolf (~746 tok)
 - `COTIZACION-guarderia.md` — Cotización — Ampliación del sistema (~553 tok)
 - `docker-compose.yml` — Docker Compose services (~359 tok)
 - `mockup-guarderia.html` — Guardería Náutica — Mapa de Lugares (~2923 tok)
@@ -78,6 +84,7 @@
 - `package.json` — Node.js package manifest (~82 tok)
 - `PREGUNTAS-tio.md` — Preguntas para definir el sistema (guardería + turnera + proveeduría) (~430 tok)
 - `presupuesto-guarderia.html` (~1450 tok)
+- `RESUMEN-llamada-tio.md` — Marina — lo que entendí de los audios (~747 tok)
 
 ## .claude/
 
@@ -113,6 +120,13 @@
 
 - `completion-template.md` — Completion: [nombre del feature] (~103 tok)
 - `session-template.md` — Session: [descripcion] (~94 tok)
+
+## Guardería — componentes nuevos (2026-07-13)
+
+- `0034_guarderia_categorias_cunas.sql` — storage_categories + hp/length_m/category_id en storage_units + siembra 192 cunas A1-D48 (C/D inactivas) (~450 tok)
+- `CategoriesModal.tsx` — ABM de categorías de embarcación (HP/eslora → tarifa mensual) (~1100 tok)
+- `LooseUnits.tsx` — lanchas sobre trailer sin cuna asignada: cobrar / dar cuna (~700 tok)
+- `MoveModal.tsx` — mover una lancha de cuna, o dejarla suelta sobre trailer (~600 tok)
 
 ## apps/backend/
 
@@ -166,6 +180,10 @@
 - `0031_proveeduria_module.sql` — Proveeduría: área de producto + ventas POS propias (~276 tok)
 - `0032_turnera_module.sql` — Turnera: alquiler de lanchas por franjas horarias (~322 tok)
 - `0033_guarderia_servicios_botaduras.sql` — Rework guardería/turnera tras feedback del cliente (2026-06-25) (~452 tok)
+- `0034_guarderia_categorias_cunas.sql` — Guardería: categorías de embarcación (tarifa por HP/eslora) + siembra de las 192 cunas (2026-07-13) (~590 tok)
+- `0035_turnera_config.sql` — Config de la grilla de turnos: pasa de localStorage al servidor (2026-07-13) (~173 tok)
+- `0036_turno_servicios.sql` — Un turno puede llevar VARIOS servicios, no uno solo (2026-07-13) (~284 tok)
+- `0037_servicios_fijos_cobro_masivo.sql` — Servicios fijos mensuales por lancha + cobro masivo del mes (2026-07-13) (~217 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -208,7 +226,7 @@
 
 ## apps/backend/src/clients/
 
-- `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~186 tok)
+- `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~242 tok)
 - `clients.controller.ts` — Exports ClientsController (~888 tok)
 - `clients.module.ts` — Exports ClientsModule (~107 tok)
 - `clients.service.ts` — Exports ClientsService (~3368 tok)
@@ -242,9 +260,9 @@
 - `sales.schema.ts` — Exports sales, saleItems, installments (~1038 tok)
 - `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~236 tok)
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
-- `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~926 tok)
+- `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~1327 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
-- `turnera.schema.ts` — Exports rentalSlots (~396 tok)
+- `turnera.schema.ts` — Config de la grilla (fila única). El dueño define cada cuántos minutos es un turno y el horario del (~697 tok)
 - `types.ts` — Exports User, NewUser, Client, NewClient + 19 more (~608 tok)
 - `users.schema.ts` — Exports users (~184 tok)
 - `vehicles.schema.ts` — Exports vehicles (~380 tok)
@@ -263,10 +281,10 @@
 
 ## apps/backend/src/guarderia/
 
-- `guarderia.controller.ts` — Exports GuarderiaController (~549 tok)
-- `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, ServiceDto, ChargeItemDto, ChargeDto (~467 tok)
+- `guarderia.controller.ts` — Exports GuarderiaController (~980 tok)
+- `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, CategoryDto, MoveUnitDto + 5 more (~813 tok)
 - `guarderia.module.ts` — Exports GuarderiaModule (~97 tok)
-- `guarderia.service.ts` — Exports GuarderiaService (~2907 tok)
+- `guarderia.service.ts` — Exports GuarderiaService (~6330 tok)
 
 ## apps/backend/src/notifications/
 
@@ -347,10 +365,10 @@
 
 ## apps/backend/src/turnera/
 
-- `turnera.controller.ts` — Exports TurneraController (~334 tok)
-- `turnera.dto.ts` — Exports CreateSlotDto (~186 tok)
+- `turnera.controller.ts` — Exports TurneraController (~386 tok)
+- `turnera.dto.ts` — Un servicio pedido en el turno (~365 tok)
 - `turnera.module.ts` — Exports TurneraModule (~93 tok)
-- `turnera.service.ts` — Exports TurneraService (~1373 tok)
+- `turnera.service.ts` — Exports TurneraService (~1864 tok)
 
 ## apps/backend/src/upload/
 
@@ -439,13 +457,19 @@
 
 ## apps/frontend/src/components/guarderia/
 
+- `CategoriesModal.tsx` — EMPTY — renders modal (~1516 tok)
 - `ChargeModal.tsx` — fmt — renders form, modal (~1554 tok)
+- `ClientFileModal.tsx` — fmt — renders modal (~1918 tok)
 - `DeudoresPanel.tsx` — fmt (~913 tok)
-- `GuardarModal.tsx` — GuardarModal — renders form, modal (~1602 tok)
+- `DifusionModal.tsx` — DifusionModal — renders modal (~1074 tok)
+- `GuardarModal.tsx` — GuardarModal — renders form, modal (~2460 tok)
+- `LooseUnits.tsx` — fmt (~710 tok)
+- `MonthChargeModal.tsx` — fmt — renders form, modal (~1354 tok)
+- `MoveModal.tsx` — MoveModal — renders form, modal (~600 tok)
 - `ServicesModal.tsx` — fmt — renders modal (~930 tok)
 - `SetupModal.tsx` — SetupModal — renders form, modal (~765 tok)
-- `SpotPanel.tsx` — fmt (~1341 tok)
-- `StorageMap.tsx` — spotColors (~791 tok)
+- `SpotPanel.tsx` — fmt (~1844 tok)
+- `StorageMap.tsx` — spotColors (~1328 tok)
 
 ## apps/frontend/src/components/installments/
 
@@ -522,7 +546,7 @@
 - `RampTimeline.tsx` — toMin (~1081 tok)
 - `SlotGrid.tsx` — occupant (~1018 tok)
 - `TurneraConfigModal.tsx` — PRESETS — renders form, modal (~840 tok)
-- `TurnoModal.tsx` — TurnoModal — renders form, modal (~1117 tok)
+- `TurnoModal.tsx` — TurnoModal — renders form, modal (~1556 tok)
 
 ## apps/frontend/src/components/ui/
 
@@ -556,25 +580,25 @@
 - `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
 - `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~739 tok)
 - `useCredits.ts` — API routes: GET, POST, PUT, DELETE (10 endpoints) (~1411 tok)
-- `useGuarderia.ts` — API routes: GET, POST, PUT, DELETE, PATCH (11 endpoints) (~952 tok)
+- `useGuarderia.ts` — API routes: GET, POST, PUT, DELETE, PATCH (20 endpoints) (~1869 tok)
 - `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1326 tok)
 - `useProveeduria.ts` — API routes: GET, POST, PUT, DELETE (7 endpoints) (~714 tok)
 - `useReports.ts` — API routes: GET (1 endpoints) (~236 tok)
 - `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~611 tok)
 - `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1167 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
-- `useTurnera.ts` — API routes: GET, POST, PATCH, DELETE (8 endpoints) (~787 tok)
+- `useTurnera.ts` — API routes: GET, PUT, POST, PATCH, DELETE (10 endpoints) (~973 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
 ## apps/frontend/src/lib/
 
 - `api.ts` — Exports api, apiError (~188 tok)
 - `export.ts` — Exports exportSalesCsv, exportSalesPdf, exportProductsCsv, exportProductsPdf (~1300 tok)
-- `helpContent.ts` — Guías de uso por sección (texto para el usuario final) (~1248 tok)
+- `helpContent.ts` — Guías de uso por sección (texto para el usuario final) (~1903 tok)
 - `pdf.ts` (~53 tok)
 - `toast.ts` — Exports toast (~124 tok)
 - `tokens.ts` — Exports tokens (~253 tok)
-- `turneraConfig.ts` — Config de la grilla de turnos de la turnera (persistida en localStorage, sin backend) (~475 tok)
+- `turneraConfig.ts` — Config de la grilla de turnos. Vive en el backend (GET/PUT /turnera/config): (~332 tok)
 
 ## apps/frontend/src/lib/pdf/
 
@@ -599,7 +623,7 @@
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `GuarderiaPage.tsx` — Stat (~2203 tok)
+- `GuarderiaPage.tsx` — Stat (~3285 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~3385 tok)
@@ -613,7 +637,7 @@
 - `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
 - `TransfersPage.tsx` — statusStyles (~2815 tok)
-- `TurneraPage.tsx` — today (~1863 tok)
+- `TurneraPage.tsx` — today (~1840 tok)
 - `UsersPage.tsx` — roleStyle — renders table (~1938 tok)
 - `VehiclesPage.tsx` — VehiclesPage (~1603 tok)
 
@@ -621,12 +645,12 @@
 
 - `api.types.ts` — Exports PaginatedResponse, Client, Product, Sale + 3 more (~690 tok)
 - `clients.types.ts` — Exports ClientForm, emptyClientForm, condicionIvaOptions, condicionIvaLabel + 2 more (~374 tok)
-- `guarderia.types.ts` — Exports StorageSpot, MapUnit, GuarderiaStats, MapSpot + 8 more (~480 tok)
+- `guarderia.types.ts` — Exports StorageSpot, MapUnit, StorageCategory, CategoryForm + 14 more (~1162 tok)
 - `products.types.ts` — Exports ProductForm, emptyProductForm (~165 tok)
 - `proveeduria.types.ts` — Exports ProvProduct, CartItem, ProvSale, ProvTopItem + 2 more (~196 tok)
 - `reservations.types.ts` — Exports CreateReservationDto (~120 tok)
 - `sales.types.ts` — Exports SaleItem, CreateSaleData (~148 tok)
-- `turnera.types.ts` — Lancha de guardería elegible para botadura (viene de /guarderia/units?status=en_guarderia) (~239 tok)
+- `turnera.types.ts` — Lancha de guardería elegible para botadura (viene de /guarderia/units?status=en_guarderia) (~330 tok)
 
 ## docs/
 
