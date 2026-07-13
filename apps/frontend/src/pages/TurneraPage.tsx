@@ -5,7 +5,7 @@ import { CalendarPicker } from '../components/turnera/CalendarPicker'
 import { SlotGrid } from '../components/turnera/SlotGrid'
 import { TurnoModal } from '../components/turnera/TurnoModal'
 import { TurneraConfigModal } from '../components/turnera/TurneraConfigModal'
-import { loadTurneraConfig, saveTurneraConfig, type TurneraConfig } from '../lib/turneraConfig'
+import { type TurneraConfig } from '../lib/turneraConfig'
 import { HelpModal, HelpButton } from '../components/ui/HelpModal'
 import { TURNERA_HELP } from '../lib/helpContent'
 import { type SlotForm } from '../types/turnera.types'
@@ -30,11 +30,10 @@ function Stat({ value, label, color, small }: { value: string | number; label: s
 
 export function TurneraPage() {
   const [date, setDate] = useState(today())
-  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, charge, removeSlot } = useTurnera(date)
+  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, charge, removeSlot, config, saveConfig } = useTurnera(date)
   const [showModal, setShowModal] = useState(false)
   const [showConfig, setShowConfig] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
-  const [config, setConfig] = useState<TurneraConfig>(loadTurneraConfig)
   const [preset, setPreset] = useState<{ start: string; end: string } | null>(null)
 
   // Reservar desde un casillero libre de la grilla: abre el modal con el horario prellenado
@@ -46,10 +45,8 @@ export function TurneraPage() {
     setPreset(null)
     setShowModal(true)
   }
-  function saveConfig(cfg: TurneraConfig) {
-    saveTurneraConfig(cfg)
-    setConfig(cfg)
-    setShowConfig(false)
+  function handleSaveConfig(cfg: TurneraConfig) {
+    saveConfig.mutate(cfg, { onSuccess: () => setShowConfig(false) })
   }
 
   const activos = slots.filter(s => s.status !== 'cancelado')
@@ -125,7 +122,7 @@ export function TurneraPage() {
         <TurneraConfigModal
           config={config}
           onClose={() => setShowConfig(false)}
-          onSave={saveConfig}
+          onSave={handleSaveConfig}
         />
       )}
 

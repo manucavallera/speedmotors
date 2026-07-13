@@ -5,6 +5,25 @@ import { clients } from './clients.schema'
 import { users } from './users.schema'
 import { storageUnits, storageServices } from './storage.schema'
 
+// Config de la grilla (fila única). El dueño define cada cuántos minutos es un turno y el horario del día.
+export const turneraConfig = pgTable('turnera_config', {
+  id: integer('id').primaryKey().default(1),
+  intervalMin: integer('interval_min').notNull().default(10),
+  dayStart: varchar('day_start', { length: 5 }).notNull().default('07:00'),
+  dayEnd: varchar('day_end', { length: 5 }).notNull().default('20:00'),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Servicios pedidos en un turno: batería, combustible, parrilla... El precio del turno es la suma.
+export const rentalSlotItems = pgTable('rental_slot_items', {
+  id: serial('id').primaryKey(),
+  slotId: integer('slot_id').references(() => rentalSlots.id, { onDelete: 'cascade' }).notNull(),
+  serviceId: integer('service_id').references(() => storageServices.id),
+  concept: varchar('concept', { length: 120 }).notNull(),
+  amount: numeric('amount', { precision: 12, scale: 2 }).notNull().default('0'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
 export const rentalSlots = pgTable('rental_slots', {
   id: serial('id').primaryKey(),
   unitId: integer('unit_id').references(() => storageUnits.id).notNull(),

@@ -21,16 +21,19 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
   const [unitId, setUnitId] = useState('')
   const [startTime, setStartTime] = useState(presetStart ?? '')
   const [endTime, setEndTime] = useState(presetEnd ?? '')
-  const [serviceId, setServiceId] = useState('')
-  const [price, setPrice] = useState('')
+  // El cliente puede pedir varios servicios en el mismo turno: batería + combustible + parrilla
+  const [picked, setPicked] = useState<Record<number, number>>({})
 
   const unit = units.find(u => String(u.id) === unitId)
+  const total = Object.values(picked).reduce((a, b) => a + b, 0)
 
-  // Al elegir servicio, prellenar precio con la tarifa del catálogo
-  function pickService(v: string) {
-    setServiceId(v)
-    const s = services.find(x => String(x.id) === v)
-    setPrice(s ? String(Number(s.price) || '') : '')
+  function toggle(s: StorageService) {
+    setPicked(prev => {
+      const next = { ...prev }
+      if (s.id in next) delete next[s.id]
+      else next[s.id] = Number(s.price) || 0
+      return next
+    })
   }
 
   function submit() {
@@ -42,8 +45,11 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
       date,
       startTime,
       endTime,
-      serviceId: serviceId ? Number(serviceId) : undefined,
-      price: price ? Number(price) : 0,
+      items: Object.entries(picked).map(([id, amount]) => ({
+        serviceId: Number(id),
+        concept: services.find(s => s.id === Number(id))?.name ?? 'Servicio',
+        amount,
+      })),
     })
   }
 
@@ -67,19 +73,43 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
           <div style={{ flex: 1 }}><FormField label="Hasta"><input style={inputStyle} type="time" value={endTime} onChange={e => setEndTime(e.target.value)} /></FormField></div>
         </div>
 
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <div style={{ flex: 1.4 }}>
-            <FormField label="Servicio (opcional)">
-              <SearchableSelect
-                value={serviceId}
-                onChange={pickService}
-                options={services.map(s => ({ value: String(s.id), label: s.name }))}
-                placeholder="Servicio..."
-                emptyLabel="— Sin servicio —"
-              />
-            </FormField>
+        <FormField label="Servicios que pide">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '210px', overflowY: 'auto' }}>
+            {services.map(s => {
+              const on = s.id in picked
+              return (
+                <div
+                  key={s.id}
+                  onClick={() => toggle(s)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer',
+                    background: on ? '#eff6ff' : '#f8fafc',
+                    border: `1.5px solid ${on ? '#bfdbfe' : '#e2e8f0'}`,
+                    borderRadius: '9px', padding: '8px 11px',
+                  }}
+                >
+                  <input type="checkbox" checked={on} readOnly style={{ pointerEvents: 'none' }} />
+                  <span style={{ flex: 1, fontSize: '13px', color: '#0f172a' }}>{s.name}</span>
+                  {on ? (
+                    <input
+                      style={{ ...inputStyle, width: '95px', padding: '4px 8px', fontSize: '12.5px' }}
+                      type="number"
+                      value={picked[s.id]}
+                      onClick={e => e.stopPropagation()}
+                      onChange={e => setPicked(p => ({ ...p, [s.id]: Number(e.target.value) || 0 }))}
+                    />
+                  ) : (
+                    <span style={{ fontSize: '12.5px', color: '#94a3b8' }}>${Number(s.price).toLocaleString('es-AR')}</span>
+                  )}
+                </div>
+              )
+            })}
           </div>
-          <div style={{ flex: 1 }}><FormField label="Precio"><input style={inputStyle} type="number" value={price} onChange={e => setPrice(e.target.value)} /></FormField></div>
+        </FormField>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '10px 12px' }}>
+          <span style={{ fontSize: '13px', color: '#64748b' }}>Total del turno</span>
+          <span style={{ fontSize: '17px', fontWeight: 700, color: '#0f172a' }}>${total.toLocaleString('es-AR')}</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>

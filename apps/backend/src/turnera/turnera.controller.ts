@@ -1,12 +1,18 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
+import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { TurneraService } from './turnera.service'
-import { CreateSlotDto } from './turnera.dto'
+import { CreateSlotDto, TurneraConfigDto } from './turnera.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)
 @Controller('turnera')
 export class TurneraController {
   constructor(private readonly svc: TurneraService) {}
+
+  @Get('config')
+  getConfig() { return this.svc.getConfig() }
+
+  @Put('config')
+  setConfig(@Body() dto: TurneraConfigDto) { return this.svc.setConfig(dto) }
 
   @Get('slots')
   listSlots(@Query('date') date: string) { return this.svc.listSlots(date) }

@@ -8,6 +8,8 @@ interface Props {
   onGuardar: (spotId: number) => void
   onCobrar: (unit: UnitDetail) => void
   onRetirar: (unitId: number) => void
+  onMover: (unit: UnitDetail) => void
+  onVerCliente: (clientId: number) => void
   onSaldar: (chargeId: number) => void
 }
 
@@ -23,7 +25,7 @@ function Row({ k, v, color }: { k: string; v: string; color?: string }) {
   )
 }
 
-export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onSaldar }: Props) {
+export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onMover, onVerCliente, onSaldar }: Props) {
   const unitId = spot?.unit?.id ?? null
   const { data: unit } = useQuery<UnitDetail>({
     queryKey: ['guarderia', 'unit', unitId],
@@ -37,10 +39,23 @@ export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onSaldar }: Pr
     return <div style={{ ...card, color: '#94a3b8', fontSize: '14px', textAlign: 'center', padding: '40px 18px' }}>Tocá un lugar para ver el detalle</div>
   }
 
+  // Las cunas de las líneas sin piso no se pueden usar todavía
+  if (!spot.active) {
+    return (
+      <div style={card}>
+        <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Cuna {spot.code}</h3>
+        <div style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '16px' }}>Línea en obra</div>
+        <div style={{ color: '#94a3b8', fontSize: '13px', textAlign: 'center', padding: '20px 0' }}>
+          Esta línea todavía no tiene piso. Cuando esté lista, se activa desde "Configurar lugares".
+        </div>
+      </div>
+    )
+  }
+
   if (!spot.occupied) {
     return (
       <div style={card}>
-        <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Lugar {spot.code}</h3>
+        <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Cuna {spot.code}</h3>
         <div style={{ fontSize: '12.5px', color: '#16a34a', marginBottom: '16px' }}>Libre — disponible</div>
         <div style={{ color: '#94a3b8', fontSize: '13px', textAlign: 'center', padding: '20px 0' }}>No hay ninguna embarcación acá.</div>
         <button style={{ ...btnPrimary, width: '100%' }} onClick={() => onGuardar(spot.spotId)}>+ Guardar embarcación acá</button>
@@ -54,10 +69,22 @@ export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onSaldar }: Pr
 
   return (
     <div style={card}>
-      <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Lugar {spot.code}</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Cuna {spot.code}</h3>
       <div style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '14px' }}>{unit.description}</div>
 
-      <Row k="Cliente" v={unit.clientName ?? '—'} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #f1f5f9', fontSize: '13.5px' }}>
+        <span style={{ color: '#64748b' }}>Cliente</span>
+        <button
+          onClick={() => onVerCliente(unit.clientId)}
+          style={{ fontWeight: 600, color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
+        >
+          {unit.clientName ?? '—'}
+        </button>
+      </div>
+      {unit.categoryName && <Row k="Categoría" v={unit.categoryName} />}
+      {unit.fixedServices.length > 0 && <Row k="Servicios fijos" v={unit.fixedServices.map(s => s.name).join(', ')} />}
+      {unit.hp != null && <Row k="Motor" v={`${unit.hp} HP`} />}
+      {unit.lengthM != null && <Row k="Largo" v={`${Number(unit.lengthM)} m`} />}
       <Row k="Desde" v={fmtDate(unit.entryDate)} />
       <Row k="Tarifa" v={fmt(Number(unit.rate))} />
       <Row k="Estado" v={unit.debt > 0 ? 'Debe' : 'Al día'} color={unit.debt > 0 ? '#dc2626' : '#16a34a'} />
@@ -66,6 +93,12 @@ export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onSaldar }: Pr
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
         <button style={{ ...btnPrimary, width: '100%', background: 'linear-gradient(135deg,#16a34a,#15803d)' }} onClick={() => onCobrar(unit)}>
           Cobrar {fmt(Number(unit.rate))}
+        </button>
+        <button
+          style={{ width: '100%', padding: '9px 18px', fontSize: '13.5px', fontWeight: 600, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '9px', cursor: 'pointer' }}
+          onClick={() => onMover(unit)}
+        >
+          Mover de cuna
         </button>
         <button
           style={{ width: '100%', padding: '9px 18px', fontSize: '13.5px', fontWeight: 600, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '9px', cursor: 'pointer' }}

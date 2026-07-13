@@ -16,10 +16,25 @@ export class CreateUnitDto {
   @IsInt()
   spotId?: number
 
+  @IsOptional()
+  @IsInt()
+  categoryId?: number
+
   @IsString()
   @MaxLength(150)
   description!: string
 
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  hp?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  lengthM?: number
+
+  // Si no viene, se toma la tarifa mensual de la categoría
   @IsOptional()
   @IsNumber()
   @Min(0)
@@ -32,6 +47,63 @@ export class CreateUnitDto {
   @IsOptional()
   @IsString()
   notes?: string
+}
+
+// Categoría de embarcación: escala por HP y/o eslora → tarifa mensual de cuna
+export class CategoryDto {
+  @IsString()
+  @MaxLength(60)
+  name!: string
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  minHp?: number
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  maxHp?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  minLength?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  maxLength?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  monthlyRate?: number
+
+  @IsOptional()
+  @IsBoolean()
+  active?: boolean
+}
+
+// Mover una lancha a otra cuna (o dejarla suelta sobre trailer: spotId null)
+export class MoveUnitDto {
+  @IsOptional()
+  @IsInt()
+  spotId?: number | null
+}
+
+// Servicios fijos mensuales de una lancha (seguros): reemplaza la lista completa
+export class UnitServicesDto {
+  @IsArray()
+  @IsInt({ each: true })
+  serviceIds!: number[]
+}
+
+// Cobro masivo: 'YYYY-MM' o etiqueta libre del período
+export class GenerateMonthDto {
+  @IsString()
+  @MaxLength(40)
+  periodLabel!: string
 }
 
 // Servicio del catálogo (seguro, lavado, puesta en marcha, batería, etc.)

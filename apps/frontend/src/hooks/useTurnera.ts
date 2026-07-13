@@ -3,10 +3,24 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
 import { type RentalSlot, type SlotForm, type GuarderiaUnitOption, type DaySummary } from '../types/turnera.types'
 import { type StorageService } from '../types/guarderia.types'
+import { type TurneraConfig, DEFAULT_CFG } from '../lib/turneraConfig'
 
 export function useTurnera(date: string) {
   const qc = useQueryClient()
   const invalidate = () => qc.invalidateQueries({ queryKey: ['turnera'] })
+
+  // La grilla la define el dueño y vive en el server: la misma config la ve el panel y el cliente
+  const configQuery = useQuery<TurneraConfig>({
+    queryKey: ['turnera', 'config'],
+    queryFn: () => api.get('/turnera/config').then(r => r.data),
+  })
+  const config = configQuery.data ?? DEFAULT_CFG
+
+  const saveConfig = useMutation({
+    mutationFn: (cfg: TurneraConfig) => api.put('/turnera/config', cfg),
+    onSuccess: () => { invalidate(); toast.success('Grilla actualizada') },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
 
   // Lanchas de guardería disponibles para botar
   const unitsQuery = useQuery<GuarderiaUnitOption[]>({
@@ -59,5 +73,5 @@ export function useTurnera(date: string) {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, charge, removeSlot }
+  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, charge, removeSlot, config, configQuery, saveConfig }
 }

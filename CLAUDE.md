@@ -17,8 +17,9 @@ Read .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating 
 npm run dev:backend          # NestJS en :3000
 npm run dev:frontend         # Vite en :5173
 docker-compose up -d         # PostgreSQL
-# Aplicar migration:
-type apps\backend\drizzle\XXXX.sql | docker exec -i speedmotors-db psql -U speedmotors -d speedmotors
+# Aplicar migration (NO usar `type ... | psql`: PowerShell rompe los acentos en la tubería):
+docker cp apps\backend\drizzle\XXXX.sql speedmotors-db:/tmp/m.sql
+docker exec speedmotors-db psql -U speedmotors -d speedmotors -f /tmp/m.sql
 ```
 
 ## Token Discipline (OBLIGATORIO)

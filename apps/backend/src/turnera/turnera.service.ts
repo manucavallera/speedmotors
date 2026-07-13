@@ -1,14 +1,31 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
-import { rentalSlots, storageUnits, clients, cashSessions, cashMovements } from '../db/schema'
-import { eq, and, asc, sql } from 'drizzle-orm'
-import { CreateSlotDto } from './turnera.dto'
+import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, clients, cashSessions, cashMovements } from '../db/schema'
+import { eq, and, asc, sql, inArray } from 'drizzle-orm'
+import { CreateSlotDto, TurneraConfigDto } from './turnera.dto'
 
 @Injectable()
 export class TurneraService {
-  // Botaduras de un día: lancha de guardería + cliente
-  listSlots(date: string) {
-    return db
+  // Config de la grilla (fila única). Vive en el server: la usan el panel y la página del cliente.
+  async getConfig() {
+    const [cfg] = await db.select().from(turneraConfig).where(eq(turneraConfig.id, 1))
+    if (cfg) return cfg
+    const [created] = await db.insert(turneraConfig).values({ id: 1 }).returning()
+    return created
+  }
+
+  async setConfig(dto: TurneraConfigDto) {
+    if (dto.dayEnd <= dto.dayStart) throw new BadRequestException('El cierre tiene que ser posterior a la apertura')
+    const [cfg] = await db.update(turneraConfig)
+      .set({ intervalMin: dto.intervalMin, dayStart: dto.dayStart, dayEnd: dto.dayEnd, updatedAt: new Date() })
+      .where(eq(turneraConfig.id, 1)).returning()
+    if (!cfg) throw new NotFoundException('Config de turnera no encontrada')
+    return cfg
+  }
+
+  // Salidas al agua de un día: lancha de guardería + cliente + servicios pedidos
+  async listSlots(date: string) {
+    const slots = await db
       .select({
         id: rentalSlots.id,
         unitId: rentalSlots.unitId,
@@ -18,7 +35,6 @@ export class TurneraService {
         date: rentalSlots.date,
         startTime: rentalSlots.startTime,
         endTime: rentalSlots.endTime,
-        serviceId: rentalSlots.serviceId,
         price: rentalSlots.price,
         status: rentalSlots.status,
         paidAt: rentalSlots.paidAt,
@@ -29,6 +45,9 @@ export class TurneraService {
       .leftJoin(clients, eq(clients.id, rentalSlots.clientId))
       .where(eq(rentalSlots.date, date))
       .orderBy(asc(rentalSlots.startTime))
+
+    const items = await this.slotItems(slots.map((s) => s.id))
+    return slots.map((s) => ({ ...s, items: items.filter((it) => it.slotId === s.id) }))
   }
 
   // Resumen del mes para el calendario: por día, cuántas salidas y cuánto se cobró
@@ -59,18 +78,38 @@ export class TurneraService {
     const overlap = sameDay.some(s => dto.startTime < s.endTime && dto.endTime > s.startTime)
     if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
 
-    const [slot] = await db.insert(rentalSlots).values({
-      unitId: dto.unitId,
-      clientId: unit.clientId,
-      userId,
-      date: dto.date,
-      startTime: dto.startTime,
-      endTime: dto.endTime,
-      serviceId: dto.serviceId ?? null,
-      price: (dto.price ?? 0).toString(),
-      notes: dto.notes ?? null,
-    }).returning()
-    return slot
+    // El precio del turno es la suma de los servicios pedidos
+    const items = dto.items ?? []
+    const total = items.reduce((s, it) => s + Number(it.amount), 0)
+
+    return db.transaction(async (tx) => {
+      const [slot] = await tx.insert(rentalSlots).values({
+        unitId: dto.unitId,
+        clientId: unit.clientId,
+        userId,
+        date: dto.date,
+        startTime: dto.startTime,
+        endTime: dto.endTime,
+        price: total.toString(),
+        notes: dto.notes ?? null,
+      }).returning()
+
+      if (items.length) {
+        await tx.insert(rentalSlotItems).values(items.map((it) => ({
+          slotId: slot.id,
+          serviceId: it.serviceId ?? null,
+          concept: it.concept,
+          amount: it.amount.toString(),
+        })))
+      }
+      return slot
+    })
+  }
+
+  // Servicios pedidos en cada turno de un día, para mostrarlos en la grilla
+  async slotItems(slotIds: number[]) {
+    if (!slotIds.length) return []
+    return db.select().from(rentalSlotItems).where(inArray(rentalSlotItems.slotId, slotIds))
   }
 
   async setStatus(id: number, status: 'reservado' | 'cancelado' | 'completado') {

@@ -5,22 +5,29 @@ import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import { SearchableSelect } from '../ui/SearchableSelect'
-import { type MapSpot, type CreateUnitForm } from '../../types/guarderia.types'
+import { type MapSpot, type CreateUnitForm, type StorageCategory, type StorageService } from '../../types/guarderia.types'
 
 interface GClient { id: number; name: string; phone: string | null }
 interface Props {
   spots: MapSpot[]
+  categories: StorageCategory[]
+  services: StorageService[]
   presetSpotId: number | null
   onClose: () => void
   onSubmit: (data: CreateUnitForm) => void
   submitting: boolean
 }
 
-export function GuardarModal({ spots, presetSpotId, onClose, onSubmit, submitting }: Props) {
+export function GuardarModal({ spots, categories, services, presetSpotId, onClose, onSubmit, submitting }: Props) {
+  // Servicios fijos: los que se cobran todos los meses con la cuna (seguros)
+  const [fixed, setFixed] = useState<number[]>([])
   const qc = useQueryClient()
   const [clientId, setClientId] = useState('')
   const [spotId, setSpotId] = useState(presetSpotId ? String(presetSpotId) : '')
   const [description, setDescription] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [hp, setHp] = useState('')
+  const [lengthM, setLengthM] = useState('')
   const [rate, setRate] = useState('')
   const [entryDate, setEntryDate] = useState(new Date().toISOString().slice(0, 10))
   const [newClient, setNewClient] = useState(false)
@@ -35,9 +42,16 @@ export function GuardarModal({ spots, presetSpotId, onClose, onSubmit, submittin
   })
   const clients = clientsData?.items ?? []
 
-  // Lugares libres (más el preseleccionado por si viene de un lugar libre)
-  const freeSpots = spots.filter(s => !s.occupied)
+  // Cunas libres y operativas (las de líneas en obra no se pueden asignar)
+  const freeSpots = spots.filter(s => !s.occupied && s.active)
   const spotOptions = freeSpots.map(s => ({ value: String(s.spotId), label: s.code }))
+
+  // La tarifa arranca en la mensual de la categoría; se puede pisar por excepción
+  function pickCategory(id: string) {
+    setCategoryId(id)
+    const cat = categories.find(c => String(c.id) === id)
+    if (cat) setRate(String(Number(cat.monthlyRate)))
+  }
 
   async function createClientInline() {
     if (!ncName.trim()) { toast.error('Nombre requerido'); return }
@@ -58,9 +72,13 @@ export function GuardarModal({ spots, presetSpotId, onClose, onSubmit, submittin
     onSubmit({
       clientId: Number(clientId),
       spotId: spotId ? Number(spotId) : undefined,
+      categoryId: categoryId ? Number(categoryId) : undefined,
       description: description.trim(),
+      hp: hp ? Number(hp) : undefined,
+      lengthM: lengthM ? Number(lengthM) : undefined,
       rate: rate ? Number(rate) : 0,
       entryDate,
+      fixedServiceIds: fixed,
     })
   }
 
@@ -99,16 +117,64 @@ export function GuardarModal({ spots, presetSpotId, onClose, onSubmit, submittin
 
         <div style={{ display: 'flex', gap: '12px' }}>
           <div style={{ flex: 1 }}>
-            <FormField label="Lugar">
-              <SearchableSelect value={spotId} onChange={setSpotId} options={spotOptions} placeholder="Lugar..." emptyLabel="— Sin asignar —" />
+            <FormField label="HP del motor">
+              <input style={inputStyle} type="number" placeholder="Ej: 60" value={hp} onChange={e => setHp(e.target.value)} />
             </FormField>
           </div>
           <div style={{ flex: 1 }}>
-            <FormField label="Tarifa">
+            <FormField label="Largo (m)">
+              <input style={inputStyle} type="number" step="0.1" placeholder="Ej: 5.4" value={lengthM} onChange={e => setLengthM(e.target.value)} />
+            </FormField>
+          </div>
+        </div>
+
+        <FormField label="Categoría">
+          <select style={inputStyle} value={categoryId} onChange={e => pickCategory(e.target.value)}>
+            <option value="">— Sin categoría —</option>
+            {categories.map(c => (
+              <option key={c.id} value={c.id}>{c.name} · ${Number(c.monthlyRate).toLocaleString('es-AR')}/mes</option>
+            ))}
+          </select>
+        </FormField>
+
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ flex: 1 }}>
+            <FormField label="Cuna">
+              <SearchableSelect value={spotId} onChange={setSpotId} options={spotOptions} placeholder="Cuna..." emptyLabel="— Suelta sobre trailer —" />
+            </FormField>
+          </div>
+          <div style={{ flex: 1 }}>
+            <FormField label="Tarifa mensual">
               <input style={inputStyle} type="number" placeholder="0" value={rate} onChange={e => setRate(e.target.value)} />
             </FormField>
           </div>
         </div>
+
+        <FormField label="Servicios fijos (se cobran todos los meses)">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {services.map(s => {
+              const on = fixed.includes(s.id)
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => setFixed(p => on ? p.filter(x => x !== s.id) : [...p, s.id])}
+                  style={{
+                    fontSize: '12px', fontWeight: 600, cursor: 'pointer',
+                    background: on ? '#eff6ff' : '#f8fafc',
+                    color: on ? '#2563eb' : '#64748b',
+                    border: `1.5px solid ${on ? '#bfdbfe' : '#e2e8f0'}`,
+                    borderRadius: '20px', padding: '5px 11px',
+                  }}
+                >
+                  {on ? '✓ ' : ''}{s.name}
+                </button>
+              )
+            })}
+          </div>
+          <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '6px' }}>
+            Marcá los seguros que contrató. La batería o el combustible no van acá: esos se piden cuando sale a navegar.
+          </div>
+        </FormField>
 
         <FormField label="Fecha de ingreso">
           <input style={inputStyle} type="date" value={entryDate} onChange={e => setEntryDate(e.target.value)} />
