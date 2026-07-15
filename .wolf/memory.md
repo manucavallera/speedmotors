@@ -3397,3 +3397,42 @@
 | 22:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 3→4 lines | ~68 |
 | 22:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | expanded (+8 lines) | ~83 |
 | 22:28 | Session end: 123 writes across 34 files (transcribe.py, frames.py, 0034_guarderia_categorias_cunas.sql, storage.schema.ts, guarderia.dto.ts) | 26 reads | ~51371 tok |
+| 22:33 | Session end: 123 writes across 34 files (transcribe.py, frames.py, 0034_guarderia_categorias_cunas.sql, storage.schema.ts, guarderia.dto.ts) | 26 reads | ~51371 tok |
+
+## Session: 2026-07-15 13:32
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:50 | Edited apps/backend/src/guarderia/guarderia.service.ts | modified updateCategory() | ~200 |
+| 13:52 | cascade tarifa categoría→lanchas en updateCategory | guarderia.service.ts | probado en vivo, OK; sin commit | ~4k |
+| 13:52 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_rate_cascade.md | — | ~379 |
+| 13:53 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~83 |
+| 13:53 | Session end: 3 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 4 reads | ~9359 tok |
+| 13:53 | Session end: 3 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 4 reads | ~9359 tok |
+| 13:54 | Edited apps/backend/src/guarderia/guarderia.service.ts | inline fix | ~28 |
+| 13:54 | Edited apps/backend/src/guarderia/guarderia.service.ts | added 1 condition(s) | ~139 |
+| 13:54 | Edited apps/backend/src/guarderia/guarderia.service.ts | modified generateMonth() | ~44 |
+| 13:56 | Session end: 6 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 4 reads | ~9670 tok |
+| 14:06 | Session end: 6 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 6 reads | ~11230 tok |
+| 14:28 | test integral backend guardería+turnera+proveeduría vía API | (varios) | TODO OK, data prueba limpia | ~15k |
+| 14:28 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_rate_cascade.md | modified 15() | ~294 |
+| 14:32 | Session end: 7 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 10 reads | ~15399 tok |
+| 14:33 | Session end: 7 writes across 3 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md) | 11 reads | ~15829 tok |
+| 14:34 | Edited apps/backend/src/db/enums.ts | 1→3 lines | ~79 |
+| 14:34 | Edited apps/backend/src/db/cash.schema.ts | inline fix | ~24 |
+| 14:34 | Edited apps/backend/src/db/cash.schema.ts | 1→2 lines | ~39 |
+| 14:34 | Created apps/backend/drizzle/0038_cash_area.sql | — | ~66 |
+| 14:35 | Edited apps/backend/src/cash/cash.service.ts | modified getOpenSession() | ~589 |
+| 14:35 | Edited apps/backend/src/cash/cash.service.ts | modified getSessionSummary() | ~272 |
+| 14:35 | Edited apps/backend/src/cash/cash.controller.ts | modified constructor() | ~265 |
+| 14:35 | Edited apps/backend/src/cash/cash.controller.ts | 10→10 lines | ~133 |
+| 14:40 | Edited apps/backend/src/guarderia/guarderia.service.ts | inline fix | ~42 |
+| 14:40 | Edited apps/backend/src/turnera/turnera.service.ts | inline fix | ~43 |
+| 14:40 | Edited apps/backend/src/proveeduria/proveeduria.service.ts | inline fix | ~43 |
+| 15:15 | Edited apps/frontend/src/pages/CashPage.tsx | CSS: separadas, params, params | ~440 |
+| 15:15 | Edited apps/frontend/src/pages/CashPage.tsx | expanded (+10 lines) | ~256 |
+| 15:16 | Edited apps/frontend/src/pages/CashPage.tsx | 3→7 lines | ~327 |
+| 16:02 | caja separada speedmotors/marina (area en cash_sessions) | migration 0038 + cash.* + 3 svc + CashPage | typecheck OK, probado, DB limpia | ~20k |
+| 16:02 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_caja_separada.md | — | ~604 |
+| 16:02 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~83 |
+| 16:03 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |

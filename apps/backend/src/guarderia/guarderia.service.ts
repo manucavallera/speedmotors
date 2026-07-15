@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
+import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { storageSpots, storageUnits, storageCharges, storageChargeItems, storageServices, storageCategories, storageUnitServices, rentalSlots, clients, cashSessions, cashMovements } from '../db/schema'
 import { eq, and, desc, asc, sql, isNull, inArray } from 'drizzle-orm'
@@ -300,8 +300,16 @@ export class GuarderiaService {
     })
   }
 
+  // El período es obligatorio y va como YYYY-MM (ej. 2026-07)
+  private assertPeriod(periodLabel: string) {
+    if (!periodLabel || !/^\d{4}-\d{2}$/.test(periodLabel)) {
+      throw new BadRequestException('Período inválido: usá el formato YYYY-MM (ej. 2026-07)')
+    }
+  }
+
   // Previsualización del cobro masivo: qué se va a generar y cuánto suma
   async previewMonth(periodLabel: string) {
+    this.assertPeriod(periodLabel)
     const rows = await this.monthChargeRows(periodLabel)
     const total = rows.reduce((s, r) => s + r.items.reduce((a, it) => a + it.amount, 0), 0)
     return {
@@ -323,6 +331,7 @@ export class GuarderiaService {
   // Genera de una sola vez el cobro del mes de todas las lanchas en guardería.
   // Queda como deuda (no entra a caja): el dueño va saldando a medida que le pagan.
   async generateMonth(periodLabel: string, userId: number) {
+    this.assertPeriod(periodLabel)
     const rows = await this.monthChargeRows(periodLabel)
     if (!rows.length) return { periodLabel, created: 0, total: 0 }
 
@@ -417,11 +426,18 @@ export class GuarderiaService {
   }
 
   async updateCategory(id: number, dto: CategoryDto) {
-    const [c] = await db.update(storageCategories)
-      .set({ ...this.categoryValues(dto), ...(dto.active != null ? { active: dto.active } : {}) })
-      .where(eq(storageCategories.id, id)).returning()
-    if (!c) throw new NotFoundException(`Categoría ${id} no encontrada`)
-    return c
+    return db.transaction(async (tx) => {
+      const [c] = await tx.update(storageCategories)
+        .set({ ...this.categoryValues(dto), ...(dto.active != null ? { active: dto.active } : {}) })
+        .where(eq(storageCategories.id, id)).returning()
+      if (!c) throw new NotFoundException(`Categoría ${id} no encontrada`)
+      // La tarifa de la categoría manda: al cambiarla, repreciamos todas sus lanchas.
+      // Los cobros ya generados del mes no se tocan (la charge ya quedó grabada).
+      await tx.update(storageUnits)
+        .set({ rate: c.monthlyRate })
+        .where(eq(storageUnits.categoryId, id))
+      return c
+    })
   }
 
   async removeCategory(id: number) {
@@ -539,7 +555,7 @@ export class GuarderiaService {
 
   // Inserta un depósito en la caja abierta (si hay). Si no hay caja abierta, el cobro igual queda registrado.
   private async depositToCaja(tx: any, amount: number, userId: number, reason: string) {
-    const [session] = await tx.select().from(cashSessions).where(eq(cashSessions.status, 'abierta')).limit(1)
+    const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
     if (!session) return
     await tx.insert(cashMovements).values({
       sessionId: session.id,

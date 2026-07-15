@@ -140,7 +140,7 @@ export class TurneraService {
         .set({ paidAt: new Date(), status: 'completado' })
         .where(eq(rentalSlots.id, id)).returning()
 
-      const [session] = await tx.select().from(cashSessions).where(eq(cashSessions.status, 'abierta')).limit(1)
+      const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
       if (session) {
         await tx.insert(cashMovements).values({
           sessionId: session.id, userId, type: 'deposito',

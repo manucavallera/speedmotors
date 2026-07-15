@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-13T22:28:14.007Z
-> Files: 419 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-15T16:02:57.783Z
+> Files: 422 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -12,11 +12,13 @@
 
 - `feedback_component_size.md` (~164 tok)
 - `feedback_menos_preguntas.md` (~300 tok)
-- `MEMORY.md` — Memory Index (~658 tok)
+- `MEMORY.md` — Memory Index (~735 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
+- `project_caja_separada.md` — Declares CashArea (~586 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
 - `project_cuotas_fix_pendiente.md` (~557 tok)
 - `project_guarderia_ampliacion.md` — Decisiones de diseño Guardería (2026-06-18) (~4449 tok)
+- `project_guarderia_rate_cascade.md` — Declares enum (~612 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
 - `project_pendientes_2026_06_01.md` (~368 tok)
@@ -184,6 +186,7 @@
 - `0035_turnera_config.sql` — Config de la grilla de turnos: pasa de localStorage al servidor (2026-07-13) (~173 tok)
 - `0036_turno_servicios.sql` — Un turno puede llevar VARIOS servicios, no uno solo (2026-07-13) (~284 tok)
 - `0037_servicios_fijos_cobro_masivo.sql` — Servicios fijos mensuales por lancha + cobro masivo del mes (2026-07-13) (~217 tok)
+- `0038_cash_area.sql` — Caja separada: SpeedMotors (ventas motos/lanchas) vs Marina (guardería/turnera/proveeduría) (~66 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -220,9 +223,9 @@
 
 ## apps/backend/src/cash/
 
-- `cash.controller.ts` — Exports CashController (~465 tok)
+- `cash.controller.ts` — El área llega por query (?area=marina); por defecto es la caja de SpeedMotors (~578 tok)
 - `cash.module.ts` — Exports CashModule (~74 tok)
-- `cash.service.ts` — Exports CashService (~1924 tok)
+- `cash.service.ts` — Cada caja es un área independiente: la de SpeedMotors y la de la marina (~2156 tok)
 
 ## apps/backend/src/clients/
 
@@ -241,13 +244,13 @@
 
 ## apps/backend/src/db/
 
-- `cash.schema.ts` — Exports cashSessions, cashMovements (~445 tok)
+- `cash.schema.ts` — Exports cashSessions, cashMovements (~467 tok)
 - `catalog.schema.ts` — Exports categories, suppliers, products (~628 tok)
 - `client-payments.schema.ts` — Exports clientPayments (~261 tok)
 - `clients.schema.ts` — Exports clients (~226 tok)
 - `credits.schema.ts` — Exports credits, creditPayments, creditInterestCharges, creditInstallments (~886 tok)
 - `db.module.ts` — Exports DbModule (~56 tok)
-- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 23 more (~804 tok)
+- `enums.ts` — Exports roleEnum, vehicleTypeEnum, vehicleStatusEnum, saleTypeEnum + 24 more (~858 tok)
 - `expenses.schema.ts` — Exports expenses (~231 tok)
 - `index.ts` — Exports db (~73 tok)
 - `orders.schema.ts` — Exports purchaseOrders, purchaseOrderItems (~484 tok)
@@ -284,7 +287,7 @@
 - `guarderia.controller.ts` — Exports GuarderiaController (~980 tok)
 - `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, CategoryDto, MoveUnitDto + 5 more (~813 tok)
 - `guarderia.module.ts` — Exports GuarderiaModule (~97 tok)
-- `guarderia.service.ts` — Exports GuarderiaService (~6330 tok)
+- `guarderia.service.ts` — Exports GuarderiaService (~6546 tok)
 
 ## apps/backend/src/notifications/
 
@@ -304,7 +307,7 @@
 - `proveeduria.controller.ts` — Exports ProveeduriaController (~335 tok)
 - `proveeduria.dto.ts` — Exports ProveeduriaProductDto, SaleItemDto, CheckoutDto (~221 tok)
 - `proveeduria.module.ts` — Exports ProveeduriaModule (~101 tok)
-- `proveeduria.service.ts` — Exports ProveeduriaService (~1474 tok)
+- `proveeduria.service.ts` — Exports ProveeduriaService (~1485 tok)
 
 ## apps/backend/src/purchase-orders/
 
@@ -368,7 +371,7 @@
 - `turnera.controller.ts` — Exports TurneraController (~386 tok)
 - `turnera.dto.ts` — Un servicio pedido en el turno (~365 tok)
 - `turnera.module.ts` — Exports TurneraModule (~93 tok)
-- `turnera.service.ts` — Exports TurneraService (~1864 tok)
+- `turnera.service.ts` — Exports TurneraService (~1874 tok)
 
 ## apps/backend/src/upload/
 
@@ -618,7 +621,7 @@
 ## apps/frontend/src/pages/
 
 - `AlertsPage.tsx` — SectionBox (~6165 tok)
-- `CashPage.tsx` — CashPage (~1480 tok)
+- `CashPage.tsx` — CashPage (~1900 tok)
 - `ClientsPage.tsx` — ClientsPage (~1275 tok)
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)

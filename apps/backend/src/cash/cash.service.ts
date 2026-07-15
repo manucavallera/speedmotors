@@ -1,36 +1,43 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
 import { cashSessions, cashMovements, sales, expenses } from '../db/schema'
-import { eq, desc, gte, sql } from 'drizzle-orm'
+import { eq, and, desc, gte, sql } from 'drizzle-orm'
+
+// Cada caja es un área independiente: la de SpeedMotors y la de la marina
+export type CashArea = 'speedmotors' | 'marina'
 
 @Injectable()
 export class CashService {
-  async getOpenSession() {
-    const [session] = await db.select().from(cashSessions).where(eq(cashSessions.status, 'abierta')).limit(1)
+  async getOpenSession(area: CashArea = 'speedmotors') {
+    const [session] = await db.select().from(cashSessions)
+      .where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, area))).limit(1)
     return session || null
   }
 
-  async findAll() {
-    return db.select().from(cashSessions).orderBy(desc(cashSessions.openedAt))
+  async findAll(area?: CashArea) {
+    const base = db.select().from(cashSessions)
+    const q = area ? base.where(eq(cashSessions.area, area)) : base
+    return q.orderBy(desc(cashSessions.openedAt))
   }
 
-  async openSession(userId: number, openingBalance: number) {
-    const existing = await this.getOpenSession()
+  async openSession(userId: number, openingBalance: number, area: CashArea = 'speedmotors') {
+    const existing = await this.getOpenSession(area)
     if (existing) throw new BadRequestException('Ya hay una caja abierta')
-    const [session] = await db.insert(cashSessions).values({ userId, openingBalance: openingBalance.toString() }).returning()
+    const [session] = await db.insert(cashSessions).values({ userId, openingBalance: openingBalance.toString(), area }).returning()
     return session
   }
 
-  async closeSession(userId: number, notes?: string, countedBalance?: number) {
-    const session = await this.getOpenSession()
+  async closeSession(userId: number, area: CashArea = 'speedmotors', notes?: string, countedBalance?: number) {
+    const session = await this.getOpenSession(area)
     if (!session) throw new BadRequestException('No hay caja abierta')
 
+    // Solo la caja de SpeedMotors cuenta ventas/gastos. La marina cobra todo por movimientos (depósitos).
     // Caja solo cuenta efectivo recibido: contado completo, cuotas solo la seña, cuenta_corriente nada
-    const salesData = await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)` })
-      .from(sales).where(gte(sales.createdAt, session.openedAt))
+    const salesData = area === 'speedmotors' ? await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)` })
+      .from(sales).where(gte(sales.createdAt, session.openedAt)) : [{ total: '0' }]
 
-    const expensesData = await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)` })
-      .from(expenses).where(gte(expenses.createdAt, session.openedAt))
+    const expensesData = area === 'speedmotors' ? await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)` })
+      .from(expenses).where(gte(expenses.createdAt, session.openedAt)) : [{ total: '0' }]
 
     const movementsData = await db.select({
       depositos: sql<string>`coalesce(sum(case when ${cashMovements.type}='deposito' then ${cashMovements.amount} else 0 end),0)`,
@@ -87,16 +94,17 @@ export class CashService {
       .orderBy(desc(cashMovements.createdAt))
   }
 
-  async getSessionSummary() {
-    const session = await this.getOpenSession()
+  async getSessionSummary(area: CashArea = 'speedmotors') {
+    const session = await this.getOpenSession(area)
     if (!session) return null
 
+    // Solo SpeedMotors suma ventas/gastos. La marina cobra todo por movimientos (depósitos).
     // Caja solo cuenta efectivo recibido: contado completo, cuotas solo la seña, cuenta_corriente nada
-    const salesData = await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)`, count: sql<string>`count(*)` })
-      .from(sales).where(gte(sales.createdAt, session.openedAt))
+    const salesData = area === 'speedmotors' ? await db.select({ total: sql<string>`coalesce(sum(case when ${sales.type}='contado' then ${sales.total} when ${sales.type}='cuotas' then ${sales.downPayment} else 0 end),0)`, count: sql<string>`count(*)` })
+      .from(sales).where(gte(sales.createdAt, session.openedAt)) : [{ total: '0', count: '0' }]
 
-    const expensesData = await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)`, count: sql<string>`count(*)` })
-      .from(expenses).where(gte(expenses.createdAt, session.openedAt))
+    const expensesData = area === 'speedmotors' ? await db.select({ total: sql<string>`coalesce(sum(${expenses.amount}),0)`, count: sql<string>`count(*)` })
+      .from(expenses).where(gte(expenses.createdAt, session.openedAt)) : [{ total: '0', count: '0' }]
 
     const movementsData = await db.select({
       depositos: sql<string>`coalesce(sum(case when ${cashMovements.type}='deposito' then ${cashMovements.amount} else 0 end),0)`,

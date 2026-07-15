@@ -106,7 +106,7 @@ export class ProveeduriaService {
       await tx.insert(proveeduriaSaleItems).values(itemRows.map(r => ({ ...r, saleId: sale.id })))
 
       // Plata a la caja abierta (si hay)
-      const [session] = await tx.select().from(cashSessions).where(eq(cashSessions.status, 'abierta')).limit(1)
+      const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
       if (session) {
         await tx.insert(cashMovements).values({
           sessionId: session.id, userId, type: 'deposito',
