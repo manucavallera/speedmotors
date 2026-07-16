@@ -3537,3 +3537,6 @@
 | 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~71 |
 | 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 1→3 lines | ~47 |
 | 2026-07-16 | cartera clientes guardería movida a pantalla Guardería (botón "Clientes" → GuarderiaClientsModal); Clientes vuelve a solo SpeedMotors | GuarderiaClientsModal.tsx, GuarderiaPage.tsx, useClients.ts+ClientsPage.tsx (revert) | typecheck OK | ~5k |
+| 15:54 | Session end: 48 writes across 21 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 22 reads | ~40518 tok |
+| 16:17 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | expanded (+8 lines) | ~499 |
+| 2026-07-16 | FIN sesión: 3 features marina commiteadas (correr turno 071ddba, launch_rate 5678bcb, cartera clientes guardería 533ce7b). Sin push/deploy. Pendiente: correr 0040 local + QA a ojo + migrations PROD 0038/0039/0040 | .wolf/memory.md | guardado | ~1k |
