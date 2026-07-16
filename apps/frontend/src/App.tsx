@@ -29,6 +29,7 @@ const UsersPage           = lazy(() => import('./pages/UsersPage').then(m => ({ 
 const GuarderiaPage       = lazy(() => import('./pages/GuarderiaPage').then(m => ({ default: m.GuarderiaPage })))
 const ProveeduriaPage     = lazy(() => import('./pages/ProveeduriaPage').then(m => ({ default: m.ProveeduriaPage })))
 const TurneraPage         = lazy(() => import('./pages/TurneraPage').then(m => ({ default: m.TurneraPage })))
+const TurnosPublicPage    = lazy(() => import('./pages/TurnosPublicPage').then(m => ({ default: m.TurnosPublicPage })))
 
 const queryClient = new QueryClient()
 
@@ -46,6 +47,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          {/* Página pública del cliente: sin login, se entra por link de WhatsApp */}
+          <Route path="/turnos" element={<Suspense fallback={PageFallback}><TurnosPublicPage /></Suspense>} />
           <Route path="/" element={<PrivateRoute><AppLayout /></PrivateRoute>}>
             <Route index element={<Suspense fallback={PageFallback}><DashboardPage /></Suspense>} />
             <Route path="products" element={<Suspense fallback={PageFallback}><ProductsPage /></Suspense>} />

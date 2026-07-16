@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { TurneraService } from './turnera.service'
-import { CreateSlotDto, TurneraConfigDto } from './turnera.dto'
+import { CreateSlotDto, RescheduleSlotDto, TurneraConfigDto } from './turnera.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)
@@ -26,6 +26,11 @@ export class TurneraController {
   @Patch('slots/:id/status')
   setStatus(@Param('id') id: string, @Body() body: { status: 'reservado' | 'cancelado' | 'completado' }) {
     return this.svc.setStatus(Number(id), body.status)
+  }
+
+  @Patch('slots/:id')
+  reschedule(@Param('id') id: string, @Body() dto: RescheduleSlotDto) {
+    return this.svc.rescheduleSlot(Number(id), dto.date, dto.startTime, dto.endTime)
   }
 
   @Post('slots/:id/charge')

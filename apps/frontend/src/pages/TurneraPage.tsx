@@ -4,11 +4,12 @@ import { DaySchedule } from '../components/turnera/DaySchedule'
 import { CalendarPicker } from '../components/turnera/CalendarPicker'
 import { SlotGrid } from '../components/turnera/SlotGrid'
 import { TurnoModal } from '../components/turnera/TurnoModal'
+import { RescheduleModal } from '../components/turnera/RescheduleModal'
 import { TurneraConfigModal } from '../components/turnera/TurneraConfigModal'
 import { type TurneraConfig } from '../lib/turneraConfig'
 import { HelpModal, HelpButton } from '../components/ui/HelpModal'
 import { TURNERA_HELP } from '../lib/helpContent'
-import { type SlotForm } from '../types/turnera.types'
+import { type SlotForm, type RentalSlot } from '../types/turnera.types'
 
 function today() { return new Date().toISOString().slice(0, 10) }
 const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
@@ -30,10 +31,11 @@ function Stat({ value, label, color, small }: { value: string | number; label: s
 
 export function TurneraPage() {
   const [date, setDate] = useState(today())
-  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, charge, removeSlot, config, saveConfig } = useTurnera(date)
+  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, reschedule, charge, removeSlot, config, saveConfig } = useTurnera(date)
   const [showModal, setShowModal] = useState(false)
   const [showConfig, setShowConfig] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
+  const [rescheduling, setRescheduling] = useState<RentalSlot | null>(null)
   const [preset, setPreset] = useState<{ start: string; end: string } | null>(null)
 
   // Reservar desde un casillero libre de la grilla: abre el modal con el horario prellenado
@@ -98,6 +100,7 @@ export function TurneraPage() {
                 slots={slots}
                 onCharge={(id) => charge.mutate(id)}
                 onCancel={(id) => setStatus.mutate({ id, status: 'cancelado' })}
+                onReschedule={(s) => setRescheduling(s)}
                 onRemove={(id) => removeSlot.mutate(id)}
               />
             </>
@@ -115,6 +118,18 @@ export function TurneraPage() {
           submitting={createSlot.isPending}
           onClose={() => { setShowModal(false); setPreset(null) }}
           onSubmit={(data: SlotForm) => createSlot.mutate(data, { onSuccess: () => { setShowModal(false); setPreset(null) } })}
+        />
+      )}
+
+      {rescheduling && (
+        <RescheduleModal
+          slot={rescheduling}
+          submitting={reschedule.isPending}
+          onClose={() => setRescheduling(null)}
+          onSubmit={(d, startTime, endTime) => reschedule.mutate(
+            { id: rescheduling.id, date: d, startTime, endTime },
+            { onSuccess: () => setRescheduling(null) },
+          )}
         />
       )}
 

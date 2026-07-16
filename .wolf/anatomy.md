@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-15T16:02:57.783Z
-> Files: 422 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-16T14:39:09.076Z
+> Files: 428 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -12,7 +12,8 @@
 
 - `feedback_component_size.md` (~164 tok)
 - `feedback_menos_preguntas.md` (~300 tok)
-- `MEMORY.md` — Memory Index (~735 tok)
+- `feedback_preguntas_texto.md` (~228 tok)
+- `MEMORY.md` — Memory Index (~803 tok)
 - `project_audit_pendiente.md` — Auditoría completa 2026-05-13 — pendiente fix (~1332 tok)
 - `project_caja_separada.md` — Declares CashArea (~586 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
@@ -21,6 +22,7 @@
 - `project_guarderia_rate_cascade.md` — Declares enum (~612 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
+- `project_marina_handoff.md` — Hecho y probado (backend vía curl, todo con DB local docker) (~731 tok)
 - `project_pendientes_2026_06_01.md` (~368 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
@@ -187,6 +189,7 @@
 - `0036_turno_servicios.sql` — Un turno puede llevar VARIOS servicios, no uno solo (2026-07-13) (~284 tok)
 - `0037_servicios_fijos_cobro_masivo.sql` — Servicios fijos mensuales por lancha + cobro masivo del mes (2026-07-13) (~217 tok)
 - `0038_cash_area.sql` — Caja separada: SpeedMotors (ventas motos/lanchas) vs Marina (guardería/turnera/proveeduría) (~66 tok)
+- `0039_rental_slot_public.sql` — Reserva pública desde la página del cliente: no hay operador logueado, así que user_id puede ser nul (~46 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -265,7 +268,7 @@
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
 - `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~1327 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
-- `turnera.schema.ts` — Config de la grilla (fila única). El dueño define cada cuántos minutos es un turno y el horario del (~697 tok)
+- `turnera.schema.ts` — Config de la grilla (fila única). El dueño define cada cuántos minutos es un turno y el horario del (~694 tok)
 - `types.ts` — Exports User, NewUser, Client, NewClient + 19 more (~608 tok)
 - `users.schema.ts` — Exports users (~184 tok)
 - `vehicles.schema.ts` — Exports vehicles (~380 tok)
@@ -368,10 +371,11 @@
 
 ## apps/backend/src/turnera/
 
-- `turnera.controller.ts` — Exports TurneraController (~386 tok)
-- `turnera.dto.ts` — Un servicio pedido en el turno (~365 tok)
-- `turnera.module.ts` — Exports TurneraModule (~93 tok)
-- `turnera.service.ts` — Exports TurneraService (~1874 tok)
+- `public-turnera.controller.ts` — Página pública del cliente: SIN login. El cliente entra por un link de WhatsApp, (~350 tok)
+- `turnera.controller.ts` — Exports TurneraController (~444 tok)
+- `turnera.dto.ts` — Reserva desde la página pública del cliente (identificado por teléfono, sin login) (~572 tok)
+- `turnera.module.ts` — Exports TurneraModule (~120 tok)
+- `turnera.service.ts` — Exports TurneraService (~3786 tok)
 
 ## apps/backend/src/upload/
 
@@ -415,7 +419,7 @@
 ## apps/frontend/src/
 
 - `App.css` (~11 tok)
-- `App.tsx` — DashboardPage (~1748 tok)
+- `App.tsx` — DashboardPage (~1839 tok)
 - `index.css` — Styles: 14 rules (~1013 tok)
 - `main.tsx` — Auto-reload on chunk load failure (stale SW after deploy) (~106 tok)
 
@@ -545,8 +549,9 @@
 - `BoatSchedule.tsx` — fmt (~1001 tok)
 - `BoatsModal.tsx` — fmt — renders modal (~868 tok)
 - `CalendarPicker.tsx` — DOW (~1068 tok)
-- `DaySchedule.tsx` — fmt (~1071 tok)
+- `DaySchedule.tsx` — fmt (~1164 tok)
 - `RampTimeline.tsx` — toMin (~1081 tok)
+- `RescheduleModal.tsx` — toMin (~898 tok)
 - `SlotGrid.tsx` — occupant (~1018 tok)
 - `TurneraConfigModal.tsx` — PRESETS — renders form, modal (~840 tok)
 - `TurnoModal.tsx` — TurnoModal — renders form, modal (~1556 tok)
@@ -590,7 +595,7 @@
 - `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~611 tok)
 - `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1167 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
-- `useTurnera.ts` — API routes: GET, PUT, POST, PATCH, DELETE (10 endpoints) (~973 tok)
+- `useTurnera.ts` — API routes: GET, PUT, POST, PATCH, DELETE (11 endpoints) (~1079 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
 ## apps/frontend/src/lib/
@@ -640,7 +645,8 @@
 - `StockMovementsPage.tsx` — StockMovementsPage (~1212 tok)
 - `SuppliersPage.tsx` — SuppliersPage (~1075 tok)
 - `TransfersPage.tsx` — statusStyles (~2815 tok)
-- `TurneraPage.tsx` — today (~1840 tok)
+- `TurneraPage.tsx` — today (~2019 tok)
+- `TurnosPublicPage.tsx` — Página pública del cliente (sin login). Entra por link de WhatsApp, se identifica (~3210 tok)
 - `UsersPage.tsx` — roleStyle — renders table (~1938 tok)
 - `VehiclesPage.tsx` — VehiclesPage (~1603 tok)
 

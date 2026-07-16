@@ -28,7 +28,7 @@ export const rentalSlots = pgTable('rental_slots', {
   id: serial('id').primaryKey(),
   unitId: integer('unit_id').references(() => storageUnits.id).notNull(),
   clientId: integer('client_id').references(() => clients.id).notNull(),
-  userId: integer('user_id').references(() => users.id).notNull(),
+  userId: integer('user_id').references(() => users.id),
   date: date('date').notNull(),
   startTime: varchar('start_time', { length: 5 }).notNull(),
   endTime: varchar('end_time', { length: 5 }).notNull(),

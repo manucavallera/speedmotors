@@ -3436,3 +3436,48 @@
 | 16:02 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_caja_separada.md | — | ~604 |
 | 16:02 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→2 lines | ~83 |
 | 16:03 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |
+| 16:16 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |
+| 16:16 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |
+| 16:19 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |
+| 16:19 | Session end: 23 writes across 12 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 14 reads | ~21916 tok |
+| 16:21 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/feedback_preguntas_texto.md | — | ~222 |
+| 16:23 | Created apps/backend/drizzle/0039_rental_slot_public.sql | — | ~46 |
+| 16:23 | Edited apps/backend/src/db/turnera.schema.ts | inline fix | ~16 |
+| 16:24 | Edited apps/backend/src/turnera/turnera.service.ts | added 1 import(s) | ~138 |
+| 16:24 | Edited apps/backend/src/turnera/turnera.service.ts | added nullish coalescing | ~1599 |
+| 16:24 | Edited apps/backend/src/turnera/turnera.dto.ts | expanded (+23 lines) | ~164 |
+| 16:24 | Created apps/backend/src/turnera/public-turnera.controller.ts | — | ~350 |
+| 16:25 | Edited apps/backend/src/turnera/turnera.module.ts | added 1 import(s) | ~112 |
+| 16:25 | Edited apps/backend/src/turnera/turnera.service.ts | 2→1 lines | ~24 |
+| 16:31 | Session end: 32 writes across 18 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 17 reads | ~27270 tok |
+| 16:33 | Created apps/frontend/src/pages/TurnosPublicPage.tsx | — | ~3210 |
+| 16:33 | Edited apps/frontend/src/App.tsx | 1→2 lines | ~66 |
+| 16:33 | Edited apps/frontend/src/App.tsx | CSS: cliente | ~73 |
+| 16:35 | Session end: 35 writes across 20 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 18 reads | ~32367 tok |
+| 16:40 | Session end: 35 writes across 20 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 18 reads | ~32367 tok |
+| 16:42 | página pública cliente /turnos (backend public/turnera sin JWT + migration 0039 + TurnosPublicPage) | turnera.* + App.tsx | typecheck OK, backend probado curl, SIN commit | ~25k |
+| 16:42 | FIN sesión: correr-turno pendiente, commit página cliente pendiente, deploy+migrations 0038/0039 PROD pendientes | - | handoff | - |
+| 16:43 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | — | ~759 |
+| 16:43 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/MEMORY.md | 1→3 lines | ~114 |
+| 16:43 | Session end: 37 writes across 21 files (guarderia.service.ts, project_guarderia_rate_cascade.md, MEMORY.md, enums.ts, cash.schema.ts) | 18 reads | ~33302 tok |
+
+## Session: 2026-07-16 14:32
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 14:34 | Edited apps/backend/src/turnera/turnera.dto.ts | expanded (+15 lines) | ~100 |
+| 14:35 | Edited apps/backend/src/turnera/turnera.service.ts | added 4 condition(s) | ~311 |
+| 14:35 | Edited apps/backend/src/turnera/turnera.controller.ts | inline fix | ~24 |
+| 14:35 | Edited apps/backend/src/turnera/turnera.controller.ts | 1→6 lines | ~61 |
+| 14:37 | Edited apps/frontend/src/hooks/useTurnera.ts | expanded (+6 lines) | ~111 |
+| 14:37 | Edited apps/frontend/src/hooks/useTurnera.ts | inline fix | ~49 |
+| 14:38 | Created apps/frontend/src/components/turnera/RescheduleModal.tsx | — | ~898 |
+| 14:38 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | CSS: onReschedule, slot | ~53 |
+| 14:38 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | inline fix | ~26 |
+| 14:38 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | 1→2 lines | ~147 |
+| 14:38 | Edited apps/frontend/src/pages/TurneraPage.tsx | added 1 import(s) | ~38 |
+| 14:38 | Edited apps/frontend/src/pages/TurneraPage.tsx | inline fix | ~21 |
+| 14:38 | Edited apps/frontend/src/pages/TurneraPage.tsx | 4→5 lines | ~110 |
+| 14:39 | Edited apps/frontend/src/pages/TurneraPage.tsx | 2→3 lines | ~56 |
+| 14:39 | Edited apps/frontend/src/pages/TurneraPage.tsx | CSS: id, date, onSuccess | ~119 |
+| 2026-07-16 | correr turno: PATCH turnera/slots/:id + RescheduleModal + botón panel | turnera.{dto,service,controller}.ts, useTurnera.ts, DaySchedule.tsx, RescheduleModal.tsx, TurneraPage.tsx | typecheck back+front OK, sin probar a ojo | ~6k |

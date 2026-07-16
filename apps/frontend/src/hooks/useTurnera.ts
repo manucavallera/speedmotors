@@ -62,6 +62,12 @@ export function useTurnera(date: string) {
     onSuccess: invalidate,
     onError: (err: any) => toast.error(apiError(err)),
   })
+  const reschedule = useMutation({
+    mutationFn: ({ id, date, startTime, endTime }: { id: number; date: string; startTime: string; endTime: string }) =>
+      api.patch(`/turnera/slots/${id}`, { date, startTime, endTime }),
+    onSuccess: () => { invalidate(); toast.success('Turno corrido') },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
   const charge = useMutation({
     mutationFn: (id: number) => api.post(`/turnera/slots/${id}/charge`),
     onSuccess: () => { invalidate(); toast.success('Cobrado') },
@@ -73,5 +79,5 @@ export function useTurnera(date: string) {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, charge, removeSlot, config, configQuery, saveConfig }
+  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, reschedule, charge, removeSlot, config, configQuery, saveConfig }
 }

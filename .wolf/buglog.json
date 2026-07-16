@@ -9048,6 +9048,182 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-15T15:15:48.654Z"
+    },
+    {
+      "id": "bug-564",
+      "timestamp": "2026-07-15T16:24:34.702Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-15T16:24:34.702Z"
+    },
+    {
+      "id": "bug-565",
+      "timestamp": "2026-07-15T16:24:44.114Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/turnera/turnera.dto.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-15T16:24:44.114Z"
+    },
+    {
+      "id": "bug-566",
+      "timestamp": "2026-07-15T16:33:29.982Z",
+      "error_message": "Missing import: ./pages/TurnosPublicPage",
+      "file": "apps/frontend/src/App.tsx",
+      "root_cause": "Module(s) not imported: ./pages/TurnosPublicPage",
+      "fix": "Added import(s) for ./pages/TurnosPublicPage",
+      "tags": [
+        "auto-detected",
+        "missing-import",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-15T16:33:29.982Z"
+    },
+    {
+      "id": "bug-567",
+      "timestamp": "2026-07-15T16:33:37.639Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/App.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-15T16:33:37.639Z"
+    },
+    {
+      "id": "bug-568",
+      "timestamp": "2026-07-16T14:34:46.741Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/turnera/turnera.dto.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:34:46.741Z"
+    },
+    {
+      "id": "bug-569",
+      "timestamp": "2026-07-16T14:35:12.863Z",
+      "error_message": "Missing guard clause",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "No early return/throw for edge case: endTime <= startTime",
+      "fix": "Added guard clause: if (endTime <= startTime)",
+      "tags": [
+        "auto-detected",
+        "guard-clause",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:35:12.863Z"
+    },
+    {
+      "id": "bug-570",
+      "timestamp": "2026-07-16T14:35:23.302Z",
+      "error_message": "Type error",
+      "file": "apps/backend/src/turnera/turnera.controller.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:35:23.302Z"
+    },
+    {
+      "id": "bug-571",
+      "timestamp": "2026-07-16T14:37:18.738Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:37:18.738Z"
+    },
+    {
+      "id": "bug-572",
+      "timestamp": "2026-07-16T14:37:23.304Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "Was returning: { units, unitsQuery, services, slots, slotsQuery, ",
+      "fix": "Now returns: { units, unitsQuery, services, slots, slotsQuery, ",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:37:23.304Z"
+    },
+    {
+      "id": "bug-573",
+      "timestamp": "2026-07-16T14:38:42.886Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/turnera/DaySchedule.tsx",
+      "root_cause": "Had '11px'",
+      "fix": "Changed to 'reservado'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:38:42.886Z"
+    },
+    {
+      "id": "bug-574",
+      "timestamp": "2026-07-16T14:39:09.123Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T14:39:09.123Z"
     }
   ]
 }
