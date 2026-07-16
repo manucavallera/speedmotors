@@ -6,21 +6,26 @@ import { api, apiError } from '../lib/api'
 import { type Client, type PaginatedResponse } from '../types/api.types'
 import { type ClientForm } from '../types/clients.types'
 
+export type ClientType = 'concesionaria' | 'guarderia'
+
 export function useClients() {
   const qc = useQueryClient()
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [hasDebt, setHasDebt] = useState(false)
+  // Cartera activa: SpeedMotors (concesionaria) o Marina (guardería). Filtra y define el tipo de los nuevos.
+  const [clientType, setClientType] = useState<ClientType>('concesionaria')
   const [modal, setModal] = useState<'create' | 'edit' | null>(null)
   const [editing, setEditing] = useState<Client | null>(null)
   const [accountClient, setAccountClient] = useState<Client | null>(null)
 
   function handleSetSearch(v: string) { setSearch(v); setPage(1) }
   function handleSetHasDebt(v: boolean) { setHasDebt(v); setPage(1) }
+  function handleSetClientType(v: ClientType) { setClientType(v); setPage(1) }
 
   const { data: clientsData, isLoading } = useQuery<PaginatedResponse<Client>>({
-    queryKey: ['clients', { search, page, hasDebt }],
-    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50, hasDebt: hasDebt || undefined, type: 'concesionaria' } }).then(r => r.data),
+    queryKey: ['clients', { search, page, hasDebt, clientType }],
+    queryFn: () => api.get('/clients', { params: { search: search || undefined, page, limit: 50, hasDebt: hasDebt || undefined, type: clientType } }).then(r => r.data),
     placeholderData: prev => prev,
   })
   const clients = clientsData?.items ?? []
@@ -28,7 +33,8 @@ export function useClients() {
   const pages = clientsData?.pages ?? 1
 
   const create = useMutation({
-    mutationFn: (data: ClientForm) => api.post('/clients', data),
+    // Los nuevos entran en la cartera activa (SpeedMotors o Marina)
+    mutationFn: (data: ClientForm) => api.post('/clients', { ...data, type: clientType }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); setModal(null) },
     onError: (err: any) => toast.error(apiError(err)),
   })
@@ -52,6 +58,7 @@ export function useClients() {
     clients, isLoading,
     search, setSearch: handleSetSearch,
     hasDebt, setHasDebt: handleSetHasDebt,
+    clientType, setClientType: handleSetClientType,
     total, page, pages, setPage,
     modal, setModal, editing, openCreate, openEdit,
     accountClient, setAccountClient,

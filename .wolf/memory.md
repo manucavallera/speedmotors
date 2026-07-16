@@ -3519,3 +3519,13 @@
 | 15:31 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | inline fix | ~29 |
 | 15:31 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | added optional chaining | ~332 |
 | 2026-07-16 | tarifa salida al agua por categoría (launchRate) + editable por turno + estimado en página cliente | storage.schema, 0040 migration, guarderia.{dto,service}, turnera.service (publicReserve/identify), CategoriesModal, TurnoModal, TurnosPublicPage, types | typecheck back+front OK | ~9k |
+| 15:38 | Session end: 39 writes across 17 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 16 reads | ~30426 tok |
+| 15:39 | Session end: 39 writes across 17 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 16 reads | ~30426 tok |
+| 15:41 | Session end: 39 writes across 17 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 16 reads | ~30426 tok |
+| 15:42 | Session end: 39 writes across 17 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 16 reads | ~30426 tok |
+| 15:43 | Session end: 39 writes across 17 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 16 reads | ~30426 tok |
+| 15:45 | Edited apps/frontend/src/hooks/useClients.ts | modified useClients() | ~346 |
+| 15:45 | Edited apps/frontend/src/hooks/useClients.ts | 2→3 lines | ~55 |
+| 15:45 | Edited apps/frontend/src/hooks/useClients.ts | 3→4 lines | ~46 |
+| 15:45 | Edited apps/frontend/src/pages/ClientsPage.tsx | expanded (+17 lines) | ~427 |
+| 2026-07-16 | cartera de clientes separada: solapa SpeedMotors/Marina en ClientsPage (antes fijo en concesionaria) | useClients.ts, ClientsPage.tsx | typecheck OK; nuevos entran en la cartera activa (type), editar no toca el tipo | ~4k |
