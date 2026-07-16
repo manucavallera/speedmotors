@@ -23,9 +23,18 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
   const [endTime, setEndTime] = useState(presetEnd ?? '')
   // El cliente puede pedir varios servicios en el mismo turno: batería + combustible + parrilla
   const [picked, setPicked] = useState<Record<number, number>>({})
+  // Precio de la salida al agua: arranca en la tarifa de la categoría de la lancha, editable
+  const [launch, setLaunch] = useState<number>(0)
 
   const unit = units.find(u => String(u.id) === unitId)
-  const total = Object.values(picked).reduce((a, b) => a + b, 0)
+  const total = launch + Object.values(picked).reduce((a, b) => a + b, 0)
+
+  // Al elegir la lancha, prellenar el precio de salida con el de su categoría
+  function selectUnit(id: string) {
+    setUnitId(id)
+    const u = units.find(x => String(x.id) === id)
+    setLaunch(Number(u?.launchRate ?? 0) || 0)
+  }
 
   function toggle(s: StorageService) {
     setPicked(prev => {
@@ -45,11 +54,14 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
       date,
       startTime,
       endTime,
-      items: Object.entries(picked).map(([id, amount]) => ({
-        serviceId: Number(id),
-        concept: services.find(s => s.id === Number(id))?.name ?? 'Servicio',
-        amount,
-      })),
+      items: [
+        ...(launch > 0 ? [{ concept: 'Salida al agua', amount: launch }] : []),
+        ...Object.entries(picked).map(([id, amount]) => ({
+          serviceId: Number(id),
+          concept: services.find(s => s.id === Number(id))?.name ?? 'Servicio',
+          amount,
+        })),
+      ],
     })
   }
 
@@ -59,7 +71,7 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
         <FormField label="Lancha (guardería)">
           <SearchableSelect
             value={unitId}
-            onChange={setUnitId}
+            onChange={selectUnit}
             options={units.map(u => ({ value: String(u.id), label: `${u.description} — ${u.clientName ?? 'sin cliente'}` }))}
             placeholder="Buscar lancha..."
             emptyLabel="— Elegir —"
@@ -72,6 +84,11 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
           <div style={{ flex: 1 }}><FormField label="Desde"><input style={inputStyle} type="time" value={startTime} onChange={e => setStartTime(e.target.value)} /></FormField></div>
           <div style={{ flex: 1 }}><FormField label="Hasta"><input style={inputStyle} type="time" value={endTime} onChange={e => setEndTime(e.target.value)} /></FormField></div>
         </div>
+
+        <FormField label="Salida al agua">
+          <input style={inputStyle} type="number" value={launch} onChange={e => setLaunch(Number(e.target.value) || 0)} placeholder="Precio de la salida" />
+          <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '4px' }}>Precio base del turno (viene de la categoría, editable)</div>
+        </FormField>
 
         <FormField label="Servicios que pide">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '210px', overflowY: 'auto' }}>

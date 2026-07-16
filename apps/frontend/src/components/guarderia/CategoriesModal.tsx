@@ -13,7 +13,7 @@ interface Props {
   onRemove: (id: number) => void
 }
 
-const EMPTY: CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0 }
+const EMPTY: CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0, launchRate: 0 }
 
 // Escala legible: "2 a 35 HP · hasta 5.5 m"
 function scaleLabel(c: StorageCategory) {
@@ -45,13 +45,14 @@ export function CategoriesModal({ categories, submitting, onClose, onCreate, onU
       minLength: c.minLength != null ? Number(c.minLength) : undefined,
       maxLength: c.maxLength != null ? Number(c.maxLength) : undefined,
       monthlyRate: Number(c.monthlyRate),
+      launchRate: Number(c.launchRate),
     })
   }
 
   return (
     <Modal title="Categorías y tarifas" onClose={onClose}>
       <div style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '14px' }}>
-        La categoría define la tarifa mensual de la cuna según los HP del motor y el largo de la lancha.
+        La categoría define, según los HP del motor y el largo de la lancha, la cuna mensual (guardería) y el precio de la salida al agua (turno).
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '18px' }}>
@@ -66,8 +67,9 @@ export function CategoriesModal({ categories, submitting, onClose, onCreate, onU
               <div style={{ fontWeight: 600, fontSize: '13.5px', color: '#0f172a' }}>{c.name}</div>
               <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>{scaleLabel(c)}</div>
             </div>
-            <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a', whiteSpace: 'nowrap' }}>
-              ${Number(c.monthlyRate).toLocaleString('es-AR')}
+            <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+              <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>${Number(c.monthlyRate).toLocaleString('es-AR')} <span style={{ fontSize: '11px', fontWeight: 500, color: '#94a3b8' }}>/mes</span></div>
+              <div style={{ fontSize: '11.5px', color: '#0369a1' }}>Salida ${Number(c.launchRate).toLocaleString('es-AR')}</div>
             </div>
             <button style={{ ...btnSecondary, padding: '6px 10px' }} onClick={() => edit(c)}>Editar</button>
             <button style={{ ...btnSecondary, padding: '6px 10px', color: '#dc2626' }} onClick={() => onRemove(c.id)}>Borrar</button>
@@ -88,7 +90,10 @@ export function CategoriesModal({ categories, submitting, onClose, onCreate, onU
           <input style={inputStyle} type="number" step="0.1" placeholder="Largo desde (m)" value={f.minLength ?? ''} onChange={e => setF({ ...f, minLength: num(e.target.value) })} />
           <input style={inputStyle} type="number" step="0.1" placeholder="Largo hasta (m)" value={f.maxLength ?? ''} onChange={e => setF({ ...f, maxLength: num(e.target.value) })} />
         </div>
-        <input style={inputStyle} type="number" placeholder="Tarifa mensual $" value={f.monthlyRate ?? ''} onChange={e => setF({ ...f, monthlyRate: num(e.target.value) })} />
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <input style={inputStyle} type="number" placeholder="Cuna mensual $" value={f.monthlyRate ?? ''} onChange={e => setF({ ...f, monthlyRate: num(e.target.value) })} />
+          <input style={inputStyle} type="number" placeholder="Salida al agua $" value={f.launchRate ?? ''} onChange={e => setF({ ...f, launchRate: num(e.target.value) })} />
+        </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           {editing && <button style={btnSecondary} onClick={() => { setF(EMPTY); setEditing(null) }}>Cancelar</button>}
           <button style={btnPrimary} disabled={submitting} onClick={submit}>

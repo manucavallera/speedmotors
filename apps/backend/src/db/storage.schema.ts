@@ -22,6 +22,8 @@ export const storageCategories = pgTable('storage_categories', {
   minLength: numeric('min_length', { precision: 5, scale: 2 }),
   maxLength: numeric('max_length', { precision: 5, scale: 2 }),
   monthlyRate: numeric('monthly_rate', { precision: 12, scale: 2 }).notNull().default('0'),
+  // Tarifa de salida al agua (turnera): precio base del turno según la categoría
+  launchRate: numeric('launch_rate', { precision: 12, scale: 2 }).notNull().default('0'),
   active: boolean('active').notNull().default(true),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })

@@ -81,6 +81,11 @@ export class CategoryDto {
   monthlyRate?: number
 
   @IsOptional()
+  @IsNumber()
+  @Min(0)
+  launchRate?: number
+
+  @IsOptional()
   @IsBoolean()
   active?: boolean
 }

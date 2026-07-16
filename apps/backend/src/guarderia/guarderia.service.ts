@@ -93,6 +93,7 @@ export class GuarderiaService {
         lengthM: storageUnits.lengthM,
         categoryId: storageCategories.id,
         categoryName: storageCategories.name,
+        launchRate: storageCategories.launchRate,
         entryDate: storageUnits.entryDate,
         exitDate: storageUnits.exitDate,
         status: storageUnits.status,
@@ -120,6 +121,7 @@ export class GuarderiaService {
         lengthM: storageUnits.lengthM,
         categoryId: storageCategories.id,
         categoryName: storageCategories.name,
+        launchRate: storageCategories.launchRate,
         entryDate: storageUnits.entryDate,
         exitDate: storageUnits.exitDate,
         status: storageUnits.status,
@@ -455,6 +457,7 @@ export class GuarderiaService {
       minLength: dto.minLength != null ? dto.minLength.toString() : null,
       maxLength: dto.maxLength != null ? dto.maxLength.toString() : null,
       monthlyRate: (dto.monthlyRate ?? 0).toString(),
+      launchRate: (dto.launchRate ?? 0).toString(),
     }
   }
 

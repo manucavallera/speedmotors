@@ -26,6 +26,7 @@ export interface StorageCategory {
   minLength: string | null
   maxLength: string | null
   monthlyRate: string
+  launchRate: string
   active: boolean
 }
 
@@ -36,6 +37,7 @@ export interface CategoryForm {
   minLength?: number
   maxLength?: number
   monthlyRate?: number
+  launchRate?: number
   active?: boolean
 }
 

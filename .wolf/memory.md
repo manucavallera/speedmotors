@@ -3481,3 +3481,41 @@
 | 14:39 | Edited apps/frontend/src/pages/TurneraPage.tsx | 2→3 lines | ~56 |
 | 14:39 | Edited apps/frontend/src/pages/TurneraPage.tsx | CSS: id, date, onSuccess | ~119 |
 | 2026-07-16 | correr turno: PATCH turnera/slots/:id + RescheduleModal + botón panel | turnera.{dto,service,controller}.ts, useTurnera.ts, DaySchedule.tsx, RescheduleModal.tsx, TurneraPage.tsx | typecheck back+front OK, sin probar a ojo | ~6k |
+| 15:02 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | 4→4 lines | ~163 |
+| 15:02 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:04 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:07 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:11 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:13 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:13 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:14 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:14 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:14 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:15 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:17 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:22 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:23 | Session end: 16 writes across 8 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 8 reads | ~10864 tok |
+| 15:25 | Created apps/backend/drizzle/0040_category_launch_rate.sql | — | ~72 |
+| 15:25 | Edited apps/backend/src/db/storage.schema.ts | modified agua() | ~126 |
+| 15:26 | Edited apps/backend/src/guarderia/guarderia.dto.ts | 5→10 lines | ~36 |
+| 15:26 | Edited apps/backend/src/guarderia/guarderia.service.ts | 3→4 lines | ~33 |
+| 15:26 | Edited apps/backend/src/guarderia/guarderia.service.ts | 4→5 lines | ~64 |
+| 15:26 | Edited apps/backend/src/turnera/turnera.service.ts | 4→6 lines | ~144 |
+| 15:26 | Edited apps/backend/src/turnera/turnera.service.ts | inline fix | ~51 |
+| 15:27 | Edited apps/backend/src/turnera/turnera.service.ts | 4→6 lines | ~132 |
+| 15:27 | Edited apps/backend/src/turnera/turnera.service.ts | 21→23 lines | ~350 |
+| 15:29 | Edited apps/frontend/src/types/guarderia.types.ts | 5→6 lines | ~34 |
+| 15:30 | Edited apps/frontend/src/types/guarderia.types.ts | 5→6 lines | ~31 |
+| 15:30 | Edited apps/frontend/src/types/turnera.types.ts | 6→8 lines | ~67 |
+| 15:30 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | inline fix | ~44 |
+| 15:30 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | CSS: launchRate | ~46 |
+| 15:30 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | CSS: textAlign | ~126 |
+| 15:30 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | CSS: display, gap, launchRate | ~120 |
+| 15:30 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | inline fix | ~42 |
+| 15:30 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | added optional chaining | ~240 |
+| 15:30 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | CSS: amount | ~115 |
+| 15:31 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | 3→3 lines | ~26 |
+| 15:31 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | CSS: fontSize, color, marginTop | ~118 |
+| 15:31 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | inline fix | ~29 |
+| 15:31 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | added optional chaining | ~332 |
+| 2026-07-16 | tarifa salida al agua por categoría (launchRate) + editable por turno + estimado en página cliente | storage.schema, 0040 migration, guarderia.{dto,service}, turnera.service (publicReserve/identify), CategoriesModal, TurnoModal, TurnosPublicPage, types | typecheck back+front OK | ~9k |

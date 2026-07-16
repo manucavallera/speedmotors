@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException, ForbiddenException } from '@nestjs/common'
 import { db } from '../db'
-import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, clients, cashSessions, cashMovements } from '../db/schema'
+import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, storageCategories, clients, cashSessions, cashMovements } from '../db/schema'
 import { eq, and, gte, asc, sql, inArray } from 'drizzle-orm'
 import { CreateSlotDto, TurneraConfigDto, PublicReserveDto } from './turnera.dto'
 
@@ -198,8 +198,10 @@ export class TurneraService {
   // Ficha pública: las lanchas del cliente y sus próximos turnos. Sin plata.
   async publicIdentify(phone: string) {
     const client = await this.findClientByPhone(phone)
-    const units = await db.select({ id: storageUnits.id, description: storageUnits.description, spotCode: storageSpots.code })
-      .from(storageUnits).leftJoin(storageSpots, eq(storageSpots.id, storageUnits.spotId))
+    const units = await db.select({ id: storageUnits.id, description: storageUnits.description, spotCode: storageSpots.code, launchRate: storageCategories.launchRate })
+      .from(storageUnits)
+      .leftJoin(storageSpots, eq(storageSpots.id, storageUnits.spotId))
+      .leftJoin(storageCategories, eq(storageCategories.id, storageUnits.categoryId))
       .where(and(eq(storageUnits.clientId, client.id), eq(storageUnits.status, 'en_guarderia')))
 
     const today = new Date().toISOString().slice(0, 10)
@@ -239,8 +241,10 @@ export class TurneraService {
     const client = await this.findClientByPhone(dto.phone)
 
     // La lancha tiene que ser de ESE cliente (no confiamos en el unitId a secas)
-    const [unit] = await db.select({ id: storageUnits.id })
-      .from(storageUnits).where(and(eq(storageUnits.id, dto.unitId), eq(storageUnits.clientId, client.id)))
+    const [unit] = await db.select({ id: storageUnits.id, launchRate: storageCategories.launchRate })
+      .from(storageUnits)
+      .leftJoin(storageCategories, eq(storageCategories.id, storageUnits.categoryId))
+      .where(and(eq(storageUnits.id, dto.unitId), eq(storageUnits.clientId, client.id)))
     if (!unit) throw new ForbiddenException('Esa lancha no está a tu nombre')
 
     const cfg = await this.getConfig()
@@ -257,7 +261,9 @@ export class TurneraService {
     const ids = dto.serviceIds ?? []
     const svcs = ids.length ? await db.select().from(storageServices)
       .where(and(inArray(storageServices.id, ids), eq(storageServices.active, true))) : []
-    const total = svcs.reduce((s, v) => s + Number(v.price), 0)
+    // El turno arranca con la tarifa de salida al agua de la categoría de la lancha
+    const launch = Number(unit.launchRate ?? 0)
+    const total = launch + svcs.reduce((s, v) => s + Number(v.price), 0)
 
     return db.transaction(async (tx) => {
       const [slot] = await tx.insert(rentalSlots).values({
@@ -267,11 +273,11 @@ export class TurneraService {
         notes: 'Reservado por el cliente',
       }).returning()
 
-      if (svcs.length) {
-        await tx.insert(rentalSlotItems).values(svcs.map((v) => ({
-          slotId: slot.id, serviceId: v.id, concept: v.name, amount: v.price,
-        })))
-      }
+      const rows = [
+        ...(launch > 0 ? [{ slotId: slot.id, serviceId: null, concept: 'Salida al agua', amount: launch.toString() }] : []),
+        ...svcs.map((v) => ({ slotId: slot.id, serviceId: v.id, concept: v.name, amount: v.price })),
+      ]
+      if (rows.length) await tx.insert(rentalSlotItems).values(rows)
       return { id: slot.id, date: slot.date, startTime: slot.startTime, endTime: slot.endTime, total }
     })
   }

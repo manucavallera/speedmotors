@@ -4,6 +4,8 @@ export interface GuarderiaUnitOption {
   description: string
   clientId: number
   clientName: string | null
+  // Tarifa de salida al agua de la categoría de la lancha (precio base del turno)
+  launchRate?: string | null
 }
 
 // Un servicio pedido en el turno (batería, combustible, parrilla...)

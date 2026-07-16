@@ -5,7 +5,7 @@ import { api, apiError } from '../lib/api'
 // Página pública del cliente (sin login). Entra por link de WhatsApp, se identifica
 // con su teléfono y reserva su turno de botadura. No ve datos de otros clientes.
 
-type Unit = { id: number; description: string; spotCode: string | null }
+type Unit = { id: number; description: string; spotCode: string | null; launchRate?: string | null }
 type SlotItem = { concept: string; amount: string }
 type Slot = { id: number; boatName: string | null; date: string; startTime: string; endTime: string; status: string; items: SlotItem[] }
 type Ficha = { client: { id: number; name: string }; units: Unit[]; slots: Slot[] }
@@ -181,6 +181,21 @@ export function TurnosPublicPage() {
               })}
             </div>
           )}
+
+          {(() => {
+            const u = ficha.units.find(x => x.id === unitId)
+            const launch = Number(u?.launchRate ?? 0) || 0
+            const svc = catalog.filter(s => services.includes(s.id)).reduce((a, s) => a + Number(s.price), 0)
+            const est = launch + svc
+            if (est <= 0) return null
+            return (
+              <div style={card}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#64748b' }}><span>Salida al agua</span><span>{money(launch)}</span></div>
+                {svc > 0 && <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#64748b', marginTop: 6 }}><span>Servicios</span><span>{money(svc)}</span></div>}
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800, color: '#0f172a', marginTop: 10, paddingTop: 10, borderTop: '1px solid #f1f5f9' }}><span>Total</span><span>{money(est)}</span></div>
+              </div>
+            )
+          })()}
 
           {reserve.isError && <p style={{ color: '#dc2626', fontSize: 13, textAlign: 'center' }}>{apiError(reserve.error)}</p>}
           <button style={{ ...bigBtn, opacity: time && unitId && !reserve.isPending ? 1 : .5 }} disabled={!time || !unitId || reserve.isPending}
