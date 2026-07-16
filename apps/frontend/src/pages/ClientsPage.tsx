@@ -13,37 +13,20 @@ export function ClientsPage() {
     clients, isLoading,
     search, setSearch,
     hasDebt, setHasDebt,
-    clientType, setClientType,
     total, page, pages, setPage,
     modal, setModal, editing, openCreate, openEdit,
     accountClient, setAccountClient,
     create, update, remove,
   } = useClients()
 
-  // Dos carteras separadas: la concesionaria (SpeedMotors) y la marina (guardería)
-  const carteras = [
-    { value: 'concesionaria' as const, label: 'SpeedMotors' },
-    { value: 'guarderia' as const, label: 'Marina' },
-  ]
-  const esMarina = clientType === 'guarderia'
-
   return (
     <div>
       <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Clientes</h1>
-          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} clientes de {esMarina ? 'Marina' : 'SpeedMotors'}{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} clientes{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
         <button onClick={openCreate} style={btnPrimary}>+ Nuevo cliente</button>
-      </div>
-
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-        {carteras.map(c => (
-          <button key={c.value} onClick={() => setClientType(c.value)}
-            style={{ padding: '9px 18px', borderRadius: '10px', fontSize: '13.5px', fontWeight: 600, cursor: 'pointer', border: clientType === c.value ? 'none' : '1px solid #e2e8f0', background: clientType === c.value ? '#1d4ed8' : 'white', color: clientType === c.value ? 'white' : '#475569' }}>
-            {c.label}
-          </button>
-        ))}
       </div>
 
       <InfoBanner title="Clientes del negocio">

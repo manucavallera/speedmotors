@@ -9,6 +9,7 @@ import { GuardarModal } from '../components/guarderia/GuardarModal'
 import { ChargeModal } from '../components/guarderia/ChargeModal'
 import { ServicesModal } from '../components/guarderia/ServicesModal'
 import { CategoriesModal } from '../components/guarderia/CategoriesModal'
+import { GuarderiaClientsModal } from '../components/guarderia/GuarderiaClientsModal'
 import { DifusionModal } from '../components/guarderia/DifusionModal'
 import { MonthChargeModal } from '../components/guarderia/MonthChargeModal'
 import { ClientFileModal } from '../components/guarderia/ClientFileModal'
@@ -44,6 +45,7 @@ export function GuarderiaPage() {
   const [setup, setSetup] = useState(false)
   const [manageServices, setManageServices] = useState(false)
   const [manageCategories, setManageCategories] = useState(false)
+  const [manageClients, setManageClients] = useState(false)
   const [difusion, setDifusion] = useState(false)
   const [monthCharge, setMonthCharge] = useState(false)
   const [clientFile, setClientFile] = useState<number | null>(null)
@@ -96,6 +98,7 @@ export function GuarderiaPage() {
           <div style={{ fontSize: '13px', color: '#94a3b8' }}>Mapa de lugares</div>
         </div>
         <HelpButton onClick={() => setShowHelp(true)} />
+        <button style={btnSecondary} onClick={() => setManageClients(true)}>Clientes</button>
         <button style={btnSecondary} onClick={() => setManageServices(true)}>Servicios</button>
         <button style={btnSecondary} onClick={() => setManageCategories(true)}>Categorías</button>
         <button style={btnSecondary} onClick={() => setDifusion(true)}>Difusión</button>
@@ -236,6 +239,8 @@ export function GuarderiaPage() {
           onSaldar={(chargeId) => payCharge.mutate(chargeId)}
         />
       )}
+
+      {manageClients && <GuarderiaClientsModal onClose={() => setManageClients(false)} />}
 
       {difusion && <DifusionModal onClose={() => setDifusion(false)} />}
 

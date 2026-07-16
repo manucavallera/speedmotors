@@ -3529,3 +3529,11 @@
 | 15:45 | Edited apps/frontend/src/hooks/useClients.ts | 3→4 lines | ~46 |
 | 15:45 | Edited apps/frontend/src/pages/ClientsPage.tsx | expanded (+17 lines) | ~427 |
 | 2026-07-16 | cartera de clientes separada: solapa SpeedMotors/Marina en ClientsPage (antes fijo en concesionaria) | useClients.ts, ClientsPage.tsx | typecheck OK; nuevos entran en la cartera activa (type), editar no toca el tipo | ~4k |
+| 15:47 | Session end: 43 writes across 19 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 19 reads | ~34749 tok |
+| 15:51 | Session end: 43 writes across 19 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 19 reads | ~34749 tok |
+| 15:52 | Created apps/frontend/src/components/guarderia/GuarderiaClientsModal.tsx | — | ~1108 |
+| 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | added 1 import(s) | ~46 |
+| 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~54 |
+| 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~71 |
+| 15:52 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 1→3 lines | ~47 |
+| 2026-07-16 | cartera clientes guardería movida a pantalla Guardería (botón "Clientes" → GuarderiaClientsModal); Clientes vuelve a solo SpeedMotors | GuarderiaClientsModal.tsx, GuarderiaPage.tsx, useClients.ts+ClientsPage.tsx (revert) | typecheck OK | ~5k |

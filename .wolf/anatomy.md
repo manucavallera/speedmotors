@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-16T15:31:44.710Z
-> Files: 429 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-16T15:52:55.860Z
+> Files: 430 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -471,6 +471,7 @@
 - `DeudoresPanel.tsx` — fmt (~913 tok)
 - `DifusionModal.tsx` — DifusionModal — renders modal (~1074 tok)
 - `GuardarModal.tsx` — GuardarModal — renders form, modal (~2460 tok)
+- `GuarderiaClientsModal.tsx` — GuarderiaClientsModal — renders modal (~1108 tok)
 - `LooseUnits.tsx` — fmt (~710 tok)
 - `MonthChargeModal.tsx` — fmt — renders form, modal (~1354 tok)
 - `MoveModal.tsx` — MoveModal — renders form, modal (~600 tok)
@@ -587,7 +588,7 @@
 - `useAlerts.ts` — API routes: GET, POST, PATCH, PUT, DELETE (9 endpoints) (~1526 tok)
 - `useAuth.ts` — Exports useAuth (~180 tok)
 - `useBreakpoint.ts` — Exports useBreakpoint (~253 tok)
-- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~739 tok)
+- `useClients.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~874 tok)
 - `useCredits.ts` — API routes: GET, POST, PUT, DELETE (10 endpoints) (~1411 tok)
 - `useGuarderia.ts` — API routes: GET, POST, PUT, DELETE, PATCH (20 endpoints) (~1869 tok)
 - `useProducts.ts` — API routes: GET, POST, PUT, DELETE (5 endpoints) (~1326 tok)
@@ -628,11 +629,11 @@
 
 - `AlertsPage.tsx` — SectionBox (~6165 tok)
 - `CashPage.tsx` — CashPage (~1900 tok)
-- `ClientsPage.tsx` — ClientsPage (~1275 tok)
+- `ClientsPage.tsx` — ClientsPage (~1528 tok)
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `GuarderiaPage.tsx` — Stat (~3285 tok)
+- `GuarderiaPage.tsx` — Stat (~3380 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~3385 tok)
