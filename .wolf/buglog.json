@@ -9224,6 +9224,326 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-16T14:39:09.123Z"
+    },
+    {
+      "id": "bug-575",
+      "timestamp": "2026-07-16T15:02:46.935Z",
+      "error_message": "Significant refactor of ",
+      "file": "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 4→4 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:02:46.935Z"
+    },
+    {
+      "id": "bug-576",
+      "timestamp": "2026-07-16T15:26:45.182Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 4→6 lines (2 removed) | Also: const [unit] = await db.select({ id: storageUnits.; .from(storageUnits).where(and(eq(storageUnits.id, ",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-16T15:27:03.692Z"
+    },
+    {
+      "id": "bug-577",
+      "timestamp": "2026-07-16T15:30:11.375Z",
+      "error_message": "CSS fix: EMPTY",
+      "file": "apps/frontend/src/components/guarderia/CategoriesModal.tsx",
+      "root_cause": "EMPTY: CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0 → CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0, launchRate: 0",
+      "fix": "Changed EMPTY: CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0 → CategoryForm = { name: '', minHp: undefined, maxHp: undefined, minLength: undefined, maxLength: undefined, monthlyRate: 0, launchRate: 0",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-16T15:30:26.057Z"
+    },
+    {
+      "id": "bug-578",
+      "timestamp": "2026-07-16T15:30:48.270Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:30:48.270Z"
+    },
+    {
+      "id": "bug-579",
+      "timestamp": "2026-07-16T15:30:55.421Z",
+      "error_message": "CSS fix: items",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "items: Object.entries(picked).map(([id, amount]) => ({ → [",
+      "fix": "Changed items: Object.entries(picked).map(([id, amount]) => ({ → [",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:30:55.421Z"
+    },
+    {
+      "id": "bug-580",
+      "timestamp": "2026-07-16T15:31:00.640Z",
+      "error_message": "Wrong reference: setUnitId should be selectUnit",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Used \"setUnitId\" instead of \"selectUnit\"",
+      "fix": "Changed setUnitId → selectUnit",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:31:00.640Z"
+    },
+    {
+      "id": "bug-581",
+      "timestamp": "2026-07-16T15:31:06.218Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:31:06.218Z"
+    },
+    {
+      "id": "bug-582",
+      "timestamp": "2026-07-16T15:31:44.764Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/TurnosPublicPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:31:44.764Z"
+    },
+    {
+      "id": "bug-583",
+      "timestamp": "2026-07-16T15:45:23.623Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/hooks/useClients.ts",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 17→22 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:45:23.623Z"
+    },
+    {
+      "id": "bug-584",
+      "timestamp": "2026-07-16T15:45:51.461Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/ClientsPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T15:45:51.461Z"
+    },
+    {
+      "id": "bug-585",
+      "timestamp": "2026-07-16T16:17:53.512Z",
+      "error_message": "Significant refactor of ",
+      "file": "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md",
+      "root_cause": "2 lines replaced/restructured",
+      "fix": "Rewrote 3→11 lines (2 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-16T16:17:53.512Z"
+    },
+    {
+      "id": "bug-586",
+      "timestamp": "2026-07-20T17:25:31.833Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T17:25:31.833Z"
+    },
+    {
+      "id": "bug-587",
+      "timestamp": "2026-07-20T17:26:37.189Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/hooks/useGuarderia.ts",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T17:26:37.189Z"
+    },
+    {
+      "id": "bug-588",
+      "timestamp": "2026-07-20T17:28:58.839Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/GuarderiaPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T17:28:58.839Z"
+    },
+    {
+      "id": "bug-589",
+      "timestamp": "2026-07-20T19:58:45.682Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check) | Also: // Editar los servicios de un turno reservado: reemplaza la ; async updateSlotItems(id: number, items: SlotItemDto[]) {",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-20T19:58:55.343Z"
+    },
+    {
+      "id": "bug-590",
+      "timestamp": "2026-07-20T19:59:16.265Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/turnera/turnera.controller.ts",
+      "root_cause": "Was returning: this.svc.chargeSlot(Number(id), req.user.id) }",
+      "fix": "Now returns: this.svc.updateSlotItems(Number(id), dto.items)",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T19:59:16.265Z"
+    },
+    {
+      "id": "bug-591",
+      "timestamp": "2026-07-20T23:24:36.579Z",
+      "error_message": "Wrong return value",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "Was returning: { units, unitsQuery, services, slots, slotsQuery, ",
+      "fix": "Now returns: { units, unitsQuery, services, slots, slotsQuery, ",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T23:24:36.579Z"
+    },
+    {
+      "id": "bug-592",
+      "timestamp": "2026-07-20T23:25:04.228Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/components/turnera/TurneraConfigModal.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T23:25:04.228Z"
+    },
+    {
+      "id": "bug-593",
+      "timestamp": "2026-07-20T23:27:25.042Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/frontend/src/pages/TurnosPublicPage.tsx",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T23:27:25.042Z"
+    },
+    {
+      "id": "bug-594",
+      "timestamp": "2026-07-20T23:29:21.195Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/pages/TurneraPage.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-20T23:29:21.195Z"
     }
   ]
 }

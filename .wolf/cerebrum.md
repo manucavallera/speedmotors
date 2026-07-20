@@ -26,6 +26,10 @@
 
 [2026-05-22] Cuando se agrega un producto por barcode en ventas, verificar si ya existe en items (por productId) e incrementar cantidad en vez de agregar nueva línea.
 
+[2026-07-20] Testear la API con curl y el backend en `nest start --watch` da resultados flaky (404 / flip-flop de handler) porque cada recompile levanta procesos node transitorios y el curl rápido pega al que se está muriendo. Para smoke tests estables: `cd apps/backend && npm run build && node dist/src/main.js` (OJO: el entry compilado queda en `dist/src/main.js`, NO `dist/main.js`). El back directo NO tiene prefijo `/api` (rutas `/auth/login`, `/turnera/*`, etc.); el `/api` lo agrega el proxy de vite solo en dev del front.
+
+[2026-07-20] Rutas hijas que comparten prefijo con una ruta paramétrica del MISMO verbo (`PATCH /slots/:id` vs `PATCH /slots/:id/items`) pueden colisionar en Express/Nest 11 según orden y timing. Solución robusta: usar un verbo distinto para la hija (acá `PUT /slots/:id/items` porque el reschedule ya era `PATCH /slots/:id`), como ya hace guarderia con `PUT units/:id/services`.
+
 ## Decision Log
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->

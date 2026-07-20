@@ -3540,3 +3540,72 @@
 | 15:54 | Session end: 48 writes across 21 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 22 reads | ~40518 tok |
 | 16:17 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | expanded (+8 lines) | ~499 |
 | 2026-07-16 | FIN sesión: 3 features marina commiteadas (correr turno 071ddba, launch_rate 5678bcb, cartera clientes guardería 533ce7b). Sin push/deploy. Pendiente: correr 0040 local + QA a ojo + migrations PROD 0038/0039/0040 | .wolf/memory.md | guardado | ~1k |
+| 16:18 | Session end: 49 writes across 21 files (turnera.dto.ts, turnera.service.ts, turnera.controller.ts, useTurnera.ts, RescheduleModal.tsx) | 22 reads | ~41052 tok |
+
+## Session: 2026-07-20 15:47
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 16:41 | Created ../../../../../../tmp/smoke.sh | — | ~358 |
+| 17:08 | Session end: 1 writes across 1 files (smoke.sh) | 2 reads | ~956 tok |
+| 17:25 | Edited apps/backend/src/guarderia/guarderia.dto.ts | expanded (+31 lines) | ~174 |
+| 17:25 | Edited apps/backend/src/guarderia/guarderia.service.ts | added 10 condition(s) | ~398 |
+| 17:26 | Edited apps/backend/src/guarderia/guarderia.service.ts | inline fix | ~26 |
+| 17:26 | Edited apps/backend/src/guarderia/guarderia.controller.ts | inline fix | ~47 |
+| 17:26 | Edited apps/backend/src/guarderia/guarderia.controller.ts | 2→5 lines | ~66 |
+| 17:26 | Edited apps/frontend/src/hooks/useGuarderia.ts | expanded (+8 lines) | ~127 |
+| 17:26 | Edited apps/frontend/src/hooks/useGuarderia.ts | 2→2 lines | ~43 |
+| 17:27 | Edited apps/frontend/src/types/guarderia.types.ts | expanded (+10 lines) | ~90 |
+| 17:27 | Edited apps/frontend/src/hooks/useGuarderia.ts | inline fix | ~66 |
+| 17:27 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | CSS: onEditar | ~57 |
+| 17:27 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | inline fix | ~34 |
+| 17:27 | Edited apps/frontend/src/components/guarderia/SpotPanel.tsx | expanded (+6 lines) | ~171 |
+| 17:28 | Created apps/frontend/src/components/guarderia/EditUnitModal.tsx | — | ~1067 |
+| 17:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | added 1 import(s) | ~38 |
+| 17:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | inline fix | ~28 |
+| 17:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 1→3 lines | ~67 |
+| 17:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→3 lines | ~56 |
+| 17:28 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | CSS: unitId, onSuccess | ~107 |
+
+## Session: 2026-07-20 16:30
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 16:35 | Smoke test end-to-end vía curl (back Windows :3000, DB local) | 5 features marina | 5/5 OK | ~4000 |
+| 16:45 | Feature: editar lancha ya cargada | guarderia.dto/service/controller, useGuarderia, guarderia.types, SpotPanel, EditUnitModal(new), GuarderiaPage | PUT /guarderia/units/:id + botón "Editar datos", typecheck+curl OK | ~3500 |
+| 19:47 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | expanded (+6 lines) | ~394 |
+| 19:48 | Session end: 20 writes across 10 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 10 reads | ~23237 tok |
+| 19:50 | Session end: 20 writes across 10 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 10 reads | ~23237 tok |
+| 19:56 | Session end: 20 writes across 10 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 11 reads | ~23984 tok |
+| 19:58 | Edited apps/backend/src/db/turnera.schema.ts | modified marina() | ~104 |
+| 19:58 | Created apps/backend/drizzle/0041_turnera_whatsapp.sql | — | ~43 |
+| 19:58 | Edited apps/backend/src/turnera/turnera.dto.ts | modified marina() | ~135 |
+| 19:58 | Edited apps/backend/src/turnera/turnera.service.ts | 3→5 lines | ~119 |
+| 19:58 | Edited apps/backend/src/turnera/turnera.service.ts | added nullish coalescing | ~318 |
+| 19:59 | Edited apps/backend/src/turnera/turnera.service.ts | inline fix | ~27 |
+| 19:59 | Edited apps/backend/src/turnera/turnera.controller.ts | inline fix | ~30 |
+| 19:59 | Edited apps/backend/src/turnera/turnera.controller.ts | 2→7 lines | ~87 |
+| 20:01 | Edited apps/backend/src/turnera/turnera.controller.ts | 11→12 lines | ~126 |
+| 23:16 | Edited apps/backend/src/turnera/turnera.controller.ts | 7→7 lines | ~74 |
+| 23:24 | Edited apps/frontend/src/hooks/useTurnera.ts | expanded (+7 lines) | ~144 |
+| 23:24 | Edited apps/frontend/src/hooks/useTurnera.ts | inline fix | ~53 |
+| 23:24 | Edited apps/frontend/src/lib/turneraConfig.ts | 8→9 lines | ~124 |
+| 23:25 | Edited apps/frontend/src/components/turnera/TurneraConfigModal.tsx | added nullish coalescing | ~204 |
+| 23:25 | Edited apps/frontend/src/components/turnera/TurneraConfigModal.tsx | expanded (+7 lines) | ~201 |
+| 23:27 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | inline fix | ~28 |
+| 23:27 | Edited apps/frontend/src/pages/TurnosPublicPage.tsx | added optional chaining | ~427 |
+| 23:28 | Created apps/frontend/src/components/turnera/EditItemsModal.tsx | — | ~1315 |
+| 23:28 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | CSS: onEditItems | ~53 |
+| 23:28 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | inline fix | ~30 |
+| 23:28 | Edited apps/frontend/src/components/turnera/DaySchedule.tsx | 1→2 lines | ~154 |
+| 23:29 | Edited apps/frontend/src/pages/TurneraPage.tsx | added 2 import(s) | ~78 |
+| 23:29 | Edited apps/frontend/src/pages/TurneraPage.tsx | 5→6 lines | ~135 |
+| 23:29 | Edited apps/frontend/src/pages/TurneraPage.tsx | 3→4 lines | ~54 |
+| 23:29 | Edited apps/frontend/src/pages/TurneraPage.tsx | CSS: id, onSuccess | ~114 |
+| 23:29 | Edited apps/frontend/src/pages/TurneraPage.tsx | CSS: opacity, 1 | ~215 |
+| 23:29 | Created apps/frontend/src/lib/printDayList.ts | — | ~706 |
+| 17:30 | 3 features tío: WhatsApp confirm reserva + imprimir lista domingo + editar servicios de turno | turnera.schema/dto/service/controller, migration 0041, useTurnera, turneraConfig, TurneraConfigModal, TurnosPublicPage, DaySchedule, TurneraPage, EditItemsModal(new), printDayList(new) | back+front typecheck OK, endpoints curl OK | ~6000 |
+| 17:35 | GOTCHA: nest --watch levanta procesos transitorios; curls rápidos pegan al que muere → routing flaky (404/flip). Correr sin watch (build + node dist/src/main.js) para testear API estable | — | resuelto | — |
+| 23:31 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | expanded (+6 lines) | ~382 |
+| 23:32 | Session end: 48 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45765 tok |
+| 23:39 | Session end: 48 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45765 tok |
