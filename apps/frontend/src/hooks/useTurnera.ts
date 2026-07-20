@@ -68,6 +68,13 @@ export function useTurnera(date: string) {
     onSuccess: () => { invalidate(); toast.success('Turno corrido') },
     onError: (err: any) => toast.error(apiError(err)),
   })
+  // Editar los servicios de un turno reservado (agregar/quitar batería, combustible...)
+  const updateItems = useMutation({
+    mutationFn: ({ id, items }: { id: number; items: SlotForm['items'] }) =>
+      api.put(`/turnera/slots/${id}/items`, { items }),
+    onSuccess: () => { invalidate(); toast.success('Servicios actualizados') },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
   const charge = useMutation({
     mutationFn: (id: number) => api.post(`/turnera/slots/${id}/charge`),
     onSuccess: () => { invalidate(); toast.success('Cobrado') },
@@ -79,5 +86,5 @@ export function useTurnera(date: string) {
     onError: (err: any) => toast.error(apiError(err)),
   })
 
-  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, reschedule, charge, removeSlot, config, configQuery, saveConfig }
+  return { units, unitsQuery, services, slots, slotsQuery, monthDays, monthQuery, createSlot, setStatus, reschedule, updateItems, charge, removeSlot, config, configQuery, saveConfig }
 }

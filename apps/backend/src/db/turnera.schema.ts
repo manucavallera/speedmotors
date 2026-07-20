@@ -11,6 +11,8 @@ export const turneraConfig = pgTable('turnera_config', {
   intervalMin: integer('interval_min').notNull().default(10),
   dayStart: varchar('day_start', { length: 5 }).notNull().default('07:00'),
   dayEnd: varchar('day_end', { length: 5 }).notNull().default('20:00'),
+  // Teléfono de la marina (con código país, solo dígitos): el cliente le avisa por WhatsApp al reservar
+  whatsapp: varchar('whatsapp', { length: 30 }),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 

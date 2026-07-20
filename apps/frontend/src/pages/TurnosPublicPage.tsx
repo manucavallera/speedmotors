@@ -9,7 +9,7 @@ type Unit = { id: number; description: string; spotCode: string | null; launchRa
 type SlotItem = { concept: string; amount: string }
 type Slot = { id: number; boatName: string | null; date: string; startTime: string; endTime: string; status: string; items: SlotItem[] }
 type Ficha = { client: { id: number; name: string }; units: Unit[]; slots: Slot[] }
-type Config = { intervalMin: number; dayStart: string; dayEnd: string }
+type Config = { intervalMin: number; dayStart: string; dayEnd: string; whatsapp?: string | null }
 type Service = { id: number; name: string; price: string }
 
 const BLUE = '#2563eb'
@@ -209,6 +209,21 @@ export function TurnosPublicPage() {
           <div style={{ fontSize: 44 }}>✅</div>
           <p style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', margin: '10px 0 4px' }}>¡Turno reservado!</p>
           <p style={{ fontSize: 14, color: '#64748b', margin: '0 0 20px' }}>{date} a las {time}. Te esperamos en la rampa.</p>
+          {config?.whatsapp && (() => {
+            // Arma el link de WhatsApp con el resumen del turno para avisarle a la marina
+            const boat = ficha?.units.find(u => u.id === unitId)?.description ?? ''
+            const svcNames = catalog.filter(s => services.includes(s.id)).map(s => s.name)
+            const msg = `Hola! Soy ${ficha?.client.name ?? ''}. Reservé un turno de botadura para el ${date} a las ${time}.`
+              + (boat ? ` Lancha: ${boat}.` : '')
+              + (svcNames.length ? ` Servicios: ${svcNames.join(', ')}.` : '')
+            const href = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(msg)}`
+            return (
+              <a href={href} target="_blank" rel="noopener noreferrer"
+                style={{ ...bigBtn, background: '#25D366', display: 'block', textDecoration: 'none', marginBottom: 10 }}>
+                Avisar a la marina por WhatsApp
+              </a>
+            )
+          })()}
           <button style={bigBtn} onClick={() => { setStep('phone'); setFicha(null); setTime(null); setServices([]) }}>Listo</button>
         </div>
       )}

@@ -53,6 +53,20 @@ export class TurneraConfigDto {
   @IsString()
   @Matches(/^\d{2}:\d{2}$/)
   dayEnd!: string
+
+  // Teléfono de la marina (código país + número, solo dígitos): el cliente le avisa por WhatsApp
+  @IsOptional()
+  @IsString()
+  @MaxLength(30)
+  whatsapp?: string
+}
+
+// Editar los servicios de un turno ya creado (agregar/quitar batería, combustible...). Reemplaza la lista.
+export class UpdateSlotItemsDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SlotItemDto)
+  items!: SlotItemDto[]
 }
 
 // Correr un turno: mover un turno reservado a otra fecha/hora sin tocar servicios ni precio

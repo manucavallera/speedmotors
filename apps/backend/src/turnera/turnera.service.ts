@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ConflictException, BadRequestException, 
 import { db } from '../db'
 import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, storageCategories, clients, cashSessions, cashMovements } from '../db/schema'
 import { eq, and, gte, asc, sql, inArray } from 'drizzle-orm'
-import { CreateSlotDto, TurneraConfigDto, PublicReserveDto } from './turnera.dto'
+import { CreateSlotDto, TurneraConfigDto, PublicReserveDto, SlotItemDto } from './turnera.dto'
 
 @Injectable()
 export class TurneraService {
@@ -16,8 +16,10 @@ export class TurneraService {
 
   async setConfig(dto: TurneraConfigDto) {
     if (dto.dayEnd <= dto.dayStart) throw new BadRequestException('El cierre tiene que ser posterior a la apertura')
+    // Guarda solo los dígitos del WhatsApp (o null si viene vacío)
+    const wa = dto.whatsapp != null ? dto.whatsapp.replace(/\D/g, '') || null : undefined
     const [cfg] = await db.update(turneraConfig)
-      .set({ intervalMin: dto.intervalMin, dayStart: dto.dayStart, dayEnd: dto.dayEnd, updatedAt: new Date() })
+      .set({ intervalMin: dto.intervalMin, dayStart: dto.dayStart, dayEnd: dto.dayEnd, ...(wa !== undefined ? { whatsapp: wa } : {}), updatedAt: new Date() })
       .where(eq(turneraConfig.id, 1)).returning()
     if (!cfg) throw new NotFoundException('Config de turnera no encontrada')
     return cfg
@@ -133,6 +135,26 @@ export class TurneraService {
 
     const [slot] = await db.update(rentalSlots).set({ date, startTime, endTime }).where(eq(rentalSlots.id, id)).returning()
     return slot
+  }
+
+  // Editar los servicios de un turno reservado: reemplaza la lista completa y recalcula el precio
+  async updateSlotItems(id: number, items: SlotItemDto[]) {
+    const [current] = await db.select().from(rentalSlots).where(eq(rentalSlots.id, id))
+    if (!current) throw new NotFoundException(`Turno ${id} no encontrado`)
+    if (current.status !== 'reservado') throw new BadRequestException('Solo se pueden editar turnos reservados')
+    if (current.paidAt) throw new BadRequestException('El turno ya fue cobrado')
+
+    const total = items.reduce((s, it) => s + Number(it.amount), 0)
+    return db.transaction(async (tx) => {
+      await tx.delete(rentalSlotItems).where(eq(rentalSlotItems.slotId, id))
+      if (items.length) {
+        await tx.insert(rentalSlotItems).values(items.map((it) => ({
+          slotId: id, serviceId: it.serviceId ?? null, concept: it.concept, amount: it.amount.toString(),
+        })))
+      }
+      const [slot] = await tx.update(rentalSlots).set({ price: total.toString() }).where(eq(rentalSlots.id, id)).returning()
+      return slot
+    })
   }
 
   async removeSlot(id: number) {

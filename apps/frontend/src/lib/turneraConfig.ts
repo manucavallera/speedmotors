@@ -4,10 +4,11 @@ export interface TurneraConfig {
   intervalMin: number   // cada cuántos minutos es un turno
   dayStart: string      // 'HH:MM'
   dayEnd: string        // 'HH:MM'
+  whatsapp?: string | null  // teléfono de la marina (solo dígitos) para avisar por WhatsApp
 }
 
 // Solo se usa mientras la config del server está cargando
-export const DEFAULT_CFG: TurneraConfig = { intervalMin: 10, dayStart: '07:00', dayEnd: '20:00' }
+export const DEFAULT_CFG: TurneraConfig = { intervalMin: 10, dayStart: '07:00', dayEnd: '20:00', whatsapp: null }
 
 export const toMin = (t: string) => { const [h, m] = t.split(':').map(Number); return h * 60 + m }
 export const toHHMM = (min: number) => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`

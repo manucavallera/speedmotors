@@ -5,7 +5,9 @@ import { CalendarPicker } from '../components/turnera/CalendarPicker'
 import { SlotGrid } from '../components/turnera/SlotGrid'
 import { TurnoModal } from '../components/turnera/TurnoModal'
 import { RescheduleModal } from '../components/turnera/RescheduleModal'
+import { EditItemsModal } from '../components/turnera/EditItemsModal'
 import { TurneraConfigModal } from '../components/turnera/TurneraConfigModal'
+import { printDayList } from '../lib/printDayList'
 import { type TurneraConfig } from '../lib/turneraConfig'
 import { HelpModal, HelpButton } from '../components/ui/HelpModal'
 import { TURNERA_HELP } from '../lib/helpContent'
@@ -31,11 +33,12 @@ function Stat({ value, label, color, small }: { value: string | number; label: s
 
 export function TurneraPage() {
   const [date, setDate] = useState(today())
-  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, reschedule, charge, removeSlot, config, saveConfig } = useTurnera(date)
+  const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, reschedule, updateItems, charge, removeSlot, config, saveConfig } = useTurnera(date)
   const [showModal, setShowModal] = useState(false)
   const [showConfig, setShowConfig] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
   const [rescheduling, setRescheduling] = useState<RentalSlot | null>(null)
+  const [editingItems, setEditingItems] = useState<RentalSlot | null>(null)
   const [preset, setPreset] = useState<{ start: string; end: string } | null>(null)
 
   // Reservar desde un casillero libre de la grilla: abre el modal con el horario prellenado
@@ -66,6 +69,11 @@ export function TurneraPage() {
           <div style={{ fontSize: '13px', color: '#94a3b8', textTransform: 'capitalize' }}>{prettyDate(date)} · {reserved} salida{reserved === 1 ? '' : 's'}</div>
         </div>
         <HelpButton onClick={() => setShowHelp(true)} />
+        <button
+          style={{ padding: '9px 14px', fontSize: '13.5px', fontWeight: 600, background: 'white', color: '#475569', border: '1px solid #e2e8f0', borderRadius: '9px', cursor: activos.length ? 'pointer' : 'not-allowed', opacity: activos.length ? 1 : 0.5 }}
+          onClick={() => printDayList(prettyDate(date), slots)}
+          disabled={!activos.length}
+        >🖨 Imprimir lista</button>
         <button
           style={{ padding: '9px 14px', fontSize: '13.5px', fontWeight: 600, background: 'white', color: '#475569', border: '1px solid #e2e8f0', borderRadius: '9px', cursor: 'pointer' }}
           onClick={() => setShowConfig(true)}
@@ -101,6 +109,7 @@ export function TurneraPage() {
                 onCharge={(id) => charge.mutate(id)}
                 onCancel={(id) => setStatus.mutate({ id, status: 'cancelado' })}
                 onReschedule={(s) => setRescheduling(s)}
+                onEditItems={(s) => setEditingItems(s)}
                 onRemove={(id) => removeSlot.mutate(id)}
               />
             </>
@@ -118,6 +127,16 @@ export function TurneraPage() {
           submitting={createSlot.isPending}
           onClose={() => { setShowModal(false); setPreset(null) }}
           onSubmit={(data: SlotForm) => createSlot.mutate(data, { onSuccess: () => { setShowModal(false); setPreset(null) } })}
+        />
+      )}
+
+      {editingItems && (
+        <EditItemsModal
+          slot={editingItems}
+          services={services}
+          submitting={updateItems.isPending}
+          onClose={() => setEditingItems(null)}
+          onSubmit={(items) => updateItems.mutate({ id: editingItems.id, items }, { onSuccess: () => setEditingItems(null) })}
         />
       )}
 

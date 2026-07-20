@@ -5,6 +5,7 @@ interface Props {
   onCharge: (id: number) => void
   onCancel: (id: number) => void
   onReschedule: (slot: RentalSlot) => void
+  onEditItems: (slot: RentalSlot) => void
   onRemove: (id: number) => void
 }
 
@@ -27,7 +28,7 @@ function rowStyle(s: RentalSlot): React.CSSProperties {
   return { background: '#eff6ff', border: '1px solid #bfdbfe', color: '#1d4ed8' }
 }
 
-export function DaySchedule({ slots, onCharge, onCancel, onReschedule, onRemove }: Props) {
+export function DaySchedule({ slots, onCharge, onCancel, onReschedule, onEditItems, onRemove }: Props) {
   if (!slots.length) {
     return (
       <div style={{ padding: '48px 24px', textAlign: 'center', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>
@@ -50,6 +51,7 @@ export function DaySchedule({ slots, onCharge, onCancel, onReschedule, onRemove 
             <span style={{ display: 'flex', gap: '6px' }}>
               {!s.paidAt && Number(s.price) > 0 && <button onClick={() => onCharge(s.id)} style={{ fontSize: '11px', fontWeight: 600, color: '#15803d', background: 'white', border: '1px solid #bbf7d0', borderRadius: '6px', padding: '2px 8px', cursor: 'pointer' }}>Cobrar</button>}
               {!s.paidAt && s.status === 'reservado' && <button onClick={() => onReschedule(s)} style={{ fontSize: '11px', color: '#1d4ed8', background: 'white', border: '1px solid #bfdbfe', borderRadius: '6px', padding: '2px 8px', cursor: 'pointer' }}>Correr</button>}
+              {!s.paidAt && s.status === 'reservado' && <button onClick={() => onEditItems(s)} style={{ fontSize: '11px', color: '#1d4ed8', background: 'white', border: '1px solid #bfdbfe', borderRadius: '6px', padding: '2px 8px', cursor: 'pointer' }}>Editar</button>}
               {!s.paidAt && <button onClick={() => onCancel(s.id)} style={{ fontSize: '11px', color: '#64748b', background: 'white', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '2px 8px', cursor: 'pointer' }}>Cancelar</button>}
             </span>
           )}
