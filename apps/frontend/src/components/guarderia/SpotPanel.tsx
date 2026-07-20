@@ -9,6 +9,7 @@ interface Props {
   onCobrar: (unit: UnitDetail) => void
   onRetirar: (unitId: number) => void
   onMover: (unit: UnitDetail) => void
+  onEditar: (unit: UnitDetail) => void
   onVerCliente: (clientId: number) => void
   onSaldar: (chargeId: number) => void
 }
@@ -25,7 +26,7 @@ function Row({ k, v, color }: { k: string; v: string; color?: string }) {
   )
 }
 
-export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onMover, onVerCliente, onSaldar }: Props) {
+export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onMover, onEditar, onVerCliente, onSaldar }: Props) {
   const unitId = spot?.unit?.id ?? null
   const { data: unit } = useQuery<UnitDetail>({
     queryKey: ['guarderia', 'unit', unitId],
@@ -93,6 +94,12 @@ export function SpotPanel({ spot, onGuardar, onCobrar, onRetirar, onMover, onVer
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
         <button style={{ ...btnPrimary, width: '100%', background: 'linear-gradient(135deg,#16a34a,#15803d)' }} onClick={() => onCobrar(unit)}>
           Cobrar {fmt(Number(unit.rate))}
+        </button>
+        <button
+          style={{ width: '100%', padding: '9px 18px', fontSize: '13.5px', fontWeight: 600, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '9px', cursor: 'pointer' }}
+          onClick={() => onEditar(unit)}
+        >
+          Editar datos
         </button>
         <button
           style={{ width: '100%', padding: '9px 18px', fontSize: '13.5px', fontWeight: 600, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '9px', cursor: 'pointer' }}

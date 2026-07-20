@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { GuarderiaService } from './guarderia.service'
-import { CreateSpotsDto, CreateUnitDto, ChargeDto, ServiceDto, CategoryDto, MoveUnitDto, UnitServicesDto, GenerateMonthDto } from './guarderia.dto'
+import { CreateSpotsDto, CreateUnitDto, UpdateUnitDto, ChargeDto, ServiceDto, CategoryDto, MoveUnitDto, UnitServicesDto, GenerateMonthDto } from './guarderia.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)
@@ -28,6 +28,9 @@ export class GuarderiaController {
 
   @Post('units')
   createUnit(@Body() dto: CreateUnitDto) { return this.svc.createUnit(dto) }
+
+  @Put('units/:id')
+  updateUnit(@Param('id') id: string, @Body() dto: UpdateUnitDto) { return this.svc.updateUnit(Number(id), dto) }
 
   @Patch('units/:id/retire')
   retire(@Param('id') id: string) { return this.svc.retireUnit(Number(id)) }

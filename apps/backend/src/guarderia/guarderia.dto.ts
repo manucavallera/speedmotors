@@ -49,6 +49,37 @@ export class CreateUnitDto {
   notes?: string
 }
 
+// Editar los datos de una lancha ya cargada (categoría, descripción, HP, eslora, tarifa, notas). Todo opcional.
+export class UpdateUnitDto {
+  @IsOptional()
+  @IsInt()
+  categoryId?: number | null
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(150)
+  description?: string
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  hp?: number | null
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  lengthM?: number | null
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  rate?: number
+
+  @IsOptional()
+  @IsString()
+  notes?: string
+}
+
 // Categoría de embarcación: escala por HP y/o eslora → tarifa mensual de cuna
 export class CategoryDto {
   @IsString()

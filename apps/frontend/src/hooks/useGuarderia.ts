@@ -1,7 +1,7 @@
 import { toast } from '../lib/toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
-import { type MapSpot, type CreateUnitForm, type ChargeForm, type StorageService, type ServiceForm, type GuarderiaStats, type StorageCategory, type CategoryForm, type UnitRow } from '../types/guarderia.types'
+import { type MapSpot, type CreateUnitForm, type UpdateUnitForm, type ChargeForm, type StorageService, type ServiceForm, type GuarderiaStats, type StorageCategory, type CategoryForm, type UnitRow } from '../types/guarderia.types'
 
 export function useGuarderia() {
   const qc = useQueryClient()
@@ -66,6 +66,14 @@ export function useGuarderia() {
       return res.data
     },
     onSuccess: () => { invalidate(); toast.success('Embarcación guardada') },
+    onError: (err: any) => toast.error(apiError(err)),
+  })
+
+  // Editar datos de una lancha ya cargada (categoría, descripción, HP, eslora, tarifa, notas)
+  const updateUnit = useMutation({
+    mutationFn: ({ unitId, data }: { unitId: number; data: UpdateUnitForm }) =>
+      api.put(`/guarderia/units/${unitId}`, data),
+    onSuccess: () => { invalidate(); toast.success('Embarcación actualizada') },
     onError: (err: any) => toast.error(apiError(err)),
   })
 
@@ -138,7 +146,7 @@ export function useGuarderia() {
 
   return {
     mapaQuery, spots, stats, services, servicesQuery, createService, updateService, removeService,
-    createSpots, createUnit, retireUnit, moveUnit, charge, payCharge,
+    createSpots, createUnit, updateUnit, retireUnit, moveUnit, charge, payCharge,
     units, unitsQuery, looseUnits, setUnitServices, generateMonth,
     categories, categoriesQuery, createCategory, updateCategory, removeCategory,
   }

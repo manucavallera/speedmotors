@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ConflictException, BadRequestException }
 import { db } from '../db'
 import { storageSpots, storageUnits, storageCharges, storageChargeItems, storageServices, storageCategories, storageUnitServices, rentalSlots, clients, cashSessions, cashMovements } from '../db/schema'
 import { eq, and, desc, asc, sql, isNull, inArray } from 'drizzle-orm'
-import { CreateSpotsDto, CreateUnitDto, ChargeDto, ServiceDto, CategoryDto } from './guarderia.dto'
+import { CreateSpotsDto, CreateUnitDto, UpdateUnitDto, ChargeDto, ServiceDto, CategoryDto }from './guarderia.dto'
 
 @Injectable()
 export class GuarderiaService {
@@ -188,6 +188,28 @@ export class GuarderiaService {
       }).returning()
       return u
     })
+  }
+
+  // Editar datos de una lancha ya cargada. Solo toca los campos que vienen en el dto.
+  async updateUnit(id: number, dto: UpdateUnitDto) {
+    const [unit] = await db.select().from(storageUnits).where(eq(storageUnits.id, id))
+    if (!unit) throw new NotFoundException(`Unidad ${id} no encontrada`)
+    // Si cambia la categoría, valida que exista
+    if (dto.categoryId != null) {
+      const [cat] = await db.select({ id: storageCategories.id }).from(storageCategories)
+        .where(eq(storageCategories.id, dto.categoryId))
+      if (!cat) throw new NotFoundException(`Categoría ${dto.categoryId} no encontrada`)
+    }
+    const patch: Record<string, unknown> = {}
+    if (dto.categoryId !== undefined) patch.categoryId = dto.categoryId
+    if (dto.description !== undefined) patch.description = dto.description
+    if (dto.hp !== undefined) patch.hp = dto.hp
+    if (dto.lengthM !== undefined) patch.lengthM = dto.lengthM != null ? dto.lengthM.toString() : null
+    if (dto.rate !== undefined) patch.rate = dto.rate.toString()
+    if (dto.notes !== undefined) patch.notes = dto.notes
+    if (Object.keys(patch).length === 0) return unit
+    const [u] = await db.update(storageUnits).set(patch).where(eq(storageUnits.id, id)).returning()
+    return u
   }
 
   // Mover una lancha a otra cuna. spotId null = queda suelta sobre trailer.

@@ -14,6 +14,7 @@ import { DifusionModal } from '../components/guarderia/DifusionModal'
 import { MonthChargeModal } from '../components/guarderia/MonthChargeModal'
 import { ClientFileModal } from '../components/guarderia/ClientFileModal'
 import { MoveModal } from '../components/guarderia/MoveModal'
+import { EditUnitModal } from '../components/guarderia/EditUnitModal'
 import { SetupModal } from '../components/guarderia/SetupModal'
 import { DeudoresPanel } from '../components/guarderia/DeudoresPanel'
 import { HelpModal, HelpButton } from '../components/ui/HelpModal'
@@ -33,7 +34,7 @@ function Stat({ value, label, color }: { value: string | number; label: string; 
 export function GuarderiaPage() {
   const {
     spots, mapaQuery, stats, services, createService, updateService, removeService,
-    createSpots, createUnit, retireUnit, moveUnit, charge, payCharge, generateMonth,
+    createSpots, createUnit, updateUnit, retireUnit, moveUnit, charge, payCharge, generateMonth,
     looseUnits, categories, createCategory, updateCategory, removeCategory,
   } = useGuarderia()
   const qc = useQueryClient()
@@ -42,6 +43,8 @@ export function GuarderiaPage() {
   const [chargeUnit, setChargeUnit] = useState<UnitDetail | null>(null)
   // Para mover de cuna alcanza con identificar la lancha y de dónde sale
   const [moveTarget, setMoveTarget] = useState<{ id: number; description: string; spotCode: string | null } | null>(null)
+  // Editar datos de una lancha ya cargada
+  const [editUnit, setEditUnit] = useState<UnitDetail | null>(null)
   const [setup, setSetup] = useState(false)
   const [manageServices, setManageServices] = useState(false)
   const [manageCategories, setManageCategories] = useState(false)
@@ -150,6 +153,7 @@ export function GuarderiaPage() {
             onCobrar={(unit) => setChargeUnit(unit)}
             onRetirar={handleRetirar}
             onMover={(unit) => setMoveTarget({ id: unit.id, description: unit.description, spotCode: unit.spotCode })}
+            onEditar={setEditUnit}
             onVerCliente={setClientFile}
             onSaldar={(chargeId) => payCharge.mutate(chargeId)}
           />
@@ -174,6 +178,16 @@ export function GuarderiaPage() {
           submitting={createUnit.isPending}
           onClose={() => setGuardarSpot(null)}
           onSubmit={(data) => createUnit.mutate(data, { onSuccess: () => setGuardarSpot(null) })}
+        />
+      )}
+
+      {editUnit && (
+        <EditUnitModal
+          unit={editUnit}
+          categories={categories}
+          submitting={updateUnit.isPending}
+          onClose={() => setEditUnit(null)}
+          onSubmit={(data) => updateUnit.mutate({ unitId: editUnit.id, data }, { onSuccess: () => setEditUnit(null) })}
         />
       )}
 

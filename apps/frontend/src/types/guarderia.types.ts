@@ -142,6 +142,16 @@ export interface CreateUnitForm {
   fixedServiceIds?: number[]
 }
 
+// Editar una lancha ya cargada: solo los campos editables, todo opcional
+export interface UpdateUnitForm {
+  categoryId?: number | null
+  description?: string
+  hp?: number | null
+  lengthM?: number | null
+  rate?: number
+  notes?: string
+}
+
 // Una lancha del cobro masivo del mes: la cuna + sus servicios fijos
 export interface MonthChargeRow {
   unitId: number
