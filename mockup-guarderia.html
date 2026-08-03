@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardería Náutica — Mapa de Lugares</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+  }
+  .topbar {
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .topbar .logo { font-weight: 700; font-size: 18px; color: #38bdf8; }
+  .topbar .crumb { color: #64748b; font-size: 14px; }
+  .tabs { display: flex; gap: 4px; margin-left: auto; }
+  .tabs a {
+    padding: 7px 14px; border-radius: 8px; font-size: 13px;
+    color: #94a3b8; text-decoration: none;
+  }
+  .tabs a.active { background: #0ea5e9; color: #fff; }
+
+  .wrap { padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .head h1 { font-size: 22px; }
+  .head .sub { color: #64748b; font-size: 14px; }
+  .btn {
+    border: none; cursor: pointer; font-size: 14px; font-weight: 600;
+    padding: 9px 16px; border-radius: 8px; background: #0ea5e9; color: #fff;
+  }
+  .btn.ghost { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+  .stat { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; }
+  .stat .n { font-size: 28px; font-weight: 700; }
+  .stat .l { color: #94a3b8; font-size: 13px; margin-top: 2px; }
+  .stat.green .n { color: #4ade80; }
+  .stat.blue .n { color: #38bdf8; }
+  .stat.red .n { color: #f87171; }
+
+  .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+
+  .legend { display: flex; gap: 18px; margin-bottom: 14px; font-size: 13px; color: #94a3b8; }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+  }
+  .spot {
+    aspect-ratio: 1 / 0.78; border-radius: 10px; padding: 10px;
+    cursor: pointer; border: 2px solid transparent; position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform .08s;
+  }
+  .spot:hover { transform: translateY(-2px); }
+  .spot .code { font-weight: 700; font-size: 15px; }
+  .spot .who { font-size: 11px; line-height: 1.25; opacity: .9; }
+  .spot.free { background: #14202f; border-color: #1e3a2f; }
+  .spot.free .code { color: #4ade80; }
+  .spot.free .who { color: #475569; }
+  .spot.busy { background: #16304a; border-color: #1e4d6b; }
+  .spot.busy .code { color: #38bdf8; }
+  .spot.debt { background: #3a1d22; border-color: #6b2530; }
+  .spot.debt .code { color: #f87171; }
+  .spot .tag {
+    position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 700;
+    padding: 2px 6px; border-radius: 20px;
+  }
+  .spot.debt .tag { background: #f87171; color: #3a1d22; }
+  .spot.busy .tag { background: #1e4d6b; color: #7dd3fc; }
+  .spot.sel { outline: 2px solid #fbbf24; outline-offset: 2px; }
+
+  .panel { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 18px; height: fit-content; }
+  .panel h3 { font-size: 16px; margin-bottom: 4px; }
+  .panel .ptag { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
+  .row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #2a3a4f; font-size: 14px; }
+  .row .k { color: #94a3b8; }
+  .row .v { font-weight: 600; }
+  .v.red { color: #f87171; }
+  .v.green { color: #4ade80; }
+  .panel .actions { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .btn.full { width: 100%; }
+  .btn.green { background: #16a34a; }
+  .empty-panel { color: #64748b; font-size: 14px; text-align: center; padding: 40px 10px; }
+  .mock-banner {
+    background: #422006; color: #fcd34d; text-align: center; font-size: 12px;
+    padding: 6px; letter-spacing: .3px;
+  }
+</style>
+</head>
+<body>
+  <div class="mock-banner">VISTA PREVIA — así se va a ver el módulo de Guardería dentro del sistema</div>
+  <div class="topbar">
+    <span class="logo">⚓ SpeedMotors</span>
+    <span class="crumb">/ Guardería</span>
+    <nav class="tabs">
+      <a href="#">Ventas</a>
+      <a href="#">Clientes</a>
+      <a href="#">Productos</a>
+      <a href="#" class="active">Guardería</a>
+      <a href="#">Caja</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h1>Guardería Náutica</h1>
+        <div class="sub">Mapa de lugares · temporada 2026</div>
+      </div>
+      <button class="btn" style="margin-left:auto">+ Guardar embarcación</button>
+      <button class="btn ghost">Cobrar mes</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat blue"><div class="n">30</div><div class="l">Lugares totales</div></div>
+      <div class="stat green"><div class="n">9</div><div class="l">Libres</div></div>
+      <div class="stat"><div class="n">21</div><div class="l">Ocupados</div></div>
+      <div class="stat red"><div class="n">4</div><div class="l">Con deuda</div></div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="legend">
+          <span><span class="dot" style="background:#1e3a2f"></span>Libre</span>
+          <span><span class="dot" style="background:#1e4d6b"></span>Ocupado · al día</span>
+          <span><span class="dot" style="background:#6b2530"></span>Ocupado · debe</span>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+
+      <div class="panel" id="panel">
+        <div class="empty-panel">Tocá un lugar para ver el detalle</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Datos de ejemplo para la maqueta
+  const spots = [
+    {c:'A1', s:'busy', cli:'Roberto Giménez', emb:'Lancha Quicksilver 540', desde:'12/01/2026', tarifa:45000, estado:'Al día'},
+    {c:'A2', s:'free'},
+    {c:'A3', s:'debt', cli:'Marta Sosa', emb:'Lancha Tracker 150', desde:'03/11/2025', tarifa:38000, estado:'Debe 2 meses', deuda:76000},
+    {c:'A4', s:'busy', cli:'Diego Fernández', emb:'Bote Pelin 480', desde:'20/12/2025', tarifa:32000, estado:'Al día'},
+    {c:'A5', s:'busy', cli:'Luis Acosta', emb:'Lancha Geuna 510', desde:'08/02/2026', tarifa:42000, estado:'Al día'},
+    {c:'A6', s:'free'},
+    {c:'B1', s:'busy', cli:'Carlos Britez', emb:'Jet Sea-Doo GTI', desde:'15/01/2026', tarifa:28000, estado:'Al día'},
+    {c:'B2', s:'debt', cli:'Ana Maidana', emb:'Lancha Albatros 19', desde:'01/10/2025', tarifa:50000, estado:'Debe 1 mes', deuda:50000},
+    {c:'B3', s:'busy', cli:'Jorge Ramírez', emb:'Lancha Bermuda 160', desde:'22/12/2025', tarifa:40000, estado:'Al día'},
+    {c:'B4', s:'free'},
+    {c:'B5', s:'busy', cli:'Sergio Duarte', emb:'Velero Laser', desde:'05/01/2026', tarifa:25000, estado:'Al día'},
+    {c:'B6', s:'busy', cli:'Pablo Cáceres', emb:'Lancha Trakker 600', desde:'18/11/2025', tarifa:55000, estado:'Al día'},
+    {c:'C1', s:'free'},
+    {c:'C2', s:'busy', cli:'Nicolás Vera', emb:'Lancha Quicksilver 470', desde:'10/02/2026', tarifa:39000, estado:'Al día'},
+    {c:'C3', s:'debt', cli:'Raúl Méndez', emb:'Bote Tracker 90', desde:'25/09/2025', tarifa:30000, estado:'Debe 3 meses', deuda:90000},
+    {c:'C4', s:'busy', cli:'Hugo Benítez', emb:'Lancha Geuna 460', desde:'14/01/2026', tarifa:36000, estado:'Al día'},
+    {c:'C5', s:'free'},
+    {c:'C6', s:'busy', cli:'Daniel Ortiz', emb:'Lancha Bermuda 180', desde:'30/12/2025', tarifa:48000, estado:'Al día'},
+    {c:'D1', s:'busy', cli:'Fabián Rolón', emb:'Jet Yamaha VX', desde:'07/02/2026', tarifa:27000, estado:'Al día'},
+    {c:'D2', s:'free'},
+    {c:'D3', s:'busy', cli:'Marcelo Páez', emb:'Lancha Albatros 21', desde:'19/01/2026', tarifa:52000, estado:'Al día'},
+    {c:'D4', s:'debt', cli:'Gustavo Leiva', emb:'Lancha Tracker 170', desde:'12/10/2025', tarifa:44000, estado:'Debe 2 meses', deuda:88000},
+    {c:'D5', s:'busy', cli:'Ramón Godoy', emb:'Bote Pelin 420', desde:'02/02/2026', tarifa:31000, estado:'Al día'},
+    {c:'D6', s:'free'},
+    {c:'E1', s:'busy', cli:'Emiliano Ruiz', emb:'Lancha Quicksilver 605', desde:'16/12/2025', tarifa:58000, estado:'Al día'},
+    {c:'E2', s:'busy', cli:'Walter Sánchez', emb:'Velero 470', desde:'09/01/2026', tarifa:26000, estado:'Al día'},
+    {c:'E3', s:'free'},
+    {c:'E4', s:'busy', cli:'Cristian Mora', emb:'Lancha Geuna 530', desde:'21/01/2026', tarifa:43000, estado:'Al día'},
+    {c:'E5', s:'busy', cli:'Andrés Quiroga', emb:'Lancha Bermuda 200', desde:'28/12/2025', tarifa:60000, estado:'Al día'},
+    {c:'E6', s:'free'},
+  ];
+
+  const fmt = n => '$' + n.toLocaleString('es-AR');
+  const grid = document.getElementById('grid');
+  const panel = document.getElementById('panel');
+  let selected = null;
+
+  spots.forEach((sp, i) => {
+    const el = document.createElement('div');
+    el.className = 'spot ' + sp.s;
+    el.dataset.i = i;
+    let tag = '';
+    if (sp.s === 'debt') tag = '<span class="tag">DEBE</span>';
+    else if (sp.s === 'busy') tag = '<span class="tag">OK</span>';
+    const who = sp.s === 'free'
+      ? '<div class="who">Libre</div>'
+      : `<div class="who">${sp.cli}<br>${sp.emb}</div>`;
+    el.innerHTML = `${tag}<div class="code">${sp.c}</div>${who}`;
+    el.onclick = () => select(i, el);
+    grid.appendChild(el);
+  });
+
+  function select(i, el) {
+    document.querySelectorAll('.spot.sel').forEach(s => s.classList.remove('sel'));
+    el.classList.add('sel');
+    const sp = spots[i];
+    if (sp.s === 'free') {
+      panel.innerHTML = `
+        <h3>Lugar ${sp.c}</h3>
+        <div class="ptag">Libre — disponible</div>
+        <div class="empty-panel" style="padding:24px 6px">No hay ninguna embarcación en este lugar.</div>
+        <div class="actions"><button class="btn full">+ Guardar embarcación acá</button></div>`;
+      return;
+    }
+    const debtRow = sp.deuda
+      ? `<div class="row"><span class="k">Deuda</span><span class="v red">${fmt(sp.deuda)}</span></div>` : '';
+    const estClass = sp.s === 'debt' ? 'red' : 'green';
+    panel.innerHTML = `
+      <h3>Lugar ${sp.c}</h3>
+      <div class="ptag">${sp.emb}</div>
+      <div class="row"><span class="k">Cliente</span><span class="v">${sp.cli}</span></div>
+      <div class="row"><span class="k">Desde</span><span class="v">${sp.desde}</span></div>
+      <div class="row"><span class="k">Tarifa</span><span class="v">${fmt(sp.tarifa)}</span></div>
+      <div class="row"><span class="k">Estado</span><span class="v ${estClass}">${sp.estado}</span></div>
+      ${debtRow}
+      <div class="actions">
+        <button class="btn full green">Cobrar ${fmt(sp.tarifa)}</button>
+        <button class="btn ghost full">Ver cuenta corriente</button>
+        <button class="btn ghost full">Retirar embarcación</button>
+      </div>`;
+  }
+</script>
+</body>
+</html>
