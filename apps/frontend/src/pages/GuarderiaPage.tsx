@@ -38,6 +38,9 @@ export function GuarderiaPage() {
     looseUnits, categories, createCategory, updateCategory, removeCategory,
   } = useGuarderia()
   const qc = useQueryClient()
+  // Adherir a la lancha y cobrar la cuna solo ofrecen los servicios mensuales;
+  // ServicesModal sí necesita el catálogo entero porque es donde se administran
+  const monthlyServices = services.filter(s => s.forUnit)
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [guardarSpot, setGuardarSpot] = useState<number | null | 'open'>(null)
   const [chargeUnit, setChargeUnit] = useState<UnitDetail | null>(null)
@@ -173,7 +176,7 @@ export function GuarderiaPage() {
         <GuardarModal
           spots={spots}
           categories={categories}
-          services={services}
+          services={monthlyServices}
           presetSpotId={guardarSpot === 'open' ? null : guardarSpot}
           submitting={createUnit.isPending}
           onClose={() => setGuardarSpot(null)}
@@ -220,7 +223,7 @@ export function GuarderiaPage() {
       {chargeUnit && (
         <ChargeModal
           unit={chargeUnit}
-          services={services}
+          services={monthlyServices}
           submitting={charge.isPending}
           onClose={() => setChargeUnit(null)}
           onSubmit={(data) => charge.mutate({ unitId: chargeUnit.id, data }, { onSuccess: () => setChargeUnit(null) })}

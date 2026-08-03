@@ -21,6 +21,9 @@ export class CashService {
   }
 
   async openSession(userId: number, openingBalance: number, area: CashArea = 'speedmotors') {
+    if (!Number.isFinite(openingBalance) || openingBalance < 0) {
+      throw new BadRequestException('El saldo inicial debe ser un importe válido mayor o igual a cero')
+    }
     const existing = await this.getOpenSession(area)
     if (existing) throw new BadRequestException('Ya hay una caja abierta')
     const [session] = await db.insert(cashSessions).values({ userId, openingBalance: openingBalance.toString(), area }).returning()
@@ -28,6 +31,9 @@ export class CashService {
   }
 
   async closeSession(userId: number, area: CashArea = 'speedmotors', notes?: string, countedBalance?: number) {
+    if (countedBalance !== undefined && (!Number.isFinite(countedBalance) || countedBalance < 0)) {
+      throw new BadRequestException('El saldo contado debe ser un importe válido mayor o igual a cero')
+    }
     const session = await this.getOpenSession(area)
     if (!session) throw new BadRequestException('No hay caja abierta')
 
@@ -65,6 +71,8 @@ export class CashService {
   }
 
   async createMovement(sessionId: number, userId: number, type: 'retiro' | 'deposito', amount: number, reason?: string) {
+    if (type !== 'retiro' && type !== 'deposito') throw new BadRequestException('Tipo de movimiento inválido')
+    if (!Number.isFinite(amount) || amount <= 0) throw new BadRequestException('El importe debe ser mayor a cero')
     const [session] = await db.select().from(cashSessions).where(eq(cashSessions.id, sessionId))
     if (!session || session.status !== 'abierta') throw new BadRequestException('La caja no está abierta')
     const [movement] = await db.insert(cashMovements).values({

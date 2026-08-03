@@ -52,6 +52,10 @@ export const storageServices = pgTable('storage_services', {
   name: varchar('name', { length: 100 }).notNull(),
   price: numeric('price', { precision: 12, scale: 2 }).notNull().default('0'),
   active: boolean('active').notNull().default(true),
+  // Dónde se puede cobrar: adherido a la lancha (va con la cuna del mes) y/o al reservar un turno.
+  // Independientes: un seguro anual puede ser solo forUnit; la batería, solo forSlot.
+  forUnit: boolean('for_unit').notNull().default(true),
+  forSlot: boolean('for_slot').notNull().default(true),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 

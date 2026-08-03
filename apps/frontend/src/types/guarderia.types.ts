@@ -80,6 +80,9 @@ export interface StorageService {
   name: string
   price: string
   active: boolean
+  // Dónde se cobra: adherido a la lancha (con la cuna del mes) y/o al reservar un turno
+  forUnit: boolean
+  forSlot: boolean
 }
 
 export interface ChargeItem {
@@ -105,6 +108,8 @@ export interface ServiceForm {
   name: string
   price?: number
   active?: boolean
+  forUnit?: boolean
+  forSlot?: boolean
 }
 
 export interface UnitDetail {

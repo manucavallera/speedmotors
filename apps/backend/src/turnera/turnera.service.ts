@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException, ForbiddenException } from '@nestjs/common'
 import { db } from '../db'
 import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, storageCategories, clients, cashSessions, cashMovements } from '../db/schema'
-import { eq, and, gte, asc, sql, inArray } from 'drizzle-orm'
+import { eq, and, gte, asc, sql, inArray, isNull } from 'drizzle-orm'
 import { CreateSlotDto, TurneraConfigDto, PublicReserveDto, SlotItemDto } from './turnera.dto'
 
 @Injectable()
@@ -71,20 +71,23 @@ export class TurneraService {
 
     // El cliente sale de la lancha de guardería
     const [unit] = await db.select({ id: storageUnits.id, clientId: storageUnits.clientId })
-      .from(storageUnits).where(eq(storageUnits.id, dto.unitId))
+      .from(storageUnits).where(and(eq(storageUnits.id, dto.unitId), eq(storageUnits.status, 'en_guarderia')))
     if (!unit) throw new NotFoundException(`Lancha ${dto.unitId} no encontrada`)
-
-    // No encimar botaduras: la rampa es compartida, una a la vez en cada franja
-    const sameDay = await db.select().from(rentalSlots)
-      .where(and(eq(rentalSlots.date, dto.date), eq(rentalSlots.status, 'reservado')))
-    const overlap = sameDay.some(s => dto.startTime < s.endTime && dto.endTime > s.startTime)
-    if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
 
     // El precio del turno es la suma de los servicios pedidos
     const items = dto.items ?? []
+    await this.assertSlotServices(items)
     const total = items.reduce((s, it) => s + Number(it.amount), 0)
 
     return db.transaction(async (tx) => {
+      // Serializa altas y reprogramaciones: dos pedidos simultáneos no pueden ocupar la misma rampa.
+      await tx.select({ id: turneraConfig.id }).from(turneraConfig)
+        .where(eq(turneraConfig.id, 1)).for('update')
+      const sameDay = await tx.select().from(rentalSlots)
+        .where(and(eq(rentalSlots.date, dto.date), eq(rentalSlots.status, 'reservado')))
+      const overlap = sameDay.some(s => dto.startTime < s.endTime && dto.endTime > s.startTime)
+      if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
+
       const [slot] = await tx.insert(rentalSlots).values({
         unitId: dto.unitId,
         clientId: unit.clientId,
@@ -124,17 +127,21 @@ export class TurneraService {
   async rescheduleSlot(id: number, date: string, startTime: string, endTime: string) {
     if (endTime <= startTime) throw new BadRequestException('La hora de fin debe ser posterior al inicio')
 
-    const [current] = await db.select().from(rentalSlots).where(eq(rentalSlots.id, id))
-    if (!current) throw new NotFoundException(`Turno ${id} no encontrado`)
-    if (current.status !== 'reservado') throw new BadRequestException('Solo se pueden correr turnos reservados')
+    return db.transaction(async (tx) => {
+      await tx.select({ id: turneraConfig.id }).from(turneraConfig)
+        .where(eq(turneraConfig.id, 1)).for('update')
+      const [current] = await tx.select().from(rentalSlots).where(eq(rentalSlots.id, id))
+      if (!current) throw new NotFoundException(`Turno ${id} no encontrado`)
+      if (current.status !== 'reservado') throw new BadRequestException('Solo se pueden correr turnos reservados')
 
-    const sameDay = await db.select().from(rentalSlots)
-      .where(and(eq(rentalSlots.date, date), eq(rentalSlots.status, 'reservado')))
-    const overlap = sameDay.some(s => s.id !== id && startTime < s.endTime && endTime > s.startTime)
-    if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
+      const sameDay = await tx.select().from(rentalSlots)
+        .where(and(eq(rentalSlots.date, date), eq(rentalSlots.status, 'reservado')))
+      const overlap = sameDay.some(s => s.id !== id && startTime < s.endTime && endTime > s.startTime)
+      if (overlap) throw new ConflictException('Ya hay otra salida al agua en ese horario')
 
-    const [slot] = await db.update(rentalSlots).set({ date, startTime, endTime }).where(eq(rentalSlots.id, id)).returning()
-    return slot
+      const [slot] = await tx.update(rentalSlots).set({ date, startTime, endTime }).where(eq(rentalSlots.id, id)).returning()
+      return slot
+    })
   }
 
   // Editar los servicios de un turno reservado: reemplaza la lista completa y recalcula el precio
@@ -144,6 +151,7 @@ export class TurneraService {
     if (current.status !== 'reservado') throw new BadRequestException('Solo se pueden editar turnos reservados')
     if (current.paidAt) throw new BadRequestException('El turno ya fue cobrado')
 
+    await this.assertSlotServices(items)
     const total = items.reduce((s, it) => s + Number(it.amount), 0)
     return db.transaction(async (tx) => {
       await tx.delete(rentalSlotItems).where(eq(rentalSlotItems.slotId, id))
@@ -177,7 +185,12 @@ export class TurneraService {
     return db.transaction(async (tx) => {
       const [slot] = await tx.update(rentalSlots)
         .set({ paidAt: new Date(), status: 'completado' })
-        .where(eq(rentalSlots.id, id)).returning()
+        .where(and(eq(rentalSlots.id, id), isNull(rentalSlots.paidAt))).returning()
+
+      if (!slot) {
+        const [current] = await tx.select().from(rentalSlots).where(eq(rentalSlots.id, id))
+        return current ?? row
+      }
 
       const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
       if (session) {
@@ -196,6 +209,20 @@ export class TurneraService {
   // El teléfono se guarda con formato libre; comparamos solo los dígitos
   private normalizePhone(p: string) { return (p || '').replace(/\D/g, '') }
 
+  private async assertSlotServices(items: SlotItemDto[]) {
+    const ids = [...new Set(items.flatMap((item) => item.serviceId == null ? [] : [item.serviceId]))]
+    if (!ids.length) return
+    const valid = await db.select({ id: storageServices.id }).from(storageServices)
+      .where(and(
+        inArray(storageServices.id, ids),
+        eq(storageServices.active, true),
+        eq(storageServices.forSlot, true),
+      ))
+    if (valid.length !== ids.length) {
+      throw new BadRequestException('Uno o más servicios no están habilitados para turnos')
+    }
+  }
+
   // Suma minutos a una hora 'HH:MM' y la devuelve formateada
   private addMinutes(hhmm: string, min: number) {
     const [h, m] = hhmm.split(':').map(Number)
@@ -211,7 +238,10 @@ export class TurneraService {
     if (digits.length < 6) throw new BadRequestException('Teléfono inválido')
     // Solo clientes que tienen lancha en guardería
     const rows = await db.selectDistinct({ id: clients.id, name: clients.name, phone: clients.phone })
-      .from(clients).innerJoin(storageUnits, eq(storageUnits.clientId, clients.id))
+      .from(clients).innerJoin(storageUnits, and(
+        eq(storageUnits.clientId, clients.id),
+        eq(storageUnits.status, 'en_guarderia'),
+      ))
     const match = rows.find((c) => this.normalizePhone(c.phone ?? '') === digits)
     if (!match) throw new NotFoundException('No encontramos ese teléfono. Avisale a la marina para que lo cargue.')
     return match
@@ -245,7 +275,9 @@ export class TurneraService {
   // Catálogo de servicios que el cliente puede pedir con el turno (batería, nafta, parrilla...)
   async publicServices() {
     return db.select({ id: storageServices.id, name: storageServices.name, price: storageServices.price })
-      .from(storageServices).where(eq(storageServices.active, true)).orderBy(asc(storageServices.name))
+      .from(storageServices)
+      .where(and(eq(storageServices.active, true), eq(storageServices.forSlot, true)))
+      .orderBy(asc(storageServices.name))
   }
 
   // Grilla del día para el cliente: SOLO qué franjas están ocupadas (anónimo, sin nombres)
@@ -266,28 +298,35 @@ export class TurneraService {
     const [unit] = await db.select({ id: storageUnits.id, launchRate: storageCategories.launchRate })
       .from(storageUnits)
       .leftJoin(storageCategories, eq(storageCategories.id, storageUnits.categoryId))
-      .where(and(eq(storageUnits.id, dto.unitId), eq(storageUnits.clientId, client.id)))
+      .where(and(
+        eq(storageUnits.id, dto.unitId),
+        eq(storageUnits.clientId, client.id),
+        eq(storageUnits.status, 'en_guarderia'),
+      ))
     if (!unit) throw new ForbiddenException('Esa lancha no está a tu nombre')
 
     const cfg = await this.getConfig()
     if (dto.startTime < cfg.dayStart || dto.startTime >= cfg.dayEnd) throw new BadRequestException('Ese horario está fuera del día')
     const endTime = this.addMinutes(dto.startTime, cfg.intervalMin)
 
-    // No encimar botaduras: la rampa es una sola
-    const sameDay = await db.select().from(rentalSlots)
-      .where(and(eq(rentalSlots.date, dto.date), eq(rentalSlots.status, 'reservado')))
-    const overlap = sameDay.some((s) => dto.startTime < s.endTime && endTime > s.startTime)
-    if (overlap) throw new ConflictException('Ese turno ya está ocupado, elegí otro')
-
     // Los precios salen del catálogo del server, no del cliente
-    const ids = dto.serviceIds ?? []
+    const ids = [...new Set(dto.serviceIds ?? [])]
+    // forSlot: un servicio mensual (ej. seguro) no se puede colar por turno aunque manden el id
     const svcs = ids.length ? await db.select().from(storageServices)
-      .where(and(inArray(storageServices.id, ids), eq(storageServices.active, true))) : []
+      .where(and(inArray(storageServices.id, ids), eq(storageServices.active, true), eq(storageServices.forSlot, true))) : []
+    if (svcs.length !== ids.length) throw new BadRequestException('Uno o más servicios no están disponibles para turnos')
     // El turno arranca con la tarifa de salida al agua de la categoría de la lancha
     const launch = Number(unit.launchRate ?? 0)
     const total = launch + svcs.reduce((s, v) => s + Number(v.price), 0)
 
     return db.transaction(async (tx) => {
+      await tx.select({ id: turneraConfig.id }).from(turneraConfig)
+        .where(eq(turneraConfig.id, 1)).for('update')
+      const sameDay = await tx.select().from(rentalSlots)
+        .where(and(eq(rentalSlots.date, dto.date), eq(rentalSlots.status, 'reservado')))
+      const overlap = sameDay.some((s) => dto.startTime < s.endTime && endTime > s.startTime)
+      if (overlap) throw new ConflictException('Ese turno ya está ocupado, elegí otro')
+
       const [slot] = await tx.insert(rentalSlots).values({
         unitId: dto.unitId, clientId: client.id, userId: null,
         date: dto.date, startTime: dto.startTime, endTime,

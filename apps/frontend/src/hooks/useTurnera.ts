@@ -29,10 +29,11 @@ export function useTurnera(date: string) {
   })
   const units = unitsQuery.data ?? []
 
-  // Servicios anexos (ej: puesta en marcha) para cobrar en la botadura
+  // Servicios anexos (ej: puesta en marcha) para cobrar en la botadura.
+  // scope=slot deja afuera los que solo se cobran con la cuna del mes (ej: seguro)
   const servicesQuery = useQuery<StorageService[]>({
-    queryKey: ['guarderia', 'services'],
-    queryFn: () => api.get('/guarderia/services').then(r => r.data),
+    queryKey: ['guarderia', 'services', 'slot'],
+    queryFn: () => api.get('/guarderia/services', { params: { scope: 'slot' } }).then(r => r.data),
   })
   const services = servicesQuery.data ?? []
 

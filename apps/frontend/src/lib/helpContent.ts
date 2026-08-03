@@ -4,6 +4,26 @@ import { type HelpSection } from '../components/ui/HelpModal'
 
 export const GUARDERIA_HELP: HelpSection[] = [
   {
+    h: 'Primeros pasos (hacelo una sola vez, en este orden)',
+    items: [
+      '1) "Categorías": creá las escalas de lancha y ponele los dos precios a cada una. Sin esto, después tenés que tipear el precio a mano en cada lancha y en cada turno.',
+      '2) "Servicios": cargá todo lo que cobrás aparte (seguro, batería, combustible, lavado, parrilla) con su precio.',
+      '3) "Configurar lugares": activá las líneas del galpón que estén operativas.',
+      '4) "Clientes": cargá los dueños de las lanchas, con el teléfono. El teléfono es importante: es lo que usan para reservar turnos ellos mismos.',
+      '5) Recién ahí empezá a guardar lanchas en las cunas.',
+      'Si algo te quedó mal, todo se edita después. Nada queda clavado.',
+    ],
+  },
+  {
+    h: 'Los dos cobros (la clave de todo)',
+    items: [
+      'La guardería cobra de dos maneras distintas, y conviene tenerlas claras porque todo el sistema se apoya en eso.',
+      'LA CUNA: se cobra una vez por mes, por tener la lancha guardada. Es como el alquiler de una cochera. Se cobra desde acá, con el botón "Cobrar".',
+      'LA SALIDA AL AGUA: se cobra cada vez que el cliente saca la lancha. Es el turno. Se cobra desde la Turnera.',
+      'Un cliente que deja la lancha todo el mes y no navega nunca, paga solo la cuna. Si sale cuatro domingos, paga la cuna + cuatro salidas.',
+    ],
+  },
+  {
     h: '¿Qué es esta sección?',
     items: [
       'Es el mapa del galpón. Cada casillero es una cuna: el lugar donde se guarda la lancha de un cliente.',
@@ -25,16 +45,22 @@ export const GUARDERIA_HELP: HelpSection[] = [
     items: [
       'En "Categorías" definís las escalas: por ejemplo de 2 a 35 HP una tarifa, de 40 a 90 HP otra, de 90 para arriba otra.',
       'También podés usar el largo de la lancha en metros para separar categorías.',
-      'Al guardar una lancha, elegís su categoría y la tarifa mensual se completa sola. Podés cambiarla a mano si hay una excepción.',
-      'Los precios los ponés vos y los cambiás cuando quieras.',
+      'Cada categoría lleva DOS precios: la "Cuna mensual" (lo que paga por mes) y la "Salida al agua" (lo que paga por cada turno).',
+      'Son la lista de precios, no un cobro. Cuando guardás una lancha o agendás un turno, el precio se completa solo con el de su categoría.',
+      'Si con un cliente arreglaste distinto, pisás el precio en esa lancha o en ese turno y la lista de precios queda igual para el resto.',
+      'Cambiás un precio de categoría y se actualiza en todas las lanchas de esa categoría.',
     ],
   },
   {
-    h: 'Servicios',
+    h: 'Servicios: dónde se cobra cada uno',
     items: [
-      'En "Servicios" cargás todo lo que le cobrás al cliente además de la cuna: bajada al agua, combustible, alquiler de batería, parrilla, asado, seguros.',
-      'Le ponés precio a cada uno, agregás los que quieras y borrás el que no uses más.',
-      'Los servicios se cobran de dos formas: junto con la cuna del mes, o cuando el cliente reserva la salida al agua en la Turnera.',
+      'En "Servicios" cargás todo lo que le cobrás al cliente además de la cuna: seguro, combustible, alquiler de batería, parrilla, lavado, puesta en marcha.',
+      'A cada servicio le ponés el precio y le marcás DÓNDE se cobra, con dos tildes:',
+      '"Se adhiere a la lancha" = se cobra todos los meses junto con la cuna. Ejemplo: un seguro.',
+      '"Se ofrece en el turno" = aparece al reservar una salida y se cobra esa vez. Ejemplo: la batería o el combustible.',
+      'Podés marcar las dos si el servicio va en los dos lados. Al menos una tiene que estar marcada, si no el servicio no le aparece a nadie.',
+      'Esto evita el error de cobrarle el seguro dos veces: una con la cuna del mes y otra cuando reserva el turno.',
+      'En la lista de servicios ves la etiqueta "mensual" o "por turno" de cada uno, para chequear de un vistazo.',
     ],
   },
   {
@@ -42,7 +68,25 @@ export const GUARDERIA_HELP: HelpSection[] = [
     items: [
       'Tocá "+ Guardar embarcación" (o una cuna libre en el mapa).',
       'Elegí el cliente (o crealo ahí mismo), describí la lancha, y cargá los HP y el largo.',
+      'Elegí la categoría: la cuna mensual se completa sola con el precio de esa categoría.',
+      'Tildá los servicios fijos que lleve (el seguro, por ejemplo). Esos se le van a sumar todos los meses al cobrar.',
       'Elegí la cuna. Si la lancha queda suelta sobre trailer, dejá la cuna sin asignar.',
+    ],
+  },
+  {
+    h: 'Corregir datos de una lancha ya guardada',
+    items: [
+      'Seleccioná la cuna y tocá "Editar datos". Cambiás categoría, HP, largo, descripción o la tarifa mensual.',
+      'No hace falta retirar la lancha y volver a cargarla para corregir un dato.',
+      'Si le cambiás la categoría, acordate de revisar la tarifa: no se pisa sola para no romper un arreglo especial que hayas hecho.',
+    ],
+  },
+  {
+    h: 'Clientes de la guardería',
+    items: [
+      'El botón "Clientes" abre la cartera de clientes de la guardería, aparte de los de la concesionaria.',
+      'Desde ahí los buscás, los creás y les editás los datos.',
+      'Cargales SIEMPRE el teléfono: es lo que les permite reservar el turno solos desde el celular, sin llamarte.',
     ],
   },
   {
@@ -90,10 +134,12 @@ export const TURNERA_HELP: HelpSection[] = [
     ],
   },
   {
-    h: 'Configurar la grilla',
+    h: 'Configurar la grilla (una sola vez)',
     items: [
       'Tocá "⚙ Configurar turnos" y elegí cada cuántos minutos es un turno, y de qué hora a qué hora abre el día.',
       'Arranca en 10 minutos: uno a las 7:00, otro a las 7:10, otro a las 7:20. Si te queda corto, bajalo a 5.',
+      'Cargá también el teléfono de WhatsApp de la marina, solo números y con el código de país. Ejemplo: 5493434111222 (54, 9, código de área sin el 0, y el número sin el 15).',
+      'Ese teléfono es al que le llega el aviso cuando un cliente reserva desde el celular. Si no lo cargás, el cliente reserva igual pero no te avisa nadie.',
       'La configuración es una sola para todos: la misma grilla la ven vos, el empleado y el cliente.',
     ],
   },
@@ -102,17 +148,41 @@ export const TURNERA_HELP: HelpSection[] = [
     items: [
       'En la grilla, tocá un casillero que diga "Libre". Se abre el formulario con ese horario ya puesto.',
       'Elegí la lancha y el cliente sale solo.',
+      'El precio de la salida al agua se completa solo con el de la categoría de esa lancha. Podés cambiarlo para ese turno si hace falta.',
       'Tildá los servicios que pide: batería, combustible, parrilla, los que sean. Podés marcar varios y ajustar el precio de cada uno.',
       'Abajo ves el total del turno. Ese es el importe que se cobra.',
       'Si necesitás un horario que no entra en la grilla, usá "+ Salida al agua" y cargalo a mano.',
+      'La rampa es una sola: el sistema no te deja pisar dos salidas en el mismo horario.',
     ],
   },
   {
-    h: 'Cobrar y manejar las salidas',
+    h: 'Cuando el cliente cambia de idea',
     items: [
-      'Abajo de la grilla está la lista de salidas del día, ordenada por hora. Es el orden en que hay que bajar las lanchas.',
-      'Tocá "Cobrar" en una salida y la plata entra a la caja abierta; queda marcada como completada (verde).',
-      'También podés cancelar o eliminar una salida desde esa lista.',
+      'CORRER EL TURNO: si te pide otro horario, tocá "Correr" en esa salida y elegí la hora nueva. Mantiene la misma duración y no hace falta cargar todo de nuevo.',
+      'CAMBIAR LO QUE PIDIÓ: tocá "Editar" y agregás o sacás servicios. El total se recalcula solo.',
+      'Los dos botones andan mientras la salida esté reservada y sin cobrar. Una vez cobrada queda cerrada.',
+      'Si al final no viene, cancelá la salida: libera el horario para otro cliente.',
+    ],
+  },
+  {
+    h: 'El domingo a la mañana',
+    items: [
+      'Tocá "🖨 Imprimir lista" y llevate la hoja del día impresa: sale ordenada por hora, con lancha, cliente, servicios y total.',
+      'Ese es el orden en que hay que ir bajando las lanchas. Las canceladas no aparecen.',
+      'Con la hoja en la mano no hace falta estar mirando la pantalla mientras trabajás en el galpón.',
+      'A medida que cobrás, tocá "Cobrar" en cada salida: la plata entra a la caja abierta y queda en verde.',
+    ],
+  },
+  {
+    h: 'Que el cliente reserve solo (lo que más tiempo ahorra)',
+    items: [
+      'Hay una página aparte donde el cliente reserva su turno desde el celular, sin llamarte y sin usuario ni contraseña.',
+      'Es la dirección de la app con /turnos al final. Pasásela por WhatsApp a los clientes de guardería una vez y la guardan.',
+      'El cliente pone su teléfono, ve sus lanchas, elige un horario libre y confirma. Al terminar le aparece un botón verde que te manda el aviso por WhatsApp.',
+      'Solo entran los que tienen lancha en la guardería y el teléfono cargado. Por eso importa cargar bien el teléfono en la ficha del cliente.',
+      'No ve los nombres de los demás: en la grilla solo distingue qué horarios están ocupados.',
+      'No puede reservar a nombre de una lancha que no es de él, ni pisar un horario ya tomado.',
+      'Las reservas que hacen ellos te caen en la misma grilla que las que cargás vos. Las manejás igual: correr, editar, cobrar.',
     ],
   },
 ]

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../../components/ui/FormField'
+import { MoneyInput } from '../../components/ui/MoneyInput'
 import { type UnitDetail, type ChargeForm, type StorageService, type ChargeItemForm } from '../../types/guarderia.types'
 import { generateGuarderiaReceipt } from '../../lib/pdf/receipt'
 
@@ -65,8 +66,8 @@ export function ChargeModal({ unit, services, onClose, onSubmit, submitting }: P
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <div style={{ fontSize: '13px', color: '#64748b' }}>Cliente: <strong style={{ color: '#0f172a' }}>{unit.clientName}</strong></div>
 
-        <FormField label="Cuna mensual">
-          <input style={inputStyle} type="number" value={cuna} onChange={e => setCuna(e.target.value)} autoFocus />
+        <FormField label="Cuna mensual" hint="Lo que paga este mes por tener la lancha guardada.">
+          <MoneyInput value={cuna} onChange={setCuna} placeholder="Ej: 40000" autoFocus />
         </FormField>
 
         {services.length > 0 && (
@@ -82,7 +83,7 @@ export function ChargeModal({ unit, services, onClose, onSubmit, submitting }: P
                       {s.name}
                     </label>
                     {on && (
-                      <input style={{ ...inputStyle, width: '110px' }} type="number" value={picked[s.id]} onChange={e => setPicked(prev => ({ ...prev, [s.id]: e.target.value }))} />
+                      <MoneyInput style={{ width: '110px' }} value={picked[s.id]} onChange={v => setPicked(prev => ({ ...prev, [s.id]: v }))} />
                     )}
                   </div>
                 )

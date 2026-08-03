@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { MoneyInput } from '../ui/MoneyInput'
 import { SearchableSelect } from '../ui/SearchableSelect'
 import { type GuarderiaUnitOption, type SlotForm } from '../../types/turnera.types'
 import { type StorageService } from '../../types/guarderia.types'
@@ -85,9 +86,13 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
           <div style={{ flex: 1 }}><FormField label="Hasta"><input style={inputStyle} type="time" value={endTime} onChange={e => setEndTime(e.target.value)} /></FormField></div>
         </div>
 
-        <FormField label="Salida al agua">
-          <input style={inputStyle} type="number" value={launch} onChange={e => setLaunch(Number(e.target.value) || 0)} placeholder="Precio de la salida" />
-          <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '4px' }}>Precio base del turno (viene de la categoría, editable)</div>
+        <FormField
+          label="Salida al agua"
+          hint={unit
+            ? 'Lo que se cobra por bajar la lancha al agua. Vino de la categoría, podés cambiarlo. En blanco = no se cobra.'
+            : 'Elegí la lancha y se completa solo con la tarifa de su categoría.'}
+        >
+          <MoneyInput value={launch} onChange={v => setLaunch(Number(v) || 0)} placeholder="Precio de la salida" />
         </FormField>
 
         <FormField label="Servicios que pide">
@@ -108,12 +113,11 @@ export function TurnoModal({ units, services, date, presetStart, presetEnd, onCl
                   <input type="checkbox" checked={on} readOnly style={{ pointerEvents: 'none' }} />
                   <span style={{ flex: 1, fontSize: '13px', color: '#0f172a' }}>{s.name}</span>
                   {on ? (
-                    <input
-                      style={{ ...inputStyle, width: '95px', padding: '4px 8px', fontSize: '12.5px' }}
-                      type="number"
+                    <MoneyInput
+                      style={{ width: '95px' }}
+                      compact
                       value={picked[s.id]}
-                      onClick={e => e.stopPropagation()}
-                      onChange={e => setPicked(p => ({ ...p, [s.id]: Number(e.target.value) || 0 }))}
+                      onChange={v => setPicked(p => ({ ...p, [s.id]: Number(v) || 0 }))}
                     />
                   ) : (
                     <span style={{ fontSize: '12.5px', color: '#94a3b8' }}>${Number(s.price).toLocaleString('es-AR')}</span>

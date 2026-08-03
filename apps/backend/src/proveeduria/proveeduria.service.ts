@@ -86,18 +86,30 @@ export class ProveeduriaService {
       const itemRows: { productId: number; name: string; quantity: number; price: string }[] = []
 
       for (const it of dto.items) {
-        const [p] = await tx.select().from(products).where(and(eq(products.id, it.productId), eq(products.area, 'proveeduria')))
+        const [p] = await tx.select().from(products).where(and(
+          eq(products.id, it.productId),
+          eq(products.area, 'proveeduria'),
+          eq(products.active, true),
+        ))
         if (!p) throw new NotFoundException(`Producto ${it.productId} no encontrado`)
-        if (p.stock < it.quantity) throw new BadRequestException(`Sin stock suficiente de ${p.name} (quedan ${p.stock})`)
 
         const price = Number(p.sellPrice)
         total += price * it.quantity
-        const newStock = p.stock - it.quantity
+        const [updated] = await tx.update(products)
+          .set({ stock: sql`${products.stock} - ${it.quantity}`, updatedAt: new Date() })
+          .where(and(
+            eq(products.id, p.id),
+            eq(products.area, 'proveeduria'),
+            eq(products.active, true),
+            sql`${products.stock} >= ${it.quantity}`,
+          ))
+          .returning({ newStock: products.stock })
+        if (!updated) throw new BadRequestException(`Sin stock suficiente de ${p.name} (quedan ${p.stock})`)
+        const newStock = updated.newStock
 
-        await tx.update(products).set({ stock: newStock, updatedAt: new Date() }).where(eq(products.id, p.id))
         await tx.insert(stockMovements).values({
           productId: p.id, userId, type: 'salida', quantity: it.quantity,
-          previousStock: p.stock, newStock, reason: 'Proveeduría venta',
+          previousStock: newStock + it.quantity, newStock, reason: 'Proveeduría venta',
         })
         itemRows.push({ productId: p.id, name: p.name, quantity: it.quantity, price: price.toString() })
       }

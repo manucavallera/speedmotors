@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ConflictException, BadRequestException }
 import { db } from '../db'
 import { storageSpots, storageUnits, storageCharges, storageChargeItems, storageServices, storageCategories, storageUnitServices, rentalSlots, clients, cashSessions, cashMovements } from '../db/schema'
 import { eq, and, desc, asc, sql, isNull, inArray } from 'drizzle-orm'
-import { CreateSpotsDto, CreateUnitDto, UpdateUnitDto, ChargeDto, ServiceDto, CategoryDto }from './guarderia.dto'
+import { CreateSpotsDto, CreateUnitDto, UpdateUnitDto, ChargeDto, ServiceDto, CategoryDto } from './guarderia.dto'
 
 @Injectable()
 export class GuarderiaService {
@@ -154,15 +154,26 @@ export class GuarderiaService {
       .select({ id: storageServices.id, name: storageServices.name, price: storageServices.price })
       .from(storageUnitServices)
       .innerJoin(storageServices, eq(storageServices.id, storageUnitServices.serviceId))
-      .where(eq(storageUnitServices.unitId, id))
+      .where(and(
+        eq(storageUnitServices.unitId, id),
+        eq(storageServices.active, true),
+        eq(storageServices.forUnit, true),
+      ))
 
     return { ...unit, charges: charged, debt, fixedServices }
   }
 
   async createUnit(dto: CreateUnitDto) {
     return db.transaction(async (tx) => {
+      const [client] = await tx.select({ id: clients.id }).from(clients)
+        .where(and(eq(clients.id, dto.clientId), eq(clients.type, 'guarderia')))
+      if (!client) throw new NotFoundException(`Cliente de guardería ${dto.clientId} no encontrado`)
+
       // El lugar no puede estar ya ocupado por otra unidad activa
       if (dto.spotId) {
+        const [spot] = await tx.select().from(storageSpots).where(eq(storageSpots.id, dto.spotId))
+        if (!spot) throw new NotFoundException(`Cuna ${dto.spotId} no encontrada`)
+        if (!spot.active) throw new ConflictException(`La cuna ${spot.code} no está operativa`)
         const [busy] = await tx.select({ id: storageUnits.id }).from(storageUnits)
           .where(and(eq(storageUnits.spotId, dto.spotId), eq(storageUnits.status, 'en_guarderia')))
         if (busy) throw new ConflictException('Ese lugar ya está ocupado')
@@ -175,6 +186,20 @@ export class GuarderiaService {
         if (!cat) throw new NotFoundException(`Categoría ${dto.categoryId} no encontrada`)
         rate = Number(cat.monthlyRate)
       }
+
+      const fixedServiceIds = [...new Set(dto.fixedServiceIds ?? [])]
+      if (fixedServiceIds.length) {
+        const valid = await tx.select({ id: storageServices.id }).from(storageServices)
+          .where(and(
+            inArray(storageServices.id, fixedServiceIds),
+            eq(storageServices.active, true),
+            eq(storageServices.forUnit, true),
+          ))
+        if (valid.length !== fixedServiceIds.length) {
+          throw new BadRequestException('Uno o más servicios no están habilitados para el cobro mensual')
+        }
+      }
+
       const [u] = await tx.insert(storageUnits).values({
         clientId: dto.clientId,
         spotId: dto.spotId ?? null,
@@ -186,6 +211,11 @@ export class GuarderiaService {
         entryDate: dto.entryDate ? new Date(dto.entryDate) : new Date(),
         notes: dto.notes ?? null,
       }).returning()
+      if (fixedServiceIds.length) {
+        await tx.insert(storageUnitServices).values(
+          fixedServiceIds.map((serviceId) => ({ unitId: u.id, serviceId })),
+        )
+      }
       return u
     })
   }
@@ -314,19 +344,32 @@ export class GuarderiaService {
       const [unit] = await tx.select({ id: storageUnits.id }).from(storageUnits).where(eq(storageUnits.id, unitId))
       if (!unit) throw new NotFoundException(`Unidad ${unitId} no encontrada`)
 
+      const uniqueServiceIds = [...new Set(serviceIds)]
+      if (uniqueServiceIds.length) {
+        const valid = await tx.select({ id: storageServices.id }).from(storageServices)
+          .where(and(
+            inArray(storageServices.id, uniqueServiceIds),
+            eq(storageServices.active, true),
+            eq(storageServices.forUnit, true),
+          ))
+        if (valid.length !== uniqueServiceIds.length) {
+          throw new BadRequestException('Uno o más servicios no están habilitados para el cobro mensual')
+        }
+      }
+
       await tx.delete(storageUnitServices).where(eq(storageUnitServices.unitId, unitId))
-      if (serviceIds.length) {
+      if (uniqueServiceIds.length) {
         await tx.insert(storageUnitServices)
-          .values(serviceIds.map((serviceId) => ({ unitId, serviceId })))
+          .values(uniqueServiceIds.map((serviceId) => ({ unitId, serviceId })))
           .onConflictDoNothing()
       }
-      return { unitId, serviceIds }
+      return { unitId, serviceIds: uniqueServiceIds }
     })
   }
 
   // El período es obligatorio y va como YYYY-MM (ej. 2026-07)
   private assertPeriod(periodLabel: string) {
-    if (!periodLabel || !/^\d{4}-\d{2}$/.test(periodLabel)) {
+    if (!periodLabel || !/^\d{4}-(0[1-9]|1[0-2])$/.test(periodLabel)) {
       throw new BadRequestException('Período inválido: usá el formato YYYY-MM (ej. 2026-07)')
     }
   }
@@ -423,6 +466,7 @@ export class GuarderiaService {
       .where(and(
         inArray(storageUnitServices.unitId, pending.map((u) => u.unitId)),
         eq(storageServices.active, true),
+        eq(storageServices.forUnit, true),
       ))
 
     return pending.map((u) => ({
@@ -500,6 +544,19 @@ export class GuarderiaService {
       .where(eq(storageUnits.id, unitId))
     if (!unit) throw new NotFoundException(`Unidad ${unitId} no encontrada`)
 
+    const serviceIds = [...new Set(dto.items.flatMap((item) => item.serviceId == null ? [] : [item.serviceId]))]
+    if (serviceIds.length) {
+      const valid = await db.select({ id: storageServices.id }).from(storageServices)
+        .where(and(
+          inArray(storageServices.id, serviceIds),
+          eq(storageServices.active, true),
+          eq(storageServices.forUnit, true),
+        ))
+      if (valid.length !== serviceIds.length) {
+        throw new BadRequestException('Uno o más servicios no están habilitados para el cobro mensual')
+      }
+    }
+
     // El total del cobro es la suma de los ítems (cuna mensual + servicios anexos)
     const total = dto.items.reduce((s, it) => s + Number(it.amount), 0)
     return db.transaction(async (tx) => {
@@ -539,32 +596,55 @@ export class GuarderiaService {
         .set({ paidAt: new Date() })
         .where(and(eq(storageCharges.id, chargeId), isNull(storageCharges.paidAt)))
         .returning()
+      if (!c) {
+        const [current] = await tx.select().from(storageCharges).where(eq(storageCharges.id, chargeId))
+        return current ?? row
+      }
       await this.depositToCaja(tx, Number(row.amount), userId, this.cajaReason(row.clientName, row.periodLabel))
-      return c ?? row
+      return c
     })
   }
 
   // --- Catálogo de servicios anexos ---
-  listServices(all = false) {
-    const where = all ? undefined : eq(storageServices.active, true)
-    return db.select().from(storageServices).where(where).orderBy(asc(storageServices.name))
+  // scope filtra por dónde se cobra: 'unit' (adherible a la lancha) o 'slot' (ofrecido en el turno).
+  // Sin scope devuelve el catálogo entero, que es lo que necesita la pantalla de administración.
+  listServices(all = false, scope?: 'unit' | 'slot') {
+    const conds = [
+      ...(all ? [] : [eq(storageServices.active, true)]),
+      ...(scope === 'unit' ? [eq(storageServices.forUnit, true)] : []),
+      ...(scope === 'slot' ? [eq(storageServices.forSlot, true)] : []),
+    ]
+    return db.select().from(storageServices)
+      .where(conds.length ? and(...conds) : undefined)
+      .orderBy(asc(storageServices.name))
   }
 
   async createService(dto: ServiceDto) {
+    const forUnit = dto.forUnit ?? true
+    const forSlot = dto.forSlot ?? true
+    if (!forUnit && !forSlot) throw new BadRequestException('El servicio debe estar habilitado para lancha, turno o ambos')
     const [s] = await db.insert(storageServices).values({
       name: dto.name,
       price: (dto.price ?? 0).toString(),
+      forUnit,
+      forSlot,
     }).returning()
     return s
   }
 
   async updateService(id: number, dto: ServiceDto) {
+    const [existing] = await db.select().from(storageServices).where(eq(storageServices.id, id))
+    if (!existing) throw new NotFoundException(`Servicio ${id} no encontrado`)
+    const forUnit = dto.forUnit ?? existing.forUnit
+    const forSlot = dto.forSlot ?? existing.forSlot
+    if (!forUnit && !forSlot) throw new BadRequestException('El servicio debe estar habilitado para lancha, turno o ambos')
     const [s] = await db.update(storageServices).set({
       name: dto.name,
       price: (dto.price ?? 0).toString(),
       ...(dto.active != null ? { active: dto.active } : {}),
+      forUnit,
+      forSlot,
     }).where(eq(storageServices.id, id)).returning()
-    if (!s) throw new NotFoundException(`Servicio ${id} no encontrado`)
     return s
   }
 

@@ -47,6 +47,12 @@ export class CreateUnitDto {
   @IsOptional()
   @IsString()
   notes?: string
+
+  // Servicios fijos iniciales: se crean junto con la lancha en la misma transacción
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  fixedServiceIds?: number[]
 }
 
 // Editar los datos de una lancha ya cargada (categoría, descripción, HP, eslora, tarifa, notas). Todo opcional.
@@ -156,6 +162,15 @@ export class ServiceDto {
   @IsOptional()
   @IsBoolean()
   active?: boolean
+
+  // Dónde se ofrece: adherido a la lancha (cobro mensual) y/o al reservar un turno
+  @IsOptional()
+  @IsBoolean()
+  forUnit?: boolean
+
+  @IsOptional()
+  @IsBoolean()
+  forSlot?: boolean
 }
 
 // Un ítem del cobro: cuna mensual o un servicio anexo

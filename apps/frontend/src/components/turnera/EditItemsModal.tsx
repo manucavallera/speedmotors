@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
-import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { FormField, btnPrimary, btnSecondary } from '../ui/FormField'
+import { MoneyInput } from '../ui/MoneyInput'
 import { type RentalSlot, type SlotItemForm } from '../../types/turnera.types'
 import { type StorageService } from '../../types/guarderia.types'
 
@@ -53,8 +54,8 @@ export function EditItemsModal({ slot, services, onClose, onSubmit, submitting }
           {slot.startTime}–{slot.endTime} · {slot.boatName ?? 'lancha'} · {slot.clientName ?? 'sin cliente'}
         </div>
 
-        <FormField label="Salida al agua">
-          <input style={inputStyle} type="number" value={launch} onChange={e => setLaunch(Number(e.target.value) || 0)} placeholder="Precio de la salida" />
+        <FormField label="Salida al agua" hint="Lo que se cobra por bajar la lancha al agua. En blanco = no se cobra.">
+          <MoneyInput value={launch} onChange={v => setLaunch(Number(v) || 0)} placeholder="Precio de la salida" />
         </FormField>
 
         <FormField label="Servicios que pide">
@@ -75,12 +76,11 @@ export function EditItemsModal({ slot, services, onClose, onSubmit, submitting }
                   <input type="checkbox" checked={on} readOnly style={{ pointerEvents: 'none' }} />
                   <span style={{ flex: 1, fontSize: '13px', color: '#0f172a' }}>{s.name}</span>
                   {on ? (
-                    <input
-                      style={{ ...inputStyle, width: '95px', padding: '4px 8px', fontSize: '12.5px' }}
-                      type="number"
+                    <MoneyInput
+                      style={{ width: '95px' }}
+                      compact
                       value={picked[s.id]}
-                      onClick={e => e.stopPropagation()}
-                      onChange={e => setPicked(p => ({ ...p, [s.id]: Number(e.target.value) || 0 }))}
+                      onChange={v => setPicked(p => ({ ...p, [s.id]: Number(v) || 0 }))}
                     />
                   ) : (
                     <span style={{ fontSize: '12.5px', color: '#94a3b8' }}>${Number(s.price).toLocaleString('es-AR')}</span>

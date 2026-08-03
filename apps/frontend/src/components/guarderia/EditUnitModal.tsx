@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { MoneyInput } from '../ui/MoneyInput'
 import { type UnitDetail, type StorageCategory, type UpdateUnitForm } from '../../types/guarderia.types'
 
 interface Props {
@@ -69,8 +70,8 @@ export function EditUnitModal({ unit, categories, onClose, onSubmit, submitting 
           </select>
         </FormField>
 
-        <FormField label="Tarifa mensual">
-          <input style={inputStyle} type="number" placeholder="0" value={rate} onChange={e => setRate(e.target.value)} />
+        <FormField label="Cuna mensual" hint="Viene de la categoría, editable por excepción.">
+          <MoneyInput value={rate} onChange={setRate} placeholder="Ej: 40000" />
         </FormField>
 
         <FormField label="Notas">

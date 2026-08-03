@@ -4,6 +4,7 @@ import { api, apiError } from '../../lib/api'
 import { toast } from '../../lib/toast'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { MoneyInput } from '../ui/MoneyInput'
 import { SearchableSelect } from '../ui/SearchableSelect'
 import { type MapSpot, type CreateUnitForm, type StorageCategory, type StorageService } from '../../types/guarderia.types'
 
@@ -144,8 +145,8 @@ export function GuardarModal({ spots, categories, services, presetSpotId, onClos
             </FormField>
           </div>
           <div style={{ flex: 1 }}>
-            <FormField label="Tarifa mensual">
-              <input style={inputStyle} type="number" placeholder="0" value={rate} onChange={e => setRate(e.target.value)} />
+            <FormField label="Cuna mensual" hint="Viene de la categoría, editable por excepción.">
+              <MoneyInput value={rate} onChange={setRate} placeholder="Ej: 40000" />
             </FormField>
           </div>
         </div>

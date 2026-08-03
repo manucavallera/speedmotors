@@ -49,7 +49,10 @@ export class GuarderiaController {
   payCharge(@Param('id') id: string, @Request() req: any) { return this.svc.payCharge(Number(id), req.user.id) }
 
   @Get('services')
-  listServices(@Query('all') all?: string) { return this.svc.listServices(all === '1' || all === 'true') }
+  listServices(@Query('all') all?: string, @Query('scope') scope?: string) {
+    const s = scope === 'unit' || scope === 'slot' ? scope : undefined
+    return this.svc.listServices(all === '1' || all === 'true', s)
+  }
 
   @Post('services')
   createService(@Body() dto: ServiceDto) { return this.svc.createService(dto) }

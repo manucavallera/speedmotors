@@ -21,10 +21,12 @@ export class ProveeduriaProductDto {
 
   @IsOptional()
   @IsInt()
+  @Min(0)
   stock?: number
 
   @IsOptional()
   @IsInt()
+  @Min(0)
   minStock?: number
 
   @IsOptional()

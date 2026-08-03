@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
-import { inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { MoneyInput } from '../ui/MoneyInput'
 import { toast } from '../../lib/toast'
 import { type StorageCategory, type CategoryForm } from '../../types/guarderia.types'
 
@@ -91,8 +92,16 @@ export function CategoriesModal({ categories, submitting, onClose, onCreate, onU
           <input style={inputStyle} type="number" step="0.1" placeholder="Largo hasta (m)" value={f.maxLength ?? ''} onChange={e => setF({ ...f, maxLength: num(e.target.value) })} />
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <input style={inputStyle} type="number" placeholder="Cuna mensual $" value={f.monthlyRate ?? ''} onChange={e => setF({ ...f, monthlyRate: num(e.target.value) })} />
-          <input style={inputStyle} type="number" placeholder="Salida al agua $" value={f.launchRate ?? ''} onChange={e => setF({ ...f, launchRate: num(e.target.value) })} />
+          <div style={{ flex: 1 }}>
+            <FormField label="Cuna mensual" hint="Por mes, por tener la lancha guardada.">
+              <MoneyInput value={f.monthlyRate ?? ''} onChange={v => setF({ ...f, monthlyRate: num(v) })} placeholder="Ej: 40000" />
+            </FormField>
+          </div>
+          <div style={{ flex: 1 }}>
+            <FormField label="Salida al agua" hint="Por turno, cada vez que baja al agua.">
+              <MoneyInput value={f.launchRate ?? ''} onChange={v => setF({ ...f, launchRate: num(v) })} placeholder="Ej: 15000" />
+            </FormField>
+          </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           {editing && <button style={btnSecondary} onClick={() => { setF(EMPTY); setEditing(null) }}>Cancelar</button>}

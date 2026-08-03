@@ -57,14 +57,7 @@ export function useGuarderia() {
 
   // Alta de lancha: crea la unidad y, si contrató seguros, los deja como servicios fijos
   const createUnit = useMutation({
-    mutationFn: async (data: CreateUnitForm) => {
-      const { fixedServiceIds, ...unit } = data
-      const res = await api.post('/guarderia/units', unit)
-      if (fixedServiceIds?.length) {
-        await api.put(`/guarderia/units/${res.data.id}/services`, { serviceIds: fixedServiceIds })
-      }
-      return res.data
-    },
+    mutationFn: (data: CreateUnitForm) => api.post('/guarderia/units', data).then(res => res.data),
     onSuccess: () => { invalidate(); toast.success('Embarcación guardada') },
     onError: (err: any) => toast.error(apiError(err)),
   })

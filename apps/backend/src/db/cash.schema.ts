@@ -1,4 +1,4 @@
-// @contract: Tablas cashSessions + cashMovements. cashSessions → users. cashMovements → cashSessions + users. Solo una sesión abierta a la vez.
+// @contract: Tablas cashSessions + cashMovements. cashSessions → users. cashMovements → cashSessions + users. Solo una sesión abierta por área a la vez.
 import { pgTable, serial, integer, numeric, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { cashSessionStatusEnum, cashMovementTypeEnum, cashAreaEnum } from './enums'
 import { users } from './users.schema'
