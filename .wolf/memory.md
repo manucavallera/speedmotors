@@ -3609,3 +3609,81 @@
 | 23:31 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | expanded (+6 lines) | ~382 |
 | 23:32 | Session end: 48 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45765 tok |
 | 23:39 | Session end: 48 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45765 tok |
+| 23:44 | Session end: 48 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45765 tok |
+| 23:45 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | modified ana() | ~202 |
+| 23:45 | Session end: 49 writes across 23 files (smoke.sh, guarderia.dto.ts, guarderia.service.ts, guarderia.controller.ts, useGuarderia.ts) | 22 reads | ~45982 tok |
+
+## Session: 2026-07-22 15:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:34 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_dni_scan_idea.md | — | ~298 |
+| 15:35 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 1 reads | ~319 tok |
+| 15:36 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 1 reads | ~319 tok |
+| 15:36 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 1 reads | ~319 tok |
+| 15:37 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 1 reads | ~319 tok |
+| 15:38 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 2 reads | ~2123 tok |
+| 15:39 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 3 reads | ~3499 tok |
+| 15:40 | Session end: 1 writes across 1 files (project_dni_scan_idea.md) | 3 reads | ~3499 tok |
+| 15:42 | Created apps/frontend/src/components/ui/MoneyInput.tsx | — | ~404 |
+| 15:43 | Edited apps/frontend/src/components/ui/FormField.tsx | CSS: campo | ~146 |
+| 15:43 | Edited apps/frontend/src/components/ui/FormField.tsx | 2→3 lines | ~5 |
+| 15:43 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | 4→8 lines | ~122 |
+| 15:43 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | added 1 import(s) | ~53 |
+| 15:43 | Edited apps/frontend/src/components/turnera/TurnoModal.tsx | 7→6 lines | ~76 |
+| 15:43 | Edited apps/frontend/src/components/turnera/EditItemsModal.tsx | 3→3 lines | ~74 |
+| 15:43 | Edited apps/frontend/src/components/turnera/EditItemsModal.tsx | 7→6 lines | ~76 |
+| 15:44 | Edited apps/frontend/src/components/turnera/EditItemsModal.tsx | added 1 import(s) | ~56 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | expanded (+8 lines) | ~192 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/CategoriesModal.tsx | added 1 import(s) | ~37 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/GuardarModal.tsx | CSS: Ej | ~60 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/EditUnitModal.tsx | CSS: Ej | ~56 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | CSS: Ej | ~60 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | inline fix | ~42 |
+| 15:44 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | "number" → "Precio" | ~22 |
+| 15:46 | Edited apps/frontend/src/components/guarderia/GuardarModal.tsx | added 1 import(s) | ~37 |
+| 15:46 | Edited apps/frontend/src/components/guarderia/EditUnitModal.tsx | added 1 import(s) | ~37 |
+| 15:46 | Edited apps/frontend/src/components/guarderia/ChargeModal.tsx | added 1 import(s) | ~45 |
+| 15:46 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | added 1 import(s) | ~34 |
+| 13:05 | UX campos de plata: MoneyInput ($ fijo, 0 en blanco) + hint en FormField, aplicado a 8 modales guardería/turnera | ui/MoneyInput.tsx(new), ui/FormField.tsx, CategoriesModal, ChargeModal, EditUnitModal, GuardarModal, ServicesModal, TurnoModal, EditItemsModal | tsc frontend limpio, falta QA a ojo | ~4500 |
+| 15:47 | Session end: 21 writes across 10 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11063 tok |
+| 15:49 | Edited apps/frontend/src/components/ui/MoneyInput.tsx | 3→5 lines | ~75 |
+| 15:50 | Edited apps/frontend/src/components/ui/MoneyInput.tsx | removed 3 lines | ~12 |
+| 15:50 | Edited apps/frontend/src/main.tsx | CSS: silencio, passive | ~134 |
+| 15:52 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 15:53 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 15:54 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 15:54 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 15:58 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 15:59 | Session end: 24 writes across 11 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 8 reads | ~11284 tok |
+| 16:02 | Created apps/backend/drizzle/0042_service_billing_scope.sql | — | ~139 |
+| 16:02 | Edited apps/backend/src/db/storage.schema.ts | 7→11 lines | ~183 |
+| 16:03 | Edited apps/backend/src/guarderia/guarderia.dto.ts | expanded (+9 lines) | ~85 |
+| 16:03 | Edited apps/backend/src/guarderia/guarderia.service.ts | modified createService() | ~212 |
+| 16:03 | Edited apps/backend/src/guarderia/guarderia.service.ts | modified listServices() | ~192 |
+| 16:03 | Edited apps/backend/src/guarderia/guarderia.controller.ts | 2→5 lines | ~68 |
+| 16:03 | Edited apps/backend/src/turnera/turnera.service.ts | modified publicServices() | ~85 |
+| 16:03 | Edited apps/backend/src/turnera/turnera.service.ts | 2→3 lines | ~84 |
+| 16:05 | Edited apps/frontend/src/types/guarderia.types.ts | 6→9 lines | ~64 |
+| 16:05 | Edited apps/frontend/src/hooks/useTurnera.ts | 5→6 lines | ~104 |
+| 16:05 | Edited apps/frontend/src/types/guarderia.types.ts | 5→7 lines | ~36 |
+| 16:06 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | CSS: servicio | ~282 |
+| 16:06 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | CSS: flexDirection, cursor, cursor | ~439 |
+| 16:06 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | 2→6 lines | ~138 |
+| 16:06 | Edited apps/frontend/src/components/guarderia/ServicesModal.tsx | 1→6 lines | ~82 |
+| 16:06 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→5 lines | ~91 |
+| 16:06 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 4→4 lines | ~34 |
+| 16:06 | Edited apps/frontend/src/pages/GuarderiaPage.tsx | 2→2 lines | ~19 |
+| 13:40 | Fix rueda del mouse alterando importes (66 inputs number de toda la app) | main.tsx | listener global wheel→blur, tsc OK, buglog bug-606 | ~900 |
+| 14:10 | Alcance de cobro por servicio (forUnit/forSlot): evita cobrar el seguro 2 veces | migration 0042(new), storage.schema, guarderia.dto/service/controller, turnera.service, guarderia.types, useTurnera, ServicesModal, GuarderiaPage | tsc back+front OK, migration SIN aplicar, sin QA | ~7000 |
+| 16:07 | Session end: 42 writes across 20 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 13 reads | ~30348 tok |
+| 16:09 | Edited apps/frontend/src/lib/helpContent.ts | expanded (+20 lines) | ~414 |
+| 16:09 | Edited apps/frontend/src/lib/helpContent.ts | expanded (+6 lines) | ~490 |
+| 16:09 | Edited apps/frontend/src/lib/helpContent.ts | expanded (+18 lines) | ~371 |
+| 16:10 | Edited apps/frontend/src/lib/helpContent.ts | expanded (+26 lines) | ~1010 |
+| 14:35 | Guía in-app ampliada: primeros pasos, los dos cobros, tildes de servicios, correr/editar turno, imprimir lista, página /turnos | lib/helpContent.ts | tsc OK, 12 secciones guardería + 6 turnera | ~3500 |
+| 16:10 | Session end: 46 writes across 21 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 15 reads | ~34958 tok |
+| 16:15 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md | modified inmediato() | ~660 |
+| 16:16 | Session end: 47 writes across 22 files (project_dni_scan_idea.md, MoneyInput.tsx, FormField.tsx, TurnoModal.tsx, EditItemsModal.tsx) | 15 reads | ~35665 tok |
+| 17:41 | Retomado corte Marina 2026-07-22: revisión integral y hardening de Guardería/Turnera/Proveeduría/Caja; migrations 0042-0044; builds back+front y 16 tests OK | módulos Marina + drizzle/0042..0044 | pendiente smoke DB por Docker local no disponible | ~18000 tok |
+| 17:49 | Commit y push del cierre Marina | befec2b, origin/feat/marina-cunas-cobro-mensual | respaldado remoto; no merge/deploy; smoke DB pendiente | ~1200 tok |

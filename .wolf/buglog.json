@@ -9544,6 +9544,441 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-07-20T23:29:21.195Z"
+    },
+    {
+      "id": "bug-595",
+      "timestamp": "2026-07-22T15:43:11.124Z",
+      "error_message": "CSS fix: fontSize",
+      "file": "apps/frontend/src/components/ui/FormField.tsx",
+      "root_cause": "fontSize: '13px', fontWeight: 600, color: '#374151' → '11.5px', color: '#94a3b8'",
+      "fix": "Changed fontSize: '13px', fontWeight: 600, color: '#374151' → '11.5px', color: '#94a3b8'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:43:11.124Z"
+    },
+    {
+      "id": "bug-596",
+      "timestamp": "2026-07-22T15:43:32.020Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "Had '../ui/SearchableSelect'",
+      "fix": "Changed to '../ui/MoneyInput'",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:43:32.020Z"
+    },
+    {
+      "id": "bug-597",
+      "timestamp": "2026-07-22T15:43:40.497Z",
+      "error_message": "CSS fix: width",
+      "file": "apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "root_cause": "width: '95px', padding: '4px 8px', fontSize: '12.5px' → '95px'",
+      "fix": "Changed width: '95px', padding: '4px 8px', fontSize: '12.5px' → '95px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:43:40.497Z"
+    },
+    {
+      "id": "bug-598",
+      "timestamp": "2026-07-22T15:43:45.549Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/turnera/EditItemsModal.tsx",
+      "root_cause": "Had \"number\"",
+      "fix": "Changed to \"Lo que se cobra por bajar la lancha al agua. En b",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-22T15:44:00.952Z"
+    },
+    {
+      "id": "bug-599",
+      "timestamp": "2026-07-22T15:43:50.256Z",
+      "error_message": "CSS fix: width",
+      "file": "apps/frontend/src/components/turnera/EditItemsModal.tsx",
+      "root_cause": "width: '95px', padding: '4px 8px', fontSize: '12.5px' → '95px'",
+      "fix": "Changed width: '95px', padding: '4px 8px', fontSize: '12.5px' → '95px'",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:43:50.256Z"
+    },
+    {
+      "id": "bug-600",
+      "timestamp": "2026-07-22T15:44:12.283Z",
+      "error_message": "CSS fix: monthlyRate, launchRate",
+      "file": "apps/frontend/src/components/guarderia/CategoriesModal.tsx",
+      "root_cause": "monthlyRate: num(e.target.value) → num(v); launchRate: num(e.target.value) → num(v)",
+      "fix": "Changed monthlyRate: num(e.target.value) → num(v); launchRate: num(e.target.value) → num(v)",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:44:12.283Z"
+    },
+    {
+      "id": "bug-601",
+      "timestamp": "2026-07-22T15:44:25.030Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/guarderia/GuardarModal.tsx",
+      "root_cause": "Had \"Tarifa mensual\"",
+      "fix": "Changed to \"Cuna mensual\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:44:25.030Z"
+    },
+    {
+      "id": "bug-602",
+      "timestamp": "2026-07-22T15:44:29.430Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/guarderia/EditUnitModal.tsx",
+      "root_cause": "Had \"Tarifa mensual\"",
+      "fix": "Changed to \"Cuna mensual\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:44:29.430Z"
+    },
+    {
+      "id": "bug-603",
+      "timestamp": "2026-07-22T15:44:33.934Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/guarderia/ChargeModal.tsx",
+      "root_cause": "Had \"number\"",
+      "fix": "Changed to \"Lo que paga este mes por tener la lancha guardada",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:44:33.934Z"
+    },
+    {
+      "id": "bug-604",
+      "timestamp": "2026-07-22T15:44:46.707Z",
+      "error_message": "Incorrect value in code",
+      "file": "apps/frontend/src/components/guarderia/ServicesModal.tsx",
+      "root_cause": "Had \"number\"",
+      "fix": "Changed to \"Precio\"",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:44:46.707Z"
+    },
+    {
+      "id": "bug-605",
+      "timestamp": "2026-07-22T15:50:14.265Z",
+      "error_message": "Type error",
+      "file": "apps/frontend/src/main.tsx",
+      "root_cause": "Missing or incorrect type annotation",
+      "fix": "Added type assertion/annotation",
+      "tags": [
+        "auto-detected",
+        "type-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:50:14.265Z"
+    },
+    {
+      "id": "bug-606",
+      "timestamp": "2026-07-22T15:52:47.739266",
+      "error_message": "Cargo 2000 de precio y me toma 1997",
+      "file": "apps/frontend/src/main.tsx",
+      "root_cause": "input type=number enfocado: la rueda del mouse incrementa/decrementa el valor. Al scrollear el modal con el cursor encima del campo el importe cambia solo, sin feedback visible. Afecta los 66 inputs numericos de la app, no solo guarderia/turnera.",
+      "fix": "Listener global de wheel en main.tsx: si activeElement es input type=number, blur(). Un solo lugar cubre toda la app.",
+      "tags": [
+        "ux",
+        "input-number",
+        "wheel",
+        "guarderia",
+        "turnera",
+        "importes"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T15:52:47.739266"
+    },
+    {
+      "id": "bug-607",
+      "timestamp": "2026-07-22T16:03:27.159Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts",
+      "root_cause": "Was returning: db.select().from(storageServices).where(where).ord",
+      "fix": "Now returns: db.select().from(storageServices)",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T16:03:27.159Z"
+    },
+    {
+      "id": "bug-608",
+      "timestamp": "2026-07-22T16:03:31.290Z",
+      "error_message": "Wrong return value",
+      "file": "apps/backend/src/guarderia/guarderia.controller.ts",
+      "root_cause": "Was returning: this.svc.listServices(all === '1' || all === 'true",
+      "fix": "Now returns: this.svc.listServices(all === '1' || all === 'true",
+      "tags": [
+        "auto-detected",
+        "return-value",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T16:03:31.290Z"
+    },
+    {
+      "id": "bug-609",
+      "timestamp": "2026-07-22T16:05:43.921Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/hooks/useTurnera.ts",
+      "root_cause": "3 lines replaced/restructured",
+      "fix": "Rewrote 5→6 lines (3 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T16:05:43.921Z"
+    },
+    {
+      "id": "bug-610",
+      "timestamp": "2026-07-22T16:06:00.671Z",
+      "error_message": "CSS fix: s, data",
+      "file": "apps/frontend/src/components/guarderia/ServicesModal.tsx",
+      "root_cause": "s: StorageService) { setEditingId(s.id) → StorageService) {; data: ServiceForm = { name: name.trim(), price: price ? Number(price) : 0 → ServiceForm = { name: name.trim(), price: price ? Number(price) : 0, forUnit, forSlot",
+      "fix": "Changed s: StorageService) { setEditingId(s.id) → StorageService) {; data: ServiceForm = { name: name.trim(), price: price ? Number(price) : 0 → ServiceForm = { name: name.trim(), price: price ? Number(price) : 0, forUnit, forSlot",
+      "tags": [
+        "auto-detected",
+        "style-fix",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-07-22T16:06:21.207Z"
+    },
+    {
+      "id": "bug-611",
+      "timestamp": "2026-07-22T16:06:54.996Z",
+      "error_message": "Wrong reference: services should be monthlyServices",
+      "file": "apps/frontend/src/pages/GuarderiaPage.tsx",
+      "root_cause": "Used \"services\" instead of \"monthlyServices\"",
+      "fix": "Changed services → monthlyServices",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "tsx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-07-22T16:06:54.996Z"
+    },
+    {
+      "id": "bug-612",
+      "timestamp": "2026-07-22T16:09:42.146Z",
+      "error_message": "Significant refactor of ",
+      "file": "apps/frontend/src/lib/helpContent.ts",
+      "root_cause": "6 lines replaced/restructured",
+      "fix": "Rewrote 17→23 lines (6 removed) | Also: h: 'Configurar la grilla',; h: 'Cobrar y manejar las salidas',",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-07-22T16:10:24.803Z"
+    },
+    {
+      "id": "bug-613",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Un servicio marcado solo para turnos podía adherirse a una lancha y entrar en el cobro mensual",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts",
+      "root_cause": "El filtrado for_unit existía en la UI, pero setUnitServices, getUnit y monthChargeRows no lo validaban en backend",
+      "fix": "Validación server-side de servicios mensuales y filtrado por active + for_unit en ficha y cobro masivo",
+      "tags": ["guarderia", "servicios", "billing-scope", "double-charge"],
+      "related_bugs": ["bug-611"],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-614",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Dos solicitudes simultáneas de cobro podían duplicar el depósito en Caja Marina",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts; apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "El UPDATE condicional de Guardería y el cobro de Turnera no condicionaban el depósito a haber marcado realmente el registro como pagado",
+      "fix": "UPDATE con paid_at IS NULL y depósito únicamente cuando la actualización devuelve el registro",
+      "tags": ["guarderia", "turnera", "cash", "race-condition", "idempotency"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-615",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Una lancha retirada todavía podía identificarse o reservar un turno por API pública",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "findClientByPhone y publicReserve verificaban propiedad, pero no storage_units.status=en_guarderia",
+      "fix": "Filtro de estado activo en identificación pública, reserva pública y alta interna de turnos",
+      "tags": ["turnera", "public-api", "guarderia", "authorization"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-616",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Ventas simultáneas de Proveeduría podían vender más stock del disponible",
+      "file": "apps/backend/src/proveeduria/proveeduria.service.ts",
+      "root_cause": "El stock se leía y luego se escribía en operaciones separadas sin condición atómica",
+      "fix": "Descuento atómico UPDATE stock=stock-cantidad WHERE stock>=cantidad y validación de producto activo",
+      "tags": ["proveeduria", "stock", "race-condition"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-617",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "El índice de caja de 0017 podía impedir abrir SpeedMotors y Marina al mismo tiempo",
+      "file": "apps/backend/drizzle/0043_cash_open_per_area.sql",
+      "root_cause": "0038 agregó cash_sessions.area pero no reemplazó el índice único global sobre status='abierta'",
+      "fix": "Migración 0043 elimina el índice global y crea uno único parcial por área",
+      "tags": ["cash", "marina", "migration", "unique-index"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-618",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Guardar una embarcación podía dejarla creada sin sus servicios fijos",
+      "file": "apps/backend/src/guarderia/guarderia.service.ts; apps/frontend/src/hooks/useGuarderia.ts",
+      "root_cause": "El frontend hacía dos requests independientes: crear unidad y luego asociar servicios",
+      "fix": "fixedServiceIds forma parte del alta backend y todo se ejecuta en una única transacción",
+      "tags": ["guarderia", "transaction", "partial-state"],
+      "related_bugs": ["bug-613"],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-619",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Dos reservas simultáneas podían ocupar la misma franja de la rampa",
+      "file": "apps/backend/src/turnera/turnera.service.ts",
+      "root_cause": "La comprobación de solapamiento ocurría antes de la transacción y sin serialización",
+      "fix": "Las altas públicas/internas y reprogramaciones bloquean la fila singleton de configuración antes de comprobar e insertar",
+      "tags": ["turnera", "race-condition", "overlap", "transaction"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-620",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "Dos altas o movimientos simultáneos podían ocupar la misma cuna",
+      "file": "apps/backend/drizzle/0044_marina_integrity.sql",
+      "root_cause": "La ocupación se comprobaba solo en aplicación, sin restricción única en base de datos",
+      "fix": "Índice único parcial por spot_id para unidades con status=en_guarderia",
+      "tags": ["guarderia", "migration", "race-condition", "data-integrity"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-621",
+      "timestamp": "2026-08-03T17:41:12Z",
+      "error_message": "apply_patch verification failed al intentar aplicar un parche multiarchivo",
+      "file": "apps/backend/src/proveeduria/proveeduria.service.ts",
+      "root_cause": "El contexto esperado contenía una línea en blanco que no existía en el archivo",
+      "fix": "Se dividió el parche por módulo y se aplicó contra contexto exacto",
+      "tags": ["tooling", "apply-patch"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:41:12Z"
+    },
+    {
+      "id": "bug-622",
+      "timestamp": "2026-08-03T17:45:00Z",
+      "error_message": "npm run lint frontend falla con 388 problemas",
+      "file": "apps/frontend",
+      "root_cause": "Deuda técnica global previa: principalmente usos explícitos de any y algunas reglas nuevas de pureza de React",
+      "fix": "No corregido en el cierre de Marina; se verificó la entrega mediante build TypeScript/Vite exitoso y se deja para una limpieza dedicada",
+      "tags": ["frontend", "lint", "technical-debt"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:45:00Z"
+    },
+    {
+      "id": "bug-623",
+      "timestamp": "2026-08-03T17:45:00Z",
+      "error_message": "ESLint backend falla con 1507 errores y 11 warnings en 42 archivos",
+      "file": "apps/backend",
+      "root_cause": "Deuda técnica global previa: 1477 diferencias de Prettier y reglas unsafe/no-unused en archivos existentes",
+      "fix": "No se ejecutó el lint con --fix para no reescribir masivamente archivos ajenos; build Nest y 16 tests pasan",
+      "tags": ["backend", "lint", "prettier", "technical-debt"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:45:00Z"
+    },
+    {
+      "id": "bug-624",
+      "timestamp": "2026-08-03T17:49:00Z",
+      "error_message": "git branch --set-upstream-to no pudo escribir .git/config",
+      "file": ".git/config",
+      "root_cause": "El perfil de filesystem de la sesión expone .git como solo lectura",
+      "fix": "La rama ya se subió correctamente; se omite el tracking local y se puede configurar fuera del sandbox",
+      "tags": ["git", "sandbox", "upstream"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-03T17:49:00Z"
     }
   ]
 }

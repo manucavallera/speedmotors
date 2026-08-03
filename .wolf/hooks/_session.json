@@ -1,436 +1,394 @@
 {
-  "session_id": "session-2026-07-20-1547",
-  "started": "2026-07-20T15:47:39.603Z",
+  "session_id": "session-2026-07-22-1520",
+  "started": "2026-07-22T15:20:10.182Z",
   "files_read": {
     "/home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md": {
       "count": 1,
       "tokens": 0,
-      "first_read": "2026-07-20T15:52:02.972Z"
+      "first_read": "2026-07-22T15:22:33.220Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.dto.ts": {
-      "count": 1,
-      "tokens": 572,
-      "first_read": "2026-07-20T17:08:26.886Z"
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurnoModal.tsx": {
+      "count": 3,
+      "tokens": 1822,
+      "first_read": "2026-07-22T15:37:57.217Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.controller.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/storage.schema.ts": {
       "count": 1,
-      "tokens": 980,
-      "first_read": "2026-07-20T17:23:22.105Z"
+      "tokens": 1376,
+      "first_read": "2026-07-22T15:39:12.467Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/FormField.tsx": {
+      "count": 1,
+      "tokens": 290,
+      "first_read": "2026-07-22T15:41:13.588Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/CategoriesModal.tsx": {
+      "count": 1,
+      "tokens": 1686,
+      "first_read": "2026-07-22T15:41:23.253Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/EditUnitModal.tsx": {
+      "count": 1,
+      "tokens": 1067,
+      "first_read": "2026-07-22T15:41:23.974Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/EditItemsModal.tsx": {
+      "count": 1,
+      "tokens": 1315,
+      "first_read": "2026-07-22T15:41:49.336Z"
+    },
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ChargeModal.tsx": {
+      "count": 1,
+      "tokens": 1554,
+      "first_read": "2026-07-22T15:41:49.938Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.service.ts": {
       "count": 1,
-      "tokens": 6590,
-      "first_read": "2026-07-20T17:24:46.500Z"
+      "tokens": 6954,
+      "first_read": "2026-07-22T16:02:37.058Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.dto.ts": {
       "count": 1,
-      "tokens": 831,
-      "first_read": "2026-07-20T17:24:55.677Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useGuarderia.ts": {
-      "count": 1,
-      "tokens": 1869,
-      "first_read": "2026-07-20T17:26:29.436Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/guarderia.types.ts": {
-      "count": 2,
-      "tokens": 1243,
-      "first_read": "2026-07-20T17:26:53.389Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/SpotPanel.tsx": {
-      "count": 1,
-      "tokens": 1844,
-      "first_read": "2026-07-20T17:27:17.994Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/GuardarModal.tsx": {
-      "count": 1,
-      "tokens": 2460,
-      "first_read": "2026-07-20T17:27:41.461Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx": {
-      "count": 2,
-      "tokens": 3380,
-      "first_read": "2026-07-20T17:28:26.135Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/RESUMEN-llamada-tio.md": {
-      "count": 1,
-      "tokens": 747,
-      "first_read": "2026-07-20T19:56:00.158Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.controller.ts": {
-      "count": 2,
-      "tokens": 515,
-      "first_read": "2026-07-20T19:57:43.057Z"
+      "tokens": 975,
+      "first_read": "2026-07-22T16:02:37.904Z"
     },
     "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts": {
       "count": 1,
-      "tokens": 3948,
-      "first_read": "2026-07-20T19:57:43.152Z"
+      "tokens": 4319,
+      "first_read": "2026-07-22T16:03:35.360Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/turnera.schema.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx": {
       "count": 1,
-      "tokens": 694,
-      "first_read": "2026-07-20T19:58:11.399Z"
+      "tokens": 929,
+      "first_read": "2026-07-22T16:05:50.953Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useTurnera.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx": {
       "count": 1,
-      "tokens": 1079,
-      "first_read": "2026-07-20T23:24:21.458Z"
+      "tokens": 3540,
+      "first_read": "2026-07-22T16:06:37.017Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/turneraConfig.ts": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/helpContent.ts": {
       "count": 1,
-      "tokens": 332,
-      "first_read": "2026-07-20T23:24:43.355Z"
+      "tokens": 1903,
+      "first_read": "2026-07-22T16:09:02.242Z"
     },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurneraConfigModal.tsx": {
+    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/HelpModal.tsx": {
       "count": 1,
-      "tokens": 840,
-      "first_read": "2026-07-20T23:24:43.750Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurnosPublicPage.tsx": {
-      "count": 1,
-      "tokens": 3513,
-      "first_read": "2026-07-20T23:26:39.496Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/DaySchedule.tsx": {
-      "count": 1,
-      "tokens": 1164,
-      "first_read": "2026-07-20T23:27:30.615Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx": {
-      "count": 1,
-      "tokens": 2019,
-      "first_read": "2026-07-20T23:27:37.747Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurnoModal.tsx": {
-      "count": 1,
-      "tokens": 1804,
-      "first_read": "2026-07-20T23:27:45.380Z"
-    },
-    "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/turnera.types.ts": {
-      "count": 1,
-      "tokens": 362,
-      "first_read": "2026-07-20T23:28:00.956Z"
+      "tokens": 422,
+      "first_read": "2026-07-22T16:09:03.023Z"
     }
   },
   "files_written": [
     {
-      "file": "/tmp/smoke.sh",
+      "file": "/home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_dni_scan_idea.md",
       "action": "create",
-      "tokens": 384,
-      "at": "2026-07-20T16:41:42.922Z"
+      "tokens": 319,
+      "at": "2026-07-22T15:34:24.574Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/MoneyInput.tsx",
+      "action": "create",
+      "tokens": 404,
+      "at": "2026-07-22T15:42:54.420Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/FormField.tsx",
+      "action": "edit",
+      "tokens": 146,
+      "at": "2026-07-22T15:43:11.090Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/FormField.tsx",
+      "action": "edit",
+      "tokens": 5,
+      "at": "2026-07-22T15:43:15.930Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "action": "edit",
+      "tokens": 122,
+      "at": "2026-07-22T15:43:23.285Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "action": "edit",
+      "tokens": 53,
+      "at": "2026-07-22T15:43:31.996Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurnoModal.tsx",
+      "action": "edit",
+      "tokens": 76,
+      "at": "2026-07-22T15:43:40.473Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/EditItemsModal.tsx",
+      "action": "edit",
+      "tokens": 74,
+      "at": "2026-07-22T15:43:45.528Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/EditItemsModal.tsx",
+      "action": "edit",
+      "tokens": 76,
+      "at": "2026-07-22T15:43:50.234Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/EditItemsModal.tsx",
+      "action": "edit",
+      "tokens": 56,
+      "at": "2026-07-22T15:44:00.930Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/CategoriesModal.tsx",
+      "action": "edit",
+      "tokens": 192,
+      "at": "2026-07-22T15:44:12.261Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/CategoriesModal.tsx",
+      "action": "edit",
+      "tokens": 37,
+      "at": "2026-07-22T15:44:20.299Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/GuardarModal.tsx",
+      "action": "edit",
+      "tokens": 60,
+      "at": "2026-07-22T15:44:25.011Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/EditUnitModal.tsx",
+      "action": "edit",
+      "tokens": 56,
+      "at": "2026-07-22T15:44:29.409Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ChargeModal.tsx",
+      "action": "edit",
+      "tokens": 60,
+      "at": "2026-07-22T15:44:33.912Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ChargeModal.tsx",
+      "action": "edit",
+      "tokens": 42,
+      "at": "2026-07-22T15:44:39.598Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
+      "action": "edit",
+      "tokens": 22,
+      "at": "2026-07-22T15:44:46.688Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/GuardarModal.tsx",
+      "action": "edit",
+      "tokens": 37,
+      "at": "2026-07-22T15:46:37.578Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/EditUnitModal.tsx",
+      "action": "edit",
+      "tokens": 37,
+      "at": "2026-07-22T15:46:39.074Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ChargeModal.tsx",
+      "action": "edit",
+      "tokens": 45,
+      "at": "2026-07-22T15:46:45.565Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
+      "action": "edit",
+      "tokens": 34,
+      "at": "2026-07-22T15:46:47.024Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/MoneyInput.tsx",
+      "action": "edit",
+      "tokens": 75,
+      "at": "2026-07-22T15:49:48.997Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/ui/MoneyInput.tsx",
+      "action": "edit",
+      "tokens": 12,
+      "at": "2026-07-22T15:50:06.120Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/main.tsx",
+      "action": "edit",
+      "tokens": 134,
+      "at": "2026-07-22T15:50:14.237Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/0042_service_billing_scope.sql",
+      "action": "create",
+      "tokens": 149,
+      "at": "2026-07-22T16:02:44.866Z"
+    },
+    {
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/storage.schema.ts",
+      "action": "edit",
+      "tokens": 183,
+      "at": "2026-07-22T16:02:55.016Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.dto.ts",
       "action": "edit",
-      "tokens": 174,
-      "at": "2026-07-20T17:25:19.160Z"
+      "tokens": 85,
+      "at": "2026-07-22T16:03:00.015Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.service.ts",
       "action": "edit",
-      "tokens": 398,
-      "at": "2026-07-20T17:25:31.807Z"
+      "tokens": 212,
+      "at": "2026-07-22T16:03:08.658Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.service.ts",
       "action": "edit",
-      "tokens": 26,
-      "at": "2026-07-20T17:26:04.513Z"
+      "tokens": 192,
+      "at": "2026-07-22T16:03:27.136Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.controller.ts",
       "action": "edit",
-      "tokens": 47,
-      "at": "2026-07-20T17:26:12.845Z"
+      "tokens": 68,
+      "at": "2026-07-22T16:03:31.265Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/guarderia/guarderia.controller.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts",
       "action": "edit",
-      "tokens": 66,
-      "at": "2026-07-20T17:26:18.877Z"
+      "tokens": 85,
+      "at": "2026-07-22T16:03:41.050Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useGuarderia.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts",
       "action": "edit",
-      "tokens": 127,
-      "at": "2026-07-20T17:26:37.167Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useGuarderia.ts",
-      "action": "edit",
-      "tokens": 43,
-      "at": "2026-07-20T17:26:42.530Z"
+      "tokens": 84,
+      "at": "2026-07-22T16:03:45.725Z"
     },
     {
       "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/guarderia.types.ts",
       "action": "edit",
-      "tokens": 90,
-      "at": "2026-07-20T17:27:01.356Z"
+      "tokens": 64,
+      "at": "2026-07-22T16:05:30.079Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useGuarderia.ts",
-      "action": "edit",
-      "tokens": 66,
-      "at": "2026-07-20T17:27:07.040Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/SpotPanel.tsx",
-      "action": "edit",
-      "tokens": 57,
-      "at": "2026-07-20T17:27:26.121Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/SpotPanel.tsx",
-      "action": "edit",
-      "tokens": 34,
-      "at": "2026-07-20T17:27:30.669Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/SpotPanel.tsx",
-      "action": "edit",
-      "tokens": 171,
-      "at": "2026-07-20T17:27:37.070Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/EditUnitModal.tsx",
-      "action": "create",
-      "tokens": 1067,
-      "at": "2026-07-20T17:28:09.694Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
-      "action": "edit",
-      "tokens": 38,
-      "at": "2026-07-20T17:28:38.066Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
-      "action": "edit",
-      "tokens": 28,
-      "at": "2026-07-20T17:28:42.352Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
-      "action": "edit",
-      "tokens": 67,
-      "at": "2026-07-20T17:28:47.409Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
-      "action": "edit",
-      "tokens": 56,
-      "at": "2026-07-20T17:28:53.515Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
-      "action": "edit",
-      "tokens": 107,
-      "at": "2026-07-20T17:28:58.815Z"
-    },
-    {
-      "file": "/home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md",
-      "action": "edit",
-      "tokens": 422,
-      "at": "2026-07-20T19:47:45.785Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/db/turnera.schema.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useTurnera.ts",
       "action": "edit",
       "tokens": 104,
-      "at": "2026-07-20T19:58:24.041Z"
+      "at": "2026-07-22T16:05:43.900Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/drizzle/0041_turnera_whatsapp.sql",
-      "action": "create",
-      "tokens": 46,
-      "at": "2026-07-20T19:58:28.562Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.dto.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/types/guarderia.types.ts",
       "action": "edit",
-      "tokens": 135,
-      "at": "2026-07-20T19:58:37.355Z"
+      "tokens": 36,
+      "at": "2026-07-22T16:05:48.086Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
       "action": "edit",
-      "tokens": 119,
-      "at": "2026-07-20T19:58:45.659Z"
+      "tokens": 282,
+      "at": "2026-07-22T16:06:00.650Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
       "action": "edit",
-      "tokens": 318,
-      "at": "2026-07-20T19:58:55.316Z"
+      "tokens": 439,
+      "at": "2026-07-22T16:06:14.570Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.service.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
       "action": "edit",
-      "tokens": 27,
-      "at": "2026-07-20T19:59:00.878Z"
+      "tokens": 138,
+      "at": "2026-07-22T16:06:21.181Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.controller.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/guarderia/ServicesModal.tsx",
       "action": "edit",
-      "tokens": 30,
-      "at": "2026-07-20T19:59:07.983Z"
+      "tokens": 82,
+      "at": "2026-07-22T16:06:26.033Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.controller.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
       "action": "edit",
-      "tokens": 87,
-      "at": "2026-07-20T19:59:16.243Z"
+      "tokens": 91,
+      "at": "2026-07-22T16:06:46.399Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.controller.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
       "action": "edit",
-      "tokens": 126,
-      "at": "2026-07-20T20:01:44.670Z"
+      "tokens": 34,
+      "at": "2026-07-22T16:06:53.695Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/backend/src/turnera/turnera.controller.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/GuarderiaPage.tsx",
       "action": "edit",
-      "tokens": 74,
-      "at": "2026-07-20T23:16:28.516Z"
+      "tokens": 19,
+      "at": "2026-07-22T16:06:54.970Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useTurnera.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/helpContent.ts",
       "action": "edit",
-      "tokens": 144,
-      "at": "2026-07-20T23:24:30.217Z"
+      "tokens": 414,
+      "at": "2026-07-22T16:09:23.415Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/hooks/useTurnera.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/helpContent.ts",
       "action": "edit",
-      "tokens": 53,
-      "at": "2026-07-20T23:24:36.553Z"
+      "tokens": 490,
+      "at": "2026-07-22T16:09:42.123Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/turneraConfig.ts",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/helpContent.ts",
       "action": "edit",
-      "tokens": 124,
-      "at": "2026-07-20T23:24:54.331Z"
+      "tokens": 371,
+      "at": "2026-07-22T16:09:53.855Z"
     },
     {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurneraConfigModal.tsx",
+      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/helpContent.ts",
       "action": "edit",
-      "tokens": 204,
-      "at": "2026-07-20T23:25:04.199Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/TurneraConfigModal.tsx",
-      "action": "edit",
-      "tokens": 201,
-      "at": "2026-07-20T23:25:13.806Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurnosPublicPage.tsx",
-      "action": "edit",
-      "tokens": 28,
-      "at": "2026-07-20T23:27:07.572Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurnosPublicPage.tsx",
-      "action": "edit",
-      "tokens": 427,
-      "at": "2026-07-20T23:27:25.018Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/EditItemsModal.tsx",
-      "action": "create",
-      "tokens": 1315,
-      "at": "2026-07-20T23:28:28.336Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/DaySchedule.tsx",
-      "action": "edit",
-      "tokens": 53,
-      "at": "2026-07-20T23:28:36.678Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/DaySchedule.tsx",
-      "action": "edit",
-      "tokens": 30,
-      "at": "2026-07-20T23:28:42.683Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/components/turnera/DaySchedule.tsx",
-      "action": "edit",
-      "tokens": 154,
-      "at": "2026-07-20T23:28:50.764Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx",
-      "action": "edit",
-      "tokens": 78,
-      "at": "2026-07-20T23:29:00.979Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx",
-      "action": "edit",
-      "tokens": 135,
-      "at": "2026-07-20T23:29:08.993Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx",
-      "action": "edit",
-      "tokens": 54,
-      "at": "2026-07-20T23:29:14.787Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx",
-      "action": "edit",
-      "tokens": 114,
-      "at": "2026-07-20T23:29:21.169Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/pages/TurneraPage.tsx",
-      "action": "edit",
-      "tokens": 215,
-      "at": "2026-07-20T23:29:33.190Z"
-    },
-    {
-      "file": "/mnt/c/Users/coco/proyectos/speedmotors/apps/frontend/src/lib/printDayList.ts",
-      "action": "create",
-      "tokens": 706,
-      "at": "2026-07-20T23:29:51.188Z"
+      "tokens": 1010,
+      "at": "2026-07-22T16:10:24.779Z"
     },
     {
       "file": "/home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md",
       "action": "edit",
-      "tokens": 410,
-      "at": "2026-07-20T23:31:29.088Z"
+      "tokens": 707,
+      "at": "2026-07-22T16:15:56.985Z"
     }
   ],
   "edit_counts": {
-    "../../../../../../tmp/smoke.sh": 1,
+    "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_dni_scan_idea.md": 1,
+    "apps/frontend/src/components/ui/MoneyInput.tsx": 3,
+    "apps/frontend/src/components/ui/FormField.tsx": 2,
+    "apps/frontend/src/components/turnera/TurnoModal.tsx": 3,
+    "apps/frontend/src/components/turnera/EditItemsModal.tsx": 3,
+    "apps/frontend/src/components/guarderia/CategoriesModal.tsx": 2,
+    "apps/frontend/src/components/guarderia/GuardarModal.tsx": 2,
+    "apps/frontend/src/components/guarderia/EditUnitModal.tsx": 2,
+    "apps/frontend/src/components/guarderia/ChargeModal.tsx": 3,
+    "apps/frontend/src/components/guarderia/ServicesModal.tsx": 6,
+    "apps/frontend/src/main.tsx": 1,
+    "apps/backend/drizzle/0042_service_billing_scope.sql": 1,
+    "apps/backend/src/db/storage.schema.ts": 1,
     "apps/backend/src/guarderia/guarderia.dto.ts": 1,
     "apps/backend/src/guarderia/guarderia.service.ts": 2,
-    "apps/backend/src/guarderia/guarderia.controller.ts": 2,
-    "apps/frontend/src/hooks/useGuarderia.ts": 3,
-    "apps/frontend/src/types/guarderia.types.ts": 1,
-    "apps/frontend/src/components/guarderia/SpotPanel.tsx": 3,
-    "apps/frontend/src/components/guarderia/EditUnitModal.tsx": 1,
-    "apps/frontend/src/pages/GuarderiaPage.tsx": 5,
-    "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md": 2,
-    "apps/backend/src/db/turnera.schema.ts": 1,
-    "apps/backend/drizzle/0041_turnera_whatsapp.sql": 1,
-    "apps/backend/src/turnera/turnera.dto.ts": 1,
-    "apps/backend/src/turnera/turnera.service.ts": 3,
-    "apps/backend/src/turnera/turnera.controller.ts": 4,
-    "apps/frontend/src/hooks/useTurnera.ts": 2,
-    "apps/frontend/src/lib/turneraConfig.ts": 1,
-    "apps/frontend/src/components/turnera/TurneraConfigModal.tsx": 2,
-    "apps/frontend/src/pages/TurnosPublicPage.tsx": 2,
-    "apps/frontend/src/components/turnera/EditItemsModal.tsx": 1,
-    "apps/frontend/src/components/turnera/DaySchedule.tsx": 3,
-    "apps/frontend/src/pages/TurneraPage.tsx": 5,
-    "apps/frontend/src/lib/printDayList.ts": 1
+    "apps/backend/src/guarderia/guarderia.controller.ts": 1,
+    "apps/backend/src/turnera/turnera.service.ts": 2,
+    "apps/frontend/src/types/guarderia.types.ts": 2,
+    "apps/frontend/src/hooks/useTurnera.ts": 1,
+    "apps/frontend/src/pages/GuarderiaPage.tsx": 3,
+    "apps/frontend/src/lib/helpContent.ts": 4,
+    "../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_marina_handoff.md": 1
   },
-  "anatomy_hits": 20,
+  "anatomy_hits": 14,
   "anatomy_misses": 1,
-  "repeated_reads_warned": 3,
+  "repeated_reads_warned": 2,
   "cerebrum_warnings": 0,
-  "stop_count": 8
+  "stop_count": 23
 }

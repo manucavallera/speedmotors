@@ -11,6 +11,9 @@
 ## Key Learnings
 
 - **Project:** speedmotors
+- **Marina — alcance de servicios:** `storage_services.for_unit` y `for_slot` son reglas de integridad, no solo filtros de UI. Validarlas en todo endpoint que asocia/cobra servicios; cobro mensual usa únicamente `active && forUnit`, turnera únicamente `active && forSlot`.
+- **Caja por área:** desde Marina puede existir una caja abierta de `speedmotors` y otra de `marina` al mismo tiempo. El índice correcto es único parcial por `cash_sessions.area`; el índice global de 0017 debe eliminarse mediante 0043.
+- **Altas compuestas:** crear una embarcación y asociar sus servicios fijos es una única operación transaccional (`fixedServiceIds` dentro de `POST /guarderia/units`), nunca dos requests consecutivos.
 - **Schema modular:** DB schema dividido por dominio en `apps/backend/src/db/`. Para cambios de DB, cargar solo `[entidad].schema.ts` + `enums.ts`. Prohibido leer `schema.ts` completo (es barrel puro). Archivos: enums, users, clients, catalog (categories+suppliers+products), vehicles, sales (sales+saleItems+installments), quotes, cash, stock, orders, expenses, relations.
 - **Barcode lookup:** búsqueda por `x.barcode` Y `x.code` (case-insensitive + trim) — los productos ya vienen con código impreso del fabricante que coincide con el campo `code`. El campo `barcode` es extra para casos donde difieren.
 - **Producción DB:** EasyPanel → terminal del servicio PostgreSQL → `psql -U postgres` → `\c "speedmotors-db"` (nombre con guión, requiere comillas).
@@ -19,6 +22,8 @@
 
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
+
+[2026-08-03] En flujos de Marina no confiar en filtros del frontend para reglas de negocio. Servicios por ámbito, estado activo de la lancha, ocupación de cuna, solapamiento de turnos e idempotencia de cobros deben quedar garantizados en backend/DB.
 
 [2026-05-22] BrowserMultiFormatReader.decodeFromVideoDevice dispara el callback múltiples veces por segundo mientras detecta el código. Siempre usar un ref `firedRef` para que onScan solo se ejecute una vez por sesión de escaneo.
 

@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-20T23:31:29.042Z
-> Files: 436 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T16:15:56.955Z
+> Files: 439 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -18,11 +18,12 @@
 - `project_caja_separada.md` — Declares CashArea (~586 tok)
 - `project_credits_cuotas.md` — Cuotas simples + ventas con crédito (cuenta corriente / financiado) (~626 tok)
 - `project_cuotas_fix_pendiente.md` (~557 tok)
+- `project_dni_scan_idea.md` (~308 tok)
 - `project_guarderia_ampliacion.md` — Decisiones de diseño Guardería (2026-06-18) (~4449 tok)
 - `project_guarderia_rate_cascade.md` — Declares enum (~612 tok)
 - `project_infra.md` (~119 tok)
 - `project_limpieza_deuda_tecnica.md` — Declares para (~281 tok)
-- `project_marina_handoff.md` — Hecho y probado (backend vía curl, todo con DB local docker) (~1876 tok)
+- `project_marina_handoff.md` — RETOMAR ACÁ (corte 2026-07-22) (~2642 tok)
 - `project_pendientes_2026_06_01.md` (~368 tok)
 - `project_pendientes_ux.md` (~213 tok)
 - `project_prod_estado.md` (~323 tok)
@@ -193,6 +194,9 @@
 - `0039_rental_slot_public.sql` — Reserva pública desde la página del cliente: no hay operador logueado, así que user_id puede ser nul (~46 tok)
 - `0040_category_launch_rate.sql` — Tarifa de "salida al agua" por categoría de embarcación (aparte de la cuna mensual). (~72 tok)
 - `0041_turnera_whatsapp.sql` — Teléfono de la marina para que el cliente avise por WhatsApp al reservar un turno (~43 tok)
+- `0042_service_billing_scope.sql` — Dónde se puede cobrar cada servicio del catálogo. (~139 tok)
+- `0043_cash_open_per_area.sql` — Reemplaza la caja abierta global por una caja abierta independiente por área. (~64 tok)
+- `0044_marina_integrity.sql` — Impide que dos embarcaciones activas ocupen la misma cuna. (~46 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -269,7 +273,7 @@
 - `sales.schema.ts` — Exports sales, saleItems, installments (~1038 tok)
 - `schema.ts` — Schema modularizado por dominio. Para cambios de DB, editar el archivo especifico de la entidad. (~236 tok)
 - `stock.schema.ts` — Exports stockMovements (~284 tok)
-- `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~1376 tok)
+- `storage.schema.ts` — Lugares físicos de la guardería (predefinidos, ej: A1..E6) (~1462 tok)
 - `transfers.schema.ts` — Exports transfers (~430 tok)
 - `turnera.schema.ts` — Config de la grilla (fila única). El dueño define cada cuántos minutos es un turno y el horario del (~738 tok)
 - `types.ts` — Exports User, NewUser, Client, NewClient + 19 more (~608 tok)
@@ -290,10 +294,10 @@
 
 ## apps/backend/src/guarderia/
 
-- `guarderia.controller.ts` — Exports GuarderiaController (~1023 tok)
-- `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, UpdateUnitDto, CategoryDto + 6 more (~975 tok)
+- `guarderia.controller.ts` — Exports GuarderiaController (~1055 tok)
+- `guarderia.dto.ts` — Exports CreateSpotsDto, CreateUnitDto, UpdateUnitDto, CategoryDto + 6 more (~1029 tok)
 - `guarderia.module.ts` — Exports GuarderiaModule (~97 tok)
-- `guarderia.service.ts` — Exports GuarderiaService (~6954 tok)
+- `guarderia.service.ts` — Exports GuarderiaService (~7151 tok)
 
 ## apps/backend/src/notifications/
 
@@ -378,7 +382,7 @@
 - `turnera.controller.ts` — Exports TurneraController (~518 tok)
 - `turnera.dto.ts` — Reserva desde la página pública del cliente (identificado por teléfono, sin login) (~689 tok)
 - `turnera.module.ts` — Exports TurneraModule (~120 tok)
-- `turnera.service.ts` — Exports TurneraService (~4319 tok)
+- `turnera.service.ts` — Exports TurneraService (~4372 tok)
 
 ## apps/backend/src/upload/
 
@@ -424,7 +428,7 @@
 - `App.css` (~11 tok)
 - `App.tsx` — DashboardPage (~1839 tok)
 - `index.css` — Styles: 14 rules (~1013 tok)
-- `main.tsx` — Auto-reload on chunk load failure (stale SW after deploy) (~106 tok)
+- `main.tsx` — Auto-reload on chunk load failure (stale SW after deploy) (~201 tok)
 
 ## apps/frontend/src/components/
 
@@ -467,19 +471,19 @@
 
 ## apps/frontend/src/components/guarderia/
 
-- `CategoriesModal.tsx` — EMPTY — renders modal (~1686 tok)
-- `ChargeModal.tsx` — fmt — renders form, modal (~1554 tok)
+- `CategoriesModal.tsx` — EMPTY — renders form, modal (~1774 tok)
+- `ChargeModal.tsx` — fmt — renders form, modal (~1570 tok)
 - `ClientFileModal.tsx` — fmt — renders modal (~1918 tok)
 - `DeudoresPanel.tsx` — fmt (~913 tok)
 - `DifusionModal.tsx` — DifusionModal — renders modal (~1074 tok)
-- `EditUnitModal.tsx` — EditUnitModal — renders form, modal (~1067 tok)
+- `EditUnitModal.tsx` — EditUnitModal — renders form, modal (~1084 tok)
 - `EditUnitModal.tsx` — editar lancha ya cargada (categoría, desc, HP, eslora, tarifa, notas); PUT /guarderia/units/:id (~900 tok)
-- `GuardarModal.tsx` — GuardarModal — renders form, modal (~2460 tok)
+- `GuardarModal.tsx` — GuardarModal — renders form, modal (~2476 tok)
 - `GuarderiaClientsModal.tsx` — GuarderiaClientsModal — renders modal (~1108 tok)
 - `LooseUnits.tsx` — fmt (~710 tok)
 - `MonthChargeModal.tsx` — fmt — renders form, modal (~1354 tok)
 - `MoveModal.tsx` — MoveModal — renders form, modal (~600 tok)
-- `ServicesModal.tsx` — fmt — renders modal (~930 tok)
+- `ServicesModal.tsx` — fmt — renders modal (~1450 tok)
 - `SetupModal.tsx` — SetupModal — renders form, modal (~765 tok)
 - `SpotPanel.tsx` — fmt (~1944 tok)
 - `StorageMap.tsx` — spotColors (~1328 tok)
@@ -556,20 +560,21 @@
 - `BoatsModal.tsx` — fmt — renders modal (~868 tok)
 - `CalendarPicker.tsx` — DOW (~1068 tok)
 - `DaySchedule.tsx` — fmt (~1257 tok)
-- `EditItemsModal.tsx` — EditItemsModal — renders form, modal (~1315 tok)
+- `EditItemsModal.tsx` — EditItemsModal — renders form, modal (~1299 tok)
 - `RampTimeline.tsx` — toMin (~1081 tok)
 - `RescheduleModal.tsx` — toMin (~898 tok)
 - `SlotGrid.tsx` — occupant (~1018 tok)
 - `TurneraConfigModal.tsx` — PRESETS — renders form, modal (~992 tok)
-- `TurnoModal.tsx` — TurnoModal — renders form, modal (~1804 tok)
+- `TurnoModal.tsx` — TurnoModal — renders form, modal (~1799 tok)
 
 ## apps/frontend/src/components/ui/
 
 - `ErrorBoundary.tsx` — Exports ErrorBoundary (~368 tok)
-- `FormField.tsx` — FormField (~290 tok)
+- `FormField.tsx` — Aclaración bajo el campo: qué representa el valor, de dónde sale (~341 tok)
 - `HelpModal.tsx` — HelpModal — renders modal (~422 tok)
 - `InfoBanner.tsx` — InfoBanner (~166 tok)
 - `Modal.tsx` — Modal (~468 tok)
+- `MoneyInput.tsx` — Va al wrapper, no al input (el input siempre ocupa el 100% del wrapper) (~404 tok)
 - `Pagination.tsx` — Pagination (~305 tok)
 - `PhotoCarouselField.tsx` — PhotoCarouselField (~1413 tok)
 - `QRModal.tsx` — QRBlock — renders chart, modal — uses useState, useEffect (~1168 tok)
@@ -602,14 +607,14 @@
 - `useReservations.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~611 tok)
 - `useSales.ts` — API routes: GET, POST, DELETE, PATCH (9 endpoints) (~1167 tok)
 - `useTransfers.ts` — API routes: GET, POST, PUT, DELETE (4 endpoints) (~703 tok)
-- `useTurnera.ts` — API routes: GET, PUT, POST, PATCH, DELETE (12 endpoints) (~1196 tok)
+- `useTurnera.ts` — API routes: GET, PUT, POST, PATCH, DELETE (12 endpoints) (~1232 tok)
 - `useUsers.ts` — API routes: GET, POST, PUT, PATCH, DELETE (5 endpoints) (~474 tok)
 
 ## apps/frontend/src/lib/
 
 - `api.ts` — Exports api, apiError (~188 tok)
 - `export.ts` — Exports exportSalesCsv, exportSalesPdf, exportProductsCsv, exportProductsPdf (~1300 tok)
-- `helpContent.ts` — Guías de uso por sección (texto para el usuario final) (~1903 tok)
+- `helpContent.ts` — Guías de uso por sección (texto para el usuario final) (~3444 tok)
 - `pdf.ts` (~53 tok)
 - `printDayList.ts` — Imprime la lista de botaduras del día, ordenada por hora, para el que baja las lanchas. (~706 tok)
 - `toast.ts` — Exports toast (~124 tok)
@@ -639,7 +644,7 @@
 - `CreditsPage.tsx` — CreditsPage (~1426 tok)
 - `DashboardPage.tsx` — KPICard (~4020 tok)
 - `ExpensesPage.tsx` — ExpensesPage (~1074 tok)
-- `GuarderiaPage.tsx` — Stat (~3540 tok)
+- `GuarderiaPage.tsx` — Stat (~3607 tok)
 - `InstallmentsPage.tsx` — InstallmentsPage (~2120 tok)
 - `LoginPage.tsx` — LoginPage — renders form (~1829 tok)
 - `ProductsPage.tsx` — ProductsPage (~3385 tok)
@@ -662,7 +667,7 @@
 
 - `api.types.ts` — Exports PaginatedResponse, Client, Product, Sale + 3 more (~690 tok)
 - `clients.types.ts` — Exports ClientForm, emptyClientForm, condicionIvaOptions, condicionIvaLabel + 2 more (~374 tok)
-- `guarderia.types.ts` — Exports StorageSpot, MapUnit, StorageCategory, CategoryForm + 15 more (~1243 tok)
+- `guarderia.types.ts` — Exports StorageSpot, MapUnit, StorageCategory, CategoryForm + 15 more (~1291 tok)
 - `products.types.ts` — Exports ProductForm, emptyProductForm (~165 tok)
 - `proveeduria.types.ts` — Exports ProvProduct, CartItem, ProvSale, ProvTopItem + 2 more (~196 tok)
 - `reservations.types.ts` — Exports CreateReservationDto (~120 tok)
