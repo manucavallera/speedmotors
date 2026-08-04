@@ -16,13 +16,14 @@ export function TurneraConfigModal({ config, onClose, onSave }: Props) {
   const [intervalMin, setIntervalMin] = useState(String(config.intervalMin))
   const [dayStart, setDayStart] = useState(config.dayStart)
   const [dayEnd, setDayEnd] = useState(config.dayEnd)
+  const [whatsapp, setWhatsapp] = useState(config.whatsapp ?? '')
 
   function save() {
     const iv = Number(intervalMin)
     if (!iv || iv <= 0) { toast.error('El intervalo debe ser mayor a 0'); return }
     if (!/^\d{2}:\d{2}$/.test(dayStart) || !/^\d{2}:\d{2}$/.test(dayEnd)) { toast.error('Cargá desde y hasta'); return }
     if (toMin(dayEnd) <= toMin(dayStart)) { toast.error('"Hasta" debe ser posterior a "Desde"'); return }
-    onSave({ intervalMin: iv, dayStart, dayEnd })
+    onSave({ intervalMin: iv, dayStart, dayEnd, whatsapp: whatsapp.trim() || null })
   }
 
   return (
@@ -49,6 +50,13 @@ export function TurneraConfigModal({ config, onClose, onSave }: Props) {
           <div style={{ flex: 1 }}><FormField label="Desde"><input style={inputStyle} type="time" value={dayStart} onChange={e => setDayStart(e.target.value)} /></FormField></div>
           <div style={{ flex: 1 }}><FormField label="Hasta"><input style={inputStyle} type="time" value={dayEnd} onChange={e => setDayEnd(e.target.value)} /></FormField></div>
         </div>
+
+        <FormField label="WhatsApp de la marina">
+          <input style={inputStyle} type="tel" placeholder="Ej: +54 9 343 411-2233" value={whatsapp} onChange={e => setWhatsapp(e.target.value)} />
+          <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '5px' }}>
+            Cuando el cliente reserva un turno, le aparece un botón para avisarte por WhatsApp a este número.
+          </div>
+        </FormField>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <button style={btnSecondary} onClick={onClose}>Cancelar</button>

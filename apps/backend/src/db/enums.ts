@@ -12,6 +12,8 @@ export const installmentStatusEnum = pgEnum('installment_status', ['pendiente', 
 export const quoteStatusEnum = pgEnum('quote_status', ['borrador', 'enviado', 'aceptado', 'rechazado', 'vencido'])
 export const cashSessionStatusEnum = pgEnum('cash_session_status', ['abierta', 'cerrada'])
 export const cashMovementTypeEnum = pgEnum('cash_movement_type', ['retiro', 'deposito'])
+// Caja separada: la de SpeedMotors (ventas de motos/lanchas) y la de la marina (guardería/turnera/proveeduría)
+export const cashAreaEnum = pgEnum('cash_area', ['speedmotors', 'marina'])
 export const stockMovementTypeEnum = pgEnum('stock_movement_type', ['entrada', 'salida', 'ajuste'])
 export const purchaseOrderStatusEnum = pgEnum('purchase_order_status', ['borrador', 'enviada', 'recibida', 'cancelada'])
 export const expenseCategoryEnum = pgEnum('expense_category', ['alquiler', 'servicios', 'compras', 'sueldos', 'impuestos', 'otros'])

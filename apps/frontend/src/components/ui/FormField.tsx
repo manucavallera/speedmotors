@@ -1,13 +1,16 @@
 interface Props {
   label: string
+  /** Aclaración bajo el campo: qué representa el valor, de dónde sale */
+  hint?: string
   children: React.ReactNode
 }
 
-export function FormField({ label, children }: Props) {
+export function FormField({ label, hint, children }: Props) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
       <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>{label}</label>
       {children}
+      {hint && <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>{hint}</div>}
     </div>
   )
 }

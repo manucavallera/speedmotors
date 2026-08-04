@@ -1,12 +1,18 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
+import { Controller, Get, Post, Put, Patch, Delete, Param, Body, Query, UseGuards, Request } from '@nestjs/common'
 import { TurneraService } from './turnera.service'
-import { CreateSlotDto } from './turnera.dto'
+import { CreateSlotDto, RescheduleSlotDto, TurneraConfigDto, UpdateSlotItemsDto } from './turnera.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 
 @UseGuards(JwtAuthGuard)
 @Controller('turnera')
 export class TurneraController {
   constructor(private readonly svc: TurneraService) {}
+
+  @Get('config')
+  getConfig() { return this.svc.getConfig() }
+
+  @Put('config')
+  setConfig(@Body() dto: TurneraConfigDto) { return this.svc.setConfig(dto) }
 
   @Get('slots')
   listSlots(@Query('date') date: string) { return this.svc.listSlots(date) }
@@ -20,6 +26,17 @@ export class TurneraController {
   @Patch('slots/:id/status')
   setStatus(@Param('id') id: string, @Body() body: { status: 'reservado' | 'cancelado' | 'completado' }) {
     return this.svc.setStatus(Number(id), body.status)
+  }
+
+  // PUT (no PATCH) para no colisionar con el reschedule PATCH /slots/:id
+  @Put('slots/:id/items')
+  updateItems(@Param('id') id: string, @Body() dto: UpdateSlotItemsDto) {
+    return this.svc.updateSlotItems(Number(id), dto.items)
+  }
+
+  @Patch('slots/:id')
+  reschedule(@Param('id') id: string, @Body() dto: RescheduleSlotDto) {
+    return this.svc.rescheduleSlot(Number(id), dto.date, dto.startTime, dto.endTime)
   }
 
   @Post('slots/:id/charge')

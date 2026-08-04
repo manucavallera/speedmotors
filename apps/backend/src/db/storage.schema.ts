@@ -1,4 +1,4 @@
-// @contract: Guardería náutica. storageSpots = lugares fijos (A1, B2...). storageUnits = embarcación guardada → client + spot. storageCharges = cobros generados → storageUnit + user. Tarifa flexible (mensual/diaria, la decide el usuario al cobrar).
+// @contract: Guardería náutica. storageSpots = cunas fijas, 48 por línea (A1..A48, B1..B48, C, D; C y D inactivas hasta que se haga el piso). storageUnits = embarcación guardada → client + spot + category. storageCategories = escalas por HP/eslora que definen la tarifa mensual. storageCharges = cobros generados → storageUnit + user.
 import { pgTable, serial, integer, varchar, numeric, text, timestamp, boolean } from 'drizzle-orm/pg-core'
 import { storageUnitStatusEnum } from './enums'
 import { clients } from './clients.schema'
@@ -13,12 +13,31 @@ export const storageSpots = pgTable('storage_spots', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
+// Categorías de embarcación: la escala (HP y/o eslora) define la tarifa mensual de cuna
+export const storageCategories = pgTable('storage_categories', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 60 }).notNull(),
+  minHp: integer('min_hp'),
+  maxHp: integer('max_hp'),
+  minLength: numeric('min_length', { precision: 5, scale: 2 }),
+  maxLength: numeric('max_length', { precision: 5, scale: 2 }),
+  monthlyRate: numeric('monthly_rate', { precision: 12, scale: 2 }).notNull().default('0'),
+  // Tarifa de salida al agua (turnera): precio base del turno según la categoría
+  launchRate: numeric('launch_rate', { precision: 12, scale: 2 }).notNull().default('0'),
+  active: boolean('active').notNull().default(true),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
 // Embarcación/vehículo guardado por un cliente en un lugar
 export const storageUnits = pgTable('storage_units', {
   id: serial('id').primaryKey(),
   clientId: integer('client_id').references(() => clients.id).notNull(),
   spotId: integer('spot_id').references(() => storageSpots.id),
+  categoryId: integer('category_id').references(() => storageCategories.id),
   description: varchar('description', { length: 150 }).notNull(),
+  hp: integer('hp'),
+  lengthM: numeric('length_m', { precision: 5, scale: 2 }),
+  // Precio efectivo de la cuna: arranca en el de la categoría, editable por excepción
   rate: numeric('rate', { precision: 12, scale: 2 }).notNull().default('0'),
   entryDate: timestamp('entry_date').notNull().defaultNow(),
   exitDate: timestamp('exit_date'),
@@ -33,6 +52,18 @@ export const storageServices = pgTable('storage_services', {
   name: varchar('name', { length: 100 }).notNull(),
   price: numeric('price', { precision: 12, scale: 2 }).notNull().default('0'),
   active: boolean('active').notNull().default(true),
+  // Dónde se puede cobrar: adherido a la lancha (va con la cuna del mes) y/o al reservar un turno.
+  // Independientes: un seguro anual puede ser solo forUnit; la batería, solo forSlot.
+  forUnit: boolean('for_unit').notNull().default(true),
+  forSlot: boolean('for_slot').notNull().default(true),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+// Servicios fijos de una lancha: se cobran todos los meses junto con la cuna (ej: seguros)
+export const storageUnitServices = pgTable('storage_unit_services', {
+  id: serial('id').primaryKey(),
+  unitId: integer('unit_id').references(() => storageUnits.id, { onDelete: 'cascade' }).notNull(),
+  serviceId: integer('service_id').references(() => storageServices.id).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 

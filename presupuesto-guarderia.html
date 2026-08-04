@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { padding: 48px 56px; }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid #0b3d66;
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .brand h1 { font-size: 26px; color: #0b3d66; letter-spacing: -0.5px; }
+  .brand .sub { font-size: 12px; color: #6b7280; margin-top: 2px; }
+  .doc-tag {
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+  }
+  .doc-tag .big { font-size: 15px; color: #0b3d66; font-weight: 700; }
+
+  .intro {
+    background: #f0f6fb;
+    border-left: 4px solid #0b3d66;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 26px;
+  }
+  .intro strong { color: #0b3d66; }
+
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #0b3d66;
+    margin-bottom: 14px;
+  }
+
+  /* Modules */
+  .module {
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .module .info { flex: 1; }
+  .module .num {
+    display: inline-block;
+    background: #0b3d66;
+    color: #fff;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .module .title { font-size: 15px; font-weight: 700; color: #1a1a1a; vertical-align: middle; }
+  .module .desc { font-size: 12.5px; color: #4b5563; margin-top: 8px; }
+  .module .price {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0b3d66;
+    white-space: nowrap;
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0b3d66;
+    color: #fff;
+    padding: 16px 22px;
+    border-radius: 8px;
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+  .total .label { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .total .amount { font-size: 24px; font-weight: 800; }
+
+  .notes { font-size: 12px; color: #4b5563; }
+  .notes li { margin-bottom: 6px; list-style: none; padding-left: 18px; position: relative; }
+  .notes li:before { content: "✓"; position: absolute; left: 0; color: #0b3d66; font-weight: 700; }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #e3e8ee;
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand">
+      <h1>SpeedMotors</h1>
+      <div class="sub">Sistema de gestión · Crespo, Entre Ríos</div>
+    </div>
+    <div class="doc-tag">
+      <div class="big">PRESUPUESTO</div>
+      <div>Ampliación del sistema</div>
+      <div>23/06/2026</div>
+    </div>
+  </div>
+
+  <div class="intro">
+    Esta ampliación <strong>no son módulos sueltos</strong>: es un sistema a medida más complejo,
+    integrado por completo al que ya estás usando. Comparten la misma base de clientes, la misma caja
+    y un solo login &mdash; no hay que cargar nada dos veces ni manejar dos programas distintos.
+  </div>
+
+  <h2>Detalle de módulos</h2>
+
+  <div class="module">
+    <div class="info">
+      <span class="num">1</span><span class="title">Guardería náutica</span>
+      <div class="desc">Control de lanchas y motos guardadas, organizado <strong>por lugares</strong> (A, B, C&hellip;).
+      De un vistazo ves qué lugar está libre u ocupado, quién está al día y quién debe. Alta de cliente y
+      embarcación, tarifa configurable y cobro integrado a la cuenta corriente.</div>
+    </div>
+    <div class="price">USD 300</div>
+  </div>
+
+  <div class="module">
+    <div class="info">
+      <span class="num">2</span><span class="title">Turnera de alquiler</span>
+      <div class="desc">Calendario de turnos para alquilar lanchas. Reserva por cliente, control de qué
+      lancha está alquilada y cuándo vuelve, y cobro directo a la caja.</div>
+    </div>
+    <div class="price">USD 300</div>
+  </div>
+
+  <div class="module">
+    <div class="info">
+      <span class="num">3</span><span class="title">Proveeduría</span>
+      <div class="desc">Punto de venta rápido para comida, bebida y artículos, con control de stock y cobro
+      directo a la caja. Aprovecha gran parte del sistema de productos ya existente.</div>
+    </div>
+    <div class="price">USD 100</div>
+  </div>
+
+  <div class="total">
+    <div class="label">Total de la ampliación</div>
+    <div class="amount">USD 650</div>
+  </div>
+
+  <h2>Condiciones</h2>
+  <ul class="notes">
+    <li>Todo integrado al sistema actual: un solo login, una sola caja, una sola base de clientes.</li>
+    <li>Se puede contratar por módulo separado si se prefiere arrancar con uno.</li>
+    <li>Más adelante se puede llevar a una <strong>app móvil</strong> sin rehacer el sistema.</li>
+    <li>No incluye hardware (lectores de código, impresoras, etc.).</li>
+  </ul>
+
+  <div class="footer">
+    SpeedMotors &mdash; Presupuesto sin compromiso · Válido a la fecha de emisión
+  </div>
+
+</div>
+</body>
+</html>

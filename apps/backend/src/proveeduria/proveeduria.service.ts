@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
-import { products, stockMovements, proveeduriaSales, proveeduriaSaleItems, cashSessions, cashMovements } from '../db/schema'
+import { products, stockMovements, proveeduriaSales, proveeduriaSaleItems } from '../db/schema'
 import { eq, and, ilike, or, desc, sql } from 'drizzle-orm'
 import { ProveeduriaProductDto, CheckoutDto } from './proveeduria.dto'
+import { depositOrQueueMarina } from '../cash/cash-pending'
 
 @Injectable()
 export class ProveeduriaService {
@@ -86,18 +87,30 @@ export class ProveeduriaService {
       const itemRows: { productId: number; name: string; quantity: number; price: string }[] = []
 
       for (const it of dto.items) {
-        const [p] = await tx.select().from(products).where(and(eq(products.id, it.productId), eq(products.area, 'proveeduria')))
+        const [p] = await tx.select().from(products).where(and(
+          eq(products.id, it.productId),
+          eq(products.area, 'proveeduria'),
+          eq(products.active, true),
+        ))
         if (!p) throw new NotFoundException(`Producto ${it.productId} no encontrado`)
-        if (p.stock < it.quantity) throw new BadRequestException(`Sin stock suficiente de ${p.name} (quedan ${p.stock})`)
 
         const price = Number(p.sellPrice)
         total += price * it.quantity
-        const newStock = p.stock - it.quantity
+        const [updated] = await tx.update(products)
+          .set({ stock: sql`${products.stock} - ${it.quantity}`, updatedAt: new Date() })
+          .where(and(
+            eq(products.id, p.id),
+            eq(products.area, 'proveeduria'),
+            eq(products.active, true),
+            sql`${products.stock} >= ${it.quantity}`,
+          ))
+          .returning({ newStock: products.stock })
+        if (!updated) throw new BadRequestException(`Sin stock suficiente de ${p.name} (quedan ${p.stock})`)
+        const newStock = updated.newStock
 
-        await tx.update(products).set({ stock: newStock, updatedAt: new Date() }).where(eq(products.id, p.id))
         await tx.insert(stockMovements).values({
           productId: p.id, userId, type: 'salida', quantity: it.quantity,
-          previousStock: p.stock, newStock, reason: 'Proveeduría venta',
+          previousStock: newStock + it.quantity, newStock, reason: 'Proveeduría venta',
         })
         itemRows.push({ productId: p.id, name: p.name, quantity: it.quantity, price: price.toString() })
       }
@@ -105,14 +118,7 @@ export class ProveeduriaService {
       const [sale] = await tx.insert(proveeduriaSales).values({ userId, total: total.toString() }).returning()
       await tx.insert(proveeduriaSaleItems).values(itemRows.map(r => ({ ...r, saleId: sale.id })))
 
-      // Plata a la caja abierta (si hay)
-      const [session] = await tx.select().from(cashSessions).where(eq(cashSessions.status, 'abierta')).limit(1)
-      if (session) {
-        await tx.insert(cashMovements).values({
-          sessionId: session.id, userId, type: 'deposito',
-          amount: total.toString(), reason: `Proveeduría venta #${sale.id}`,
-        })
-      }
+      await depositOrQueueMarina(tx, total, userId, `Proveeduría venta #${sale.id}`)
 
       return { ...sale, items: itemRows }
     })

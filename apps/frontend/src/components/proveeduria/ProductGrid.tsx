@@ -3,15 +3,22 @@ import { type ProvProduct } from '../../types/proveeduria.types'
 interface Props {
   products: ProvProduct[]
   onAdd: (p: ProvProduct) => void
+  onManage?: () => void
 }
 
 const fmt = (n: number) => '$' + n.toLocaleString('es-AR')
 
-export function ProductGrid({ products, onAdd }: Props) {
+export function ProductGrid({ products, onAdd, onManage }: Props) {
   if (!products.length) {
     return (
-      <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>
-        No hay productos. Tocá "Productos" para cargar comida, bebidas, etc.
+      <div style={{ padding: '40px 24px', textAlign: 'center', border: '1.5px dashed #bfdbfe', background: '#f8fbff', borderRadius: '12px' }}>
+        <div style={{ color: '#334155', fontSize: '15px', fontWeight: 700, marginBottom: '6px' }}>Todavía no hay productos</div>
+        <div style={{ color: '#64748b', fontSize: '13px', marginBottom: '16px' }}>Cargá el primer producto para empezar a vender en la proveeduría.</div>
+        {onManage && (
+          <button onClick={onManage} style={{ padding: '9px 15px', border: 'none', borderRadius: '9px', background: '#2563eb', color: 'white', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+            Cargar primer producto
+          </button>
+        )}
       </div>
     )
   }
