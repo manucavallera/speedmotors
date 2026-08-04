@@ -682,6 +682,8 @@
 
 ## docs/
 
+- `ENTREGA-2026-08-04.md` — Cierre de la entrega integrada: funcionalidades, migraciones, pruebas, producción y pendientes operativos. (~500 tok)
+
 - `INDEX.md` — Mapa de navegacion -- SpeedMotors (~860 tok)
 - `QUICK_REFERENCE.md` — Quick Reference -- SpeedMotors (~488 tok)
 
