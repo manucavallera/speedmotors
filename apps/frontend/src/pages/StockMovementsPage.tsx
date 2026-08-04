@@ -8,10 +8,13 @@ import { StockMovementsTable } from '../components/stock-movements/StockMovement
 import { StockMovementFormModal, type StockMovementFormData } from '../components/stock-movements/StockMovementFormModal'
 import { ProductFormModal } from '../components/products/ProductFormModal'
 import { Pagination } from '../components/ui/Pagination'
+import { useAuth } from '../hooks/useAuth'
 
 export function StockMovementsPage() {
+  const { isAdmin } = useAuth()
   const qc = useQueryClient()
   const [modal, setModal] = useState(false)
+  const [editing, setEditing] = useState<any | null>(null)
   const [page, setPage] = useState(1)
   const [newProductBarcode, setNewProductBarcode] = useState<string | null>(null)
 
@@ -42,6 +45,28 @@ export function StockMovementsPage() {
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
+  const update = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: StockMovementFormData }) => api.put(`/stock-movements/${id}`, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['stock-movements'] })
+      qc.invalidateQueries({ queryKey: ['products'] })
+      setEditing(null)
+      setModal(false)
+      toast.success('Movimiento actualizado')
+    },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'No se pudo editar el movimiento'),
+  })
+
+  const remove = useMutation({
+    mutationFn: (id: number) => api.delete(`/stock-movements/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['stock-movements'] })
+      qc.invalidateQueries({ queryKey: ['products'] })
+      toast.success('Movimiento eliminado')
+    },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'No se pudo eliminar el movimiento'),
+  })
+
   return (
     <div>
       <div className="page-header">
@@ -49,7 +74,7 @@ export function StockMovementsPage() {
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Movimientos de stock</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} movimientos registrados</p>
         </div>
-        <button onClick={() => setModal(true)} style={btnPrimary}>+ Registrar movimiento</button>
+        <button onClick={() => { setEditing(null); setModal(true) }} style={btnPrimary}>+ Registrar movimiento</button>
       </div>
 
       <InfoBanner title="¿Para qué sirve esta sección?">
@@ -61,16 +86,25 @@ export function StockMovementsPage() {
         </div>
       </InfoBanner>
 
-      <StockMovementsTable movements={movements} products={products} isLoading={isLoading} />
+      <StockMovementsTable
+        movements={movements}
+        products={products}
+        isLoading={isLoading}
+        onEdit={isAdmin ? (movement) => { setEditing(movement); setModal(true) } : undefined}
+        onDelete={isAdmin ? (movement) => {
+          if (window.confirm('¿Eliminar este movimiento? El stock se recalculará automáticamente.')) remove.mutate(movement.id)
+        } : undefined}
+      />
       <Pagination page={page} pages={pages} total={total} onPage={setPage} />
 
       {modal && (
         <StockMovementFormModal
           products={products}
           onClose={() => setModal(false)}
-          onSubmit={(data) => create.mutate(data)}
-          isPending={create.isPending}
+          onSubmit={(data) => editing ? update.mutate({ id: editing.id, data }) : create.mutate(data)}
+          isPending={create.isPending || update.isPending}
           onCreateProduct={setNewProductBarcode}
+          editing={editing}
         />
       )}
       {newProductBarcode !== null && (

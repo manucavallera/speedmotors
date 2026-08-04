@@ -8250,6 +8250,78 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-06-30T14:30:00.000Z"
+    },
+    {
+      "id": "bug-515",
+      "timestamp": "2026-08-04T00:00:00.000Z",
+      "error_message": "TS4053: Return type of VehiclesController.parseRemito uses ParsedRemitoItem but cannot be named",
+      "file": "apps/backend/src/vehicles/vehicles.service.ts",
+      "root_cause": "ParsedRemitoItem formaba parte del tipo público del service pero la interface no estaba exportada.",
+      "fix": "Se exportó ParsedRemitoItem para que Nest pueda emitir las declaraciones del controller.",
+      "tags": ["typescript", "build", "vehicles", "remito"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T00:00:00.000Z"
+    },
+    {
+      "id": "bug-516",
+      "timestamp": "2026-08-04T16:02:54.655Z",
+      "error_message": "Docker build: ERR_SSL_CIPHER_OPERATION_FAILED al ejecutar npm install --omit=dev",
+      "file": "apps/backend/Dockerfile",
+      "root_cause": "La descarga de drizzle-orm desde registry.npmjs.org falló dentro de Docker por un error SSL transitorio.",
+      "fix": "Para el smoke local se levanta solo el servicio db y se ejecuta el backend ya compilado, evitando una reconstrucción innecesaria de imágenes.",
+      "tags": ["docker", "npm", "ssl", "infra", "smoke-test"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:02:54.655Z"
+    },
+    {
+      "id": "bug-517",
+      "timestamp": "2026-08-04T16:17:55.000Z",
+      "error_message": "Smoke test esperaba HTTP 200 en POST /auth/login pero Nest devuelve 201",
+      "file": "/tmp/speedmotors-smoke.mjs",
+      "root_cause": "La expectativa del script no respetaba el status por defecto de un endpoint POST de NestJS.",
+      "fix": "Se cambió la expectativa del login a HTTP 201.",
+      "tags": ["smoke-test", "auth", "http-status"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:17:55.000Z"
+    },
+    {
+      "id": "bug-518",
+      "timestamp": "2026-08-04T16:20:00.000Z",
+      "error_message": "Editar una entrada de stock de 5 a 8 dejó stock 23 en vez de 15",
+      "file": "apps/backend/src/stock-movements/stock-movements.service.ts",
+      "root_cause": "La consulta de movimientos posteriores comparaba created_at con un Date de JavaScript. PostgreSQL conserva microsegundos y JS los trunca, por lo que el propio movimiento editado volvía a entrar en el recálculo.",
+      "fix": "Los movimientos posteriores ahora se seleccionan y ordenan por el id serial, evitando pérdida de precisión temporal y doble aplicación.",
+      "tags": ["stock", "recalculation", "timestamp", "postgresql", "precision"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:20:00.000Z"
+    },
+    {
+      "id": "bug-519",
+      "timestamp": "2026-08-04T16:32:00.000Z",
+      "error_message": "Nest build falló con ENOTEMPTY al limpiar apps/backend/dist/src/products",
+      "file": "apps/backend/dist",
+      "root_cause": "Se iniciaron por error dos builds del backend en paralelo y ambos intentaron limpiar el mismo directorio dist.",
+      "fix": "Se dejó terminar el build original y se verificaron backend y frontend en una única ejecución serial, que finalizó correctamente.",
+      "tags": ["build", "concurrency", "infra", "nestjs"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T16:32:00.000Z"
+    },
+    {
+      "id": "bug-520",
+      "timestamp": "2026-08-04T17:13:00.000Z",
+      "error_message": "Smoke local: POST /auth/login devolvió 500 por password authentication failed",
+      "file": ".env",
+      "root_cause": "El contenedor speedmotors-db fue creado con una contraseña anterior que no coincide con el DB_PASSWORD del .env actual.",
+      "fix": "El backend temporal de smoke tomó la credencial directamente del entorno del contenedor, sin mostrarla ni modificar la base. El smoke posterior pasó 13/13.",
+      "tags": ["smoke-test", "postgresql", "docker", "local-env"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-04T17:13:00.000Z"
     }
   ]
 }

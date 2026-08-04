@@ -64,10 +64,14 @@ export interface Vehicle {
   type: 'moto' | 'lancha'
   brand: string
   model: string | null
+  displacement: number | null
+  version: string | null
   year: number | null
   color: string | null
   chassisNumber: string | null
   engineNumber: string | null
+  internalCode: string | null
+  importCode: string | null
   status: 'disponible' | 'reservado' | 'vendido'
   sellPrice: string | null
   costPrice: string | null

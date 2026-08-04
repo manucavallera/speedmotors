@@ -6,14 +6,14 @@ import { PhotoCarouselField } from '../ui/PhotoCarouselField'
 import { api } from '../../lib/api'
 
 const emptyForm = {
-  type: 'moto', brand: '', model: '', year: '', color: '',
-  chassisNumber: '', engineNumber: '', importCode: '', ingresoTipo: '',
+  type: 'moto', brand: '', model: '', displacement: '', version: '', year: '', color: '',
+  chassisNumber: '', engineNumber: '', internalCode: '', importCode: '', ingresoTipo: '',
   costPrice: '', sellPrice: '', status: 'disponible', notes: '', photos: [] as string[],
 }
 
 export interface VehicleFormData {
-  type: string; brand: string; model: string; year: number | null; color: string
-  chassisNumber: string; engineNumber: string; importCode: string; ingresoTipo: string
+  type: string; brand: string; model: string; displacement: number | null; version: string; year: number | null; color: string
+  chassisNumber: string; engineNumber: string; internalCode: string; importCode: string; ingresoTipo: string
   costPrice: string; sellPrice: string; status: string; notes: string; photos: string[]
 }
 
@@ -27,9 +27,10 @@ interface VehicleFormModalProps {
 
 function toForm(v: any) {
   return {
-    type: v.type, brand: v.brand, model: v.model, year: String(v.year || ''),
+    type: v.type, brand: v.brand, model: v.model, displacement: String(v.displacement || ''),
+    version: v.version || '', year: String(v.year || ''),
     color: v.color || '', chassisNumber: v.chassisNumber || '',
-    engineNumber: v.engineNumber || '', importCode: v.importCode || '',
+    engineNumber: v.engineNumber || '', internalCode: v.internalCode || '', importCode: v.importCode || '',
     ingresoTipo: v.ingresoTipo || '', costPrice: v.costPrice, sellPrice: v.sellPrice,
     status: v.status, notes: v.notes || '',
     photos: v.photos || [],
@@ -74,8 +75,11 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
     e.preventDefault()
     onSubmit({
       ...form,
+      displacement: form.displacement ? Number(form.displacement) : null,
       year: form.year ? Number(form.year) : null,
       ingresoTipo: form.ingresoTipo || undefined,
+      costPrice: form.costPrice || '0',
+      sellPrice: form.sellPrice || '0',
     })
   }
 
@@ -118,6 +122,11 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
         </div>
 
         <div className="form-grid-2">
+          <FormField label="Cilindrada (cc)"><input style={inputStyle} type="number" min="0" value={form.displacement} onChange={f('displacement')} /></FormField>
+          <FormField label="Versión"><input style={inputStyle} value={form.version} onChange={f('version')} placeholder="Ej: R2 V01" /></FormField>
+        </div>
+
+        <div className="form-grid-2">
           <FormField label="Año"><input style={inputStyle} type="number" value={form.year} onChange={f('year')} /></FormField>
           <FormField label="Color"><input style={inputStyle} value={form.color} onChange={f('color')} /></FormField>
         </div>
@@ -131,9 +140,15 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
         </FormField>
 
         <div className="form-grid-2">
-          <FormField label="Código de importación">
-            <input style={inputStyle} value={form.importCode} onChange={f('importCode')} placeholder="Ej: IMP-2024-00123" />
+          <FormField label="Código interno">
+            <input style={inputStyle} value={form.internalCode} onChange={f('internalCode')} placeholder="Código asignado por ustedes" />
           </FormField>
+          <FormField label="Artículo del proveedor">
+            <input style={inputStyle} value={form.importCode} onChange={f('importCode')} placeholder="Código que figura en el remito" />
+          </FormField>
+        </div>
+
+        <div className="form-grid-2">
           <FormField label="Ingreso">
             <select style={inputStyle} value={form.ingresoTipo} onChange={f('ingresoTipo')}>
               <option value="">Sin especificar</option>
@@ -141,11 +156,12 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
               <option value="negro">🤝 En negro (sin factura)</option>
             </select>
           </FormField>
+          <div />
         </div>
 
         <div className="form-grid-2">
-          <FormField label="Precio costo ($)"><input style={inputStyle} type="number" value={form.costPrice} onChange={f('costPrice')} required /></FormField>
-          <FormField label="Precio venta ($)"><input style={inputStyle} type="number" value={form.sellPrice} onChange={f('sellPrice')} required /></FormField>
+          <FormField label="Precio costo ($) — opcional"><input style={inputStyle} type="number" value={form.costPrice} onChange={f('costPrice')} placeholder="Se puede completar después" /></FormField>
+          <FormField label="Precio venta ($) — opcional"><input style={inputStyle} type="number" value={form.sellPrice} onChange={f('sellPrice')} placeholder="Se puede completar después" /></FormField>
         </div>
 
         <FormField label="Fotos del vehículo">

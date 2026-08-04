@@ -3200,3 +3200,4 @@
 | 16:29 | Edited ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/project_guarderia_ampliacion.md | expanded (+7 lines) | ~465 |
 | 16:29 | Session end: 62 writes across 28 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 22 reads | ~41133 tok |
 | 20:09 | Session end: 62 writes across 28 files (turnera.service.ts, turnera.controller.ts, turnera.types.ts, useTurnera.ts, CalendarPicker.tsx) | 22 reads | ~41133 tok |
+| 16:34 | Stock: edición/borrado admin con recálculo histórico; motos: remito clasificado/manual, código interno y QR separado sin alterar QR de chasis; migración 0045 | backend + frontend | builds OK; smoke API 13/13 |

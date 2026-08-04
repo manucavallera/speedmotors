@@ -74,6 +74,20 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
       return [...prev, { description: p.name, quantity: 1, unitPrice: Number(p.sellPrice), productId: p.id, ingresoTipo: p.ingresoTipo || '' }]
     })
   }
+  function addItemFromVehicle(v: any) {
+    setItems(prev => {
+      if (prev.some(item => item.vehicleId === v.id)) return prev
+      const vehicleItem: SaleItem = {
+        description: `${v.brand} ${v.model}${v.displacement ? ` ${v.displacement}cc` : ''}${v.version ? ` ${v.version}` : ''}`,
+        quantity: 1,
+        unitPrice: Number(v.sellPrice),
+        vehicleId: v.id,
+        ingresoTipo: v.ingresoTipo || '',
+      }
+      const emptyIndex = prev.findIndex(item => !item.productId && !item.vehicleId && !item.description.trim())
+      return emptyIndex >= 0 ? prev.map((item, index) => index === emptyIndex ? vehicleItem : item) : [...prev, vehicleItem]
+    })
+  }
   function addItem() { setItems(prev => [...prev, { description: '', quantity: 1, unitPrice: 0 }]) }
   function removeItem(i: number) { setItems(prev => prev.filter((_, idx) => idx !== i)) }
   function updateItem(i: number, key: string, val: any) {
@@ -197,6 +211,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
           isMixto={invoiceType === 'mixto'}
           onAdd={addItem} onRemove={removeItem} onUpdate={updateItem}
           onBarcodeFound={addItemFromProduct}
+          onVehicleFound={addItemFromVehicle}
           onCreateProduct={setNewProductBarcode}
         />
 

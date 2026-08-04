@@ -27,6 +27,11 @@ export class VehiclesController {
     return this.vehiclesService.findByChassis(chassisNumber)
   }
 
+  @Get('internal-code/:internalCode')
+  findByInternalCode(@Param('internalCode') internalCode: string) {
+    return this.vehiclesService.findByInternalCode(internalCode)
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.vehiclesService.findOne(id)

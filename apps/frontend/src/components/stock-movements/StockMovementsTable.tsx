@@ -8,9 +8,11 @@ interface StockMovementsTableProps {
   movements: any[]
   products: any[]
   isLoading: boolean
+  onEdit?: (movement: any) => void
+  onDelete?: (movement: any) => void
 }
 
-export function StockMovementsTable({ movements, products, isLoading }: StockMovementsTableProps) {
+export function StockMovementsTable({ movements, products, isLoading, onEdit, onDelete }: StockMovementsTableProps) {
   const thStyle = { padding: '11px 16px', textAlign: 'left' as const, fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: '0.05em' }
 
   return (
@@ -21,7 +23,7 @@ export function StockMovementsTable({ movements, products, isLoading }: StockMov
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #f1f5f9', background: '#f8fafc' }}>
-              {['Fecha', 'Producto', 'Tipo', 'Cant.', 'Stock anterior', 'Stock nuevo', 'Motivo'].map(h => (
+              {['Fecha', 'Producto', 'Tipo', 'Cant.', 'Stock anterior', 'Stock nuevo', 'Motivo', 'Acciones'].map(h => (
                 <th key={h} style={thStyle}>{h}</th>
               ))}
             </tr>
@@ -45,6 +47,16 @@ export function StockMovementsTable({ movements, products, isLoading }: StockMov
                   <td style={{ padding: '11px 16px', fontSize: '13px', color: '#64748b' }}>{m.previousStock}</td>
                   <td style={{ padding: '11px 16px', fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>{m.newStock}</td>
                   <td style={{ padding: '11px 16px', fontSize: '13px', color: '#64748b' }}>{m.reason || '—'}</td>
+                  <td style={{ padding: '11px 16px', whiteSpace: 'nowrap' }}>
+                    {m.saleId ? (
+                      <span style={{ fontSize: '11px', color: '#94a3b8' }}>Desde venta</span>
+                    ) : (
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        {onEdit && <button onClick={() => onEdit(m)} style={{ padding: '5px 9px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#fff', color: '#334155', cursor: 'pointer', fontSize: '11px', fontWeight: 600 }}>Editar</button>}
+                        {onDelete && <button onClick={() => onDelete(m)} style={{ padding: '5px 9px', borderRadius: '6px', border: 'none', background: '#fef2f2', color: '#dc2626', cursor: 'pointer', fontSize: '11px', fontWeight: 600 }}>Eliminar</button>}
+                      </div>
+                    )}
+                  </td>
                 </tr>
               )
             })}

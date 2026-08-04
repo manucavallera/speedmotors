@@ -6,6 +6,7 @@ import { btnPrimary, btnSecondary } from './FormField'
 interface Props {
   title: string
   value: string
+  valueLabel?: string
   subtitle?: string
   secondValue?: string
   secondLabel?: string
@@ -41,7 +42,7 @@ function QRBlock({ label, value, color = '#0f172a' }: { label: string; value: st
   )
 }
 
-export function QRModal({ title, value, subtitle, secondValue, secondLabel, onClose }: Props) {
+export function QRModal({ title, value, valueLabel = 'N° de chasis', subtitle, secondValue, secondLabel, onClose }: Props) {
   const [allDataUrls, setAllDataUrls] = useState<string[]>([])
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export function QRModal({ title, value, subtitle, secondValue, secondLabel, onCl
   function printAll() {
     const win = window.open('', '_blank')!
     const blocks = [
-      { label: 'N° de chasis', val: value, url: allDataUrls[0] },
+      { label: valueLabel, val: value, url: allDataUrls[0] },
       ...(secondValue && allDataUrls[1] ? [{ label: secondLabel || 'Código importación', val: secondValue, url: allDataUrls[1] }] : []),
     ]
     win.document.write(`
@@ -86,7 +87,7 @@ export function QRModal({ title, value, subtitle, secondValue, secondLabel, onCl
           <div style={{ fontSize: '13px', color: '#64748b' }}>{subtitle}</div>
         )}
         <div style={{ display: 'flex', gap: '20px', width: '100%', justifyContent: 'center' }}>
-          <QRBlock label="N° de chasis" value={value} color="#0f172a" />
+          <QRBlock label={valueLabel} value={value} color="#0f172a" />
           {secondValue && <QRBlock label={secondLabel || 'Cód. importación'} value={secondValue} color="#7c3aed" />}
         </div>
         <button onClick={printAll} style={{ ...btnPrimary, width: '100%', textAlign: 'center' }}>Imprimir</button>

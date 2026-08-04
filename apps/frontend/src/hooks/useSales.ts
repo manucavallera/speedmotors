@@ -52,7 +52,7 @@ export function useSales() {
 
   const { data: vehiclesData } = useQuery<PaginatedResponse<Vehicle>>({
     queryKey: ['vehicles', 'disponible'],
-    queryFn: () => api.get('/vehicles', { params: { status: 'disponible' } }).then(r => r.data),
+    queryFn: () => api.get('/vehicles', { params: { status: 'disponible', limit: 200 } }).then(r => r.data),
   })
   const vehicles = vehiclesData?.items ?? []
 

@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary, btnSecondary, inputStyle } from '../components/ui/FormField'
+import { btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
 import { VehicleFormModal, type VehicleFormData } from '../components/vehicles/VehicleFormModal'
 import { RemitoImportModal } from '../components/vehicles/RemitoImportModal'
 import { Pagination } from '../components/ui/Pagination'
 import { useAuth } from '../hooks/useAuth'
+import { QRScannerField } from '../components/ui/QRScannerField'
 
 export function VehiclesPage() {
   const { isAdmin } = useAuth()
@@ -83,12 +84,15 @@ export function VehiclesPage() {
       </InfoBanner>
 
       <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '12px 16px', marginBottom: '16px' }}>
-        <input
-          value={search}
-          onChange={e => { setSearch(e.target.value); setPage(1) }}
-          placeholder="Buscar por marca, modelo, chasis, motor..."
-          style={{ ...inputStyle, width: '100%', maxWidth: '420px' }}
-        />
+        <div style={{ width: '100%', maxWidth: '520px' }}>
+          <QRScannerField
+            value={search}
+            onChange={value => { setSearch(value); setPage(1) }}
+            onScan={value => { setSearch(value); setPage(1) }}
+            placeholder="Buscar o escanear código interno, marca, modelo, chasis, motor..."
+            label="Buscar vehículo"
+          />
+        </div>
       </div>
 
       <VehiclesGrid

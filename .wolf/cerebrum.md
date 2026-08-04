@@ -7,6 +7,7 @@
 ## User Preferences
 
 - **Frontend modularización:** Fragmentar archivos >3,000 tok. Utilitarios (pdf, helpers) en subcarpetas con barrel `index.ts`. Pages actúan solo como orquestadores — extraer modales y forms a componentes propios. Componentes compartidos (TableShell, PageHeader) en `components/shared/`.
+- **QR de vehículos:** No reemplazar ni cambiar los QR existentes de chasis/importación. El código interno de la moto debe tener un QR adicional y separado.
 
 ## Key Learnings
 
@@ -19,6 +20,10 @@
 
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
+
+[2026-08-04] Al agregar el QR por código interno de una moto, conservar intactos los QR existentes; sumar uno separado en vez de reutilizar o reemplazar su valor.
+
+[2026-08-04] Para encadenar movimientos de stock posteriores no comparar `timestamp` de PostgreSQL contra `Date` de JavaScript: PG conserva microsegundos y JS los trunca, pudiendo incluir nuevamente el registro actual. Usar el `id` serial como orden estable.
 
 [2026-05-22] BrowserMultiFormatReader.decodeFromVideoDevice dispara el callback múltiples veces por segundo mientras detecta el código. Siempre usar un ref `firedRef` para que onScan solo se ejecute una vez por sesión de escaneo.
 

@@ -1,5 +1,6 @@
 // @contract: Tabla vehicles. type: moto|lancha, status: disponible|reservado|vendido. Referenciada por saleItems y quoteItems via vehicleId.
-import { pgTable, serial, varchar, integer, numeric, text, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, serial, varchar, integer, numeric, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core'
+import { sql } from 'drizzle-orm'
 import { vehicleTypeEnum, vehicleStatusEnum } from './enums'
 
 export const vehicles = pgTable('vehicles', {
@@ -7,10 +8,13 @@ export const vehicles = pgTable('vehicles', {
   type: vehicleTypeEnum('type').notNull(),
   brand: varchar('brand', { length: 100 }).notNull(),
   model: varchar('model', { length: 100 }).notNull(),
+  displacement: integer('displacement'),
+  version: varchar('version', { length: 100 }),
   year: integer('year'),
   color: varchar('color', { length: 50 }),
   chassisNumber: varchar('chassis_number', { length: 100 }).unique(),
   engineNumber: varchar('engine_number', { length: 100 }),
+  internalCode: varchar('internal_code', { length: 100 }),
   importCode: varchar('import_code', { length: 100 }),
   remitoNumber: varchar('remito_number', { length: 100 }),
   ingresoTipo: varchar('ingreso_tipo', { length: 10 }),
@@ -21,4 +25,6 @@ export const vehicles = pgTable('vehicles', {
   notes: text('notes'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
-})
+}, (table) => [
+  uniqueIndex('vehicles_internal_code_unique').on(table.internalCode).where(sql`${table.internalCode} is not null`),
+])

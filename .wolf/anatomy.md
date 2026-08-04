@@ -166,6 +166,7 @@
 - `0031_proveeduria_module.sql` — Proveeduría: área de producto + ventas POS propias (~276 tok)
 - `0032_turnera_module.sql` — Turnera: alquiler de lanchas por franjas horarias (~322 tok)
 - `0033_guarderia_servicios_botaduras.sql` — Rework guardería/turnera tras feedback del cliente (2026-06-25) (~452 tok)
+- `0045_vehicle_classification_internal_code.sql` — Clasificación de motos y código interno único para QR (~65 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -327,6 +328,7 @@
 
 ## apps/backend/src/stock-movements/
 
+- `stock-movement.dto.ts` — Validación para editar movimientos manuales de stock (~90 tok)
 - `stock-movements.controller.ts` — Exports StockMovementsController (~348 tok)
 - `stock-movements.module.ts` — Exports StockMovementsModule (~97 tok)
 - `stock-movements.service.ts` — Exports StockMovementsService (~702 tok)

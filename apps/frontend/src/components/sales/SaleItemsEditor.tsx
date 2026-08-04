@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { inputStyle, btnSecondary } from '../ui/FormField'
 import { SearchableSelect } from '../ui/SearchableSelect'
 import { QRScannerField } from '../ui/QRScannerField'
+import { api } from '../../lib/api'
 import type { SaleItem } from '../../types/sales.types'
 export type { SaleItem }
 
@@ -14,31 +15,54 @@ interface SaleItemsEditorProps {
   onRemove: (i: number) => void
   onUpdate: (i: number, key: string, val: any) => void
   onBarcodeFound?: (product: any) => void
+  onVehicleFound?: (vehicle: any) => void
   onCreateProduct?: (barcode: string) => void
 }
 
-export function SaleItemsEditor({ items, products, vehicles, isMixto = false, onAdd, onRemove, onUpdate, onBarcodeFound, onCreateProduct }: SaleItemsEditorProps) {
+export function SaleItemsEditor({ items, products, vehicles, isMixto = false, onAdd, onRemove, onUpdate, onBarcodeFound, onVehicleFound, onCreateProduct }: SaleItemsEditorProps) {
   const [barcode, setBarcode] = useState('')
   const [barcodeStatus, setBarcodeStatus] = useState<'idle' | 'notfound'>('idle')
 
-  function searchBarcode(code: string) {
+  async function searchBarcode(code: string) {
     const c = code.trim()
     if (!c) return
     const cl = c.toLowerCase()
+    const vehicle = vehicles.find((x: any) => x.internalCode?.toLowerCase().trim() === cl)
+    if (vehicle) {
+      onVehicleFound?.(vehicle)
+      setBarcode('')
+      setBarcodeStatus('idle')
+      return
+    }
     const p = products.find((x: any) => x.barcode?.toLowerCase().trim() === cl || x.code?.toLowerCase().trim() === cl)
     if (p) {
       onBarcodeFound?.(p)
       setBarcode('')
       setBarcodeStatus('idle')
-    } else {
-      setBarcodeStatus('notfound')
+      return
     }
+
+    // La lista del formulario está paginada. Si la moto no quedó entre las
+    // primeras cargadas, el QR interno igual debe resolverla por su código único.
+    try {
+      const { data: remoteVehicle } = await api.get(`/vehicles/internal-code/${encodeURIComponent(c)}`)
+      if (remoteVehicle?.status === 'disponible') {
+        onVehicleFound?.(remoteVehicle)
+        setBarcode('')
+        setBarcodeStatus('idle')
+        return
+      }
+    } catch {
+      // Un 404 simplemente significa que tampoco era un código interno.
+    }
+
+    setBarcodeStatus('notfound')
   }
 
   return (
     <div>
       <div style={{ marginBottom: '12px', padding: '10px 12px', background: '#f0f9ff', borderRadius: '10px', border: '1px solid #bae6fd' }}>
-        <div style={{ fontSize: '12px', fontWeight: 600, color: '#0369a1', marginBottom: '6px' }}>Buscar por código de barras</div>
+        <div style={{ fontSize: '12px', fontWeight: 600, color: '#0369a1', marginBottom: '6px' }}>Escanear QR interno o código de barras</div>
         <div style={{ display: 'flex', gap: '6px' }}>
           <div style={{ flex: 1 }}>
             <QRScannerField
@@ -47,7 +71,7 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
               onScan={searchBarcode}
               onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); searchBarcode(e.currentTarget.value) } }}
               placeholder="Escanear o escribir código..."
-              label="Código de barras"
+              label="QR interno o código de barras"
             />
           </div>
           <button type="button" onClick={() => searchBarcode(barcode)}
@@ -57,7 +81,7 @@ export function SaleItemsEditor({ items, products, vehicles, isMixto = false, on
         </div>
         {barcodeStatus === 'notfound' && (
           <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#dc2626' }}>
-            Código "{barcode}" no encontrado.
+            Código "{barcode}" no encontrado entre las motos o productos disponibles.
             {onCreateProduct && (
               <button type="button" onClick={() => onCreateProduct(barcode)}
                 style={{ padding: '3px 10px', borderRadius: '6px', border: 'none', background: '#dc2626', color: '#fff', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}>

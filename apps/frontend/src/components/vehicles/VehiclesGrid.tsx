@@ -73,6 +73,7 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
   const [priceSort, setPriceSort] = useState<'asc' | 'desc' | ''>('')
   const [ingresoFilter, setIngresoFilter] = useState<'blanco' | 'negro' | ''>('')
   const [qrVehicle, setQrVehicle] = useState<any>(null)
+  const [internalQrVehicle, setInternalQrVehicle] = useState<any>(null)
 
   const filtered = vehicles
     .filter(v => !typeFilter || v.type === typeFilter)
@@ -184,7 +185,9 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                     <span style={{ fontSize: '22px' }}>{v.type === 'moto' ? '🏍️' : '⛵'}</span>
                     <div>
                       <div style={{ fontWeight: 700, fontSize: '15px', color: '#0f172a' }}>{v.brand} {v.model}</div>
-                      <div style={{ fontSize: '12px', color: '#94a3b8' }}>{v.year || '—'} · {v.color || '—'}</div>
+                      <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                        {v.displacement ? `${v.displacement} cc` : '—'}{v.version ? ` · ${v.version}` : ''} · {v.color || '—'}
+                      </div>
                     </div>
                   </div>
                   <span style={{ padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: st.bg, color: st.color }}>{st.label}</span>
@@ -192,6 +195,16 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                 {v.chassisNumber && (
                   <div style={{ fontSize: '12px', color: '#64748b', background: '#f8fafc', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace' }}>
                     Chasis: {v.chassisNumber}
+                  </div>
+                )}
+                {v.engineNumber && (
+                  <div style={{ fontSize: '12px', color: '#64748b', background: '#f8fafc', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace' }}>
+                    Motor: {v.engineNumber}
+                  </div>
+                )}
+                {v.internalCode && (
+                  <div style={{ fontSize: '12px', color: '#0369a1', background: '#f0f9ff', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace', fontWeight: 600 }}>
+                    Código interno: {v.internalCode}
                   </div>
                 )}
                 {v.importCode && (
@@ -216,8 +229,9 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                     <div style={{ fontSize: '13px', color: '#64748b' }}>${Number(v.costPrice).toLocaleString('es-AR')}</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   <button onClick={() => setQrVehicle(v)} style={{ flex: 1, padding: '7px', fontSize: '12px', fontWeight: 600, background: '#f0fdf4', color: '#16a34a', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>QR</button>
+                  {v.internalCode && <button onClick={() => setInternalQrVehicle(v)} style={{ flex: 1, minWidth: '86px', padding: '7px', fontSize: '12px', fontWeight: 600, background: '#f0f9ff', color: '#0369a1', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>QR interno</button>}
                   <button onClick={() => onEdit(v)} style={{ ...btnSecondary, flex: 1, padding: '7px', fontSize: '12px', textAlign: 'center' }}>Editar</button>
                   {onDelete && <button onClick={() => { if (confirm('¿Eliminar?')) onDelete(v.id) }}
                     style={{ flex: 1, padding: '7px', fontSize: '12px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
@@ -241,6 +255,16 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
           secondValue={qrVehicle.importCode || undefined}
           secondLabel="Cód. importación"
           onClose={() => setQrVehicle(null)}
+        />
+      )}
+
+      {internalQrVehicle && (
+        <QRModal
+          title={`${internalQrVehicle.brand} ${internalQrVehicle.model}`}
+          value={internalQrVehicle.internalCode}
+          valueLabel="Código interno"
+          subtitle={`${internalQrVehicle.displacement ? `${internalQrVehicle.displacement} cc · ` : ''}${internalQrVehicle.color || ''}`}
+          onClose={() => setInternalQrVehicle(null)}
         />
       )}
     </div>

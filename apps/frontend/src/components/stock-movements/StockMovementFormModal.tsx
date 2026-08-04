@@ -17,10 +17,16 @@ interface StockMovementFormModalProps {
   onSubmit: (data: StockMovementFormData) => void
   isPending: boolean
   onCreateProduct?: (barcode: string) => void
+  editing?: { productId: number; type: string; quantity: number; reason?: string | null } | null
 }
 
-export function StockMovementFormModal({ products, onClose, onSubmit, isPending, onCreateProduct }: StockMovementFormModalProps) {
-  const [form, setForm] = useState({ productId: '', type: 'entrada', quantity: '', reason: '' })
+export function StockMovementFormModal({ products, onClose, onSubmit, isPending, onCreateProduct, editing = null }: StockMovementFormModalProps) {
+  const [form, setForm] = useState({
+    productId: editing ? String(editing.productId) : '',
+    type: editing?.type ?? 'entrada',
+    quantity: editing ? String(editing.quantity) : '',
+    reason: editing?.reason ?? '',
+  })
   const f = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setForm(prev => ({ ...prev, [key]: e.target.value }))
   const [barcode, setBarcode] = useState('')
@@ -41,10 +47,10 @@ export function StockMovementFormModal({ products, onClose, onSubmit, isPending,
   }
 
   return (
-    <Modal title="Registrar movimiento de stock" onClose={onClose}>
+    <Modal title={editing ? 'Editar movimiento de stock' : 'Registrar movimiento de stock'} onClose={onClose}>
       <form onSubmit={e => { e.preventDefault(); onSubmit({ ...form, productId: Number(form.productId), quantity: Number(form.quantity) }) }}
         style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-        <FormField label="Código de barras">
+        {!editing && <FormField label="Código de barras">
           <div style={{ display: 'flex', gap: '6px' }}>
             <div style={{ flex: 1 }}>
               <QRScannerField
@@ -72,15 +78,17 @@ export function StockMovementFormModal({ products, onClose, onSubmit, isPending,
               )}
             </div>
           )}
-        </FormField>
+        </FormField>}
         <FormField label="Producto">
-          <SearchableSelect
-            value={form.productId}
-            onChange={val => setForm(prev => ({ ...prev, productId: val }))}
-            options={products.map((p: any) => ({ value: String(p.id), label: `${p.name} (stock: ${p.stock})` }))}
-            placeholder="Buscar producto..."
-            emptyLabel="Seleccioná un producto"
-          />
+          {editing
+            ? <input style={{ ...inputStyle, background: '#f8fafc' }} value={products.find((p: any) => p.id === editing.productId)?.name || `Producto #${editing.productId}`} disabled />
+            : <SearchableSelect
+                value={form.productId}
+                onChange={val => setForm(prev => ({ ...prev, productId: val }))}
+                options={products.map((p: any) => ({ value: String(p.id), label: `${p.name} (stock: ${p.stock})` }))}
+                placeholder="Buscar producto..."
+                emptyLabel="Seleccioná un producto"
+              />}
         </FormField>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
           <FormField label="Tipo">
@@ -99,7 +107,7 @@ export function StockMovementFormModal({ products, onClose, onSubmit, isPending,
         </FormField>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
           <button type="button" onClick={onClose} style={btnSecondary}>Cancelar</button>
-          <button type="submit" style={btnPrimary} disabled={isPending}>{isPending ? 'Guardando...' : 'Registrar'}</button>
+          <button type="submit" style={btnPrimary} disabled={isPending}>{isPending ? 'Guardando...' : editing ? 'Guardar cambios' : 'Registrar'}</button>
         </div>
       </form>
     </Modal>
