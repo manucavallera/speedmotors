@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
-import { storageSpots, storageUnits, storageCharges, storageChargeItems, storageServices, storageCategories, storageUnitServices, rentalSlots, clients, cashSessions, cashMovements } from '../db/schema'
+import { storageSpots, storageUnits, storageCharges, storageChargeItems, storageServices, storageCategories, storageUnitServices, rentalSlots, clients } from '../db/schema'
 import { eq, and, desc, asc, sql, isNull, inArray } from 'drizzle-orm'
 import { CreateSpotsDto, CreateUnitDto, UpdateUnitDto, ChargeDto, ServiceDto, CategoryDto } from './guarderia.dto'
+import { depositOrQueueMarina } from '../cash/cash-pending'
 
 @Injectable()
 export class GuarderiaService {
@@ -658,16 +659,8 @@ export class GuarderiaService {
     return `Guardería — ${clientName ?? 'sin cliente'}${periodLabel ? ` · ${periodLabel}` : ''}`
   }
 
-  // Inserta un depósito en la caja abierta (si hay). Si no hay caja abierta, el cobro igual queda registrado.
+  // Inserta el depósito en la caja abierta o lo deja visible para la próxima apertura.
   private async depositToCaja(tx: any, amount: number, userId: number, reason: string) {
-    const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
-    if (!session) return
-    await tx.insert(cashMovements).values({
-      sessionId: session.id,
-      userId,
-      type: 'deposito',
-      amount: amount.toString(),
-      reason,
-    })
+    await depositOrQueueMarina(tx, amount, userId, reason)
   }
 }

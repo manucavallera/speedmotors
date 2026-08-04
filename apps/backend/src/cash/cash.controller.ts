@@ -14,6 +14,7 @@ export class CashController {
   @Get() findAll(@Query('area') area?: string) { return this.cashService.findAll(area ? toArea(area) : undefined) }
   @Get('session') getSession(@Query('area') area?: string) { return this.cashService.getOpenSession(toArea(area)) }
   @Get('summary') getSummary(@Query('area') area?: string) { return this.cashService.getSessionSummary(toArea(area)) }
+  @Get('pending') getPending(@Query('area') area?: string) { return this.cashService.getPending(toArea(area)) }
 
   @Get(':sessionId/movements')
   getMovements(@Param('sessionId', ParseIntPipe) sessionId: number) {

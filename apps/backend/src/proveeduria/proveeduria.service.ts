@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
-import { products, stockMovements, proveeduriaSales, proveeduriaSaleItems, cashSessions, cashMovements } from '../db/schema'
+import { products, stockMovements, proveeduriaSales, proveeduriaSaleItems } from '../db/schema'
 import { eq, and, ilike, or, desc, sql } from 'drizzle-orm'
 import { ProveeduriaProductDto, CheckoutDto } from './proveeduria.dto'
+import { depositOrQueueMarina } from '../cash/cash-pending'
 
 @Injectable()
 export class ProveeduriaService {
@@ -117,14 +118,7 @@ export class ProveeduriaService {
       const [sale] = await tx.insert(proveeduriaSales).values({ userId, total: total.toString() }).returning()
       await tx.insert(proveeduriaSaleItems).values(itemRows.map(r => ({ ...r, saleId: sale.id })))
 
-      // Plata a la caja abierta (si hay)
-      const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
-      if (session) {
-        await tx.insert(cashMovements).values({
-          sessionId: session.id, userId, type: 'deposito',
-          amount: total.toString(), reason: `Proveeduría venta #${sale.id}`,
-        })
-      }
+      await depositOrQueueMarina(tx, total, userId, `Proveeduría venta #${sale.id}`)
 
       return { ...sale, items: itemRows }
     })

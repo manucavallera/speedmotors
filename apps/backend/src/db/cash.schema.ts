@@ -27,3 +27,13 @@ export const cashMovements = pgTable('cash_movements', {
   reason: varchar('reason', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
+
+export const pendingCashMovements = pgTable('pending_cash_movements', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id).notNull(),
+  area: cashAreaEnum('area').notNull(),
+  type: cashMovementTypeEnum('type').notNull(),
+  amount: numeric('amount', { precision: 12, scale: 2 }).notNull(),
+  reason: varchar('reason', { length: 255 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})

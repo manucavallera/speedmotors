@@ -7,6 +7,7 @@ import { btnSecondary } from '../components/ui/FormField'
 import { CashStatusPanel } from '../components/cash/CashStatusPanel'
 import { CashSessionsTable } from '../components/cash/CashSessionsTable'
 import { CashMovementModal, type CashMovementData } from '../components/cash/CashMovementModal'
+import { PendingCashPanel } from '../components/cash/PendingCashPanel'
 
 export function CashPage() {
   const qc = useQueryClient()
@@ -26,9 +27,22 @@ export function CashPage() {
     queryFn: () => api.get('/cash', { params: { area } }).then(r => r.data),
   })
 
+  const { data: pending } = useQuery({
+    queryKey: ['cash-pending', area],
+    queryFn: () => api.get('/cash/pending', { params: { area } }).then(r => r.data),
+    enabled: area === 'marina',
+    refetchInterval: 30000,
+  })
+
   const open = useMutation({
     mutationFn: (openingBalance: number) => api.post('/cash/open', { openingBalance, area }),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['cash-summary'] }); qc.invalidateQueries({ queryKey: ['cash-sessions'] }) },
+    onSuccess: (response) => {
+      qc.invalidateQueries({ queryKey: ['cash-summary'] })
+      qc.invalidateQueries({ queryKey: ['cash-sessions'] })
+      qc.invalidateQueries({ queryKey: ['cash-pending'] })
+      const attached = response.data?.attachedPendingCount ?? 0
+      if (attached > 0) toast.success(`${attached} cobro${attached === 1 ? '' : 's'} pendiente${attached === 1 ? '' : 's'} incorporado${attached === 1 ? '' : 's'} a la caja`)
+    },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
@@ -75,11 +89,13 @@ export function CashPage() {
 
       <InfoBanner title={area === 'marina' ? 'Caja de la marina' : 'Caja de SpeedMotors'}>
         {area === 'marina' ? (
-          <>Caja aparte de SpeedMotors. Acá entra la plata de <strong>guardería</strong>, <strong>turnera</strong> y <strong>proveeduría</strong>. <strong>Abrís caja</strong> con un saldo inicial y <strong>cerrás</strong> declarando lo contado; el sistema suma los cobros del día y calcula cuánto debería haber. Las ventas de motos/lanchas y los gastos no cuentan acá: van a la caja de SpeedMotors.</>
+          <>Caja aparte de SpeedMotors. Acá entra la plata de <strong>guardería</strong>, <strong>turnera</strong> y <strong>proveeduría</strong>. Si cobran con la caja cerrada, queda visible como <strong>cobro pendiente</strong> y se incorpora automáticamente en la próxima apertura. Las ventas de motos/lanchas y los gastos no cuentan acá: van a la caja de SpeedMotors.</>
         ) : (
           <>Llevá el control del efectivo del día. <strong>Abrís caja</strong> al empezar con un saldo inicial, y <strong>cerrás caja</strong> al final del día declarando lo que contaste. El sistema calcula cuánto debería haber: las ventas al <strong>contado</strong> suman el total, las ventas <strong>financiadas</strong> suman solo la seña cobrada, las ventas en <strong>cuenta corriente</strong> no suman nada (el efectivo entra cuando el cliente paga). Los gastos descuentan del saldo esperado. Si hay diferencia entre lo declarado y lo calculado, queda registrada.</>
         )}
       </InfoBanner>
+
+      {area === 'marina' && <PendingCashPanel data={pending} />}
 
       <CashStatusPanel
         summary={summary}

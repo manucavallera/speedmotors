@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException, ForbiddenException } from '@nestjs/common'
 import { db } from '../db'
-import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, storageCategories, clients, cashSessions, cashMovements } from '../db/schema'
+import { rentalSlots, rentalSlotItems, turneraConfig, storageUnits, storageServices, storageSpots, storageCategories, clients } from '../db/schema'
 import { eq, and, gte, asc, sql, inArray, isNull } from 'drizzle-orm'
 import { CreateSlotDto, TurneraConfigDto, PublicReserveDto, SlotItemDto } from './turnera.dto'
+import { depositOrQueueMarina } from '../cash/cash-pending'
 
 @Injectable()
 export class TurneraService {
@@ -192,14 +193,12 @@ export class TurneraService {
         return current ?? row
       }
 
-      const [session] = await tx.select().from(cashSessions).where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, 'marina'))).limit(1)
-      if (session) {
-        await tx.insert(cashMovements).values({
-          sessionId: session.id, userId, type: 'deposito',
-          amount: Number(row.price).toString(),
-          reason: `Salida al agua — ${row.clientName ?? 'sin cliente'} · ${row.boatName ?? ''}`,
-        })
-      }
+      await depositOrQueueMarina(
+        tx,
+        Number(row.price),
+        userId,
+        `Salida al agua — ${row.clientName ?? 'sin cliente'} · ${row.boatName ?? ''}`,
+      )
       return slot
     })
   }

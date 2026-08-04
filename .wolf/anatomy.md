@@ -197,6 +197,7 @@
 - `0042_service_billing_scope.sql` — Dónde se puede cobrar cada servicio del catálogo. (~139 tok)
 - `0043_cash_open_per_area.sql` — Reemplaza la caja abierta global por una caja abierta independiente por área. (~64 tok)
 - `0044_marina_integrity.sql` — Impide que dos embarcaciones activas ocupen la misma cuna. (~46 tok)
+- `0046_pending_cash_movements.sql` — Persiste cobros con caja cerrada para incorporarlos automáticamente en la próxima apertura. (~170 tok)
 - `apply_purchase_orders.sql` — Ejecutar cuando Docker esté levantado: (~291 tok)
 
 ## apps/backend/drizzle/meta/
@@ -233,6 +234,7 @@
 
 ## apps/backend/src/cash/
 
+- `cash-pending.ts` — Deposita en Caja Marina abierta o encola el cobro bajo un lock transaccional compartido con la apertura. (~260 tok)
 - `cash.controller.ts` — El área llega por query (?area=marina); por defecto es la caja de SpeedMotors (~578 tok)
 - `cash.module.ts` — Exports CashModule (~74 tok)
 - `cash.service.ts` — Cada caja es un área independiente: la de SpeedMotors y la de la marina (~2156 tok)
@@ -254,7 +256,7 @@
 
 ## apps/backend/src/db/
 
-- `cash.schema.ts` — Exports cashSessions, cashMovements (~467 tok)
+- `cash.schema.ts` — Exports cashSessions, cashMovements, pendingCashMovements (~620 tok)
 - `catalog.schema.ts` — Exports categories, suppliers, products (~628 tok)
 - `client-payments.schema.ts` — Exports clientPayments (~261 tok)
 - `clients.schema.ts` — Exports clients (~226 tok)
@@ -443,6 +445,8 @@
 - `ReminderFormModal.tsx` — defaultForm — renders form, modal (~1192 tok)
 
 ## apps/frontend/src/components/cash/
+
+- `PendingCashPanel.tsx` — Lista visible de cobros pendientes de Caja Marina con cantidad, total, fecha y motivo. (~620 tok)
 
 - `CashSessionsTable.tsx` — CashSessionsTable — renders table (~1041 tok)
 - `CashStatusPanel.tsx` — CashStatusPanel (~2460 tok)

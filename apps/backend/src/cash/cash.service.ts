@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common'
 import { db } from '../db'
-import { cashSessions, cashMovements, sales, expenses } from '../db/schema'
+import { cashSessions, cashMovements, pendingCashMovements, sales, expenses } from '../db/schema'
 import { eq, and, desc, gte, sql } from 'drizzle-orm'
 
 // Cada caja es un área independiente: la de SpeedMotors y la de la marina
@@ -24,10 +24,46 @@ export class CashService {
     if (!Number.isFinite(openingBalance) || openingBalance < 0) {
       throw new BadRequestException('El saldo inicial debe ser un importe válido mayor o igual a cero')
     }
-    const existing = await this.getOpenSession(area)
-    if (existing) throw new BadRequestException('Ya hay una caja abierta')
-    const [session] = await db.insert(cashSessions).values({ userId, openingBalance: openingBalance.toString(), area }).returning()
-    return session
+    return db.transaction(async (tx) => {
+      await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${`cash:${area}`}))`)
+      const [existing] = await tx.select().from(cashSessions)
+        .where(and(eq(cashSessions.status, 'abierta'), eq(cashSessions.area, area))).limit(1)
+      if (existing) throw new BadRequestException('Ya hay una caja abierta')
+
+      const [session] = await tx.insert(cashSessions)
+        .values({ userId, openingBalance: openingBalance.toString(), area }).returning()
+      const pending = await tx.select().from(pendingCashMovements)
+        .where(eq(pendingCashMovements.area, area)).orderBy(pendingCashMovements.createdAt)
+
+      if (pending.length) {
+        await tx.insert(cashMovements).values(pending.map((movement) => ({
+          sessionId: session.id,
+          userId: movement.userId,
+          type: movement.type,
+          amount: movement.amount,
+          reason: movement.reason,
+          createdAt: movement.createdAt,
+        })))
+        await tx.delete(pendingCashMovements).where(eq(pendingCashMovements.area, area))
+      }
+
+      return {
+        ...session,
+        attachedPendingCount: pending.length,
+        attachedPendingTotal: pending.reduce((sum, movement) => sum + Number(movement.amount), 0),
+      }
+    })
+  }
+
+  async getPending(area: CashArea = 'speedmotors') {
+    const items = await db.select().from(pendingCashMovements)
+      .where(eq(pendingCashMovements.area, area))
+      .orderBy(desc(pendingCashMovements.createdAt))
+    return {
+      items,
+      count: items.length,
+      total: items.reduce((sum, movement) => sum + Number(movement.amount), 0),
+    }
   }
 
   async closeSession(userId: number, area: CashArea = 'speedmotors', notes?: string, countedBalance?: number) {
