@@ -87,7 +87,7 @@ export function ProveeduriaPage() {
           />
           {productsQuery.isLoading
             ? <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>Cargando...</div>
-            : <ProductGrid products={products} onAdd={addToCart} />}
+            : <ProductGrid products={products} onAdd={addToCart} onManage={() => setManage(true)} />}
         </div>
         <Cart
           items={cart}

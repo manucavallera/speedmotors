@@ -142,7 +142,7 @@ export function GuarderiaPage() {
           />
           {mapaQuery.isLoading
             ? <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>Cargando...</div>
-            : <StorageMap spots={spots} selectedId={selectedId} onSelect={setSelectedId} />}
+            : <StorageMap spots={spots} selectedId={selectedId} onSelect={setSelectedId} onSetup={() => setSetup(true)} />}
           <LooseUnits
             units={looseUnits}
             onCobrar={cobrarUnit}

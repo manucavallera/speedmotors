@@ -4,115 +4,69 @@ import { type HelpSection } from '../components/ui/HelpModal'
 
 export const GUARDERIA_HELP: HelpSection[] = [
   {
-    h: 'Primeros pasos (hacelo una sola vez, en este orden)',
+    group: 'Primeros pasos',
+    h: 'Prepará la guardería (una sola vez y en este orden)',
     items: [
-      '1) "Categorías": creá las escalas de lancha y ponele los dos precios a cada una. Sin esto, después tenés que tipear el precio a mano en cada lancha y en cada turno.',
-      '2) "Servicios": cargá todo lo que cobrás aparte (seguro, batería, combustible, lavado, parrilla) con su precio.',
+      '1) "Categorías": creá las escalas de lancha y cargá el precio de cuna mensual y de salida al agua.',
+      '2) "Servicios": cargá lo que cobrás aparte, como seguro, batería, combustible, lavado o parrilla.',
       '3) "Configurar lugares": activá las líneas del galpón que estén operativas.',
-      '4) "Clientes": cargá los dueños de las lanchas, con el teléfono. El teléfono es importante: es lo que usan para reservar turnos ellos mismos.',
-      '5) Recién ahí empezá a guardar lanchas en las cunas.',
-      'Si algo te quedó mal, todo se edita después. Nada queda clavado.',
+      '4) "Clientes": cargá los dueños y sus teléfonos; el teléfono les permite reservar turnos desde el celular.',
+      '5) Usá "+ Guardar embarcación" para asignar cada lancha a su cuna.',
     ],
   },
   {
-    h: 'Los dos cobros (la clave de todo)',
+    group: 'Primeros pasos',
+    h: 'Entendé los dos cobros',
     items: [
-      'La guardería cobra de dos maneras distintas, y conviene tenerlas claras porque todo el sistema se apoya en eso.',
-      'LA CUNA: se cobra una vez por mes, por tener la lancha guardada. Es como el alquiler de una cochera. Se cobra desde acá, con el botón "Cobrar".',
-      'LA SALIDA AL AGUA: se cobra cada vez que el cliente saca la lancha. Es el turno. Se cobra desde la Turnera.',
+      'CUNA MENSUAL: se cobra desde Guardería por tener la lancha guardada.',
+      'SALIDA AL AGUA: se cobra desde Turnera cada vez que el cliente usa la lancha.',
       'Un cliente que deja la lancha todo el mes y no navega nunca, paga solo la cuna. Si sale cuatro domingos, paga la cuna + cuatro salidas.',
     ],
   },
   {
-    h: '¿Qué es esta sección?',
+    group: 'Primeros pasos',
+    h: 'Configurá categorías y servicios',
     items: [
-      'Es el mapa del galpón. Cada casillero es una cuna: el lugar donde se guarda la lancha de un cliente.',
-      'Las lanchas son de los clientes. Vos les alquilás la cuna por mes, como una cochera, y les cobrás los servicios aparte.',
-      'Verde = cuna libre. Azul = ocupada y al día. Rojo = ocupada con deuda. Gris = línea en obra.',
-    ],
-  },
-  {
-    h: 'Las líneas del galpón',
-    items: [
-      'El galpón tiene 4 líneas (A, B, C y D) con 48 cunas cada una. Se numeran A1 a A48, B1 a B48, y así.',
-      'Hoy están operativas la A y la B. La C y la D aparecen como "EN OBRA" hasta que se haga el piso.',
-      'Cada línea se pliega y despliega tocando su título. Las que están en obra arrancan cerradas.',
-      'Cuando la C o la D estén listas, se activan desde "Configurar lugares".',
-    ],
-  },
-  {
-    h: 'Categorías y tarifas',
-    items: [
-      'En "Categorías" definís las escalas: por ejemplo de 2 a 35 HP una tarifa, de 40 a 90 HP otra, de 90 para arriba otra.',
-      'También podés usar el largo de la lancha en metros para separar categorías.',
-      'Cada categoría lleva DOS precios: la "Cuna mensual" (lo que paga por mes) y la "Salida al agua" (lo que paga por cada turno).',
-      'Son la lista de precios, no un cobro. Cuando guardás una lancha o agendás un turno, el precio se completa solo con el de su categoría.',
-      'Si con un cliente arreglaste distinto, pisás el precio en esa lancha o en ese turno y la lista de precios queda igual para el resto.',
-      'Cambiás un precio de categoría y se actualiza en todas las lanchas de esa categoría.',
-    ],
-  },
-  {
-    h: 'Servicios: dónde se cobra cada uno',
-    items: [
-      'En "Servicios" cargás todo lo que le cobrás al cliente además de la cuna: seguro, combustible, alquiler de batería, parrilla, lavado, puesta en marcha.',
-      'A cada servicio le ponés el precio y le marcás DÓNDE se cobra, con dos tildes:',
+      'Las categorías completan automáticamente los precios de cuna mensual y salida al agua. Podés cambiar un precio puntual sin modificar la tarifa general.',
       '"Se adhiere a la lancha" = se cobra todos los meses junto con la cuna. Ejemplo: un seguro.',
       '"Se ofrece en el turno" = aparece al reservar una salida y se cobra esa vez. Ejemplo: la batería o el combustible.',
-      'Podés marcar las dos si el servicio va en los dos lados. Al menos una tiene que estar marcada, si no el servicio no le aparece a nadie.',
-      'Esto evita el error de cobrarle el seguro dos veces: una con la cuna del mes y otra cuando reserva el turno.',
-      'En la lista de servicios ves la etiqueta "mensual" o "por turno" de cada uno, para chequear de un vistazo.',
+      'Un servicio puede estar disponible en ambos lugares, pero debe tener al menos una opción marcada.',
     ],
   },
   {
-    h: 'Guardar una lancha',
+    group: 'Uso diario',
+    h: 'Leé el mapa y guardá embarcaciones',
     items: [
-      'Tocá "+ Guardar embarcación" (o una cuna libre en el mapa).',
-      'Elegí el cliente (o crealo ahí mismo), describí la lancha, y cargá los HP y el largo.',
-      'Elegí la categoría: la cuna mensual se completa sola con el precio de esa categoría.',
-      'Tildá los servicios fijos que lleve (el seguro, por ejemplo). Esos se le van a sumar todos los meses al cobrar.',
-      'Elegí la cuna. Si la lancha queda suelta sobre trailer, dejá la cuna sin asignar.',
+      'Cada casillero es una cuna. Verde = libre, azul = ocupada y al día, rojo = con deuda y gris = línea en obra.',
+      'Tocá una cuna libre o "+ Guardar embarcación", elegí el cliente, la categoría, los servicios fijos y la ubicación.',
+      'Si queda sobre trailer, guardala sin cuna; aparecerá debajo del mapa hasta que le asignes una.',
     ],
   },
   {
-    h: 'Corregir datos de una lancha ya guardada',
+    group: 'Uso diario',
+    h: 'Editá, mové o retirala',
     items: [
-      'Seleccioná la cuna y tocá "Editar datos". Cambiás categoría, HP, largo, descripción o la tarifa mensual.',
-      'No hace falta retirar la lancha y volver a cargarla para corregir un dato.',
-      'Si le cambiás la categoría, acordate de revisar la tarifa: no se pisa sola para no romper un arreglo especial que hayas hecho.',
+      'Seleccioná la cuna para editar los datos de la embarcación sin retirarla y volverla a cargar.',
+      '"Mover de cuna" muestra únicamente lugares libres y operativos.',
+      '"Retirar embarcación" libera la cuna cuando la lancha deja la guardería.',
     ],
   },
   {
-    h: 'Clientes de la guardería',
+    group: 'Uso diario',
+    h: 'Cobrá el mes y controlá las deudas',
     items: [
-      'El botón "Clientes" abre la cartera de clientes de la guardería, aparte de los de la concesionaria.',
-      'Desde ahí los buscás, los creás y les editás los datos.',
-      'Cargales SIEMPRE el teléfono: es lo que les permite reservar el turno solos desde el celular, sin llamarte.',
+      'Seleccioná una cuna y tocá "Cobrar", o usá "Cobrar el mes" para generar las mensualidades.',
+      'Si marcás "cobrado ahora", el pago entra en la Caja Marina abierta. Si está cerrada, queda visible como pendiente y se incorpora automáticamente al abrirla.',
+      'Si no está cobrado, queda como deuda. El panel "Deudores" permite saldarla o reclamar por WhatsApp.',
     ],
   },
   {
-    h: 'Mover de cuna y lanchas sobre trailer',
+    group: 'Uso diario',
+    h: 'Buscá clientes y comunicate',
     items: [
-      'Si entra una lancha nueva y hay que reubicar, seleccioná la cuna y tocá "Mover de cuna": elegís la nueva y listo.',
-      'Solo aparecen las cunas libres de las líneas operativas.',
-      'Las lanchas sueltas sobre trailer (sin cuna) se ven abajo del mapa, con su deuda. Desde ahí las cobrás o les das una cuna cuando se libere.',
-    ],
-  },
-  {
-    h: 'Cobrar y deudas',
-    items: [
-      'Seleccioná una cuna ocupada y tocá "Cobrar". Sumás la cuna del mes + los servicios que haya usado.',
-      'Si marcás "cobrado ahora", la plata entra a la caja abierta. Si no, queda como deuda del cliente.',
-      'El panel "Deudores" lista a quién le falta pagar, ordenado por monto.',
-      'Desde Deudores podés cobrar para saldar, o reclamar por WhatsApp.',
-    ],
-  },
-  {
-    h: 'Difusión y otras cosas',
-    items: [
-      'En "Difusión" copiás los teléfonos de todos los clientes de guardería, para armar una lista de difusión de WhatsApp y mandarles precios o avisos.',
-      'Te avisa cuántos clientes no tienen teléfono cargado: esos no van a recibir el mensaje.',
-      'El buscador encuentra una lancha, cliente o cuna y la marca en el mapa.',
-      'Para liberar una cuna, seleccionala y tocá "Retirar embarcación".',
+      '"Clientes" administra la cartera propia de la guardería. Cargá siempre el teléfono para habilitar la reserva desde el celular.',
+      'El buscador encuentra una embarcación, cliente o cuna y la marca en el mapa.',
+      '"Difusión" reúne los teléfonos cargados para enviar precios o avisos por WhatsApp.',
     ],
   },
 ]
@@ -170,7 +124,7 @@ export const TURNERA_HELP: HelpSection[] = [
       'Tocá "🖨 Imprimir lista" y llevate la hoja del día impresa: sale ordenada por hora, con lancha, cliente, servicios y total.',
       'Ese es el orden en que hay que ir bajando las lanchas. Las canceladas no aparecen.',
       'Con la hoja en la mano no hace falta estar mirando la pantalla mientras trabajás en el galpón.',
-      'A medida que cobrás, tocá "Cobrar" en cada salida: la plata entra a la caja abierta y queda en verde.',
+      'A medida que cobrás, tocá "Cobrar" en cada salida: queda en verde y el pago entra en la Caja Marina. Si la caja está cerrada, queda pendiente hasta la próxima apertura.',
     ],
   },
   {
@@ -206,7 +160,8 @@ export const PROVEEDURIA_HELP: HelpSection[] = [
     h: 'Vender',
     items: [
       'Buscá el producto y tocalo para agregarlo al carrito (derecha). Ajustá la cantidad con + / −.',
-      'Tocá cobrar: descuenta el stock y la venta entra a la caja abierta.',
+      'Tocá cobrar: descuenta el stock y registra la venta en la Caja Marina.',
+      'Si la caja está cerrada, el cobro queda visible como pendiente y se incorpora automáticamente en la próxima apertura.',
     ],
   },
   {

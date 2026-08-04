@@ -5,6 +5,7 @@ interface Props {
   spots: MapSpot[]
   selectedId: number | null
   onSelect: (spotId: number) => void
+  onSetup?: () => void
 }
 
 // Estilo por estado de la cuna: en obra / libre / ocupada al día / ocupada con deuda
@@ -86,11 +87,17 @@ function LineSection({ line, spots, selectedId, onSelect }: { line: string } & P
   )
 }
 
-export function StorageMap({ spots, selectedId, onSelect }: Props) {
+export function StorageMap({ spots, selectedId, onSelect, onSetup }: Props) {
   if (!spots.length) {
     return (
-      <div style={{ padding: '48px', textAlign: 'center', color: '#94a3b8', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>
-        Todavía no hay cunas configuradas. Tocá "Configurar lugares" para crearlas.
+      <div style={{ padding: '40px 24px', textAlign: 'center', border: '1.5px dashed #bfdbfe', background: '#f8fbff', borderRadius: '12px' }}>
+        <div style={{ color: '#334155', fontSize: '15px', fontWeight: 700, marginBottom: '6px' }}>Todavía no hay cunas configuradas</div>
+        <div style={{ color: '#64748b', fontSize: '13px', marginBottom: '16px' }}>Creá las líneas y lugares operativos para empezar a guardar embarcaciones.</div>
+        {onSetup && (
+          <button onClick={onSetup} style={{ padding: '9px 15px', border: 'none', borderRadius: '9px', background: '#2563eb', color: 'white', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+            Configurar lugares
+          </button>
+        )}
       </div>
     )
   }

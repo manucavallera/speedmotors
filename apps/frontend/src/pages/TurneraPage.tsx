@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTurnera } from '../hooks/useTurnera'
 import { DaySchedule } from '../components/turnera/DaySchedule'
 import { CalendarPicker } from '../components/turnera/CalendarPicker'
@@ -32,6 +33,7 @@ function Stat({ value, label, color, small }: { value: string | number; label: s
 }
 
 export function TurneraPage() {
+  const navigate = useNavigate()
   const [date, setDate] = useState(today())
   const { units, services, slots, slotsQuery, monthDays, createSlot, setStatus, reschedule, updateItems, charge, removeSlot, config, saveConfig } = useTurnera(date)
   const [showModal, setShowModal] = useState(false)
@@ -96,8 +98,12 @@ export function TurneraPage() {
         <CalendarPicker date={date} days={monthDays} onSelect={setDate} />
         <div>
           {!units.length ? (
-            <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8', fontSize: '14px', border: '1.5px dashed #e2e8f0', borderRadius: '12px' }}>
-              No hay lanchas en guardería para botar. Cargá unidades en Guardería primero.
+            <div style={{ padding: '40px 24px', textAlign: 'center', border: '1.5px dashed #bfdbfe', background: '#f8fbff', borderRadius: '12px' }}>
+              <div style={{ color: '#334155', fontSize: '15px', fontWeight: 700, marginBottom: '6px' }}>No hay embarcaciones para agendar</div>
+              <div style={{ color: '#64748b', fontSize: '13px', marginBottom: '16px' }}>Primero guardá una embarcación con su cliente en Guardería.</div>
+              <button onClick={() => navigate('/guarderia')} style={{ padding: '9px 15px', border: 'none', borderRadius: '9px', background: '#2563eb', color: 'white', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+                Ir a Guardería
+              </button>
             </div>
           ) : slotsQuery.isLoading ? (
             <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>Cargando...</div>

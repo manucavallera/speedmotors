@@ -490,7 +490,7 @@
 - `ServicesModal.tsx` — fmt — renders modal (~1450 tok)
 - `SetupModal.tsx` — SetupModal — renders form, modal (~765 tok)
 - `SpotPanel.tsx` — fmt (~1944 tok)
-- `StorageMap.tsx` — spotColors (~1328 tok)
+- `StorageMap.tsx` — Mapa de cunas; cuando está vacío ofrece configurar los lugares directamente. (~1500 tok)
 
 ## apps/frontend/src/components/installments/
 
@@ -510,7 +510,7 @@
 ## apps/frontend/src/components/proveeduria/
 
 - `Cart.tsx` — fmt (~982 tok)
-- `ProductGrid.tsx` — fmt (~513 tok)
+- `ProductGrid.tsx` — Grilla de venta; cuando está vacía permite cargar el primer producto. (~700 tok)
 - `ProductManageModal.tsx` — fmt — renders modal (~991 tok)
 - `ProvInsights.tsx` — fmt (~1023 tok)
 
@@ -575,7 +575,7 @@
 
 - `ErrorBoundary.tsx` — Exports ErrorBoundary (~368 tok)
 - `FormField.tsx` — Aclaración bajo el campo: qué representa el valor, de dónde sale (~341 tok)
-- `HelpModal.tsx` — HelpModal — renders modal (~422 tok)
+- `HelpModal.tsx` — Guías agrupables y botón visible “Guía de uso” para los encabezados. (~620 tok)
 - `InfoBanner.tsx` — InfoBanner (~166 tok)
 - `Modal.tsx` — Modal (~468 tok)
 - `MoneyInput.tsx` — Va al wrapper, no al input (el input siempre ocupa el 100% del wrapper) (~404 tok)
@@ -618,7 +618,7 @@
 
 - `api.ts` — Exports api, apiError (~188 tok)
 - `export.ts` — Exports exportSalesCsv, exportSalesPdf, exportProductsCsv, exportProductsPdf (~1300 tok)
-- `helpContent.ts` — Guías de uso por sección (texto para el usuario final) (~3444 tok)
+- `helpContent.ts` — Guías de Guardería, Turnera y Proveeduría; distingue primeros pasos/uso diario y explica cobros pendientes de Caja Marina. (~2900 tok)
 - `pdf.ts` (~53 tok)
 - `printDayList.ts` — Imprime la lista de botaduras del día, ordenada por hora, para el que baja las lanchas. (~706 tok)
 - `toast.ts` — Exports toast (~124 tok)
