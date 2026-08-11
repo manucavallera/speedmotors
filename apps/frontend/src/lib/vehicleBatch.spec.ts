@@ -2,8 +2,11 @@ import { describe, expect, it } from '@jest/globals'
 import * as XLSX from 'xlsx'
 import {
   TEMPLATE_HEADERS,
+  blankVehicleDraft,
   createVehicleTemplateWorkbook,
   parseVehicleWorkbook,
+  toVehicleImportItems,
+  validateVehicleDrafts,
 } from './vehicleBatch'
 
 describe('vehicleBatch Excel contract', () => {
@@ -79,5 +82,70 @@ describe('vehicleBatch Excel contract', () => {
     XLSX.utils.book_append_sheet(workbook, XLSX.utils.aoa_to_sheet(rows), 'Motos')
 
     expect(() => parseVehicleWorkbook(workbook)).toThrow(message)
+  })
+})
+
+describe('vehicle batch review', () => {
+  const valid = {
+    internalCode: ' m-301 ',
+    importCode: ' ART-301 ',
+    brand: ' Honda ',
+    model: ' Wave ',
+    displacement: '110',
+    version: '',
+    color: ' Rojo ',
+    chassisNumber: ' CH-301 ',
+    engineNumber: ' MO-301 ',
+  }
+
+  it('rejects an empty reviewed batch', () => {
+    expect(validateVehicleDrafts([])).toEqual(['Agregá al menos una moto'])
+  })
+
+  it('reports row fields, invalid displacement, and duplicate codes', () => {
+    expect(validateVehicleDrafts([
+      {
+        ...blankVehicleDraft(),
+        internalCode: 'M-1',
+        brand: 'Honda',
+        model: 'Wave',
+        displacement: '-1',
+      },
+      {
+        ...blankVehicleDraft(),
+        internalCode: 'm-1',
+        brand: 'Corven',
+        model: 'Energy',
+        chassisNumber: 'CH-2',
+        engineNumber: 'MO-2',
+      },
+    ])).toEqual([
+      'Fila 2: completá Chasis, Motor',
+      'Fila 2: Cilindrada debe ser un número no negativo',
+      'Código interno repetido en las filas 2 y 3: M-1',
+    ])
+  })
+
+  it('normalizes reviewed rows into the existing bulk payload', () => {
+    expect(toVehicleImportItems([valid], {
+      remitoNumber: ' R-55 ',
+      ingresoTipo: 'blanco',
+    })).toEqual([{
+      type: 'moto',
+      internalCode: 'M-301',
+      importCode: 'ART-301',
+      brand: 'Honda',
+      model: 'Wave',
+      displacement: 110,
+      version: null,
+      color: 'Rojo',
+      chassisNumber: 'CH-301',
+      engineNumber: 'MO-301',
+      remitoNumber: 'R-55',
+      ingresoTipo: 'blanco',
+      costPrice: '0',
+      sellPrice: '0',
+      status: 'disponible',
+    }])
   })
 })

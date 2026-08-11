@@ -67,7 +67,7 @@ export function VehiclesPage() {
         </div>
         {isAdmin && (
           <div className="page-header-actions">
-            <button onClick={() => setModal('remito')} style={{ ...btnSecondary, fontSize: '14px' }}>📄 Importar remito</button>
+            <button onClick={() => setModal('remito')} style={{ ...btnSecondary, fontSize: '14px' }}>📄 Carga masiva</button>
             <button onClick={() => { setEditing(null); setModal('create') }} style={btnPrimary}>+ Nuevo vehículo</button>
           </div>
         )}
@@ -79,7 +79,7 @@ export function VehiclesPage() {
           <span><strong>Disponible</strong> — en stock, listo para vender o reservar</span>
           <span><strong>Reservado</strong> — tiene una reserva activa</span>
           <span><strong>Vendido</strong> — ya fue vendido, no aparece en el formulario de ventas</span>
-          <span>Importá vehículos masivamente desde un <strong>Excel/Remito</strong> con el botón de importación</span>
+          <span>Cargá varias motos desde un <strong>remito, una plantilla Excel o manualmente</strong></span>
         </div>
       </InfoBanner>
 
