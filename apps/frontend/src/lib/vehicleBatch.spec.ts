@@ -2,9 +2,11 @@ import { describe, expect, it } from '@jest/globals'
 import * as XLSX from 'xlsx'
 import {
   TEMPLATE_HEADERS,
+  adaptParsedRemitoItems,
   blankVehicleDraft,
   createVehicleTemplateWorkbook,
   parseVehicleWorkbook,
+  readVehicleWorkbook,
   toVehicleImportItems,
   validateVehicleDrafts,
 } from './vehicleBatch'
@@ -71,6 +73,52 @@ describe('vehicleBatch Excel contract', () => {
     expect(parseVehicleWorkbook(workbook)[0]?.internalCode).toBe('M-201')
   })
 
+  it('preserves leading zeros and long identifiers from real CSV bytes', () => {
+    const csv = [
+      TEMPLATE_HEADERS.join(','),
+      '00123,,Honda,Wave,110,,Rojo,0012345678901234567890,00077',
+    ].join('\n')
+    const workbook = readVehicleWorkbook(new TextEncoder().encode(csv))
+
+    expect(parseVehicleWorkbook(workbook)[0]).toMatchObject({
+      internalCode: '00123',
+      chassisNumber: '0012345678901234567890',
+      engineNumber: '00077',
+    })
+  })
+
+  it('preserves text identifiers through a real XLSX round trip', () => {
+    const source = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(source, XLSX.utils.aoa_to_sheet([
+      TEMPLATE_HEADERS,
+      ['00123', '', 'Honda', 'Wave', 110, '', 'Rojo', '0012345678901234567890', '00077'],
+    ]), 'Motos')
+    const bytes = XLSX.write(source, {
+      type: 'array',
+      bookType: 'xlsx',
+    })
+    const workbook = readVehicleWorkbook(bytes)
+
+    expect(parseVehicleWorkbook(workbook)[0]).toMatchObject({
+      internalCode: '00123',
+      chassisNumber: '0012345678901234567890',
+      engineNumber: '00077',
+    })
+  })
+
+  it('rejects numeric identifier cells that may already be corrupted', () => {
+    const sheet = XLSX.utils.aoa_to_sheet([
+      TEMPLATE_HEADERS,
+      [123, '', 'Honda', 'Wave', 110, '', 'Rojo', 'CH-123', 'MO-123'],
+    ])
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, sheet, 'Motos')
+
+    expect(() => parseVehicleWorkbook(workbook)).toThrow(
+      'Fila 2: Código interno debe estar guardado como texto',
+    )
+  })
+
   it.each([
     { rows: [], message: 'El Excel no contiene datos' },
     {
@@ -98,6 +146,16 @@ describe('vehicle batch review', () => {
     engineNumber: ' MO-301 ',
   }
 
+  it('adapts every motorcycle returned by a remito into review rows', () => {
+    expect(adaptParsedRemitoItems([
+      { importCode: 'A-1', brand: 'Honda', model: 'Wave', displacement: 110, chassisNumber: 'CH-1', engineNumber: 'MO-1' },
+      { importCode: 'A-2', brand: 'Corven', model: 'Energy', displacement: 125, chassisNumber: 'CH-2', engineNumber: 'MO-2' },
+    ])).toEqual([
+      { ...blankVehicleDraft(), importCode: 'A-1', brand: 'Honda', model: 'Wave', displacement: '110', chassisNumber: 'CH-1', engineNumber: 'MO-1' },
+      { ...blankVehicleDraft(), importCode: 'A-2', brand: 'Corven', model: 'Energy', displacement: '125', chassisNumber: 'CH-2', engineNumber: 'MO-2' },
+    ])
+  })
+
   it('rejects an empty reviewed batch', () => {
     expect(validateVehicleDrafts([])).toEqual(['Agregá al menos una moto'])
   })
@@ -121,8 +179,22 @@ describe('vehicle batch review', () => {
       },
     ])).toEqual([
       'Fila 2: completá Chasis, Motor',
-      'Fila 2: Cilindrada debe ser un número no negativo',
+      'Fila 2: Cilindrada debe ser un número entero no negativo',
       'Código interno repetido en las filas 2 y 3: M-1',
+    ])
+  })
+
+  it('rejects fractional displacement before the integer-only backend', () => {
+    expect(validateVehicleDrafts([{
+      ...blankVehicleDraft(),
+      internalCode: 'M-2',
+      brand: 'Honda',
+      model: 'Wave',
+      chassisNumber: 'CH-2',
+      engineNumber: 'MO-2',
+      displacement: '110.5',
+    }])).toEqual([
+      'Fila 2: Cilindrada debe ser un número entero no negativo',
     ])
   })
 

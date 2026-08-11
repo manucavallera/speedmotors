@@ -17,6 +17,10 @@ export interface VehicleBatchDefaults {
   ingresoTipo: '' | 'blanco' | 'negro' | 'mixto'
 }
 
+export type ParsedRemitoItem = Partial<Omit<VehicleDraft, 'displacement'>> & {
+  displacement?: number | null
+}
+
 export interface VehicleImportItem {
   type: 'moto'
   internalCode: string
@@ -60,6 +64,12 @@ const FIELD_BY_HEADER: Record<string, keyof VehicleDraft> = {
 }
 
 const REQUIRED_HEADERS = ['Código interno', 'Marca', 'Modelo', 'Chasis', 'Motor']
+const IDENTIFIER_LABEL_BY_FIELD: Partial<Record<keyof VehicleDraft, string>> = {
+  internalCode: 'Código interno',
+  importCode: 'Código proveedor',
+  chassisNumber: 'Chasis',
+  engineNumber: 'Motor',
+}
 
 function normalizeHeader(value: unknown): string {
   return String(value ?? '')
@@ -84,6 +94,20 @@ export function blankVehicleDraft(): VehicleDraft {
   }
 }
 
+export function adaptParsedRemitoItems(items: ParsedRemitoItem[]): VehicleDraft[] {
+  return items.map(item => ({
+    ...blankVehicleDraft(),
+    importCode: item.importCode ?? '',
+    brand: item.brand ?? '',
+    model: item.model ?? '',
+    displacement: item.displacement == null ? '' : String(item.displacement),
+    version: item.version ?? '',
+    color: item.color ?? '',
+    engineNumber: item.engineNumber ?? '',
+    chassisNumber: item.chassisNumber ?? '',
+  }))
+}
+
 export function createVehicleTemplateWorkbook(): XLSX.WorkBook {
   const example = [
     'EJEMPLO-NO-IMPORTAR',
@@ -103,6 +127,19 @@ export function createVehicleTemplateWorkbook(): XLSX.WorkBook {
   const workbook = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(workbook, sheet, 'Motos')
   return workbook
+}
+
+export function readVehicleWorkbook(data: ArrayBuffer | Uint8Array): XLSX.WorkBook {
+  const bytes = data instanceof Uint8Array ? data : new Uint8Array(data)
+  const isXlsx = bytes[0] === 0x50 && bytes[1] === 0x4b
+  const isXls = bytes[0] === 0xd0 && bytes[1] === 0xcf
+
+  if (isXlsx || isXls) {
+    return XLSX.read(bytes, { type: 'array', raw: true })
+  }
+
+  const csv = new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, '')
+  return XLSX.read(csv, { type: 'string', raw: true })
 }
 
 export function parseVehicleWorkbook(workbook: XLSX.WorkBook): VehicleDraft[] {
@@ -130,13 +167,21 @@ export function parseVehicleWorkbook(workbook: XLSX.WorkBook): VehicleDraft[] {
     throw new Error(`Faltan columnas obligatorias: ${missing.join(', ')}`)
   }
 
-  const drafts = rows.slice(1).flatMap(row => {
+  const drafts = rows.slice(1).flatMap((row, rowIndex) => {
     if (row.every(value => String(value ?? '').trim() === '')) return []
 
     const draft = blankVehicleDraft()
     headers.forEach((header, index) => {
       const field = FIELD_BY_HEADER[header]
-      if (field) draft[field] = String(row[index] ?? '').trim()
+      if (!field) return
+
+      const value = row[index] ?? ''
+      const identifierLabel = IDENTIFIER_LABEL_BY_FIELD[field]
+      if (identifierLabel && typeof value === 'number') {
+        throw new Error(`Fila ${rowIndex + 2}: ${identifierLabel} debe estar guardado como texto`)
+      }
+
+      draft[field] = String(value).trim()
     })
 
     return draft.internalCode.toUpperCase() === 'EJEMPLO-NO-IMPORTAR'
@@ -175,9 +220,9 @@ export function validateVehicleDrafts(rows: VehicleDraft[]): string[] {
 
     if (
       row.displacement.trim()
-      && (!Number.isFinite(Number(row.displacement)) || Number(row.displacement) < 0)
+      && (!Number.isInteger(Number(row.displacement)) || Number(row.displacement) < 0)
     ) {
-      errors.push(`Fila ${rowNumber}: Cilindrada debe ser un número no negativo`)
+      errors.push(`Fila ${rowNumber}: Cilindrada debe ser un número entero no negativo`)
     }
 
     const code = row.internalCode.trim().toUpperCase()

@@ -5,13 +5,16 @@ import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField
 import { api, apiError } from '../../lib/api'
 import {
   blankVehicleDraft,
+  adaptParsedRemitoItems,
   createVehicleTemplateWorkbook,
   parseVehicleWorkbook,
+  readVehicleWorkbook,
   toVehicleImportItems,
   validateVehicleDrafts,
   type VehicleBatchDefaults,
   type VehicleDraft,
   type VehicleImportItem,
+  type ParsedRemitoItem,
 } from '../../lib/vehicleBatch'
 
 interface RemitoImportModalProps {
@@ -32,7 +35,7 @@ export function RemitoImportModal({ onClose, onImport, isPending }: RemitoImport
   const remitoInputRef = useRef<HTMLInputElement>(null)
   const excelInputRef = useRef<HTMLInputElement>(null)
 
-  function updateRow(i: number, key: string, val: string) {
+  function updateRow(i: number, key: keyof VehicleDraft, val: string) {
     setRows(prev => prev.map((r, idx) => idx === i ? { ...r, [key]: val } : r))
   }
 
@@ -54,20 +57,10 @@ export function RemitoImportModal({ onClose, onImport, isPending }: RemitoImport
       const { data } = await api.post('/vehicles/parse-remito', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
       const parsed = data as {
         remitoNumber?: string | null
-        items?: Array<Partial<Omit<VehicleDraft, 'displacement'>> & { displacement?: number | null }>
+        items?: ParsedRemitoItem[]
       }
       setShared(prev => ({ ...prev, remitoNumber: parsed.remitoNumber ?? '' }))
-      setRows((parsed.items ?? []).map(item => ({
-        ...blankVehicleDraft(),
-        importCode: item.importCode ?? '',
-        brand: item.brand ?? '',
-        model: item.model ?? '',
-        displacement: item.displacement ? String(item.displacement) : '',
-        version: item.version ?? '',
-        color: item.color ?? '',
-        engineNumber: item.engineNumber ?? '',
-        chassisNumber: item.chassisNumber ?? '',
-      })))
+      setRows(adaptParsedRemitoItems(parsed.items ?? []))
       setStep('review')
     } catch (error: unknown) {
       const message = apiError(error)
@@ -91,7 +84,7 @@ export function RemitoImportModal({ onClose, onImport, isPending }: RemitoImport
   async function importExcel(file: File) {
     setError('')
     try {
-      const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' })
+      const workbook = readVehicleWorkbook(await file.arrayBuffer())
       setRows(parseVehicleWorkbook(workbook))
       setShared(defaultShared)
       setStep('review')
