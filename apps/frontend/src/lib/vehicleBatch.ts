@@ -138,7 +138,20 @@ export function readVehicleWorkbook(data: ArrayBuffer | Uint8Array): XLSX.WorkBo
     return XLSX.read(bytes, { type: 'array', raw: true })
   }
 
-  const csv = new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, '')
+  let csv: string
+  if (bytes[0] === 0xff && bytes[1] === 0xfe) {
+    csv = new TextDecoder('utf-16le').decode(bytes.subarray(2))
+  } else if (bytes[0] === 0xfe && bytes[1] === 0xff) {
+    csv = new TextDecoder('utf-16be').decode(bytes.subarray(2))
+  } else {
+    try {
+      csv = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
+    } catch {
+      csv = new TextDecoder('windows-1252').decode(bytes)
+    }
+  }
+
+  csv = csv.replace(/^\uFEFF/, '')
   return XLSX.read(csv, { type: 'string', raw: true })
 }
 

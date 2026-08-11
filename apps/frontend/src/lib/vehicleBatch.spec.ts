@@ -87,6 +87,31 @@ describe('vehicleBatch Excel contract', () => {
     })
   })
 
+  it('reads a Windows-1252 CSV exported by Excel', () => {
+    const csv = [
+      TEMPLATE_HEADERS.join(','),
+      'M-301,,Corven,Energy,110,,Negro,CH-301,MO-301',
+    ].join('\n')
+    const windows1252 = Uint8Array.from(csv, character => character.charCodeAt(0))
+
+    expect(parseVehicleWorkbook(readVehicleWorkbook(windows1252))[0]?.internalCode).toBe('M-301')
+  })
+
+  it('reads a UTF-16LE CSV exported by Excel', () => {
+    const csv = `\uFEFF${[
+      TEMPLATE_HEADERS.join(','),
+      'M-302,,Honda,Wave,110,,Rojo,CH-302,MO-302',
+    ].join('\n')}`
+    const utf16 = new Uint8Array(csv.length * 2)
+    Array.from(csv).forEach((character, index) => {
+      const code = character.charCodeAt(0)
+      utf16[index * 2] = code & 0xff
+      utf16[index * 2 + 1] = code >> 8
+    })
+
+    expect(parseVehicleWorkbook(readVehicleWorkbook(utf16))[0]?.internalCode).toBe('M-302')
+  })
+
   it('preserves text identifiers through a real XLSX round trip', () => {
     const source = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(source, XLSX.utils.aoa_to_sheet([
