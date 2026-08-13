@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { ValuationEditor } from '../components/stock-valuation/ValuationEditor'
 import { ValuationHistory } from '../components/stock-valuation/ValuationHistory'
@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth'
 import { useStockValuation } from '../hooks/useStockValuation'
 import { apiError } from '../lib/api'
 import { toast } from '../lib/toast'
-import { validateDraft } from '../lib/stockValuation'
+import { validateDraft, vehicleEditUrl } from '../lib/stockValuation'
 
 const currentPeriod = () => {
   const now = new Date()
@@ -16,6 +16,7 @@ const currentPeriod = () => {
 }
 
 export function StockValuationPage() {
+  const navigate = useNavigate()
   const { isAdmin } = useAuth()
   const [period, setPeriod] = useState(currentPeriod)
   const valuation = useStockValuation(period, isAdmin)
@@ -79,7 +80,7 @@ export function StockValuationPage() {
         <div style={{ padding: '32px', background: 'white', borderRadius: '12px', textAlign: 'center', color: '#64748b' }}>No hay motos disponibles o reservadas para valuar.</div>
       ) : (
         <>
-          <ValuationEditor groups={valuation.draft} generalMargin={valuation.generalMargin} onGeneralMarginChange={valuation.setGeneralMargin} onGroupsChange={valuation.setDraft} />
+          <ValuationEditor groups={valuation.draft} generalMargin={valuation.generalMargin} onGeneralMarginChange={valuation.setGeneralMargin} onGroupsChange={valuation.setDraft} onEditUnit={(unit) => navigate(vehicleEditUrl(unit.id, unit.internalCode, period))} />
           <ValuationSummary preview={valuation.preview} errors={errors} isPreviewing={valuation.previewMutation.isPending} isClosing={valuation.closeMutation.isPending} onPreview={preview} onClose={close} onReset={valuation.resetDraft} />
         </>
       )}
