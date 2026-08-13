@@ -1,7 +1,9 @@
 import { toast } from '../lib/toast'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { api } from '../lib/api'
+import { safeValuationReturnTo } from '../lib/stockValuation'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
@@ -14,8 +16,16 @@ import { QRScannerField } from '../components/ui/QRScannerField'
 export function VehiclesPage() {
   const { isAdmin } = useAuth()
   const qc = useQueryClient()
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const requestedEditId = Number(searchParams.get('edit'))
+  const fallbackSearch = searchParams.get('search') ?? ''
+  const returnTo = safeValuationReturnTo(searchParams.get('returnTo'))
+  const hasDirectEdit = Number.isInteger(requestedEditId) && requestedEditId > 0
   const [modal, setModal] = useState<'create' | 'edit' | 'remito' | null>(null)
   const [editing, setEditing] = useState<any>(null)
+  const [openedDirectId, setOpenedDirectId] = useState<number | null>(null)
+  const handledDirectId = useRef<number | null>(null)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
 
@@ -24,9 +34,40 @@ export function VehiclesPage() {
     queryFn: () => api.get('/vehicles', { params: { page, limit: 50, search: search || undefined } }).then(r => r.data),
     placeholderData: (prev: any) => prev,
   })
+
+  const { data: directVehicle, isError: isDirectVehicleError } = useQuery({
+    queryKey: ['vehicles', 'detail', requestedEditId],
+    queryFn: () => api.get(`/vehicles/${requestedEditId}`).then(r => r.data),
+    enabled: isAdmin && hasDirectEdit,
+  })
+
+  useEffect(() => {
+    if (!isAdmin || !hasDirectEdit || !directVehicle || openedDirectId === requestedEditId || handledDirectId.current === requestedEditId) return
+    handledDirectId.current = requestedEditId
+    setEditing(directVehicle)
+    setModal('edit')
+    setOpenedDirectId(requestedEditId)
+  }, [directVehicle, hasDirectEdit, isAdmin, openedDirectId, requestedEditId])
+
+  useEffect(() => {
+    if (!isAdmin || !hasDirectEdit || !isDirectVehicleError || openedDirectId === requestedEditId || handledDirectId.current === requestedEditId) return
+    handledDirectId.current = requestedEditId
+    setOpenedDirectId(requestedEditId)
+    toast.error('No se pudo abrir la moto solicitada')
+    setSearch(fallbackSearch)
+    setPage(1)
+    navigate('/vehicles', { replace: true })
+  }, [fallbackSearch, hasDirectEdit, isAdmin, isDirectVehicleError, navigate, openedDirectId, requestedEditId])
+
   const vehicles = vehiclesData?.items ?? []
   const total = vehiclesData?.total ?? 0
   const pages = vehiclesData?.pages ?? 1
+
+  const finishEditing = () => {
+    setModal(null)
+    setEditing(null)
+    if (returnTo) navigate(returnTo)
+  }
 
   const create = useMutation({
     mutationFn: (data: VehicleFormData) => api.post('/vehicles', data),
@@ -36,7 +77,7 @@ export function VehiclesPage() {
 
   const update = useMutation({
     mutationFn: (data: VehicleFormData) => api.put(`/vehicles/${editing.id}`, data),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
+    onSuccess: async () => { await qc.invalidateQueries({ queryKey: ['vehicles'] }); finishEditing() },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
   })
 
@@ -107,7 +148,7 @@ export function VehiclesPage() {
         <VehicleFormModal
           mode={modal}
           editing={editing}
-          onClose={() => setModal(null)}
+          onClose={finishEditing}
           onSubmit={(data) => modal === 'edit' ? update.mutate(data) : create.mutate(data)}
           isPending={create.isPending || update.isPending}
         />
