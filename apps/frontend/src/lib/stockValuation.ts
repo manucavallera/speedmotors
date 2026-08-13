@@ -4,6 +4,8 @@ import type {
   ValuationGroup,
 } from '../types/stock-valuation.types'
 
+export type ValuationGroupChange = 'none' | 'cost' | 'sale' | 'both'
+
 const roundMoney = (value: number) =>
   Math.round((value + Number.EPSILON * Math.abs(value)) * 100) / 100
 const optionalNumber = (value: string): number | undefined => value.trim() === '' ? undefined : Number(value)
@@ -18,6 +20,37 @@ export function createValuationDraft(groups: ValuationGroup[]): DraftGroup[] {
     manualSellPrice: '',
     marginPercent: '',
   }))
+}
+
+export function valuationGroupChange(group: DraftGroup): ValuationGroupChange {
+  const costChanged = Number(group.costPrice) !== group.currentCostPrice
+  const saleChanged = group.saleMode !== 'unchanged'
+  if (costChanged && saleChanged) return 'both'
+  if (costChanged) return 'cost'
+  if (saleChanged) return 'sale'
+  return 'none'
+}
+
+export function valuationDraftChanged(
+  draft: DraftGroup[],
+  generalMargin: string,
+  source: ValuationGroup[],
+): boolean {
+  if (generalMargin.trim() !== '') return true
+  if (draft.length !== source.length) return true
+  return draft.some((group, index) => {
+    const sourceGroup = source[index]
+    return !sourceGroup || group.groupKey !== sourceGroup.groupKey || valuationGroupChange(group) !== 'none'
+  })
+}
+
+export function vehicleEditUrl(vehicleId: number, internalCode: string | null, period: string): string {
+  // Keep the stable, human-readable query order used by the vehicle editor.
+  return `/vehicles?edit=${encodeURIComponent(String(vehicleId))}${internalCode ? `&search=${encodeURIComponent(internalCode)}` : ''}&returnTo=${encodeURIComponent(`/stock-valuation?period=${period}`)}`
+}
+
+export function safeValuationReturnTo(value: string | null): string | null {
+  return value !== null && /^\/stock-valuation(?:\?.*)?$/.test(value) ? value : null
 }
 
 export function projectDraftSellPrice(group: DraftGroup, generalMargin: string): number | null {

@@ -2,8 +2,12 @@ import { describe, expect, it } from '@jest/globals'
 import {
   createValuationDraft,
   projectDraftSellPrice,
+  safeValuationReturnTo,
   toValuationGroups,
   validateDraft,
+  valuationDraftChanged,
+  valuationGroupChange,
+  vehicleEditUrl,
 } from './stockValuation'
 import type { DraftGroup, ValuationGroup } from '../types/stock-valuation.types'
 
@@ -16,9 +20,33 @@ const group = (overrides: Partial<ValuationGroup> = {}): ValuationGroup => ({
   availableUnits: 1,
   reservedUnits: 0,
   totalUnits: 1,
+  units: [],
   currentCostPrice: 100,
   currentSellPrice: 130,
   ...overrides,
+})
+
+describe('valuation UX helpers', () => {
+  it('detects cost, sale and unchanged groups', () => {
+    const base = group({ currentCostPrice: 100, currentSellPrice: 130 })
+    expect(valuationGroupChange({ ...createValuationDraft([base])[0], costPrice: '110' })).toBe('cost')
+    expect(valuationGroupChange({ ...createValuationDraft([base])[0], saleMode: 'manual', manualSellPrice: '140' })).toBe('sale')
+    expect(valuationGroupChange({ ...createValuationDraft([base])[0], costPrice: '110', saleMode: 'margin', marginPercent: '20' })).toBe('both')
+    expect(valuationGroupChange(createValuationDraft([base])[0])).toBe('none')
+  })
+
+  it('detects unsaved valuation inputs', () => {
+    const groups = [group({ currentCostPrice: 100 })]
+    expect(valuationDraftChanged(createValuationDraft(groups), '', groups)).toBe(false)
+    expect(valuationDraftChanged([{ ...createValuationDraft(groups)[0], costPrice: '101' }], '', groups)).toBe(true)
+    expect(valuationDraftChanged(createValuationDraft(groups), '25', groups)).toBe(true)
+  })
+
+  it('builds an editable vehicle URL with a safe return path', () => {
+    expect(vehicleEditUrl(42, 'SM-001', '2026-08')).toBe('/vehicles?edit=42&search=SM-001&returnTo=%2Fstock-valuation%3Fperiod%3D2026-08')
+    expect(safeValuationReturnTo('/stock-valuation?period=2026-08')).toBe('/stock-valuation?period=2026-08')
+    expect(safeValuationReturnTo('https://evil.example')).toBeNull()
+  })
 })
 
 describe('stock valuation draft', () => {
