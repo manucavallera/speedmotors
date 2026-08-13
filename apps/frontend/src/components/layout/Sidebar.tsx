@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Package, Bike, Users,
   ShoppingCart, CreditCard, FileText, Wallet,
-  ArrowLeftRight, Receipt, BarChart2, Settings, LogOut, X, Truck, ClipboardList, BookMarked, Bell, FileCheck, UserCog, HandCoins, Anchor, Store, CalendarClock,
+  ArrowLeftRight, Receipt, BarChart2, Settings, LogOut, X, Truck, ClipboardList, BookMarked, Bell, FileCheck, UserCog, HandCoins, Anchor, Store, CalendarClock, Calculator,
 } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import { useAlertsCount } from '../../hooks/useAlerts'
@@ -66,6 +66,9 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user } = useAuth()
   const alertsCount = useAlertsCount()
+  const visibleGroups = groups.map(group => group.label === 'INVENTARIO' && user.role === 'admin'
+    ? { ...group, items: [...group.items, { to: '/stock-valuation', icon: Calculator, label: 'Valuación de stock' }] }
+    : group)
 
   function logout() {
     localStorage.removeItem('token')
@@ -104,8 +107,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Nav */}
       <nav style={{ flex: 1, padding: '10px 8px', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
         {(user.role === 'admin'
-          ? [...groups, { label: 'ADMIN', items: [{ to: '/users', icon: UserCog, label: 'Usuarios' }] }]
-          : groups.map(g => ({ ...g, items: g.items.filter(i => i.to !== '/reports') }))
+          ? [...visibleGroups, { label: 'ADMIN', items: [{ to: '/users', icon: UserCog, label: 'Usuarios' }] }]
+          : visibleGroups.map(g => ({ ...g, items: g.items.filter(i => i.to !== '/reports') }))
         ).map((group, gi) => (
           <div key={gi} style={{ marginBottom: '4px' }}>
             {group.label && (

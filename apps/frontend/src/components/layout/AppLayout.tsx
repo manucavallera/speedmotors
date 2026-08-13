@@ -8,6 +8,7 @@ const routeTitles: Record<string, string> = {
   '/': 'Dashboard',
   '/products': 'Productos',
   '/vehicles': 'Motos y Lanchas',
+  '/stock-valuation': 'Valuación de stock',
   '/clients': 'Clientes',
   '/sales': 'Ventas',
   '/installments': 'Cuotas',

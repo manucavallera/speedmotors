@@ -30,6 +30,7 @@ const GuarderiaPage       = lazy(() => import('./pages/GuarderiaPage').then(m =>
 const ProveeduriaPage     = lazy(() => import('./pages/ProveeduriaPage').then(m => ({ default: m.ProveeduriaPage })))
 const TurneraPage         = lazy(() => import('./pages/TurneraPage').then(m => ({ default: m.TurneraPage })))
 const TurnosPublicPage    = lazy(() => import('./pages/TurnosPublicPage').then(m => ({ default: m.TurnosPublicPage })))
+const StockValuationPage = lazy(() => import('./pages/StockValuationPage').then(m => ({ default: m.StockValuationPage })))
 
 const queryClient = new QueryClient()
 
@@ -53,6 +54,7 @@ export default function App() {
             <Route index element={<Suspense fallback={PageFallback}><DashboardPage /></Suspense>} />
             <Route path="products" element={<Suspense fallback={PageFallback}><ProductsPage /></Suspense>} />
             <Route path="vehicles" element={<Suspense fallback={PageFallback}><VehiclesPage /></Suspense>} />
+            <Route path="stock-valuation" element={<Suspense fallback={PageFallback}><StockValuationPage /></Suspense>} />
             <Route path="clients" element={<Suspense fallback={PageFallback}><ClientsPage /></Suspense>} />
             <Route path="sales" element={<Suspense fallback={PageFallback}><SalesPage /></Suspense>} />
             <Route path="installments" element={<Suspense fallback={PageFallback}><InstallmentsPage /></Suspense>} />

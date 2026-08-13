@@ -99,6 +99,13 @@
       "when": 1746748800000,
       "tag": "0013_missing_columns",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1776822000000,
+      "tag": "0047_stock_valuations",
+      "breakpoints": true
     }
   ]
 }
