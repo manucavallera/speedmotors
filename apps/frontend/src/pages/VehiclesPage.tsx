@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { api } from '../lib/api'
-import { safeValuationReturnTo } from '../lib/stockValuation'
+import { directEditAction, directEditFailurePlan, directEditReturnTo } from '../lib/vehicleDirectEdit'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
@@ -20,7 +20,7 @@ export function VehiclesPage() {
   const navigate = useNavigate()
   const requestedEditId = Number(searchParams.get('edit'))
   const fallbackSearch = searchParams.get('search') ?? ''
-  const returnTo = safeValuationReturnTo(searchParams.get('returnTo'))
+  const returnTo = directEditReturnTo(searchParams.get('returnTo'))
   const hasDirectEdit = Number.isInteger(requestedEditId) && requestedEditId > 0
   const [modal, setModal] = useState<'create' | 'edit' | 'remito' | null>(null)
   const [editing, setEditing] = useState<any>(null)
@@ -35,29 +35,45 @@ export function VehiclesPage() {
     placeholderData: (prev: any) => prev,
   })
 
-  const { data: directVehicle, isError: isDirectVehicleError } = useQuery({
+  const {
+    data: directVehicle,
+    isError: isDirectVehicleError,
+    isFetching: isDirectVehicleFetching,
+    isRefetchError: isDirectVehicleRefetchError,
+  } = useQuery({
     queryKey: ['vehicles', 'detail', requestedEditId],
     queryFn: () => api.get(`/vehicles/${requestedEditId}`).then(r => r.data),
     enabled: isAdmin && hasDirectEdit,
   })
 
+  const directAction = directEditAction({
+    isAdmin,
+    requestedId: requestedEditId,
+    vehicle: directVehicle,
+    isFetching: isDirectVehicleFetching,
+    isError: isDirectVehicleError,
+    isRefetchError: isDirectVehicleRefetchError,
+    handledId: handledDirectId.current,
+  })
+
   useEffect(() => {
-    if (!isAdmin || !hasDirectEdit || !directVehicle || openedDirectId === requestedEditId || handledDirectId.current === requestedEditId) return
+    if (directAction !== 'open' || openedDirectId === requestedEditId) return
     handledDirectId.current = requestedEditId
     setEditing(directVehicle)
     setModal('edit')
     setOpenedDirectId(requestedEditId)
-  }, [directVehicle, hasDirectEdit, isAdmin, openedDirectId, requestedEditId])
+  }, [directAction, directVehicle, openedDirectId, requestedEditId])
 
   useEffect(() => {
-    if (!isAdmin || !hasDirectEdit || !isDirectVehicleError || openedDirectId === requestedEditId || handledDirectId.current === requestedEditId) return
+    if (directAction !== 'error' || openedDirectId === requestedEditId) return
+    const failure = directEditFailurePlan(fallbackSearch)
     handledDirectId.current = requestedEditId
     setOpenedDirectId(requestedEditId)
-    toast.error('No se pudo abrir la moto solicitada')
-    setSearch(fallbackSearch)
+    toast.error(failure.message)
+    setSearch(failure.search)
     setPage(1)
-    navigate('/vehicles', { replace: true })
-  }, [fallbackSearch, hasDirectEdit, isAdmin, isDirectVehicleError, navigate, openedDirectId, requestedEditId])
+    navigate(failure.replaceTo, { replace: true })
+  }, [directAction, fallbackSearch, navigate, openedDirectId, requestedEditId])
 
   const vehicles = vehiclesData?.items ?? []
   const total = vehiclesData?.total ?? 0
