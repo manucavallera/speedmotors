@@ -123,7 +123,7 @@ export function StockValuationPage() {
 
       {valuation.currentQuery.isLoading ? (
         <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>Cargando stock…</div>
-      ) : valuation.currentQuery.isError ? (
+      ) : valuation.currentQuery.isError && !valuation.currentQuery.data ? (
         <div style={{ padding: '18px', background: '#fef2f2', color: '#b91c1c', borderRadius: '10px' }}>No se pudo cargar el stock. {apiError(valuation.currentQuery.error)}</div>
       ) : valuation.draft.length === 0 ? (
         <div style={{ padding: '32px', background: 'white', borderRadius: '12px', textAlign: 'center', color: '#64748b' }}>No hay motos disponibles o reservadas para valuar.</div>
