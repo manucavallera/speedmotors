@@ -1,20 +1,16 @@
 import { AlertTriangle, CheckCircle2 } from 'lucide-react'
-import { btnPrimary, btnSecondary } from '../ui/FormField'
+import { btnSecondary } from '../ui/FormField'
 import type { ValuationProjection } from '../../types/stock-valuation.types'
 
 interface Props {
   preview: ValuationProjection | null
   errors: string[]
-  isPreviewing: boolean
-  isClosing: boolean
-  onPreview: () => void
-  onClose: () => void
   onReset: () => void
 }
 
 const money = (value: number) => value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 })
 
-export function ValuationSummary({ preview, errors, isPreviewing, isClosing, onPreview, onClose, onReset }: Props) {
+export function ValuationSummary({ preview, errors, onReset }: Props) {
   return (
     <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '16px', marginBottom: '18px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -24,10 +20,6 @@ export function ValuationSummary({ preview, errors, isPreviewing, isClosing, onP
         </div>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           <button type="button" onClick={onReset} style={btnSecondary}>Restablecer</button>
-          <button type="button" onClick={onPreview} disabled={errors.length > 0 || isPreviewing} style={{ ...btnSecondary, opacity: errors.length > 0 || isPreviewing ? 0.55 : 1 }}>
-            {isPreviewing ? 'Calculando…' : 'Previsualizar cierre'}
-          </button>
-          {preview && <button type="button" onClick={onClose} disabled={isClosing} style={{ ...btnPrimary, opacity: isClosing ? 0.6 : 1 }}>{isClosing ? 'Guardando…' : 'Confirmar cierre'}</button>}
         </div>
       </div>
 

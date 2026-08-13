@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
-import { createValuationDraft, toValuationGroups } from '../lib/stockValuation'
+import { createValuationDraft, toValuationGroups, valuationDraftChanged } from '../lib/stockValuation'
 import type {
   CurrentValuationResponse,
   DraftGroup,
@@ -89,6 +89,17 @@ export function useStockValuation(period: string, enabled = true) {
     setPreview(null)
   }
 
+  const isDirty = valuationDraftChanged(draft, generalMargin, currentQuery.data?.groups ?? [])
+
+  const refreshStock = async (): Promise<void> => {
+    const result = await currentQuery.refetch({ throwOnError: true })
+    if (!result.data) throw new Error('No se recibió el stock actualizado')
+    setDraftState(createValuationDraft(result.data.groups))
+    setGeneralMarginState('')
+    setPreview(null)
+    setDraftSource(`${result.data.period}:${result.data.stockFingerprint}`)
+  }
+
   return {
     current: currentQuery.data,
     currentQuery,
@@ -107,5 +118,7 @@ export function useStockValuation(period: string, enabled = true) {
     selectHistory: setSelectedHistoryId,
     selectedHistoryId,
     resetDraft,
+    isDirty,
+    refreshStock,
   }
 }
