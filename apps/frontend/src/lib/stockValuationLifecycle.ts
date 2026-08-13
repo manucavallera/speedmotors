@@ -24,6 +24,11 @@ export interface ValuationRefreshToken {
   period: string
 }
 
+export interface ValuationCloseToken {
+  revision: number
+  period: string
+}
+
 interface PreviewAvailability {
   period: string
   currentPeriod: string | null
@@ -172,6 +177,21 @@ export function valuationClosePayload(
     ...snapshotPayload(preview.request.payload),
     ...(replaceExisting ? { replaceExisting: true } : {}),
   }
+}
+
+export function valuationCloseToken(
+  lifecycle: ValuationLifecycle,
+  period: string,
+): ValuationCloseToken {
+  return { revision: lifecycle.revision, period }
+}
+
+export function valuationCloseCanApply(
+  lifecycle: ValuationLifecycle,
+  token: ValuationCloseToken,
+  activePeriod: string,
+): boolean {
+  return lifecycle.revision === token.revision && token.period === activePeriod
 }
 
 export function valuationSource(period: string, stockFingerprint: string): string {

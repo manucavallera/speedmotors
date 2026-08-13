@@ -9,7 +9,9 @@ import {
   isValuationPreviewRequestLatest,
   isValuationPreviewReady,
   shouldAdoptValuationSource,
+  valuationCloseCanApply,
   valuationClosePayload,
+  valuationCloseToken,
   valuationPreviewBlockReason,
   valuationRefreshCanApply,
   valuationRefreshToken,
@@ -181,5 +183,23 @@ describe('stock valuation data synchronization', () => {
     expect(valuationRefreshCanApply(lifecycle, refresh, '2026-08')).toBe(true)
     expect(valuationRefreshCanApply(invalidateValuationDraft(lifecycle), refresh, '2026-08')).toBe(false)
     expect(valuationRefreshCanApply(lifecycle, refresh, '2026-09')).toBe(false)
+  })
+
+  it.each(['edit', 'reset', 'period change'])('rejects late close cleanup after a later %s; removing the revision/period guard lets it apply', (change) => {
+    const lifecycle = createValuationLifecycle()
+    const close = valuationCloseToken(lifecycle, '2026-08')
+    const laterLifecycle = change === 'period change'
+      ? lifecycle
+      : invalidateValuationDraft(lifecycle)
+    const activePeriod = change === 'period change' ? '2026-09' : '2026-08'
+
+    expect(valuationCloseCanApply(laterLifecycle, close, activePeriod)).toBe(false)
+  })
+
+  it('applies close cleanup when lifecycle revision and period are unchanged', () => {
+    const lifecycle = createValuationLifecycle()
+    const close = valuationCloseToken(lifecycle, '2026-08')
+
+    expect(valuationCloseCanApply(lifecycle, close, '2026-08')).toBe(true)
   })
 })

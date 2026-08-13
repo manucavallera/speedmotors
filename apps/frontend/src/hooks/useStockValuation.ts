@@ -10,12 +10,15 @@ import {
   invalidateValuationDraft,
   isValuationPreviewReady,
   shouldAdoptValuationSource,
+  valuationCloseCanApply,
   valuationClosePayload,
+  valuationCloseToken,
   valuationPreviewBlockReason,
   valuationRefreshCanApply,
   valuationRefreshToken,
   valuationSource,
   type AcceptedValuationPreview,
+  type ValuationCloseToken,
   type ValuationPreviewRequest,
   type ValuationRefreshToken,
 } from '../lib/stockValuationLifecycle'
@@ -182,20 +185,22 @@ export function useStockValuation(period: string, enabled = true) {
   const closeMutation = useMutation<
     StockValuationDetail,
     unknown,
-    { preview: AcceptedValuationPreview; replaceExisting: boolean }
+    { preview: AcceptedValuationPreview; replaceExisting: boolean; token: ValuationCloseToken }
   >({
     mutationFn: ({ preview, replaceExisting }) => api.post(
       '/stock-valuations/close',
       valuationClosePayload(preview, replaceExisting),
     ).then((response) => response.data),
-    onSuccess: async () => {
-      commitLifecycle(invalidateValuationDraft(lifecycleRef.current))
-      acceptedPreviewRef.current = null
-      setAcceptedPreviewState(null)
+    onSuccess: async (_valuation, { token }) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ['stock-valuations'] }),
         queryClient.invalidateQueries({ queryKey: ['vehicles'] }),
       ])
+      if (!valuationCloseCanApply(lifecycleRef.current, token, periodRef.current)) return
+
+      commitLifecycle(invalidateValuationDraft(lifecycleRef.current))
+      acceptedPreviewRef.current = null
+      setAcceptedPreviewState(null)
       draftSourceRef.current = ''
       setDraftSourceState('')
     },
@@ -249,7 +254,8 @@ export function useStockValuation(period: string, enabled = true) {
     const reason = blockReason()
     if (reason || !isValuationPreviewReady(lifecycleRef.current, currentPreview, payload()))
       return Promise.reject(new Error(reason ?? 'La previsualización ya no está vigente.'))
-    return closeMutation.mutateAsync({ preview: currentPreview!, replaceExisting })
+    const token = valuationCloseToken(lifecycleRef.current, periodRef.current)
+    return closeMutation.mutateAsync({ preview: currentPreview!, replaceExisting, token })
   }
 
   const refreshStock = async (): Promise<StockRefreshResult> => {
