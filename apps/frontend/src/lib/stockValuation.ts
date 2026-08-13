@@ -2,6 +2,7 @@ import type {
   DraftGroup,
   GroupPriceEditPayload,
   ValuationGroup,
+  ValuationVehicleUnit,
 } from '../types/stock-valuation.types'
 
 export type ValuationGroupChange = 'none' | 'cost' | 'sale' | 'both'
@@ -51,6 +52,16 @@ export function vehicleEditUrl(vehicleId: number, internalCode: string | null, p
 
 export function safeValuationReturnTo(value: string | null): string | null {
   return value !== null && /^\/stock-valuation(?:\?.*)?$/.test(value) ? value : null
+}
+
+export function valuationUnitLabel(
+  unit: Pick<ValuationVehicleUnit, 'brand' | 'model' | 'version'>,
+): string {
+  return [unit.brand, unit.model, unit.version || 'Sin versión'].join(' ')
+}
+
+export function valuationClosedLabel(closedAt: string): string {
+  return `Cerrado ${new Date(closedAt).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })}`
 }
 
 export function projectDraftSellPrice(group: DraftGroup, generalMargin: string): number | null {

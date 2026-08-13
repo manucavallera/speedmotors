@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
 import { btnSecondary, inputStyle } from '../ui/FormField'
 import { MoneyInput } from '../ui/MoneyInput'
-import { projectDraftSellPrice, valuationGroupChange } from '../../lib/stockValuation'
+import { projectDraftSellPrice, valuationGroupChange, valuationUnitLabel } from '../../lib/stockValuation'
 import type { DraftGroup, ValuationVehicleUnit } from '../../types/stock-valuation.types'
 
 interface Props {
@@ -123,6 +123,7 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
                           {group.units.map((unit) => (
                             <div key={unit.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', padding: '10px', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
                               <strong style={{ color: '#0f172a' }}>{unit.internalCode || `Moto #${unit.id}`}</strong>
+                              <span style={{ color: '#334155', fontWeight: 600 }}>{valuationUnitLabel(unit)}</span>
                               <span style={{ color: unit.status === 'disponible' ? '#166534' : '#92400e' }}>{unit.status === 'disponible' ? 'Disponible' : 'Reservada'}</span>
                               <span style={{ color: '#64748b' }}>Cuadro: {unit.chassisNumber || 'Sin dato'}</span>
                               <span style={{ color: '#64748b' }}>Motor: {unit.engineNumber || 'Sin dato'}</span>

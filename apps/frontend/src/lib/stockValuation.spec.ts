@@ -5,8 +5,10 @@ import {
   safeValuationReturnTo,
   toValuationGroups,
   validateDraft,
+  valuationClosedLabel,
   valuationDraftChanged,
   valuationGroupChange,
+  valuationUnitLabel,
   vehicleEditUrl,
 } from './stockValuation'
 import type { DraftGroup, ValuationGroup } from '../types/stock-valuation.types'
@@ -46,6 +48,18 @@ describe('valuation UX helpers', () => {
     expect(vehicleEditUrl(42, 'SM-001', '2026-08')).toBe('/vehicles?edit=42&search=SM-001&returnTo=%2Fstock-valuation%3Fperiod%3D2026-08')
     expect(safeValuationReturnTo('/stock-valuation?period=2026-08')).toBe('/stock-valuation?period=2026-08')
     expect(safeValuationReturnTo('https://evil.example')).toBeNull()
+  })
+
+  it('formats the identifying model label shown inside an expanded unit card', () => {
+    expect(valuationUnitLabel({ brand: 'Guerrero', model: 'Trip', version: 'Full' })).toBe('Guerrero Trip Full')
+    expect(valuationUnitLabel({ brand: 'Guerrero', model: 'Trip', version: null })).toBe('Guerrero Trip Sin versión')
+  })
+
+  it('shows both the date and time for a closed period', () => {
+    const closedAt = '2026-08-13T17:45:00.000Z'
+    expect(valuationClosedLabel(closedAt)).toBe(
+      `Cerrado ${new Date(closedAt).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })}`,
+    )
   })
 })
 

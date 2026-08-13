@@ -27,10 +27,7 @@ export function StockValuationPage() {
   const period = isValidPeriod(requestedPeriod) ? requestedPeriod : currentPeriod()
   const valuation = useStockValuation(period, isAdmin)
   const errors = useMemo(() => validateDraft(valuation.draft, valuation.generalMargin), [valuation.draft, valuation.generalMargin])
-  const previewReady = valuation.preview !== null
-    && errors.length === 0
-    && valuation.preview.period === period
-    && valuation.preview.stockFingerprint === valuation.current?.stockFingerprint
+  const previewReady = valuation.previewReady && errors.length === 0
 
   const setPeriod = (nextPeriod: string) => {
     if (!isValidPeriod(nextPeriod)) return
@@ -44,11 +41,15 @@ export function StockValuationPage() {
   if (!isAdmin) return <Navigate to="/vehicles" replace />
 
   const preview = async () => {
+    if (valuation.previewBlockReason) return toast.error(valuation.previewBlockReason)
     if (errors.length > 0) return toast.error(errors[0])
+    if (valuation.previewMutation.isPending) return
     try {
-      await valuation.previewMutation.mutateAsync()
+      await valuation.requestPreview()
     } catch (error) {
-      toast.error(apiError(error))
+      toast.error((error as { response?: unknown }).response
+        ? apiError(error)
+        : error instanceof Error ? error.message : apiError(error))
     }
   }
 
@@ -66,7 +67,9 @@ export function StockValuationPage() {
           await valuation.close(true)
           toast.success(`Cierre ${period} reemplazado`)
         } catch (replaceError) {
-          toast.error(apiError(replaceError))
+          toast.error((replaceError as { response?: unknown }).response
+            ? apiError(replaceError)
+            : replaceError instanceof Error ? replaceError.message : apiError(replaceError))
         }
       } else {
         toast.error(apiError(error))
@@ -77,8 +80,9 @@ export function StockValuationPage() {
   const refresh = async () => {
     if (valuation.isDirty && !window.confirm('Hay cambios sin confirmar. ¿Querés descartarlos y actualizar el stock?')) return
     try {
-      await valuation.refreshStock()
-      toast.success('Stock actualizado')
+      const result = await valuation.refreshStock()
+      if (result === 'updated') toast.success('Stock actualizado')
+      else toast.info('Conservamos los cambios hechos mientras se actualizaba. Actualizá nuevamente para descartarlos.')
     } catch (error) {
       toast.error(apiError(error))
     }
@@ -104,6 +108,7 @@ export function StockValuationPage() {
       <ValuationActionBar
         existingValuation={valuation.current?.existingValuation ?? null}
         previewReady={previewReady}
+        previewBlockReason={valuation.previewBlockReason}
         isDirty={valuation.isDirty}
         errors={errors}
         isRefreshing={valuation.currentQuery.isRefetching}

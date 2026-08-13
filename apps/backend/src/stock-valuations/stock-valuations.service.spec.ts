@@ -158,9 +158,27 @@ describe('StockValuationsService', () => {
     const current = await serviceWith(database).current('2026-08')
 
     expect(current.groups).toHaveLength(1)
-    expect(current.groups[0].units).toEqual([
-      expect.objectContaining({ id: 1, internalCode: 'SM-001', status: 'disponible', chassisNumber: 'CH-1', engineNumber: 'EN-1' }),
-      expect.objectContaining({ id: 2, internalCode: 'SM-002', status: 'reservado' }),
+    expect(current.groups[0].units).toStrictEqual([
+      {
+        id: 1,
+        internalCode: 'SM-001',
+        brand: 'Honda',
+        model: 'Wave',
+        version: 'S',
+        status: 'disponible',
+        chassisNumber: 'CH-1',
+        engineNumber: 'EN-1',
+      },
+      {
+        id: 2,
+        internalCode: 'SM-002',
+        brand: 'Honda',
+        model: 'Wave',
+        version: 'S',
+        status: 'reservado',
+        chassisNumber: null,
+        engineNumber: null,
+      },
     ])
     expect(current.groups[0].units).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ internalCode: 'BOAT-1' }),
