@@ -25,6 +25,7 @@ import { CreditsModule } from './credits/credits.module'
 import { GuarderiaModule } from './guarderia/guarderia.module'
 import { ProveeduriaModule } from './proveeduria/proveeduria.module'
 import { TurneraModule } from './turnera/turnera.module'
+import { StockValuationsModule } from './stock-valuations/stock-valuations.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -55,6 +56,7 @@ import { AppService } from './app.service'
     GuarderiaModule,
     ProveeduriaModule,
     TurneraModule,
+    StockValuationsModule,
   ],
   controllers: [AppController],
   providers: [
