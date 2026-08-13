@@ -36,11 +36,14 @@ export function ValuationHistory({ history, detail, selectedId, isLoading, onSel
               <>
                 <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', fontSize: '12.5px', color: '#475569', marginBottom: '12px' }}>
                   <strong style={{ color: '#0f172a' }}>{detail.period}</strong>
+                  <span>Cerrado {new Date(detail.closedAt).toLocaleString('es-AR')}</span>
+                  <span>{detail.totalUnits} motos</span>
                   <span>{detail.availableUnits} disponibles</span>
                   <span>{detail.reservedUnits} reservadas</span>
                   <span>Costo {money(detail.totalCost)}</span>
                   <span>Venta {money(detail.totalSell)}</span>
                   <span>Margen {money(detail.potentialMargin)}</span>
+                  <span style={{ color: detail.unpricedSaleUnits > 0 ? '#b45309' : '#475569', fontWeight: detail.unpricedSaleUnits > 0 ? 700 : 400 }}>{detail.unpricedSaleUnits} sin precio de venta</span>
                 </div>
                 <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', fontSize: '12px' }}>
                   <thead><tr style={{ textAlign: 'left', background: '#f8fafc' }}>{['Moto', 'Disp.', 'Reserv.', 'Costo', 'Venta', 'Total costo', 'Total venta'].map((title) => <th key={title} style={{ padding: '8px' }}>{title}</th>)}</tr></thead>

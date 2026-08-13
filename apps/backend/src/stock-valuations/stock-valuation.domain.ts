@@ -78,6 +78,13 @@ export interface ValuationProjection {
   }
 }
 
+export class StockValuationValidationError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'StockValuationValidationError'
+  }
+}
+
 export const normalizeGroupPart = (value: string | null): string =>
   (value ?? '').trim().toLocaleLowerCase('es-AR')
 
@@ -129,12 +136,13 @@ export function stockFingerprint(rows: EligibleVehicle[]): string {
   return createHash('sha256').update(payload).digest('hex')
 }
 
-const toCents = (value: number): number => Math.round((value + Number.EPSILON) * 100)
+const toCents = (value: number): number =>
+  Math.round((value + Number.EPSILON * Math.abs(value)) * 100)
 const fromCents = (value: number): number => value / 100
 
 const assertMargin = (value: number | undefined): number => {
   if (value === undefined || !Number.isFinite(value) || value < 0 || value > 1000)
-    throw new Error('Ingresá un margen entre 0 y 1000')
+    throw new StockValuationValidationError('Ingresá un margen entre 0 y 1000')
   return value
 }
 
@@ -150,7 +158,7 @@ export function projectedSell(input: {
 
   if (input.mode === 'manual') {
     if (input.manual === undefined || !Number.isFinite(input.manual) || input.manual < 0)
-      throw new Error('Ingresá un precio de venta manual válido')
+      throw new StockValuationValidationError('Ingresá un precio de venta manual válido')
     return fromCents(toCents(input.manual))
   }
 
@@ -161,21 +169,21 @@ export function projectedSell(input: {
 
 export function projectValuation(rows: EligibleVehicle[], request: ValuationRequest): ValuationProjection {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(request.period))
-    throw new Error('El período debe usar el formato YYYY-MM')
+    throw new StockValuationValidationError('El período debe usar el formato YYYY-MM')
   if (request.generalMarginPercent !== undefined) assertMargin(request.generalMarginPercent)
 
   const groups = groupEligibleVehicles(rows)
   const edits = new Map<string, GroupPriceEdit>()
   for (const edit of request.groups) {
-    if (edits.has(edit.groupKey)) throw new Error('Debe existir exactamente una edición por grupo')
+    if (edits.has(edit.groupKey)) throw new StockValuationValidationError('Debe existir exactamente una edición por grupo')
     edits.set(edit.groupKey, edit)
   }
   if (edits.size !== groups.length || groups.some((group) => !edits.has(group.groupKey)))
-    throw new Error('Debés completar todos los grupos conocidos')
+    throw new StockValuationValidationError('Debés completar todos los grupos conocidos')
 
   const knownKeys = new Set(groups.map((group) => group.groupKey))
   if (request.groups.some((edit) => !knownKeys.has(edit.groupKey)))
-    throw new Error('La solicitud contiene un grupo desconocido')
+    throw new StockValuationValidationError('La solicitud contiene un grupo desconocido')
 
   let totalCostCents = 0
   let totalSellCents = 0
@@ -184,7 +192,7 @@ export function projectValuation(rows: EligibleVehicle[], request: ValuationRequ
   const projectedGroups = groups.map((group): ProjectedGroup => {
     const edit = edits.get(group.groupKey)!
     if (!Number.isFinite(edit.costPrice) || edit.costPrice <= 0)
-      throw new Error(`Ingresá un costo mayor que cero para ${group.brand} ${group.model}`)
+      throw new StockValuationValidationError(`Ingresá un costo mayor que cero para ${group.brand} ${group.model}`)
 
     const costPrice = fromCents(toCents(edit.costPrice))
     const costCents = toCents(costPrice)

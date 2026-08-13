@@ -18,7 +18,7 @@ const currentPeriod = () => {
 export function StockValuationPage() {
   const { isAdmin } = useAuth()
   const [period, setPeriod] = useState(currentPeriod)
-  const valuation = useStockValuation(period)
+  const valuation = useStockValuation(period, isAdmin)
   const errors = useMemo(() => validateDraft(valuation.draft, valuation.generalMargin), [valuation.draft, valuation.generalMargin])
 
   if (!isAdmin) return <Navigate to="/vehicles" replace />
@@ -40,15 +40,15 @@ export function StockValuationPage() {
       await valuation.close()
       toast.success(`Cierre ${period} guardado`)
     } catch (error) {
-      const status = (error as { response?: { status?: number } })?.response?.status
-      if (status === 409 && window.confirm(`Ya existe el cierre ${period}. ¿Querés reemplazarlo con el stock y precios actuales?`)) {
+      const response = (error as { response?: { status?: number; data?: { code?: string } } })?.response
+      if (response?.status === 409 && response.data?.code === 'PERIOD_EXISTS' && window.confirm(`Ya existe el cierre ${period}. ¿Querés reemplazarlo con el stock y precios actuales?`)) {
         try {
           await valuation.close(true)
           toast.success(`Cierre ${period} reemplazado`)
         } catch (replaceError) {
           toast.error(apiError(replaceError))
         }
-      } else if (status !== 409) {
+      } else {
         toast.error(apiError(error))
       }
     }

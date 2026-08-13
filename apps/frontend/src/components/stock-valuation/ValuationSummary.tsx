@@ -43,6 +43,8 @@ export function ValuationSummary({ preview, errors, isPreviewing, isClosing, onP
           <div style={{ display: 'flex', alignItems: 'center', gap: '7px', color: '#166534', fontSize: '12.5px', fontWeight: 700, marginBottom: '10px' }}><CheckCircle2 size={16} /> Previsualización vigente</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(145px, 1fr))', gap: '10px' }}>
             {[
+              ['Grupos', String(preview.groups.length)],
+              ['Grupos con cambios', String(preview.groups.filter((group) => group.currentCostPrice !== group.costPrice || group.saleMode !== 'unchanged').length)],
               ['Unidades', String(preview.totals.totalUnits)],
               ['Disponibles', String(preview.totals.availableUnits)],
               ['Reservadas', String(preview.totals.reservedUnits)],

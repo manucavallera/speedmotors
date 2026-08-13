@@ -1,4 +1,4 @@
-import { ConflictException } from '@nestjs/common'
+import { BadRequestException, ConflictException } from '@nestjs/common'
 import { getTableName } from 'drizzle-orm'
 import { groupEligibleVehicles, stockFingerprint } from './stock-valuation.domain'
 import { StockValuationsService } from './stock-valuations.service'
@@ -18,6 +18,7 @@ interface VehicleRow {
 class Query<T> implements PromiseLike<T[]> {
   constructor(private readonly rows: T[]) {}
   where() { return this }
+  for() { return this }
   orderBy() { return this }
   limit(count: number) { return new Query(this.rows.slice(0, count)) }
   then<TResult1 = T[], TResult2 = never>(
@@ -143,10 +144,12 @@ describe('StockValuationsService', () => {
     const database = new FakeDatabase()
     database.vehicles = [vehicle()]
 
-    await expect(serviceWith(database).close({
+    const promise = serviceWith(database).close({
       ...closeRequest(database.vehicles),
       stockFingerprint: 'stale',
-    })).rejects.toThrow(ConflictException)
+    })
+    await expect(promise).rejects.toThrow(ConflictException)
+    await expect(promise).rejects.toMatchObject({ response: { code: 'STALE_STOCK' } })
     expect(database.vehicleUpdates).toHaveLength(0)
     expect(database.headers).toHaveLength(0)
   })
@@ -169,8 +172,18 @@ describe('StockValuationsService', () => {
     database.vehicles = [vehicle()]
     database.headers = [{ id: 7, period: '2026-08' }]
 
-    await expect(serviceWith(database).close(closeRequest(database.vehicles)))
-      .rejects.toThrow(ConflictException)
+    const promise = serviceWith(database).close(closeRequest(database.vehicles))
+    await expect(promise).rejects.toThrow(ConflictException)
+    await expect(promise).rejects.toMatchObject({ response: { code: 'PERIOD_EXISTS' } })
+  })
+
+  it('returns a client error for an invalid valuation request', async () => {
+    const database = new FakeDatabase()
+    database.vehicles = [vehicle()]
+    const request = closeRequest(database.vehicles)
+    request.groups[0].costPrice = 0
+
+    await expect(serviceWith(database).preview(request)).rejects.toThrow(BadRequestException)
   })
 
   it('replaces the existing header and frozen lines when confirmed', async () => {

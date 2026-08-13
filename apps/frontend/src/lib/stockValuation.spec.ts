@@ -37,6 +37,7 @@ describe('stock valuation draft', () => {
     ['group margin', { costPrice: '100', saleMode: 'margin' as const, marginPercent: '20' }, '30', 120],
     ['general margin fallback', { costPrice: '100', saleMode: 'margin' as const, marginPercent: '' }, '30', 130],
     ['unchanged price', { costPrice: '100', saleMode: 'unchanged' as const, currentSellPrice: 125 }, '', 125],
+    ['decimal half cents', { costPrice: '10.075', saleMode: 'margin' as const, marginPercent: '0' }, '', 10.08],
   ])('projects %s', (_name, draft, generalMargin, expected) => {
     expect(projectDraftSellPrice(draft as DraftGroup, generalMargin)).toBe(expected)
   })

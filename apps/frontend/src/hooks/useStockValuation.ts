@@ -11,7 +11,7 @@ import type {
   ValuationRequestPayload,
 } from '../types/stock-valuation.types'
 
-export function useStockValuation(period: string) {
+export function useStockValuation(period: string, enabled = true) {
   const queryClient = useQueryClient()
   const [draft, setDraftState] = useState<DraftGroup[]>([])
   const [generalMargin, setGeneralMarginState] = useState('')
@@ -22,18 +22,19 @@ export function useStockValuation(period: string) {
   const currentQuery = useQuery<CurrentValuationResponse>({
     queryKey: ['stock-valuations', 'current', period],
     queryFn: () => api.get('/stock-valuations/preview', { params: { period } }).then((response) => response.data),
-    enabled: Boolean(period),
+    enabled: enabled && Boolean(period),
   })
 
   const historyQuery = useQuery<StockValuationHeader[]>({
     queryKey: ['stock-valuations', 'history'],
     queryFn: () => api.get('/stock-valuations').then((response) => response.data),
+    enabled,
   })
 
   const detailQuery = useQuery<StockValuationDetail>({
     queryKey: ['stock-valuations', 'detail', selectedHistoryId],
     queryFn: () => api.get(`/stock-valuations/${selectedHistoryId}`).then((response) => response.data),
-    enabled: selectedHistoryId !== null,
+    enabled: enabled && selectedHistoryId !== null,
   })
 
   useEffect(() => {

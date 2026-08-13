@@ -6,6 +6,7 @@ import {
   EligibleVehicle,
   groupEligibleVehicles,
   projectValuation,
+  StockValuationValidationError,
   stockFingerprint,
 } from './stock-valuation.domain'
 import { CloseStockValuationDto, PreviewStockValuationDto } from './stock-valuations.dto'
@@ -19,11 +20,12 @@ export class StockValuationsService {
       throw new BadRequestException('El período debe usar el formato YYYY-MM')
   }
 
-  private async eligibleRows(executor: typeof db = this.database): Promise<EligibleVehicle[]> {
-    const rows = await executor
+  private async eligibleRows(executor: typeof db = this.database, lock = false): Promise<EligibleVehicle[]> {
+    const query = executor
       .select()
       .from(vehicles)
       .where(and(eq(vehicles.type, 'moto'), inArray(vehicles.status, ['disponible', 'reservado'])))
+    const rows = lock ? await query.for('update') : await query
 
     const eligible: EligibleVehicle[] = []
     for (const row of rows) {
@@ -40,6 +42,16 @@ export class StockValuationsService {
       })
     }
     return eligible
+  }
+
+  private project(rows: EligibleVehicle[], dto: PreviewStockValuationDto) {
+    try {
+      return projectValuation(rows, dto)
+    } catch (error) {
+      if (error instanceof StockValuationValidationError)
+        throw new BadRequestException({ code: 'INVALID_VALUATION', message: error.message })
+      throw error
+    }
   }
 
   private async existingForPeriod(period: string, executor: typeof db = this.database) {
@@ -70,21 +82,21 @@ export class StockValuationsService {
   async preview(dto: PreviewStockValuationDto) {
     const rows = await this.eligibleRows()
     if (stockFingerprint(rows) !== dto.stockFingerprint)
-      throw new ConflictException('El stock cambió. Recargá la vista previa antes de continuar')
-    return projectValuation(rows, dto)
+      throw new ConflictException({ code: 'STALE_STOCK', message: 'El stock cambió. Recargá la vista previa antes de continuar' })
+    return this.project(rows, dto)
   }
 
   async close(dto: CloseStockValuationDto) {
     return this.database.transaction(async (transaction) => {
       const executor = transaction as unknown as typeof db
-      const rows = await this.eligibleRows(executor)
+      const rows = await this.eligibleRows(executor, true)
       if (stockFingerprint(rows) !== dto.stockFingerprint)
-        throw new ConflictException('El stock cambió. Recargá la vista previa antes de continuar')
+        throw new ConflictException({ code: 'STALE_STOCK', message: 'El stock cambió. Recargá la vista previa antes de continuar' })
 
-      const projection = projectValuation(rows, dto)
+      const projection = this.project(rows, dto)
       const existing = await this.existingForPeriod(dto.period, executor)
       if (existing && !dto.replaceExisting)
-        throw new ConflictException(`Ya existe el cierre ${dto.period}`)
+        throw new ConflictException({ code: 'PERIOD_EXISTS', message: `Ya existe el cierre ${dto.period}` })
 
       const now = new Date()
       for (const group of projection.groups) {

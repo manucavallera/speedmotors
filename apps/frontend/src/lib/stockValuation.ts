@@ -4,7 +4,8 @@ import type {
   ValuationGroup,
 } from '../types/stock-valuation.types'
 
-const roundMoney = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100
+const roundMoney = (value: number) =>
+  Math.round((value + Number.EPSILON * Math.abs(value)) * 100) / 100
 const optionalNumber = (value: string): number | undefined => value.trim() === '' ? undefined : Number(value)
 const validMargin = (value: number | undefined): value is number =>
   value !== undefined && Number.isFinite(value) && value >= 0 && value <= 1000

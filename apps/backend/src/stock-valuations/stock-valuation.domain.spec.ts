@@ -70,6 +70,7 @@ describe('projectedSell', () => {
     ['general margin is the fallback for margin mode', { mode: 'margin' as const, generalMargin: 30, cost: 100, current: 90 }, 130],
     ['unchanged keeps the current sale price', { mode: 'unchanged' as const, cost: 100, current: 90 }, 90],
     ['money is rounded to cents', { mode: 'margin' as const, groupMargin: 0, cost: 100.005, current: 90 }, 100.01],
+    ['decimal half cents round up reliably', { mode: 'margin' as const, groupMargin: 0, cost: 10.075, current: 9 }, 10.08],
   ])('%s', (_name, input, expected) => {
     expect(projectedSell(input)).toBe(expected)
   })
