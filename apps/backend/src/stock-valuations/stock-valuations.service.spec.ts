@@ -164,6 +164,8 @@ describe('StockValuationsService', () => {
     ])
     expect(current.groups[0].units).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ internalCode: 'BOAT-1' }),
+    ]))
+    expect(current.groups[0].units).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ internalCode: 'SOLD-1' }),
     ]))
   })
