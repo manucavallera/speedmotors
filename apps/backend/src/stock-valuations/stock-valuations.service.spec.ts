@@ -10,6 +10,9 @@ interface VehicleRow {
   model: string
   version: string | null
   status: 'disponible' | 'reservado' | 'vendido'
+  internalCode: string | null
+  chassisNumber: string | null
+  engineNumber: string | null
   costPrice: string
   sellPrice: string
   updatedAt: Date
@@ -101,6 +104,9 @@ const vehicle = (overrides: Partial<VehicleRow> = {}): VehicleRow => ({
   model: 'Wave',
   version: 'S',
   status: 'disponible',
+  internalCode: null,
+  chassisNumber: null,
+  engineNumber: null,
   costPrice: '100',
   sellPrice: '130',
   updatedAt: new Date('2026-08-01T00:00:00.000Z'),
@@ -138,6 +144,28 @@ describe('StockValuationsService', () => {
 
     expect(current.groups.map((group) => group.brand)).toEqual(['Honda', 'Zanella'])
     expect(current.groups).toHaveLength(2)
+  })
+
+  it('returns identifying data only for units inside each eligible group', async () => {
+    const database = new FakeDatabase()
+    database.vehicles = [
+      vehicle({ id: 1, internalCode: 'SM-001', chassisNumber: 'CH-1', engineNumber: 'EN-1' }),
+      vehicle({ id: 2, status: 'reservado', internalCode: 'SM-002' }),
+      vehicle({ id: 3, type: 'lancha', internalCode: 'BOAT-1' }),
+      vehicle({ id: 4, status: 'vendido', internalCode: 'SOLD-1' }),
+    ]
+
+    const current = await serviceWith(database).current('2026-08')
+
+    expect(current.groups).toHaveLength(1)
+    expect(current.groups[0].units).toEqual([
+      expect.objectContaining({ id: 1, internalCode: 'SM-001', status: 'disponible', chassisNumber: 'CH-1', engineNumber: 'EN-1' }),
+      expect.objectContaining({ id: 2, internalCode: 'SM-002', status: 'reservado' }),
+    ])
+    expect(current.groups[0].units).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ internalCode: 'BOAT-1' }),
+      expect.objectContaining({ internalCode: 'SOLD-1' }),
+    ]))
   })
 
   it('rejects a stale stock fingerprint before writing', async () => {

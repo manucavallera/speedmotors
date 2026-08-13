@@ -36,6 +36,9 @@ export class StockValuationsService {
         model: row.model,
         version: row.version,
         status: row.status,
+        internalCode: row.internalCode,
+        chassisNumber: row.chassisNumber,
+        engineNumber: row.engineNumber,
         costPrice: row.costPrice,
         sellPrice: row.sellPrice,
         updatedAt: row.updatedAt,
@@ -69,7 +72,19 @@ export class StockValuationsService {
       this.eligibleRows(),
       this.existingForPeriod(period),
     ])
-    const groups = groupEligibleVehicles(rows).map(({ vehicles: _vehicles, ...group }) => group)
+    const groups = groupEligibleVehicles(rows).map(({ vehicles: groupedRows, ...group }) => ({
+      ...group,
+      units: groupedRows.map((row) => ({
+        id: row.id,
+        internalCode: row.internalCode,
+        brand: row.brand.trim(),
+        model: row.model.trim(),
+        version: row.version?.trim() || null,
+        status: row.status,
+        chassisNumber: row.chassisNumber,
+        engineNumber: row.engineNumber,
+      })),
+    }))
 
     return {
       period,

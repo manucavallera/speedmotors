@@ -9,6 +9,9 @@ export interface EligibleVehicle {
   model: string
   version: string | null
   status: EligibleStatus
+  internalCode: string | null
+  chassisNumber: string | null
+  engineNumber: string | null
   costPrice: string
   sellPrice: string
   updatedAt: Date
@@ -41,6 +44,17 @@ export interface EligibleVehicleGroup {
   currentCostPrice: number | null
   currentSellPrice: number | null
   vehicles: EligibleVehicle[]
+}
+
+export interface ValuationVehicleUnit {
+  id: number
+  internalCode: string | null
+  brand: string
+  model: string
+  version: string | null
+  status: EligibleStatus
+  chassisNumber: string | null
+  engineNumber: string | null
 }
 
 export interface ProjectedGroup {
