@@ -4,12 +4,13 @@ import { InfoBanner } from '../components/ui/InfoBanner'
 import { ValuationActionBar } from '../components/stock-valuation/ValuationActionBar'
 import { ValuationEditor } from '../components/stock-valuation/ValuationEditor'
 import { ValuationHistory } from '../components/stock-valuation/ValuationHistory'
+import { ValuationPeriodControl, type ValuationPeriodStatusTone } from '../components/stock-valuation/ValuationPeriodControl'
 import { ValuationSummary } from '../components/stock-valuation/ValuationSummary'
 import { useAuth } from '../hooks/useAuth'
 import { useStockValuation } from '../hooks/useStockValuation'
 import { apiError } from '../lib/api'
 import { toast } from '../lib/toast'
-import { validateDraft, vehicleEditUrl } from '../lib/stockValuation'
+import { validateDraft, valuationClosedLabel, vehicleEditUrl } from '../lib/stockValuation'
 
 const currentPeriod = () => {
   const now = new Date()
@@ -28,6 +29,13 @@ export function StockValuationPage() {
   const valuation = useStockValuation(period, isAdmin)
   const errors = useMemo(() => validateDraft(valuation.draft, valuation.generalMargin), [valuation.draft, valuation.generalMargin])
   const previewReady = valuation.previewReady && errors.length === 0
+  const periodStatus: { copy: string; tone: ValuationPeriodStatusTone } = previewReady
+    ? { copy: 'Previsualización lista', tone: 'preview' }
+    : valuation.isDirty
+      ? { copy: 'Con cambios sin previsualizar', tone: 'dirty' }
+      : valuation.current?.existingValuation
+        ? { copy: valuationClosedLabel(valuation.current.existingValuation.closedAt), tone: 'closed' }
+        : { copy: 'Sin cerrar', tone: 'neutral' }
 
   const setPeriod = (nextPeriod: string) => {
     if (!isValidPeriod(nextPeriod)) return
@@ -95,10 +103,7 @@ export function StockValuationPage() {
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Valuación de stock</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Actualización mensual por marca, modelo y versión</p>
         </div>
-        <label style={{ color: '#475569', fontSize: '12px', fontWeight: 700 }}>
-          Período
-          <input type="month" value={period} onChange={(event) => setPeriod(event.target.value)} style={{ display: 'block', marginTop: '5px', padding: '8px 10px', border: '1.5px solid #e2e8f0', borderRadius: '9px', color: '#0f172a' }} />
-        </label>
+        <ValuationPeriodControl period={period} status={periodStatus.copy} statusTone={periodStatus.tone} onPeriodChange={setPeriod} />
       </div>
 
       <InfoBanner title="Cierre mensual del stock de motos">
@@ -106,10 +111,8 @@ export function StockValuationPage() {
       </InfoBanner>
 
       <ValuationActionBar
-        existingValuation={valuation.current?.existingValuation ?? null}
         previewReady={previewReady}
         previewBlockReason={valuation.previewBlockReason}
-        isDirty={valuation.isDirty}
         errors={errors}
         isRefreshing={valuation.currentQuery.isRefetching}
         isPreviewing={valuation.previewMutation.isPending}
