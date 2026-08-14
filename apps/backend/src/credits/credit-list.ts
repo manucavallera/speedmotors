@@ -23,3 +23,12 @@ export function creditMatchesDebtType(
     ? Number(credit.interestRate) > 0
     : Number(credit.interestRate) === 0
 }
+
+export function creditPageMeta(total: number, page: number, limit: number) {
+  return {
+    total,
+    page,
+    pages: Math.ceil(total / limit),
+    offset: (page - 1) * limit,
+  }
+}

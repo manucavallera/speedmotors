@@ -1,4 +1,4 @@
-import { creditMatchesDebtType, normalizeCreditSearch } from './credit-list'
+import { creditMatchesDebtType, creditPageMeta, normalizeCreditSearch } from './credit-list'
 
 describe('credit list filters', () => {
   it.each([
@@ -15,5 +15,14 @@ describe('credit list filters', () => {
     expect(creditMatchesDebtType({ creditType: 'saldo_compuesto', interestRate: '5' }, 'libre')).toBe(true)
     expect(creditMatchesDebtType({ creditType: 'saldo_compuesto', interestRate: '0' }, 'cuenta_corriente')).toBe(true)
     expect(creditMatchesDebtType({ creditType: 'saldo_compuesto', interestRate: '0' }, 'libre')).toBe(false)
+  })
+
+  it.each([
+    [0, 1, 50, { total: 0, page: 1, pages: 0, offset: 0 }],
+    [120, 1, 50, { total: 120, page: 1, pages: 3, offset: 0 }],
+    [120, 3, 50, { total: 120, page: 3, pages: 3, offset: 100 }],
+    [120, 4, 50, { total: 120, page: 4, pages: 3, offset: 150 }],
+  ])('builds stable page metadata', (total, page, limit, expected) => {
+    expect(creditPageMeta(total, page, limit)).toEqual(expected)
   })
 })
