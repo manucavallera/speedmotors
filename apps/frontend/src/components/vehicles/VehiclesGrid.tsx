@@ -186,18 +186,23 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
                     <div>
                       <div style={{ fontWeight: 700, fontSize: '15px', color: '#0f172a' }}>{v.brand} {v.model}</div>
                       <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-                        {v.displacement ? `${v.displacement} cc` : '—'}{v.version ? ` · ${v.version}` : ''} · {v.color || '—'}
+                        {v.type === 'lancha' ? `Embarcación: ${v.vesselNumber || '—'}` : `${v.displacement ? `${v.displacement} cc` : '—'}${v.version ? ` · ${v.version}` : ''} · ${v.color || '—'}`}
                       </div>
                     </div>
                   </div>
                   <span style={{ padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, background: st.bg, color: st.color }}>{st.label}</span>
                 </div>
-                {v.chassisNumber && (
+                {v.type === 'lancha' && v.vesselNumber && (
+                  <div style={{ fontSize: '12px', color: '#64748b', background: '#f8fafc', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace' }}>
+                    N.º embarcación: {v.vesselNumber}
+                  </div>
+                )}
+                {v.type === 'moto' && v.chassisNumber && (
                   <div style={{ fontSize: '12px', color: '#64748b', background: '#f8fafc', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace' }}>
                     Chasis: {v.chassisNumber}
                   </div>
                 )}
-                {v.engineNumber && (
+                {v.type === 'moto' && v.engineNumber && (
                   <div style={{ fontSize: '12px', color: '#64748b', background: '#f8fafc', padding: '6px 10px', borderRadius: '7px', marginBottom: '6px', fontFamily: 'monospace' }}>
                     Motor: {v.engineNumber}
                   </div>

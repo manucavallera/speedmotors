@@ -8,6 +8,7 @@ interface Props {
   detail: CreditDetail
   onClose: () => void
   onAddPayment: () => void
+  onAddCapital: () => void
   onEdit: () => void
   onDelete: () => void
   onRemovePayment: (paymentId: number) => void
@@ -18,14 +19,14 @@ interface Props {
 
 interface HistoryItem {
   date: string
-  type: 'carga' | 'interes' | 'pago'
+  type: 'carga' | 'capital' | 'interes' | 'pago'
   amount: number
   balanceAfter?: number
   notes?: string | null
   id?: number
 }
 
-export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDelete, onRemovePayment, onPayInstallment, onUnpayInstallment, isAdmin }: Props) {
+export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital, onEdit, onDelete, onRemovePayment, onPayInstallment, onUnpayInstallment, isAdmin }: Props) {
   const [showHistory, setShowHistory] = useState(true)
   const sym = detail.currency === 'usd' ? 'US$' : '$'
   const isCuotas = detail.creditType === 'cuotas_simples'
@@ -33,6 +34,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
 
   const items: HistoryItem[] = []
   items.push({ date: detail.startDate, type: 'carga', amount: Number(detail.originalAmount), notes: detail.notes })
+  for (const a of detail.capitalAdditions || []) items.push({ date: a.effectiveDate, type: 'capital', amount: Number(a.amount), notes: a.notes, id: a.id })
   for (const p of detail.payments) items.push({ date: p.paymentDate, type: 'pago', amount: Number(p.amount), notes: p.notes, id: p.id })
   for (const c of detail.charges) items.push({ date: c.chargeDate, type: 'interes', amount: Number(c.amount) })
   items.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -89,6 +91,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
               + Registrar pago
             </button>
           )}
+          {detail.status === 'activo' && !isCuotas && <button onClick={onAddCapital} style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 600, background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', borderRadius: '8px', cursor: 'pointer' }}>+ Agregar capital</button>}
           <button onClick={() => generateCreditStatement(detail)} style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 600, background: '#f0fdf4', color: '#15803d', border: '1px solid #bbf7d0', borderRadius: '8px', cursor: 'pointer' }}>
             PDF estado de cuenta
           </button>
@@ -178,8 +181,8 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onEdit, onDel
               {sorted.map((it, idx) => (
                 <div key={idx} style={{ padding: '10px 14px', borderBottom: idx < sorted.length - 1 ? '1px solid #f8fafc' : 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: it.type === 'pago' ? '#f0fdf4' : it.type === 'interes' ? '#fffbeb' : 'white' }}>
                   <div>
-                    <div style={{ fontSize: '12px', fontWeight: 600, color: it.type === 'pago' ? '#16a34a' : it.type === 'interes' ? '#d97706' : '#475569', textTransform: 'uppercase' }}>
-                      {it.type === 'pago' ? 'Pago' : it.type === 'interes' ? 'Interés' : 'Carga inicial'}
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: it.type === 'pago' ? '#16a34a' : it.type === 'interes' ? '#d97706' : it.type === 'capital' ? '#2563eb' : '#475569', textTransform: 'uppercase' }}>
+                      {it.type === 'pago' ? 'Pago' : it.type === 'interes' ? 'Interés' : it.type === 'capital' ? 'Capital agregado' : 'Carga inicial'}
                     </div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>{new Date(it.date).toLocaleDateString('es-AR')}</div>
                     {it.notes && <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{it.notes}</div>}

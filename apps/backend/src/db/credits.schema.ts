@@ -33,6 +33,16 @@ export const creditPayments = pgTable('credit_payments', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
+export const creditCapitalAdditions = pgTable('credit_capital_additions', {
+  id: serial('id').primaryKey(),
+  creditId: integer('credit_id').references(() => credits.id, { onDelete: 'cascade' }).notNull(),
+  userId: integer('user_id').references(() => users.id).notNull(),
+  amount: numeric('amount', { precision: 12, scale: 2 }).notNull(),
+  effectiveDate: timestamp('effective_date').notNull(),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
 export const creditInterestCharges = pgTable('credit_interest_charges', {
   id: serial('id').primaryKey(),
   creditId: integer('credit_id').references(() => credits.id).notNull(),

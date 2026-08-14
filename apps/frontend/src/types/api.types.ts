@@ -64,6 +64,7 @@ export interface Vehicle {
   type: 'moto' | 'lancha'
   brand: string
   model: string | null
+  vesselNumber?: string | null
   displacement: number | null
   version: string | null
   year: number | null

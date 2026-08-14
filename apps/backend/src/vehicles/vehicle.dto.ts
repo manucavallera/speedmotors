@@ -11,6 +11,7 @@ export class CreateVehicleDto {
   @IsString()
   model: string
 
+  @IsOptional() @IsString() vesselNumber?: string
   @IsOptional() @IsInt() @Min(0) @Type(() => Number) displacement?: number
   @IsOptional() @IsString() version?: string
   @IsOptional() @IsNumber() @Type(() => Number) year?: number

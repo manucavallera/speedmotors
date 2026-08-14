@@ -22,6 +22,7 @@ export interface Credit {
 }
 
 export interface CreditPayment { id: number; creditId: number; amount: string; paymentDate: string; notes?: string | null }
+export interface CreditCapitalAddition { id: number; creditId: number; amount: string; effectiveDate: string; notes?: string | null }
 export interface CreditInterestCharge { id: number; creditId: number; chargeDate: string; balanceBefore: string; amount: string }
 export interface CreditInstallment {
   id: number
@@ -37,6 +38,7 @@ export interface CreditInstallment {
 
 export interface CreditDetail extends Credit {
   payments: CreditPayment[]
+  capitalAdditions?: CreditCapitalAddition[]
   charges: CreditInterestCharge[]
   installments: CreditInstallment[]
 }
@@ -116,6 +118,12 @@ export function useCredits() {
     onError: (e: any) => toast.error(apiError(e)),
   })
 
+  const addCapital = useMutation({
+    mutationFn: ({ creditId, data }: { creditId: number; data: { amount: number; effectiveDate: string; notes?: string } }) => api.post(`/credits/${creditId}/capital`, data),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Capital agregado a la deuda') },
+    onError: (e: any) => toast.error(apiError(e)),
+  })
+
   const removePayment = useMutation({
     mutationFn: (paymentId: number) => api.delete(`/credits/payments/${paymentId}`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Pago eliminado') },
@@ -144,7 +152,7 @@ export function useCredits() {
     search, setSearch,
     debtTypeFilter, setDebtTypeFilter,
     page, setPage, total, pages,
-    create, update, remove, addPayment, removePayment,
+    create, update, remove, addPayment, addCapital, removePayment,
     payInstallment, unpayInstallment,
   }
 }

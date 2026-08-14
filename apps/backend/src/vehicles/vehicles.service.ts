@@ -28,6 +28,7 @@ export class VehiclesService {
     if (filters?.search) conditions.push(or(
       ilike(vehicles.brand, `%${filters.search}%`),
       ilike(vehicles.model, `%${filters.search}%`),
+      ilike(vehicles.vesselNumber, `%${filters.search}%`),
       ilike(vehicles.version, `%${filters.search}%`),
       ilike(vehicles.internalCode, `%${filters.search}%`),
       ilike(vehicles.importCode, `%${filters.search}%`),

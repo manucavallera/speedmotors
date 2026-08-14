@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, Pars
 import { CreditsService } from './credits.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
-import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto } from './credit.dto'
+import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto, AddCapitalDto, PayInstallmentDto } from './credit.dto'
 import { ListCreditsQueryDto } from './list-credits.dto'
 
 @UseGuards(JwtAuthGuard)
@@ -12,6 +12,11 @@ export class CreditsController {
 
   @Get() findAll(@Query() query: ListCreditsQueryDto) { return this.creditsService.findAll(query) }
   @Get(':id') findOne(@Param('id', ParseIntPipe) id: number) { return this.creditsService.findOne(id) }
+
+  @Post(':id/capital')
+  addCapital(@Param('id', ParseIntPipe) id: number, @Body() body: AddCapitalDto, @Request() req: { user: { id: number } }) {
+    return this.creditsService.addCapital(id, body, req.user.id)
+  }
 
   @Post()
   create(@Body() body: CreateCreditDto, @Request() req: { user: { id: number } }) {

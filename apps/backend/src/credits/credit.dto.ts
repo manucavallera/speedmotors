@@ -29,6 +29,12 @@ export class CreatePaymentDto {
   @IsOptional() @IsString() notes?: string
 }
 
+export class AddCapitalDto {
+  @IsNumber() @Min(0.01) @Type(() => Number) amount: number
+  @IsDateString() effectiveDate: string
+  @IsOptional() @IsString() notes?: string
+}
+
 export class PayInstallmentDto {
   @IsDateString() paymentDate: string
 }

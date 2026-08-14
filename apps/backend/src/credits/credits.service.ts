@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
-import { credits, creditPayments, creditInterestCharges, creditInstallments, clients } from '../db/schema'
+import { credits, creditPayments, creditInterestCharges, creditInstallments, creditCapitalAdditions, clients } from '../db/schema'
 import { eq, desc, asc, and, gt, sql } from 'drizzle-orm'
 import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto'
 import { calcCuotasFijas } from './credit-math'
@@ -63,10 +63,11 @@ export class CreditsService {
     const [client] = await db.select().from(clients).where(eq(clients.id, credit.clientId))
     const payments = await db.select().from(creditPayments).where(eq(creditPayments.creditId, id)).orderBy(asc(creditPayments.paymentDate))
     const charges = await db.select().from(creditInterestCharges).where(eq(creditInterestCharges.creditId, id)).orderBy(asc(creditInterestCharges.chargeDate))
+    const capitalAdditions = await db.select().from(creditCapitalAdditions).where(eq(creditCapitalAdditions.creditId, id)).orderBy(asc(creditCapitalAdditions.effectiveDate))
     const installments = await db.select().from(creditInstallments).where(eq(creditInstallments.creditId, id)).orderBy(asc(creditInstallments.number))
     const balance = await this.computeBalance(id)
 
-    return { ...credit, client, payments, charges, installments, balance }
+    return { ...credit, client, payments, charges, capitalAdditions, installments, balance }
   }
 
   async create(dto: CreateCreditDto & { userId: number }) {
@@ -160,6 +161,23 @@ export class CreditsService {
       await db.update(credits).set({ status: 'pagado', updatedAt: new Date() }).where(eq(credits.id, creditId))
     }
     return payment
+  }
+
+  async addCapital(creditId: number, dto: { amount: number; effectiveDate: string; notes?: string }, userId: number) {
+    const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
+    if (!credit) throw new NotFoundException(`Crédito ${creditId} no encontrado`)
+    if (credit.creditType !== 'saldo_compuesto') throw new BadRequestException('El capital adicional solo aplica a créditos de saldo compuesto')
+
+    const [addition] = await db.insert(creditCapitalAdditions).values({
+      creditId,
+      userId,
+      amount: dto.amount.toString(),
+      effectiveDate: new Date(dto.effectiveDate),
+      notes: dto.notes,
+    }).returning()
+    await this.recomputeChargesAfter(creditId, new Date(dto.effectiveDate))
+    await db.update(credits).set({ status: 'activo', updatedAt: new Date() }).where(eq(credits.id, creditId))
+    return addition
   }
 
   async removePayment(paymentId: number) {
@@ -389,6 +407,8 @@ export class CreditsService {
       .where(and(eq(creditPayments.creditId, creditId)))
     const charges = await db.select().from(creditInterestCharges)
       .where(and(eq(creditInterestCharges.creditId, creditId)))
+    const additions = await db.select().from(creditCapitalAdditions)
+      .where(eq(creditCapitalAdditions.creditId, creditId))
 
     const paymentsTotal = payments
       .filter(p => new Date(p.paymentDate) <= atDate)
@@ -396,7 +416,10 @@ export class CreditsService {
     const chargesTotal = charges
       .filter(c => new Date(c.chargeDate) < atDate)
       .reduce((sum, c) => sum + Number(c.amount), 0)
+    const additionsTotal = additions
+      .filter(a => new Date(a.effectiveDate) <= atDate)
+      .reduce((sum, a) => sum + Number(a.amount), 0)
 
-    return Number(credit.originalAmount) + chargesTotal - paymentsTotal
+    return Number(credit.originalAmount) + additionsTotal + chargesTotal - paymentsTotal
   }
 }

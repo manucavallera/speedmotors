@@ -7,6 +7,7 @@ import { CreditsTable } from '../components/credits/CreditsTable'
 import { CreditFormModal } from '../components/credits/CreditFormModal'
 import { CreditDetailModal } from '../components/credits/CreditDetailModal'
 import { CreditPaymentModal } from '../components/credits/CreditPaymentModal'
+import { CreditCapitalModal } from '../components/credits/CreditCapitalModal'
 import { Pagination } from '../components/ui/Pagination'
 import type { DebtTypeFilter } from '../lib/creditFilters'
 
@@ -14,6 +15,7 @@ export function CreditsPage() {
   const { isAdmin } = useAuth()
   const c = useCredits()
   const [paymentModal, setPaymentModal] = useState(false)
+  const [capitalModal, setCapitalModal] = useState(false)
 
   return (
     <div>
@@ -119,6 +121,7 @@ export function CreditsPage() {
           detail={c.detail}
           onClose={() => c.setDetailId(null)}
           onAddPayment={() => setPaymentModal(true)}
+          onAddCapital={() => setCapitalModal(true)}
           onEdit={() => c.setEditing(c.detail!)}
           onDelete={() => { if (confirm('¿Eliminar este crédito y todos sus pagos/intereses? No se puede deshacer.')) c.remove.mutate(c.detail!.id) }}
           onRemovePayment={id => c.removePayment.mutate(id)}
@@ -135,6 +138,13 @@ export function CreditsPage() {
           onClose={() => setPaymentModal(false)}
           onSubmit={data => { c.addPayment.mutate({ creditId: c.detail!.id, data }); setPaymentModal(false) }}
           isPending={c.addPayment.isPending}
+        />
+      )}
+      {capitalModal && c.detail && (
+        <CreditCapitalModal
+          onClose={() => setCapitalModal(false)}
+          onSubmit={data => { c.addCapital.mutate({ creditId: c.detail!.id, data }); setCapitalModal(false) }}
+          isPending={c.addCapital.isPending}
         />
       )}
     </div>

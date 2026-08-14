@@ -8,6 +8,7 @@ export const vehicles = pgTable('vehicles', {
   type: vehicleTypeEnum('type').notNull(),
   brand: varchar('brand', { length: 100 }).notNull(),
   model: varchar('model', { length: 100 }).notNull(),
+  vesselNumber: varchar('vessel_number', { length: 100 }),
   displacement: integer('displacement'),
   version: varchar('version', { length: 100 }),
   year: integer('year'),

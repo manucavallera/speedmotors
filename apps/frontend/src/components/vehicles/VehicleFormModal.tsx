@@ -6,13 +6,13 @@ import { PhotoCarouselField } from '../ui/PhotoCarouselField'
 import { api } from '../../lib/api'
 
 const emptyForm = {
-  type: 'moto', brand: '', model: '', displacement: '', version: '', year: '', color: '',
+  type: 'moto', brand: '', model: '', vesselNumber: '', displacement: '', version: '', year: '', color: '',
   chassisNumber: '', engineNumber: '', internalCode: '', importCode: '', ingresoTipo: '',
   costPrice: '', sellPrice: '', status: 'disponible', notes: '', photos: [] as string[],
 }
 
 export interface VehicleFormData {
-  type: string; brand: string; model: string; displacement: number | null; version: string; year: number | null; color: string
+  type: string; brand: string; model: string; vesselNumber: string; displacement: number | null; version: string; year: number | null; color: string
   chassisNumber: string; engineNumber: string; internalCode: string; importCode: string; ingresoTipo: string
   costPrice: string; sellPrice: string; status: string; notes: string; photos: string[]
 }
@@ -27,7 +27,7 @@ interface VehicleFormModalProps {
 
 function toForm(v: any) {
   return {
-    type: v.type, brand: v.brand, model: v.model, displacement: String(v.displacement || ''),
+    type: v.type, brand: v.brand, model: v.model, vesselNumber: v.vesselNumber || '', displacement: String(v.displacement || ''),
     version: v.version || '', year: String(v.year || ''),
     color: v.color || '', chassisNumber: v.chassisNumber || '',
     engineNumber: v.engineNumber || '', internalCode: v.internalCode || '', importCode: v.importCode || '',
@@ -73,9 +73,14 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    const boat = form.type === 'lancha'
     onSubmit({
       ...form,
-      displacement: form.displacement ? Number(form.displacement) : null,
+      vesselNumber: boat ? form.vesselNumber : undefined,
+      displacement: boat ? null : (form.displacement ? Number(form.displacement) : null),
+      version: boat ? '' : form.version,
+      chassisNumber: boat ? '' : form.chassisNumber,
+      engineNumber: boat ? '' : form.engineNumber,
       year: form.year ? Number(form.year) : null,
       ingresoTipo: form.ingresoTipo || undefined,
       costPrice: form.costPrice || '0',
@@ -87,7 +92,7 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
     <Modal title={mode === 'edit' ? 'Editar vehículo' : 'Nuevo vehículo'} onClose={onClose} width={580}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+        {form.type === 'moto' && <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
           <span style={{ fontSize: '20px' }}>📄</span>
           <div style={{ flex: 1 }}>
             <p style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a', margin: 0 }}>Escanear título</p>
@@ -98,7 +103,7 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
             style={{ ...btnSecondary, fontSize: '12px', padding: '6px 12px', opacity: scanning ? 0.6 : 1 }}>
             {scanning ? 'Leyendo...' : 'Subir foto'}
           </button>
-        </div>
+        </div>}
 
         <div className="form-grid-2">
           <FormField label="Tipo">
@@ -121,23 +126,27 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
           <FormField label="Modelo"><input style={inputStyle} value={form.model} onChange={f('model')} required /></FormField>
         </div>
 
-        <div className="form-grid-2">
-          <FormField label="Cilindrada (cc)"><input style={inputStyle} type="number" min="0" value={form.displacement} onChange={f('displacement')} /></FormField>
-          <FormField label="Versión"><input style={inputStyle} value={form.version} onChange={f('version')} placeholder="Ej: R2 V01" /></FormField>
-        </div>
+        {form.type === 'lancha' ? (
+          <FormField label="N.º de embarcación"><input style={inputStyle} value={form.vesselNumber} onChange={f('vesselNumber')} placeholder="Número identificatorio de la embarcación" /></FormField>
+        ) : (
+          <div className="form-grid-2">
+            <FormField label="Cilindrada (cc)"><input style={inputStyle} type="number" min="0" value={form.displacement} onChange={f('displacement')} /></FormField>
+            <FormField label="Versión"><input style={inputStyle} value={form.version} onChange={f('version')} placeholder="Ej: R2 V01" /></FormField>
+          </div>
+        )}
 
         <div className="form-grid-2">
           <FormField label="Año"><input style={inputStyle} type="number" value={form.year} onChange={f('year')} /></FormField>
           <FormField label="Color"><input style={inputStyle} value={form.color} onChange={f('color')} /></FormField>
         </div>
 
-        <FormField label="N° de chasis">
+        {form.type === 'moto' && <><FormField label="N° de chasis">
           <QRScannerField value={form.chassisNumber} onChange={set('chassisNumber')} label="N° de chasis" placeholder="Escanear o ingresar manualmente" />
         </FormField>
 
         <FormField label="N° de motor">
           <QRScannerField value={form.engineNumber} onChange={set('engineNumber')} label="N° de motor" placeholder="Escanear o ingresar manualmente" />
-        </FormField>
+        </FormField></>}
 
         <div className="form-grid-2">
           <FormField label="Código interno">
