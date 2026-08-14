@@ -1,6 +1,7 @@
 module.exports = {
   rootDir: 'src',
   testEnvironment: 'jsdom',
+  setupFiles: ['<rootDir>/../jest.setup.cjs'],
   testRegex: '.*\\.spec\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   transform: {
