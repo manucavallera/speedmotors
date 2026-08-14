@@ -17,12 +17,12 @@ const money = (value: number | null) => value === null
   ? 'Varios'
   : value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 })
 
-const changeLabel = (group: DraftGroup) => ({
+const changeLabel = (group: DraftGroup, generalMargin: string) => ({
   none: 'Sin cambios',
   cost: 'Cambia costo',
   sale: 'Cambia venta',
   both: 'Cambian costo y venta',
-}[valuationGroupChange(group)])
+}[valuationGroupChange(group, generalMargin)])
 
 export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, onGroupsChange, onEditUnit }: Props) {
   const [search, setSearch] = useState('')
@@ -84,7 +84,7 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
                   <td style={{ padding: '12px' }}>
                     <div style={{ fontWeight: 700, color: '#0f172a' }}>{group.brand} {group.model}</div>
                     <div style={{ color: '#64748b', marginTop: '2px' }}>{group.version || 'Sin versión'}</div>
-                    <span style={{ display: 'inline-block', color: '#1d4ed8', background: '#dbeafe', borderRadius: '999px', padding: '3px 7px', marginTop: '6px', fontSize: '11px', fontWeight: 700 }}>{changeLabel(group)}</span>
+                    <span style={{ display: 'inline-block', color: '#1d4ed8', background: '#dbeafe', borderRadius: '999px', padding: '3px 7px', marginTop: '6px', fontSize: '11px', fontWeight: 700 }}>{changeLabel(group, generalMargin)}</span>
                   </td>
                   <td style={{ padding: '12px', whiteSpace: 'nowrap' }}>
                     <span style={{ color: '#166534', background: '#dcfce7', borderRadius: '999px', padding: '3px 7px', marginRight: '5px' }}>D {group.availableUnits}</span>

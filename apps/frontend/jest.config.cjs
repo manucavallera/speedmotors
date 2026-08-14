@@ -1,15 +1,16 @@
 module.exports = {
   rootDir: 'src',
-  testEnvironment: 'node',
-  testRegex: '.*\\.spec\\.ts$',
-  moduleFileExtensions: ['ts', 'js', 'json'],
+  testEnvironment: 'jsdom',
+  testRegex: '.*\\.spec\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   transform: {
-    '^.+\\.ts$': ['ts-jest', {
+    '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: {
         module: 'CommonJS',
         target: 'ES2022',
         esModuleInterop: true,
         strict: true,
+        jsx: 'react-jsx',
         types: ['jest', 'node'],
       },
     }],

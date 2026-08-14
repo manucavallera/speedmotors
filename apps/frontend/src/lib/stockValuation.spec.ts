@@ -37,6 +37,34 @@ describe('valuation UX helpers', () => {
     expect(valuationGroupChange(createValuationDraft([base])[0])).toBe('none')
   })
 
+  it('reports only effective price changes', () => {
+    const mixedCostDraft = createValuationDraft([group({
+      groupKey: 'mixed-cost',
+      currentCostPrice: null,
+      currentSellPrice: null,
+    })])[0]
+    const manualSamePriceDraft = {
+      ...createValuationDraft([group({ groupKey: 'manual-same', currentSellPrice: 130 })])[0],
+      saleMode: 'manual' as const,
+      manualSellPrice: '130',
+    }
+    const manualDifferentPriceDraft = {
+      ...manualSamePriceDraft,
+      groupKey: 'manual-different',
+      manualSellPrice: '140',
+    }
+    const marginSamePriceDraft = {
+      ...createValuationDraft([group({ groupKey: 'margin-same', currentSellPrice: 125 })])[0],
+      saleMode: 'margin' as const,
+      marginPercent: '',
+    }
+
+    expect(valuationGroupChange(mixedCostDraft, '')).toBe('none')
+    expect(valuationGroupChange(manualSamePriceDraft, '')).toBe('none')
+    expect(valuationGroupChange(manualDifferentPriceDraft, '')).toBe('sale')
+    expect(valuationGroupChange(marginSamePriceDraft, '25')).toBe('none')
+  })
+
   it('detects unsaved valuation inputs', () => {
     const groups = [group({ currentCostPrice: 100 })]
     expect(valuationDraftChanged(createValuationDraft(groups), '', groups)).toBe(false)

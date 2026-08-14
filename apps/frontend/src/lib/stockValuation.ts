@@ -23,9 +23,10 @@ export function createValuationDraft(groups: ValuationGroup[]): DraftGroup[] {
   }))
 }
 
-export function valuationGroupChange(group: DraftGroup): ValuationGroupChange {
-  const costChanged = Number(group.costPrice) !== group.currentCostPrice
-  const saleChanged = group.saleMode !== 'unchanged'
+export function valuationGroupChange(group: DraftGroup, generalMargin = ''): ValuationGroupChange {
+  const costChanged = group.costPrice.trim() !== '' && Number(group.costPrice) !== group.currentCostPrice
+  const projectedSellPrice = projectDraftSellPrice(group, generalMargin)
+  const saleChanged = projectedSellPrice !== null && projectedSellPrice !== group.currentSellPrice
   if (costChanged && saleChanged) return 'both'
   if (costChanged) return 'cost'
   if (saleChanged) return 'sale'
@@ -41,7 +42,7 @@ export function valuationDraftChanged(
   if (draft.length !== source.length) return true
   return draft.some((group, index) => {
     const sourceGroup = source[index]
-    return !sourceGroup || group.groupKey !== sourceGroup.groupKey || valuationGroupChange(group) !== 'none'
+    return !sourceGroup || group.groupKey !== sourceGroup.groupKey || valuationGroupChange(group, generalMargin) !== 'none'
   })
 }
 
