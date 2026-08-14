@@ -70,6 +70,21 @@ export function CreditsPage() {
         ))}
       </div>
 
+      {c.isError && (
+        <div
+          role="alert"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '12px', padding: '10px 12px', border: '1px solid #fecaca', borderRadius: '8px', background: '#fef2f2', color: '#991b1b', fontSize: '13px' }}
+        >
+          <span>No pudimos cargar los créditos. Revisá la conexión e intentá nuevamente.</span>
+          <button
+            onClick={() => void c.refetch()}
+            style={{ padding: '6px 10px', border: '1px solid #fca5a5', borderRadius: '6px', background: '#fff', color: '#991b1b', fontWeight: 600, cursor: 'pointer' }}
+          >
+            Reintentar
+          </button>
+        </div>
+      )}
+
       <CreditsTable
         credits={c.credits}
         isLoading={c.isLoading}

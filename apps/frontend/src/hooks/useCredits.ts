@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
 import { toast } from '../lib/toast'
-import { creditListParams, type CreditStatusFilter, type DebtTypeFilter } from '../lib/creditFilters'
+import { creditListParams, creditSearchSettled, type CreditStatusFilter, type DebtTypeFilter } from '../lib/creditFilters'
 import { useDebouncedValue } from './useDebouncedValue'
 
 export interface Credit {
@@ -64,11 +64,12 @@ export function useCredits() {
   const setDebtTypeFilter = (debtType: DebtTypeFilter) => { setDebtTypeFilterState(debtType); setPage(1) }
   const setSearch = (value: string) => { setSearchState(value); setPage(1) }
 
-  const { data, isLoading, isFetching } = useQuery<PaginatedCreditsResponse>({
+  const { data, isLoading, isFetching, isError, error, refetch } = useQuery<PaginatedCreditsResponse>({
     queryKey: ['credits', { statusFilter, debtTypeFilter, search: deferredSearch.trim(), page, limit }],
     queryFn: () => api.get('/credits', {
       params: creditListParams({ status: statusFilter, debtType: debtTypeFilter, search: deferredSearch, page, limit }),
     }).then(r => r.data),
+    enabled: creditSearchSettled(search, deferredSearch),
     placeholderData: previous => previous,
   })
   const credits = data?.items ?? []
@@ -135,7 +136,7 @@ export function useCredits() {
   })
 
   return {
-    credits, clients, isLoading, isFetching,
+    credits, clients, isLoading, isFetching, isError, error, refetch,
     modal, setModal,
     editing, setEditing,
     detailId, setDetailId, detail, detailLoading,

@@ -22,6 +22,10 @@ export function creditListParams(filters: CreditListFilters) {
   }
 }
 
+export function creditSearchSettled(search: string, deferredSearch: string): boolean {
+  return search.trim() === deferredSearch.trim()
+}
+
 export function creditDebtLabel(credit: Pick<Credit, 'creditType' | 'interestRate'>) {
   if (credit.creditType === 'cuotas_simples') return 'Financiación fija'
   return Number(credit.interestRate) > 0 ? 'Cuota libre' : 'Cuenta corriente'
