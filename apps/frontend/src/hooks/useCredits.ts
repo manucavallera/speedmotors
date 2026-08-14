@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api, apiError } from '../lib/api'
 import { toast } from '../lib/toast'
+import { creditListParams, type CreditStatusFilter, type DebtTypeFilter } from '../lib/creditFilters'
+import { useDebouncedValue } from './useDebouncedValue'
 
 export interface Credit {
   id: number
@@ -39,17 +41,43 @@ export interface CreditDetail extends Credit {
   installments: CreditInstallment[]
 }
 
+export interface PaginatedCreditsResponse {
+  items: Credit[]
+  total: number
+  page: number
+  pages: number
+}
+
 export function useCredits() {
   const qc = useQueryClient()
   const [modal, setModal] = useState(false)
   const [editing, setEditing] = useState<Credit | null>(null)
   const [detailId, setDetailId] = useState<number | null>(null)
-  const [statusFilter, setStatusFilter] = useState<'todos' | 'activo' | 'pagado' | 'cancelado'>('todos')
+  const [statusFilter, setStatusFilterState] = useState<CreditStatusFilter>('todos')
+  const [debtTypeFilter, setDebtTypeFilterState] = useState<DebtTypeFilter>('todos')
+  const [search, setSearchState] = useState('')
+  const deferredSearch = useDebouncedValue(search, 300)
+  const [page, setPage] = useState(1)
+  const limit = 50
 
-  const { data: credits = [], isLoading } = useQuery<Credit[]>({
-    queryKey: ['credits', statusFilter],
-    queryFn: () => api.get('/credits', { params: { status: statusFilter === 'todos' ? undefined : statusFilter } }).then(r => r.data),
+  const setStatusFilter = (status: CreditStatusFilter) => { setStatusFilterState(status); setPage(1) }
+  const setDebtTypeFilter = (debtType: DebtTypeFilter) => { setDebtTypeFilterState(debtType); setPage(1) }
+  const setSearch = (value: string) => { setSearchState(value); setPage(1) }
+
+  const { data, isLoading, isFetching } = useQuery<PaginatedCreditsResponse>({
+    queryKey: ['credits', { statusFilter, debtTypeFilter, search: deferredSearch.trim(), page, limit }],
+    queryFn: () => api.get('/credits', {
+      params: creditListParams({ status: statusFilter, debtType: debtTypeFilter, search: deferredSearch, page, limit }),
+    }).then(r => r.data),
+    placeholderData: previous => previous,
   })
+  const credits = data?.items ?? []
+  const total = data?.total ?? 0
+  const pages = data?.pages ?? 0
+
+  useEffect(() => {
+    if (total > 0 && pages > 0 && page > pages) setPage(pages)
+  }, [total, pages, page])
 
   const { data: clientsData } = useQuery({
     queryKey: ['clients'],
@@ -107,11 +135,14 @@ export function useCredits() {
   })
 
   return {
-    credits, clients, isLoading,
+    credits, clients, isLoading, isFetching,
     modal, setModal,
     editing, setEditing,
     detailId, setDetailId, detail, detailLoading,
     statusFilter, setStatusFilter,
+    search, setSearch,
+    debtTypeFilter, setDebtTypeFilter,
+    page, setPage, total, pages,
     create, update, remove, addPayment, removePayment,
     payInstallment, unpayInstallment,
   }
