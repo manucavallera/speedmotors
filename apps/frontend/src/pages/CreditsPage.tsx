@@ -7,20 +7,22 @@ import { CreditsTable } from '../components/credits/CreditsTable'
 import { CreditFormModal } from '../components/credits/CreditFormModal'
 import { CreditDetailModal } from '../components/credits/CreditDetailModal'
 import { CreditPaymentModal } from '../components/credits/CreditPaymentModal'
+import { Pagination } from '../components/ui/Pagination'
+import type { DebtTypeFilter } from '../lib/creditFilters'
 
 export function CreditsPage() {
   const { isAdmin } = useAuth()
   const c = useCredits()
   const [paymentModal, setPaymentModal] = useState(false)
 
-  const filtered = c.statusFilter === 'todos' ? c.credits : c.credits.filter(cr => cr.status === c.statusFilter)
-
   return (
     <div>
       <div className="page-header">
         <div>
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Créditos</h1>
-          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{c.credits.length} registros · cuenta corriente con interés mensual</p>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>
+            {c.total} crédito{c.total === 1 ? '' : 's'} encontrado{c.total === 1 ? '' : 's'}
+          </p>
         </div>
         <button onClick={() => c.setModal(true)} style={btnPrimary}>+ Nuevo crédito</button>
       </div>
@@ -37,6 +39,28 @@ export function CreditsPage() {
         </div>
       </InfoBanner>
 
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <input
+          value={c.search}
+          onChange={(event) => c.setSearch(event.target.value)}
+          placeholder="Buscar cliente..."
+          aria-label="Buscar cliente"
+          style={{ minWidth: '240px', flex: '1 1 280px', padding: '9px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px' }}
+        />
+        <select
+          value={c.debtTypeFilter}
+          onChange={(event) => c.setDebtTypeFilter(event.target.value as DebtTypeFilter)}
+          aria-label="Tipo de deuda"
+          style={{ minWidth: '190px', padding: '9px 12px', border: '1px solid #cbd5e1', borderRadius: '8px', background: '#fff', fontSize: '14px' }}
+        >
+          <option value="todos">Todos los tipos</option>
+          <option value="fija">Financiación fija</option>
+          <option value="libre">Cuota libre</option>
+          <option value="cuenta_corriente">Cuenta corriente</option>
+        </select>
+        {c.isFetching && !c.isLoading && <span style={{ color: '#64748b', fontSize: '13px' }}>Actualizando…</span>}
+      </div>
+
       <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
         {(['todos', 'activo', 'pagado', 'cancelado'] as const).map(s => (
           <button key={s} onClick={() => c.setStatusFilter(s)}
@@ -46,7 +70,28 @@ export function CreditsPage() {
         ))}
       </div>
 
-      <CreditsTable credits={filtered} isLoading={c.isLoading} onView={c.setDetailId} />
+      {c.isError && (
+        <div
+          role="alert"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '12px', padding: '10px 12px', border: '1px solid #fecaca', borderRadius: '8px', background: '#fef2f2', color: '#991b1b', fontSize: '13px' }}
+        >
+          <span>No pudimos cargar los créditos. Revisá la conexión e intentá nuevamente.</span>
+          <button
+            onClick={() => void c.refetch()}
+            style={{ padding: '6px 10px', border: '1px solid #fca5a5', borderRadius: '6px', background: '#fff', color: '#991b1b', fontWeight: 600, cursor: 'pointer' }}
+          >
+            Reintentar
+          </button>
+        </div>
+      )}
+
+      <CreditsTable
+        credits={c.credits}
+        isLoading={c.isLoading}
+        emptyMessage="No hay créditos para estos filtros"
+        onView={c.setDetailId}
+      />
+      <Pagination page={c.page} pages={c.pages} total={c.total} onPage={c.setPage} />
 
       {c.modal && (
         <CreditFormModal

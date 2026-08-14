@@ -1,25 +1,53 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { db } from '../db'
 import { credits, creditPayments, creditInterestCharges, creditInstallments, clients } from '../db/schema'
-import { eq, desc, asc, and, gt } from 'drizzle-orm'
+import { eq, desc, asc, and, gt, sql } from 'drizzle-orm'
 import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto'
 import { calcCuotasFijas } from './credit-math'
+import { ListCreditsQueryDto } from './list-credits.dto'
+import { creditPageMeta, normalizeCreditSearch } from './credit-list'
 
 @Injectable()
 export class CreditsService {
-  async findAll(status?: string) {
-    const rows = await db.select({
-      credit: credits,
-      client: clients,
-    }).from(credits)
-      .leftJoin(clients, eq(credits.clientId, clients.id))
-      .where(status ? eq(credits.status, status as any) : undefined)
-      .orderBy(desc(credits.createdAt))
+  async findAll(query: ListCreditsQueryDto = new ListCreditsQueryDto()) {
+    const search = normalizeCreditSearch(query.search)
+    const conditions = []
+    if (query.status) conditions.push(eq(credits.status, query.status))
+    if (search) conditions.push(sql`translate(lower(${clients.name}), 'áéíóúüñ', 'aeiouun') like ${`%${search}%`}`)
+    if (query.debtType === 'fija') conditions.push(eq(credits.creditType, 'cuotas_simples'))
+    if (query.debtType === 'libre') conditions.push(and(
+      eq(credits.creditType, 'saldo_compuesto'),
+      gt(credits.interestRate, '0'),
+    )!)
+    if (query.debtType === 'cuenta_corriente') conditions.push(and(
+      eq(credits.creditType, 'saldo_compuesto'),
+      eq(credits.interestRate, '0'),
+    )!)
 
-    return Promise.all(rows.map(async r => {
+    const where = conditions.length > 0 ? and(...conditions) : undefined
+    const { page, limit } = query
+    const offset = (page - 1) * limit
+    const [rows, countResult] = await Promise.all([
+      db.select({ credit: credits, client: clients })
+        .from(credits)
+        .leftJoin(clients, eq(credits.clientId, clients.id))
+        .where(where)
+        .orderBy(desc(credits.createdAt), desc(credits.id))
+        .limit(limit)
+        .offset(offset),
+      db.select({ count: sql<number>`count(*)::int` })
+        .from(credits)
+        .leftJoin(clients, eq(credits.clientId, clients.id))
+        .where(where),
+    ])
+
+    const total = countResult[0]?.count ?? 0
+    const meta = creditPageMeta(total, page, limit)
+    const items = await Promise.all(rows.map(async r => {
       const balance = await this.computeBalance(r.credit.id)
       return { ...r.credit, client: r.client, balance }
     }))
+    return { items, total: meta.total, page: meta.page, pages: meta.pages }
   }
 
   async findOne(id: number) {

@@ -3,13 +3,14 @@ import { CreditsService } from './credits.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { AdminGuard } from '../auth/roles.guard'
 import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto, PayInstallmentDto } from './credit.dto'
+import { ListCreditsQueryDto } from './list-credits.dto'
 
 @UseGuards(JwtAuthGuard)
 @Controller('credits')
 export class CreditsController {
   constructor(private creditsService: CreditsService) {}
 
-  @Get() findAll(@Query('status') status?: string) { return this.creditsService.findAll(status) }
+  @Get() findAll(@Query() query: ListCreditsQueryDto) { return this.creditsService.findAll(query) }
   @Get(':id') findOne(@Param('id', ParseIntPipe) id: number) { return this.creditsService.findOne(id) }
 
   @Post()
