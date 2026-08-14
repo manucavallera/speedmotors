@@ -58,4 +58,36 @@ describe('ValuationActionBar', () => {
     expect((screen.getByRole('button', { name: 'Guardando…' }) as HTMLButtonElement).disabled).toBe(true)
     expect(screen.queryByText(/Sin cerrar|Con cambios sin previsualizar|Previsualización lista|Cierre guardado/)).toBeNull()
   })
+
+  it('blocks preview for a stated reason before calculation starts', async () => {
+    const user = userEvent.setup()
+    const actions = renderActionBar({ previewBlockReason: 'Completá los precios' })
+    const previewButton = screen.getByRole('button', { name: 'Previsualizar cierre' }) as HTMLButtonElement
+
+    expect(previewButton.disabled).toBe(true)
+    expect(previewButton.title).toBe('Completá los precios')
+
+    await user.click(previewButton)
+
+    expect(actions.onPreview).not.toHaveBeenCalled()
+  })
+
+  it('blocks preview for validation errors before calculation starts', async () => {
+    const user = userEvent.setup()
+    const actions = renderActionBar({ errors: ['Ingresá un precio de venta'] })
+    const previewButton = screen.getByRole('button', { name: 'Previsualizar cierre' }) as HTMLButtonElement
+
+    expect(previewButton.disabled).toBe(true)
+    expect(previewButton.title).toBe('Ingresá un precio de venta')
+
+    await user.click(previewButton)
+
+    expect(actions.onPreview).not.toHaveBeenCalled()
+  })
+
+  it('hides close confirmation until a preview is ready', () => {
+    renderActionBar()
+
+    expect(screen.queryByRole('button', { name: 'Confirmar cierre' })).toBeNull()
+  })
 })
