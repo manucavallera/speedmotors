@@ -65,6 +65,15 @@ describe('valuation UX helpers', () => {
     expect(valuationGroupChange(marginSamePriceDraft, '25')).toBe('none')
   })
 
+  it('reports clearing an existing cost as a change', () => {
+    const blankExistingCostDraft = {
+      ...createValuationDraft([group({ currentCostPrice: 100 })])[0],
+      costPrice: '',
+    }
+
+    expect(valuationGroupChange(blankExistingCostDraft, '')).toBe('cost')
+  })
+
   it('detects unsaved valuation inputs', () => {
     const groups = [group({ currentCostPrice: 100 })]
     expect(valuationDraftChanged(createValuationDraft(groups), '', groups)).toBe(false)

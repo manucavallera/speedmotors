@@ -24,7 +24,9 @@ export function createValuationDraft(groups: ValuationGroup[]): DraftGroup[] {
 }
 
 export function valuationGroupChange(group: DraftGroup, generalMargin = ''): ValuationGroupChange {
-  const costChanged = group.costPrice.trim() !== '' && Number(group.costPrice) !== group.currentCostPrice
+  const costChanged = group.costPrice.trim() === ''
+    ? group.currentCostPrice !== null
+    : Number(group.costPrice) !== group.currentCostPrice
   const projectedSellPrice = projectDraftSellPrice(group, generalMargin)
   const saleChanged = projectedSellPrice !== null && projectedSellPrice !== group.currentSellPrice
   if (costChanged && saleChanged) return 'both'
