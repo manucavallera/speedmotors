@@ -2,7 +2,10 @@ import type {
   DraftGroup,
   GroupPriceEditPayload,
   ValuationGroup,
+  ValuationVehicleUnit,
 } from '../types/stock-valuation.types'
+
+export type ValuationGroupChange = 'none' | 'cost' | 'sale' | 'both'
 
 const roundMoney = (value: number) =>
   Math.round((value + Number.EPSILON * Math.abs(value)) * 100) / 100
@@ -18,6 +21,50 @@ export function createValuationDraft(groups: ValuationGroup[]): DraftGroup[] {
     manualSellPrice: '',
     marginPercent: '',
   }))
+}
+
+export function valuationGroupChange(group: DraftGroup, generalMargin = ''): ValuationGroupChange {
+  const costChanged = group.costPrice.trim() === ''
+    ? group.currentCostPrice !== null
+    : Number(group.costPrice) !== group.currentCostPrice
+  const projectedSellPrice = projectDraftSellPrice(group, generalMargin)
+  const saleChanged = projectedSellPrice !== null && projectedSellPrice !== group.currentSellPrice
+  if (costChanged && saleChanged) return 'both'
+  if (costChanged) return 'cost'
+  if (saleChanged) return 'sale'
+  return 'none'
+}
+
+export function valuationDraftChanged(
+  draft: DraftGroup[],
+  generalMargin: string,
+  source: ValuationGroup[],
+): boolean {
+  if (generalMargin.trim() !== '') return true
+  if (draft.length !== source.length) return true
+  return draft.some((group, index) => {
+    const sourceGroup = source[index]
+    return !sourceGroup || group.groupKey !== sourceGroup.groupKey || valuationGroupChange(group, generalMargin) !== 'none'
+  })
+}
+
+export function vehicleEditUrl(vehicleId: number, internalCode: string | null, period: string): string {
+  // Keep the stable, human-readable query order used by the vehicle editor.
+  return `/vehicles?edit=${encodeURIComponent(String(vehicleId))}${internalCode ? `&search=${encodeURIComponent(internalCode)}` : ''}&returnTo=${encodeURIComponent(`/stock-valuation?period=${period}`)}`
+}
+
+export function safeValuationReturnTo(value: string | null): string | null {
+  return value !== null && /^\/stock-valuation(?:\?.*)?$/.test(value) ? value : null
+}
+
+export function valuationUnitLabel(
+  unit: Pick<ValuationVehicleUnit, 'brand' | 'model' | 'version'>,
+): string {
+  return [unit.brand, unit.model, unit.version || 'Sin versión'].join(' ')
+}
+
+export function valuationClosedLabel(closedAt: string): string {
+  return `Cerrado ${new Date(closedAt).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })}`
 }
 
 export function projectDraftSellPrice(group: DraftGroup, generalMargin: string): number | null {

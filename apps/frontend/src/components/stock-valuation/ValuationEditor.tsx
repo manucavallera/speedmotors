@@ -1,23 +1,32 @@
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
-import { inputStyle } from '../ui/FormField'
+import { btnSecondary, inputStyle } from '../ui/FormField'
 import { MoneyInput } from '../ui/MoneyInput'
-import { projectDraftSellPrice } from '../../lib/stockValuation'
-import type { DraftGroup } from '../../types/stock-valuation.types'
+import { projectDraftSellPrice, valuationGroupChange, valuationUnitLabel } from '../../lib/stockValuation'
+import type { DraftGroup, ValuationVehicleUnit } from '../../types/stock-valuation.types'
 
 interface Props {
   groups: DraftGroup[]
   generalMargin: string
   onGeneralMarginChange: (value: string) => void
   onGroupsChange: (groups: DraftGroup[]) => void
+  onEditUnit: (unit: ValuationVehicleUnit) => void
 }
 
 const money = (value: number | null) => value === null
   ? 'Varios'
   : value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 })
 
-export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, onGroupsChange }: Props) {
+const changeLabel = (group: DraftGroup, generalMargin: string) => ({
+  none: 'Sin cambios',
+  cost: 'Cambia costo',
+  sale: 'Cambia venta',
+  both: 'Cambian costo y venta',
+}[valuationGroupChange(group, generalMargin)])
+
+export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, onGroupsChange, onEditUnit }: Props) {
   const [search, setSearch] = useState('')
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => new Set())
   const normalizedSearch = search.trim().toLocaleLowerCase('es-AR')
   const visibleGroups = useMemo(() => groups.filter((group) =>
     !normalizedSearch || `${group.brand} ${group.model} ${group.version ?? ''}`.toLocaleLowerCase('es-AR').includes(normalizedSearch),
@@ -25,6 +34,15 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
 
   const update = (groupKey: string, changes: Partial<DraftGroup>) => {
     onGroupsChange(groups.map((group) => group.groupKey === groupKey ? { ...group, ...changes } : group))
+  }
+
+  const toggleExpanded = (groupKey: string) => {
+    setExpandedGroups((current) => {
+      const next = new Set(current)
+      if (next.has(groupKey)) next.delete(groupKey)
+      else next.add(groupKey)
+      return next
+    })
   }
 
   return (
@@ -48,7 +66,7 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
         <table style={{ width: '100%', minWidth: '1240px', borderCollapse: 'collapse', fontSize: '12.5px' }}>
           <thead>
             <tr style={{ background: '#f8fafc', color: '#475569', textAlign: 'left' }}>
-              {['Moto', 'Unidades', 'Costo actual', 'Costo nuevo *', 'Venta actual', 'Modo de venta', 'Margen / Venta', 'Venta proyectada'].map((title) => (
+              {['Moto', 'Unidades', 'Costo actual', 'Costo nuevo *', 'Venta actual', 'Modo de venta', 'Margen / Venta', 'Venta proyectada', 'Detalle'].map((title) => (
                 <th key={title} style={{ padding: '10px 12px', fontWeight: 700, borderBottom: '1px solid #e2e8f0' }}>{title}</th>
               ))}
             </tr>
@@ -61,10 +79,12 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
               const effectiveMargin = group.marginPercent.trim() || generalMargin.trim()
               const invalidMargin = group.saleMode === 'margin' && (effectiveMargin === '' || Number(effectiveMargin) < 0 || Number(effectiveMargin) > 1000)
               return (
-                <tr key={group.groupKey} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
+                <Fragment key={group.groupKey}>
+                  <tr style={{ borderBottom: expandedGroups.has(group.groupKey) ? 'none' : '1px solid #f1f5f9', verticalAlign: 'top' }}>
                   <td style={{ padding: '12px' }}>
                     <div style={{ fontWeight: 700, color: '#0f172a' }}>{group.brand} {group.model}</div>
                     <div style={{ color: '#64748b', marginTop: '2px' }}>{group.version || 'Sin versión'}</div>
+                    <span style={{ display: 'inline-block', color: '#1d4ed8', background: '#dbeafe', borderRadius: '999px', padding: '3px 7px', marginTop: '6px', fontSize: '11px', fontWeight: 700 }}>{changeLabel(group, generalMargin)}</span>
                   </td>
                   <td style={{ padding: '12px', whiteSpace: 'nowrap' }}>
                     <span style={{ color: '#166534', background: '#dcfce7', borderRadius: '999px', padding: '3px 7px', marginRight: '5px' }}>D {group.availableUnits}</span>
@@ -90,7 +110,31 @@ export function ValuationEditor({ groups, generalMargin, onGeneralMarginChange, 
                     {(invalidManual || invalidMargin) && <div style={{ color: '#dc2626', fontSize: '11px', marginTop: '4px' }}>{invalidManual ? 'Venta inválida' : 'Margen 0–1000'}</div>}
                   </td>
                   <td style={{ padding: '12px', fontWeight: 700, color: projected === null ? '#b45309' : '#1d4ed8' }}>{money(projected)}</td>
-                </tr>
+                  <td style={{ padding: '8px 12px', whiteSpace: 'nowrap' }}>
+                    <button type="button" onClick={() => toggleExpanded(group.groupKey)} style={btnSecondary}>
+                      {expandedGroups.has(group.groupKey) ? 'Ocultar motos' : `Ver motos (${group.totalUnits})`}
+                    </button>
+                  </td>
+                  </tr>
+                  {expandedGroups.has(group.groupKey) && (
+                    <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <td colSpan={9} style={{ padding: '12px', background: '#f8fafc' }}>
+                        <div style={{ display: 'grid', gap: '8px' }}>
+                          {group.units.map((unit) => (
+                            <div key={unit.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', padding: '10px', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                              <strong style={{ color: '#0f172a' }}>{unit.internalCode || `Moto #${unit.id}`}</strong>
+                              <span style={{ color: '#334155', fontWeight: 600 }}>{valuationUnitLabel(unit)}</span>
+                              <span style={{ color: unit.status === 'disponible' ? '#166534' : '#92400e' }}>{unit.status === 'disponible' ? 'Disponible' : 'Reservada'}</span>
+                              <span style={{ color: '#64748b' }}>Cuadro: {unit.chassisNumber || 'Sin dato'}</span>
+                              <span style={{ color: '#64748b' }}>Motor: {unit.engineNumber || 'Sin dato'}</span>
+                              <button type="button" onClick={() => onEditUnit(unit)} style={{ ...btnSecondary, marginLeft: 'auto' }}>Editar</button>
+                            </div>
+                          ))}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               )
             })}
           </tbody>

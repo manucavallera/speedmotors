@@ -1,7 +1,8 @@
 import { toast } from '../lib/toast'
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '../lib/api'
+import { useNavigate } from 'react-router-dom'
+import { api, apiError } from '../lib/api'
 import { InfoBanner } from '../components/ui/InfoBanner'
 import { btnPrimary, btnSecondary } from '../components/ui/FormField'
 import { VehiclesGrid } from '../components/vehicles/VehiclesGrid'
@@ -10,53 +11,76 @@ import { RemitoImportModal } from '../components/vehicles/RemitoImportModal'
 import { Pagination } from '../components/ui/Pagination'
 import { useAuth } from '../hooks/useAuth'
 import { QRScannerField } from '../components/ui/QRScannerField'
+import { useVehicleDirectEdit } from '../hooks/useVehicleDirectEdit'
+import type { PaginatedResponse, Vehicle } from '../types/api.types'
+import type { VehicleImportItem } from '../lib/vehicleBatch'
 
 export function VehiclesPage() {
   const { isAdmin } = useAuth()
   const qc = useQueryClient()
+  const navigate = useNavigate()
   const [modal, setModal] = useState<'create' | 'edit' | 'remito' | null>(null)
-  const [editing, setEditing] = useState<any>(null)
+  const [editing, setEditing] = useState<Vehicle | null>(null)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
 
+  const { returnTo } = useVehicleDirectEdit({
+    isAdmin,
+    onOpen: vehicle => {
+      setEditing(vehicle)
+      setModal('edit')
+    },
+    onFallbackSearch: value => {
+      setSearch(value)
+      setPage(1)
+    },
+  })
+
   const { data: vehiclesData, isLoading } = useQuery({
     queryKey: ['vehicles', page, search],
-    queryFn: () => api.get('/vehicles', { params: { page, limit: 50, search: search || undefined } }).then(r => r.data),
-    placeholderData: (prev: any) => prev,
+    queryFn: () => api.get<PaginatedResponse<Vehicle>>('/vehicles', { params: { page, limit: 50, search: search || undefined } }).then(({ data }) => data),
+    placeholderData: previousData => previousData,
   })
+
   const vehicles = vehiclesData?.items ?? []
   const total = vehiclesData?.total ?? 0
   const pages = vehiclesData?.pages ?? 1
 
+  const finishEditing = () => {
+    setModal(null)
+    setEditing(null)
+    if (returnTo) navigate(returnTo)
+  }
+
   const create = useMutation({
     mutationFn: (data: VehicleFormData) => api.post('/vehicles', data),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
+    onError: error => toast.error(apiError(error)),
   })
 
   const update = useMutation({
-    mutationFn: (data: VehicleFormData) => api.put(`/vehicles/${editing.id}`, data),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['vehicles'] }); setModal(null) },
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
+    mutationFn: (data: VehicleFormData) => api.put(`/vehicles/${editing!.id}`, data),
+    onSuccess: async () => { await qc.invalidateQueries({ queryKey: ['vehicles'] }); finishEditing() },
+    onError: error => toast.error(apiError(error)),
   })
 
   const remove = useMutation({
     mutationFn: (id: number) => api.delete(`/vehicles/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['vehicles'] }),
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error inesperado'),
+    onError: error => toast.error(apiError(error)),
   })
 
   const bulkCreate = useMutation({
-    mutationFn: (items: any[]) => api.post('/vehicles/bulk', { items }),
+    mutationFn: (items: VehicleImportItem[]) => api.post<Vehicle[]>('/vehicles/bulk', { items }),
     onSuccess: (res) => {
       qc.invalidateQueries({ queryKey: ['vehicles'] })
       setModal(null)
       toast.success(`${res.data.length} vehículo${res.data.length !== 1 ? 's' : ''} importado${res.data.length !== 1 ? 's' : ''}`)
     },
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error al importar'),
+    onError: error => toast.error(apiError(error) === 'Error inesperado' ? 'Error al importar' : apiError(error)),
   })
 
-  function openEdit(v: any) { setEditing(v); setModal('edit') }
+  function openEdit(v: Vehicle) { setEditing(v); setModal('edit') }
 
   return (
     <div>
@@ -107,7 +131,7 @@ export function VehiclesPage() {
         <VehicleFormModal
           mode={modal}
           editing={editing}
-          onClose={() => setModal(null)}
+          onClose={finishEditing}
           onSubmit={(data) => modal === 'edit' ? update.mutate(data) : create.mutate(data)}
           isPending={create.isPending || update.isPending}
         />

@@ -1,6 +1,17 @@
 export type SaleMode = 'unchanged' | 'manual' | 'margin'
 
-export interface ValuationGroup {
+export interface ValuationVehicleUnit {
+  id: number
+  internalCode: string | null
+  brand: string
+  model: string
+  version: string | null
+  status: 'disponible' | 'reservado'
+  chassisNumber: string | null
+  engineNumber: string | null
+}
+
+export interface ValuationGroupBase {
   groupKey: string
   brand: string
   model: string
@@ -11,6 +22,10 @@ export interface ValuationGroup {
   totalUnits: number
   currentCostPrice: number | null
   currentSellPrice: number | null
+}
+
+export interface ValuationGroup extends ValuationGroupBase {
+  units: ValuationVehicleUnit[]
 }
 
 export interface DraftGroup extends ValuationGroup {
@@ -37,7 +52,7 @@ export interface ValuationSummary {
   unpricedSaleUnits: number
 }
 
-export interface ProjectedValuationGroup extends ValuationGroup {
+export interface ProjectedValuationGroup extends ValuationGroupBase {
   costPrice: number
   sellPrice: number | null
   saleMode: SaleMode
