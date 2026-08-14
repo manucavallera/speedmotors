@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import type { CreditDetail } from '../../hooks/useCredits'
 import { generateCreditStatement } from '../../lib/pdf/credit'
-import { generateAccountPaymentReceipt } from '../../lib/pdf'
+import { generateAccountPaymentReceipt, generateCapitalDebitNote } from '../../lib/pdf'
 
 interface Props {
   detail: CreditDetail
@@ -196,6 +196,9 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
                     </div>
                     {it.type === 'pago' && (
                       <button onClick={() => generateAccountPaymentReceipt({ clientName: detail.client?.name || '', amount: it.amount, paymentDate: it.date, balanceAfter: it.balanceAfter || 0, currency: detail.currency, notes: it.notes })} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Recibo</button>
+                    )}
+                    {it.type === 'capital' && (
+                      <button onClick={() => generateCapitalDebitNote({ clientName: detail.client?.name || '', amount: it.amount, effectiveDate: it.date, balanceAfter: it.balanceAfter || 0, currency: detail.currency, concept: it.notes, creditId: detail.id })} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Nota de débito</button>
                     )}
                     {it.type === 'pago' && isAdmin && it.id !== undefined && (
                       <button onClick={() => { if (confirm('¿Eliminar este pago?')) onRemovePayment(it.id!) }} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>×</button>

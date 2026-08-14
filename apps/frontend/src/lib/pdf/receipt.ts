@@ -128,6 +128,71 @@ export function generateAccountPaymentReceipt(p: {
   doc.save(`recibo-pago-${(p.clientName || 'cliente').replace(/\s+/g, '-').toLowerCase()}-${new Date(p.paymentDate).toISOString().slice(0, 10)}.pdf`)
 }
 
+// Nota de débito por capital adicional incorporado a una cuenta corriente
+export function generateCapitalDebitNote(p: {
+  clientName: string
+  amount: number
+  effectiveDate: Date | string
+  concept?: string | null
+  balanceAfter: number
+  creditId?: number
+  currency?: 'pesos' | 'usd' | string
+}) {
+  const doc = new jsPDF({ format: 'a5', unit: 'mm' })
+  const w = doc.internal.pageSize.getWidth()
+  const cfg = getSettings()
+  const sym = p.currency === 'usd' ? 'US$' : '$'
+  const fmt = (n: number) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
+  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+  const balanceBefore = p.balanceAfter - p.amount
+
+  doc.setFillColor(15, 23, 42)
+  doc.rect(0, 0, w, 34, 'F')
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(17); doc.setFont('helvetica', 'bold')
+  doc.text(cfg.businessName, 10, 12)
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(148, 163, 184)
+  doc.text('NOTA DE DÉBITO · CAPITAL ADICIONAL', 10, 20)
+  doc.text(fmtDate(p.effectiveDate), w - 10, 20, { align: 'right' })
+
+  let y = 44
+  doc.setTextColor(15, 23, 42)
+  doc.setFontSize(13); doc.setFont('helvetica', 'bold')
+  doc.text(p.clientName || 'Sin cliente', 10, y); y += 10
+  doc.setDrawColor(226, 232, 240); doc.line(10, y, w - 10, y); y += 8
+
+  autoTable(doc, {
+    startY: y,
+    body: [
+      ['Saldo anterior', fmt(balanceBefore)],
+      ['Capital incorporado', fmt(p.amount)],
+      ...(p.concept ? [['Concepto', p.concept]] : []),
+      ['Saldo posterior', fmt(p.balanceAfter)],
+    ],
+    styles: { fontSize: 9, cellPadding: 3 },
+    columnStyles: { 0: { fontStyle: 'bold', textColor: [100, 116, 139] }, 1: { halign: 'right' } },
+    margin: { left: 10, right: 10 },
+    theme: 'plain',
+  })
+  y = (doc as any).lastAutoTable.finalY + 4
+  doc.setDrawColor(15, 23, 42); doc.line(w - 65, y, w - 10, y); y += 6
+  doc.setFontSize(13); doc.setFont('helvetica', 'bold'); doc.setTextColor(15, 23, 42)
+  doc.text('TOTAL DEBITADO:', 10, y)
+  doc.text(fmt(p.amount), w - 10, y, { align: 'right' })
+
+  if (p.creditId !== undefined) {
+    y += 8
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139)
+    doc.text(`Crédito N° ${p.creditId}`, 10, y)
+  }
+
+  const pageH = doc.internal.pageSize.getHeight()
+  doc.setFontSize(7); doc.setTextColor(148, 163, 184); doc.setFont('helvetica', 'normal')
+  const footerParts = [cfg.businessName, cfg.cuit ? `CUIT ${cfg.cuit}` : '', cfg.phone].filter(Boolean)
+  doc.text(footerParts.join(' · '), w / 2, pageH - 8, { align: 'center' })
+  doc.save(`nota-debito-capital-${(p.clientName || 'cliente').replace(/\s+/g, '-').toLowerCase()}-${new Date(p.effectiveDate).toISOString().slice(0, 10)}.pdf`)
+}
+
 // Recibo de cobro de guardería: cuna mensual + servicios anexos
 export function generateGuarderiaReceipt(p: {
   clientName: string | null
