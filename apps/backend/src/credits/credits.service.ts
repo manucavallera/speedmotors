@@ -4,16 +4,17 @@ import { credits, creditPayments, creditInterestCharges, creditInstallments, cli
 import { eq, desc, asc, and, gt } from 'drizzle-orm'
 import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto'
 import { calcCuotasFijas } from './credit-math'
+import { ListCreditsQueryDto } from './list-credits.dto'
 
 @Injectable()
 export class CreditsService {
-  async findAll(status?: string) {
+  async findAll(query: ListCreditsQueryDto = new ListCreditsQueryDto()) {
     const rows = await db.select({
       credit: credits,
       client: clients,
     }).from(credits)
       .leftJoin(clients, eq(credits.clientId, clients.id))
-      .where(status ? eq(credits.status, status as any) : undefined)
+      .where(query.status ? eq(credits.status, query.status) : undefined)
       .orderBy(desc(credits.createdAt))
 
     return Promise.all(rows.map(async r => {
