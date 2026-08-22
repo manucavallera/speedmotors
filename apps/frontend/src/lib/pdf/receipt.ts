@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { getSettings } from './helpers'
+import { formatDateOnly } from '../date'
 
 export function generateInstallmentReceipt(inst: any, paidAmount: number, surcharge: number, paymentDate: Date) {
   const doc = new jsPDF({ format: 'a5', unit: 'mm' })
@@ -8,7 +9,7 @@ export function generateInstallmentReceipt(inst: any, paidAmount: number, surcha
   const cfg = getSettings()
   const sym = '$'
   const fmt = (n: number) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
-  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+  const fmtDate = (d: Date | string) => formatDateOnly(d, { day: '2-digit', month: 'long', year: 'numeric' })
   const isEarly = surcharge === 0 && Number(inst.amount) > paidAmount + 0.01
 
   doc.setFillColor(15, 23, 42)
@@ -76,7 +77,7 @@ export function generateAccountPaymentReceipt(p: {
   const cfg = getSettings()
   const sym = p.currency === 'usd' ? 'US$' : '$'
   const fmt = (n: number) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
-  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+  const fmtDate = (d: Date | string) => formatDateOnly(d, { day: '2-digit', month: 'long', year: 'numeric' })
   const balanceBefore = p.balanceAfter + p.amount
 
   doc.setFillColor(15, 23, 42)
@@ -143,7 +144,7 @@ export function generateCapitalDebitNote(p: {
   const cfg = getSettings()
   const sym = p.currency === 'usd' ? 'US$' : '$'
   const fmt = (n: number) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
-  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+  const fmtDate = (d: Date | string) => formatDateOnly(d, { day: '2-digit', month: 'long', year: 'numeric' })
   const balanceBefore = p.balanceAfter - p.amount
 
   doc.setFillColor(15, 23, 42)
@@ -208,7 +209,7 @@ export function generateGuarderiaReceipt(p: {
   const w = doc.internal.pageSize.getWidth()
   const cfg = getSettings()
   const fmt = (n: number) => `$${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
-  const fmtDate = (d: Date | string) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+  const fmtDate = (d: Date | string) => formatDateOnly(d, { day: '2-digit', month: 'long', year: 'numeric' })
 
   doc.setFillColor(15, 23, 42)
   doc.rect(0, 0, w, 34, 'F')

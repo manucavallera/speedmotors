@@ -180,6 +180,17 @@ export class CreditsService {
     return addition
   }
 
+  async removeCapital(additionId: number) {
+    const [addition] = await db.select().from(creditCapitalAdditions).where(eq(creditCapitalAdditions.id, additionId))
+    if (!addition) throw new NotFoundException(`Capital agregado ${additionId} no encontrado`)
+
+    await db.delete(creditCapitalAdditions).where(eq(creditCapitalAdditions.id, additionId))
+    await this.recomputeChargesAfter(addition.creditId, new Date(addition.effectiveDate))
+    const balance = await this.computeBalance(addition.creditId)
+    await db.update(credits).set({ status: balance > 0 ? 'activo' : 'pagado', updatedAt: new Date() }).where(eq(credits.id, addition.creditId))
+    return { ok: true }
+  }
+
   async removePayment(paymentId: number) {
     const [payment] = await db.select().from(creditPayments).where(eq(creditPayments.id, paymentId))
     if (!payment) throw new NotFoundException(`Pago ${paymentId} no encontrado`)

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { dateInputToIso, todayDateInput } from '../../lib/date'
 
 interface Props {
   onClose: () => void
@@ -10,11 +11,11 @@ interface Props {
 
 export function CreditCapitalModal({ onClose, onSubmit, isPending }: Props) {
   const [amount, setAmount] = useState('')
-  const [effectiveDate, setEffectiveDate] = useState(new Date().toISOString().slice(0, 10))
+  const [effectiveDate, setEffectiveDate] = useState(todayDateInput())
   const [notes, setNotes] = useState('')
   return (
     <Modal title="Agregar capital a la deuda" onClose={onClose} width={440}>
-      <form onSubmit={e => { e.preventDefault(); onSubmit({ amount: Number(amount), effectiveDate: new Date(`${effectiveDate}T00:00:00`).toISOString(), notes: notes || undefined }) }} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+      <form onSubmit={e => { e.preventDefault(); onSubmit({ amount: Number(amount), effectiveDate: dateInputToIso(effectiveDate), notes: notes || undefined }) }} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>Usalo cuando el cliente incorpora una compra nueva, como un tráiler, a su cuenta corriente.</p>
         <FormField label="Nuevo capital"><input autoFocus required min="0.01" step="0.01" type="number" style={inputStyle} value={amount} onChange={e => setAmount(e.target.value)} /></FormField>
         <FormField label="Fecha efectiva"><input required type="date" style={inputStyle} value={effectiveDate} onChange={e => setEffectiveDate(e.target.value)} /></FormField>

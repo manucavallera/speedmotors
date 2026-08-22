@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
+import { dateInputToIso, todayDateInput } from '../../lib/date'
 
 interface Props {
   maxAmount: number
@@ -12,12 +13,12 @@ interface Props {
 
 export function CreditPaymentModal({ maxAmount, currency, onClose, onSubmit, isPending }: Props) {
   const [amount, setAmount] = useState<string>('')
-  const [paymentDate, setPaymentDate] = useState<string>(new Date().toISOString().slice(0, 10))
+  const [paymentDate, setPaymentDate] = useState<string>(todayDateInput())
   const [notes, setNotes] = useState<string>('')
 
   function handleSubmit() {
     if (!amount || Number(amount) <= 0) return
-    onSubmit({ amount: Number(amount), paymentDate: new Date(paymentDate).toISOString(), notes: notes || undefined })
+    onSubmit({ amount: Number(amount), paymentDate: dateInputToIso(paymentDate), notes: notes || undefined })
   }
 
   const symbol = currency === 'usd' ? 'US$' : '$'

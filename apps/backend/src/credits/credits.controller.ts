@@ -18,6 +18,11 @@ export class CreditsController {
     return this.creditsService.addCapital(id, body, req.user.id)
   }
 
+  @Delete('capital/:capitalId') @UseGuards(AdminGuard)
+  removeCapital(@Param('capitalId', ParseIntPipe) capitalId: number) {
+    return this.creditsService.removeCapital(capitalId)
+  }
+
   @Post()
   create(@Body() body: CreateCreditDto, @Request() req: { user: { id: number } }) {
     return this.creditsService.create({ ...body, userId: req.user.id })

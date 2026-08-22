@@ -124,6 +124,12 @@ export function useCredits() {
     onError: (e: any) => toast.error(apiError(e)),
   })
 
+  const removeCapital = useMutation({
+    mutationFn: (capitalId: number) => api.delete(`/credits/capital/${capitalId}`),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Nota de débito eliminada') },
+    onError: (e: any) => toast.error(apiError(e)),
+  })
+
   const removePayment = useMutation({
     mutationFn: (paymentId: number) => api.delete(`/credits/payments/${paymentId}`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['credits'] }); qc.invalidateQueries({ queryKey: ['credit'] }); toast.success('Pago eliminado') },
@@ -152,7 +158,7 @@ export function useCredits() {
     search, setSearch,
     debtTypeFilter, setDebtTypeFilter,
     page, setPage, total, pages,
-    create, update, remove, addPayment, addCapital, removePayment,
+    create, update, remove, addPayment, addCapital, removeCapital, removePayment,
     payInstallment, unpayInstallment,
   }
 }

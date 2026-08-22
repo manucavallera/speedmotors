@@ -1,9 +1,10 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { getSettings } from './helpers'
+import { formatDateOnly } from '../date'
 
 const fmt = (n: number, sym: string) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
-const fmtDate = (d: string | Date) => new Date(d).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+const fmtDate = (d: string | Date) => formatDateOnly(d, { day: '2-digit', month: '2-digit', year: 'numeric' })
 
 export function generateCreditStatement(credit: any) {
   const doc = new jsPDF({ format: 'a4', unit: 'mm' })

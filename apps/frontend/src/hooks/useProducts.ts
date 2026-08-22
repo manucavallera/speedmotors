@@ -69,6 +69,22 @@ export function useProducts() {
   function openEdit(p: Product) { setEditing(p); setModal('edit') }
   function refreshProducts() { qc.invalidateQueries({ queryKey: ['products'] }) }
 
+  async function exportAllProducts() {
+    const response = await api.get('/products', {
+      params: {
+        search: search || undefined,
+        priceSort: priceSort || undefined,
+        costSort: costSort || undefined,
+        ingresoTipo: ingresoFilter || undefined,
+        supplierId: supplierFilter || undefined,
+        brand: brandFilter || undefined,
+        page: 1,
+        limit: 50000,
+      },
+    })
+    return response.data.items
+  }
+
   function handleSetSearch(v: string) { setSearch(v); resetPage() }
   function handleSetPriceSort(v: 'asc' | 'desc' | '') { setPriceSort(v); setCostSort(''); resetPage() }
   function handleSetCostSort(v: 'asc' | 'desc' | '') { setCostSort(v); setPriceSort(''); resetPage() }
@@ -95,6 +111,6 @@ export function useProducts() {
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
     importModal, setImportModal,
-    create, update, remove, refreshProducts,
+    create, update, remove, refreshProducts, exportAllProducts,
   }
 }

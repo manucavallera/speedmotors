@@ -1,4 +1,5 @@
 import type { Credit } from '../../hooks/useCredits'
+import { formatDateOnly } from '../../lib/date'
 import { creditDebtLabel } from '../../lib/creditFilters'
 
 interface Props {
@@ -38,7 +39,7 @@ export function CreditsTable({ credits, isLoading, emptyMessage = 'No hay crédi
               <tr key={c.id} style={{ borderBottom: i < credits.length - 1 ? '1px solid #f8fafc' : 'none' }}>
                 <td style={{ padding: '11px 16px', fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>{c.client?.name || '—'}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151' }}>{creditDebtLabel(c)}</td>
-                <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151' }}>{new Date(c.startDate).toLocaleDateString('es-AR')}</td>
+                <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151' }}>{formatDateOnly(c.startDate)}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px', color: '#374151', textTransform: 'uppercase' }}>{c.currency}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px' }}>{sym}{Number(c.originalAmount).toLocaleString('es-AR', { minimumFractionDigits: 2 })}</td>
                 <td style={{ padding: '11px 16px', fontSize: '13px', fontWeight: 700, color: c.balance > 0 ? '#dc2626' : '#16a34a' }}>{sym}{c.balance.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</td>

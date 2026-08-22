@@ -124,6 +124,7 @@ export function CreditsPage() {
           onAddCapital={() => setCapitalModal(true)}
           onEdit={() => c.setEditing(c.detail!)}
           onDelete={() => { if (confirm('¿Eliminar este crédito y todos sus pagos/intereses? No se puede deshacer.')) c.remove.mutate(c.detail!.id) }}
+          onRemoveCapital={id => c.removeCapital.mutate(id)}
           onRemovePayment={id => c.removePayment.mutate(id)}
           onPayInstallment={(installmentId, paymentDate) => c.payInstallment.mutate({ installmentId, paymentDate })}
           onUnpayInstallment={(installmentId) => c.unpayInstallment.mutate(installmentId)}

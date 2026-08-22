@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../ui/FormField'
 import type { Credit } from '../../hooks/useCredits'
+import { dateInputToIso, todayDateInput } from '../../lib/date'
 
 interface Props {
   mode: 'create' | 'edit'
@@ -18,7 +19,7 @@ export function CreditFormModal({ mode, credit, clients, onClose, onSubmit, isPe
   const [creditType, setCreditType] = useState<'saldo_compuesto' | 'cuotas_simples'>(credit?.creditType || 'saldo_compuesto')
   const [originalAmount, setOriginalAmount] = useState<string>(credit?.originalAmount || '')
   const [interestRate, setInterestRate] = useState<string>(credit?.interestRate || '5')
-  const [startDate, setStartDate] = useState<string>(credit?.startDate ? credit.startDate.slice(0, 10) : new Date().toISOString().slice(0, 10))
+  const [startDate, setStartDate] = useState<string>(credit?.startDate ? credit.startDate.slice(0, 10) : todayDateInput())
   const [firstDueDate, setFirstDueDate] = useState<string>(credit?.firstDueDate ? credit.firstDueDate.slice(0, 10) : '')
   const [installmentsCount, setInstallmentsCount] = useState<string>(credit?.installmentsCount?.toString() || '12')
   const [notes, setNotes] = useState<string>(credit?.notes || '')
@@ -41,11 +42,11 @@ export function CreditFormModal({ mode, credit, clients, onClose, onSubmit, isPe
     const data: any = {
       originalAmount: Number(originalAmount),
       interestRate: Number(interestRate),
-      startDate: new Date(startDate).toISOString(),
+      startDate: dateInputToIso(startDate),
       notes: notes || undefined,
     }
     if (firstDueDate) {
-      data.firstDueDate = new Date(firstDueDate).toISOString()
+      data.firstDueDate = dateInputToIso(firstDueDate)
     }
     if (creditType === 'cuotas_simples') {
       data.installmentsCount = Number(installmentsCount)

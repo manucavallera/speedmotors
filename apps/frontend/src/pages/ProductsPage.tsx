@@ -9,7 +9,7 @@ import { ProductFormModal } from '../components/products/ProductFormModal'
 import { ProductRemitoModal } from '../components/products/ProductRemitoModal'
 import { useProducts } from '../hooks/useProducts'
 import { generatePriceList } from '../lib/pdf'
-import { exportProductsCsv, exportProductsPdf } from '../lib/export'
+import { exportProductsCsv, exportProductsPdf, exportProductsXlsx } from '../lib/export'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
 
@@ -23,7 +23,7 @@ export function ProductsPage() {
     modal, setModal, editing, openCreate, openEdit,
     qrProduct, setQrProduct,
     importModal, setImportModal,
-    create, update, remove, refreshProducts,
+    create, update, remove, refreshProducts, exportAllProducts,
   } = useProducts()
   const [remitoModal, setRemitoModal] = useState(false)
 
@@ -36,6 +36,7 @@ export function ProductsPage() {
         </div>
         <div className="page-header-actions">
           <button onClick={() => exportProductsCsv(products)} style={{ ...btnSecondary, fontSize: '13px' }}>CSV</button>
+          <button onClick={async () => exportProductsXlsx(await exportAllProducts())} style={{ ...btnSecondary, fontSize: '13px', color: '#15803d' }}>Excel stock</button>
           <button onClick={() => exportProductsPdf(products)} style={{ ...btnSecondary, fontSize: '13px' }}>PDF stock</button>
           <button onClick={() => generatePriceList(products, [])} style={{ ...btnSecondary, fontSize: '13px' }}>Lista precios</button>
           <button onClick={() => setImportModal(true)} style={{ ...btnSecondary, fontSize: '13px', color: '#16a34a' }}>Importar Excel</button>

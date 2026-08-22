@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import * as XLSX from 'xlsx'
 import { getSettings } from './pdf/helpers'
 
 function toCsv(rows: Record<string, unknown>[]): string {
@@ -88,6 +89,27 @@ export function exportProductsCsv(products: any[]) {
     'Costo': Number(p.cost || 0).toFixed(2),
   }))
   downloadBlob(toCsv(rows), `productos-${new Date().toISOString().slice(0, 10)}.csv`)
+}
+
+export function exportProductsXlsx(products: any[]) {
+  const rows = products.map((p: any) => ({
+    'Código': p.code || '',
+    'Nombre': p.name || '',
+    'Marca': p.brand || '',
+    'Stock': Number(p.stock || 0),
+    'Stock mínimo': Number(p.minStock || 0),
+    'Costo': Number(p.costPrice || 0),
+    'Precio venta': Number(p.sellPrice || 0),
+    'Ingreso': p.ingresoTipo || '',
+  }))
+  const sheet = XLSX.utils.json_to_sheet(rows)
+  sheet['!cols'] = [
+    { wch: 18 }, { wch: 34 }, { wch: 20 }, { wch: 10 },
+    { wch: 14 }, { wch: 14 }, { wch: 16 }, { wch: 12 },
+  ]
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, sheet, 'Stock actual')
+  XLSX.writeFile(workbook, `stock-${new Date().toISOString().slice(0, 10)}.xlsx`)
 }
 
 export function exportProductsPdf(products: any[]) {

@@ -3,12 +3,14 @@ import { Modal } from '../ui/Modal'
 import type { CreditDetail } from '../../hooks/useCredits'
 import { generateCreditStatement } from '../../lib/pdf/credit'
 import { generateAccountPaymentReceipt, generateCapitalDebitNote } from '../../lib/pdf'
+import { dateInputToIso, formatDateOnly, todayDateInput } from '../../lib/date'
 
 interface Props {
   detail: CreditDetail
   onClose: () => void
   onAddPayment: () => void
   onAddCapital: () => void
+  onRemoveCapital: (capitalId: number) => void
   onEdit: () => void
   onDelete: () => void
   onRemovePayment: (paymentId: number) => void
@@ -26,7 +28,7 @@ interface HistoryItem {
   id?: number
 }
 
-export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital, onEdit, onDelete, onRemovePayment, onPayInstallment, onUnpayInstallment, isAdmin }: Props) {
+export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital, onRemoveCapital, onEdit, onDelete, onRemovePayment, onPayInstallment, onUnpayInstallment, isAdmin }: Props) {
   const [showHistory, setShowHistory] = useState(true)
   const sym = detail.currency === 'usd' ? 'US$' : '$'
   const isCuotas = detail.creditType === 'cuotas_simples'
@@ -67,7 +69,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
           </div>
           <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px' }}>
             <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>{isCuotas ? 'Primera cuota' : 'Inicio'}</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>{new Date(isCuotas && detail.firstDueDate ? detail.firstDueDate : detail.startDate).toLocaleDateString('es-AR')}</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>{formatDateOnly(isCuotas && detail.firstDueDate ? detail.firstDueDate : detail.startDate)}</div>
           </div>
           {isCuotas && (
             <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px' }}>
@@ -134,8 +136,8 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
                   }}>
                     <div style={{ fontWeight: 600, color: '#475569' }}>{inst.number}</div>
                     <div>
-                      <div style={{ color: '#0f172a' }}>{due.toLocaleDateString('es-AR')}</div>
-                      {inst.paidAt && <div style={{ fontSize: '11px', color: '#16a34a' }}>Pagada: {new Date(inst.paidAt).toLocaleDateString('es-AR')}</div>}
+                      <div style={{ color: '#0f172a' }}>{formatDateOnly(inst.dueDate)}</div>
+                      {inst.paidAt && <div style={{ fontSize: '11px', color: '#16a34a' }}>Pagada: {formatDateOnly(inst.paidAt)}</div>}
                       {overdue && !inst.paidAt && <div style={{ fontSize: '11px', color: '#dc2626' }}>Vencida</div>}
                       {soon && <div style={{ fontSize: '11px', color: '#d97706' }}>Vence pronto</div>}
                     </div>
@@ -153,8 +155,8 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
                     <div style={{ textAlign: 'right' }}>
                       {!inst.paidAt && detail.status === 'activo' && (
                         <button onClick={() => {
-                          const d = prompt('Fecha de pago (YYYY-MM-DD)', new Date().toISOString().slice(0, 10))
-                          if (d) onPayInstallment(inst.id, new Date(d).toISOString())
+                          const d = prompt('Fecha de pago (YYYY-MM-DD)', todayDateInput())
+                          if (d) onPayInstallment(inst.id, dateInputToIso(d))
                         }} style={{ padding: '5px 10px', fontSize: '11px', fontWeight: 600, background: '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
                           Marcar pagada
                         </button>
@@ -184,7 +186,7 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
                     <div style={{ fontSize: '12px', fontWeight: 600, color: it.type === 'pago' ? '#16a34a' : it.type === 'interes' ? '#d97706' : it.type === 'capital' ? '#2563eb' : '#475569', textTransform: 'uppercase' }}>
                       {it.type === 'pago' ? 'Pago' : it.type === 'interes' ? 'Interés' : it.type === 'capital' ? 'Capital agregado' : 'Carga inicial'}
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>{new Date(it.date).toLocaleDateString('es-AR')}</div>
+                    <div style={{ fontSize: '12px', color: '#64748b' }}>{formatDateOnly(it.date)}</div>
                     {it.notes && <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>{it.notes}</div>}
                   </div>
                   <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -198,7 +200,12 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
                       <button onClick={() => generateAccountPaymentReceipt({ clientName: detail.client?.name || '', amount: it.amount, paymentDate: it.date, balanceAfter: it.balanceAfter || 0, currency: detail.currency, notes: it.notes })} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Recibo</button>
                     )}
                     {it.type === 'capital' && (
-                      <button onClick={() => generateCapitalDebitNote({ clientName: detail.client?.name || '', amount: it.amount, effectiveDate: it.date, balanceAfter: it.balanceAfter || 0, currency: detail.currency, concept: it.notes, creditId: detail.id })} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Nota de débito</button>
+                      <>
+                        <button onClick={() => generateCapitalDebitNote({ clientName: detail.client?.name || '', amount: it.amount, effectiveDate: it.date, balanceAfter: it.balanceAfter || 0, currency: detail.currency, concept: it.notes, creditId: detail.id })} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Nota de débito</button>
+                        {isAdmin && it.id !== undefined && (
+                          <button onClick={() => { if (confirm('¿Eliminar esta nota de débito?')) onRemoveCapital(it.id!) }} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>×</button>
+                        )}
+                      </>
                     )}
                     {it.type === 'pago' && isAdmin && it.id !== undefined && (
                       <button onClick={() => { if (confirm('¿Eliminar este pago?')) onRemovePayment(it.id!) }} style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#fef2f2', color: '#dc2626', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>×</button>
