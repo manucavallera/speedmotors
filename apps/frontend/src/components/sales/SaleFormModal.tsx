@@ -37,7 +37,8 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
   })
   const [creatingClient, setCreatingClient] = useState(false)
   const [invoiceType, setInvoiceType] = useState<'A' | 'B' | 'X' | 'mixto'>('B')
-  const [type, setType] = useState<'contado' | 'cuotas' | 'cuenta_corriente'>('contado')
+  const [type, setType] = useState<'contado' | 'cuotas' | 'cuenta_corriente' | 'financiado_tercero'>('contado')
+  const [financingProvider, setFinancingProvider] = useState('')
   const [financingSubtype, setFinancingSubtype] = useState<'cuotas_simples' | 'saldo_compuesto'>('cuotas_simples')
   const [daysToExpire, setDaysToExpire] = useState('30')
   const [paymentMethod, setPaymentMethod] = useState('efectivo')
@@ -134,6 +135,10 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
       toast.error('Seleccioná un cliente para venta financiada o cuenta corriente')
       return
     }
+    if (type === 'financiado_tercero' && !financingProvider.trim()) {
+      toast.error('Indicá cuál es la financiera')
+      return
+    }
     if (isCuotasSimples && !firstInstallmentDate) {
       toast.error('Indicá la fecha de primer vencimiento de la cuota')
       return
@@ -141,6 +146,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
     onSubmit({
       clientId: clientId ? Number(clientId) : undefined,
       invoiceType, type, paymentMethod,
+      financingProvider: type === 'financiado_tercero' ? financingProvider.trim() : undefined,
       discount: discountAmt,
       downPayment: isCuotasSimples ? downPaymentAmt : 0,
       downPaymentMethod: isCuotasSimples && downPaymentAmt > 0 ? downPaymentMethod : undefined,
@@ -226,6 +232,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
               <option value="contado">Contado</option>
               <option value="cuenta_corriente">Cuenta corriente del cliente</option>
               <option value="cuotas">Financiado</option>
+              <option value="financiado_tercero">Financiado por tercero</option>
             </select>
           </FormField>
           <FormField label={type === 'cuotas' ? 'Forma de pago' : 'Forma de pago'}>
@@ -257,6 +264,14 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
                 <input style={inputStyle} type="number" min="1" value={daysToExpire} onChange={e => setDaysToExpire(e.target.value)} />
               </FormField>
             </div>
+          </div>
+        )}
+
+        {type === 'financiado_tercero' && (
+          <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '14px' }}>
+            <FormField label="Financiera">
+              <input style={inputStyle} value={financingProvider} onChange={e => setFinancingProvider(e.target.value)} placeholder="Ej.: Santander, BBVA..." required />
+            </FormField>
           </div>
         )}
 
@@ -358,7 +373,7 @@ export function SaleFormModal({ clients, products, vehicles, onSubmit, onClose, 
         <SaleTotalsPanel
           subtotal={subtotal} discountAmt={discountAmt} downPaymentAmt={isCuotasSimples ? downPaymentAmt : 0}
           interest={interest} total={total}
-          invoiceType={invoiceType} type={type === 'cuenta_corriente' ? 'contado' : type} installmentCount={installmentCount}
+          invoiceType={invoiceType} type={type === 'cuenta_corriente' || type === 'financiado_tercero' ? 'contado' : type} installmentCount={installmentCount}
           subtotalFormal={subtotalFormal} subtotalInformal={subtotalInformal}
           financingCurrency={isCuotasSimples ? financingCurrency : undefined}
           monthlyRate={isCuotasSimples ? effectiveRate : undefined}

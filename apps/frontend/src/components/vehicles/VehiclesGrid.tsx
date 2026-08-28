@@ -57,6 +57,7 @@ const statusColors: Record<string, { bg: string; color: string; label: string }>
   disponible: { bg: '#f0fdf4', color: '#16a34a', label: 'Disponible' },
   reservado:  { bg: '#fffbeb', color: '#d97706', label: 'Reservado' },
   vendido:    { bg: '#f1f5f9', color: '#64748b', label: 'Vendido' },
+  reventa:    { bg: '#fdf4ff', color: '#a21caf', label: 'Reventa' },
 }
 
 interface VehiclesGridProps {
@@ -119,7 +120,7 @@ export function VehiclesGrid({ vehicles, isLoading, onEdit, onDelete }: Vehicles
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {label('Estado')}
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-            {([['', 'Todos'], ['disponible', 'Disponible'], ['reservado', 'Reservado'], ['vendido', 'Vendido']] as [string, string][]).map(([val, lbl]) => (
+            {([['', 'Todos'], ['disponible', 'Disponible'], ['reservado', 'Reservado'], ['reventa', 'Reventa'], ['vendido', 'Vendido']] as [string, string][]).map(([val, lbl]) => (
               <button key={val} onClick={() => setStatusFilter(val)} style={btnFilterDark(statusFilter === val)}>{lbl}</button>
             ))}
           </div>

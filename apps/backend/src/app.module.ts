@@ -28,6 +28,7 @@ import { TurneraModule } from './turnera/turnera.module'
 import { StockValuationsModule } from './stock-valuations/stock-valuations.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { ResalesModule } from './resales/resales.module'
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { AppService } from './app.service'
     ProveeduriaModule,
     TurneraModule,
     StockValuationsModule,
+    ResalesModule,
   ],
   controllers: [AppController],
   providers: [

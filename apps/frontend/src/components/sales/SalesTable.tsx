@@ -58,7 +58,7 @@ export function SalesTable({ filtered, clients, isLoading, onView }: SalesTableP
               </td>
               <td style={{ padding: '12px 16px' }}>
                 <span style={{ fontSize: '12px', fontWeight: 600, color: s.type === 'cuotas' ? '#7c3aed' : s.type === 'cuenta_corriente' ? '#d97706' : '#0284c7', background: s.type === 'cuotas' ? '#f5f3ff' : s.type === 'cuenta_corriente' ? '#fffbeb' : '#e0f2fe', padding: '2px 9px', borderRadius: '20px' }}>
-                  {s.type === 'cuotas' ? 'Financiado' : s.type === 'cuenta_corriente' ? 'Cta. corriente' : 'Contado'}
+                  {s.type === 'cuotas' ? 'Financiado' : s.type === 'financiado_tercero' ? `Financiado por tercero${s.financingProvider ? ` · ${s.financingProvider}` : ''}` : s.type === 'cuenta_corriente' ? 'Cta. corriente' : 'Contado'}
                 </span>
               </td>
               <td style={{ padding: '12px 16px', fontSize: '14px', fontWeight: 700, color: s.status === 'cancelado' ? '#94a3b8' : '#0f172a', textDecoration: s.status === 'cancelado' ? 'line-through' : 'none' }}>

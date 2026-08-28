@@ -16,6 +16,7 @@ const groups = [
     items: [
       { to: '/products', icon: Package, label: 'Productos' },
       { to: '/vehicles', icon: Bike, label: 'Motos y Lanchas' },
+      { to: '/resales', icon: Store, label: 'Reventas' },
       { to: '/suppliers', icon: Truck, label: 'Proveedores' },
       { to: '/purchase-orders', icon: ClipboardList, label: 'Órdenes de compra' },
     ],

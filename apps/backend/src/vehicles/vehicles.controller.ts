@@ -86,7 +86,7 @@ export class VehiclesController {
 
   @Put(':id/status')
   @UseGuards(AdminGuard)
-  updateStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: 'disponible' | 'reservado' | 'vendido') {
+  updateStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: 'disponible' | 'reservado' | 'vendido' | 'reventa') {
     return this.vehiclesService.updateStatus(id, status)
   }
 

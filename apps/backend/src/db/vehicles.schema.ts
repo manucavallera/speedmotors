@@ -1,4 +1,4 @@
-// @contract: Tabla vehicles. type: moto|lancha, status: disponible|reservado|vendido. Referenciada por saleItems y quoteItems via vehicleId.
+// @contract: Tabla vehicles. type: moto|lancha, status: disponible|reservado|vendido|reventa. Referenciada por saleItems y quoteItems via vehicleId.
 import { pgTable, serial, varchar, integer, numeric, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
 import { vehicleTypeEnum, vehicleStatusEnum } from './enums'

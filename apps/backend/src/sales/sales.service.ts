@@ -79,6 +79,9 @@ export class SalesService {
     }
 
     const subtotal = data.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
+    if (data.type === 'financiado_tercero' && !data.financingProvider?.trim()) {
+      throw new BadRequestException('Se requiere el nombre de la financiera')
+    }
     const discount = data.discount || 0
     const downPayment = data.downPayment || 0
     const principal = subtotal - discount
@@ -124,6 +127,7 @@ export class SalesService {
         type: data.type,
         invoiceType: (data.invoiceType ?? 'X') as 'A' | 'B' | 'X' | 'mixto',
         financingCurrency: data.financingCurrency ?? null,
+        financingProvider: data.type === 'financiado_tercero' ? data.financingProvider!.trim() : null,
         paymentMethod: data.paymentMethod,
         subtotal: subtotal.toString(),
         discount: discount.toString(),

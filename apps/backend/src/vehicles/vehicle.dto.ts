@@ -26,7 +26,7 @@ export class CreateVehicleDto {
   @IsString() costPrice: string
   @IsString() sellPrice: string
 
-  @IsOptional() @IsIn(['disponible', 'reservado', 'vendido']) status?: 'disponible' | 'reservado' | 'vendido'
+  @IsOptional() @IsIn(['disponible', 'reservado', 'vendido', 'reventa']) status?: 'disponible' | 'reservado' | 'vendido' | 'reventa'
   @IsOptional() @IsArray() @IsString({ each: true }) photos?: string[]
   @IsOptional() @IsString() notes?: string
 }

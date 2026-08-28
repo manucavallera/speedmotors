@@ -20,6 +20,7 @@ export const sales = pgTable('sales', {
   amountFormal: numeric('amount_formal', { precision: 12, scale: 2 }).notNull().default('0'),
   amountInformal: numeric('amount_informal', { precision: 12, scale: 2 }).notNull().default('0'),
   financingCurrency: varchar('financing_currency', { length: 10 }),
+  financingProvider: varchar('financing_provider', { length: 120 }),
   paymentMethod: paymentMethodEnum('payment_method').notNull().default('efectivo'),
   status: saleStatusEnum('status').notNull().default('completado'),
   downPayment: numeric('down_payment', { precision: 12, scale: 2 }).notNull().default('0'),

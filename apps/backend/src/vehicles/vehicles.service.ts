@@ -97,7 +97,7 @@ export class VehiclesService {
     return vehicle
   }
 
-  async updateStatus(id: number, status: 'disponible' | 'reservado' | 'vendido') {
+  async updateStatus(id: number, status: 'disponible' | 'reservado' | 'vendido' | 'reventa') {
     return this.update(id, { status })
   }
 

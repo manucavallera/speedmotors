@@ -43,7 +43,7 @@ export interface Sale {
   saleNumber: string
   clientId: number | null
   userId: number
-  type: 'contado' | 'cuotas'
+  type: 'contado' | 'cuotas' | 'cuenta_corriente' | 'financiado_tercero'
   invoiceType: 'A' | 'B' | 'X' | 'mixto'
   paymentMethod: 'efectivo' | 'transferencia' | 'tarjeta' | 'mixto'
   subtotal: string
@@ -53,6 +53,7 @@ export interface Sale {
   amountFormal: string
   amountInformal: string
   financingCurrency: string | null
+  financingProvider: string | null
   notes: string | null
   status: 'activa' | 'cancelado'
   createdAt: string

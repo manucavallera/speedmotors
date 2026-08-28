@@ -66,6 +66,7 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '13.5px' }}>
           <div><span style={{ color: '#94a3b8' }}>Fecha: </span>{new Date(detail.createdAt).toLocaleDateString('es-AR')}</div>
           <div><span style={{ color: '#94a3b8' }}>Tipo: </span>{detail.type}</div>
+          {detail.type === 'financiado_tercero' && <div><span style={{ color: '#94a3b8' }}>Financiera: </span>{detail.financingProvider}</div>}
           <div><span style={{ color: '#94a3b8' }}>Pago: </span>{detail.paymentMethod}</div>
           <div><span style={{ color: '#94a3b8' }}>Estado: </span>{detail.status}</div>
           {detail.invoiceType && detail.invoiceType !== 'X' && (

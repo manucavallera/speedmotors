@@ -117,6 +117,7 @@ export function VehicleFormModal({ mode, editing, onClose, onSubmit, isPending }
               <option value="disponible">Disponible</option>
               <option value="reservado">Reservado</option>
               <option value="vendido">Vendido</option>
+              {form.type === 'moto' && <option value="reventa">Reventa</option>}
             </select>
           </FormField>
         </div>

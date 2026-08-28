@@ -11,7 +11,8 @@ export interface SaleItem {
 export interface CreateSaleData {
   clientId?: number
   invoiceType: 'A' | 'B' | 'X' | 'mixto'
-  type: 'contado' | 'cuotas'
+  type: 'contado' | 'cuotas' | 'cuenta_corriente' | 'financiado_tercero'
+  financingProvider?: string
   paymentMethod: string
   discount: number
   interestRate: number

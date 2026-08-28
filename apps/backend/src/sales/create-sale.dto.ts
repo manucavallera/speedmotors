@@ -1,4 +1,4 @@
-import { IsOptional, IsNumber, IsString, IsArray, IsIn, ValidateNested, Min } from 'class-validator'
+import { IsOptional, IsNumber, IsString, IsArray, IsIn, ValidateNested, Min, ValidateIf, IsNotEmpty } from 'class-validator'
 import { Type } from 'class-transformer'
 
 export class SaleItemDto {
@@ -35,8 +35,13 @@ export class CreateSaleDto {
   @IsNumber()
   userId?: number
 
-  @IsIn(['contado', 'cuotas', 'cuenta_corriente'])
-  type: 'contado' | 'cuotas' | 'cuenta_corriente'
+  @IsIn(['contado', 'cuotas', 'cuenta_corriente', 'financiado_tercero'])
+  type: 'contado' | 'cuotas' | 'cuenta_corriente' | 'financiado_tercero'
+
+  @ValidateIf(body => body.type === 'financiado_tercero')
+  @IsString()
+  @IsNotEmpty()
+  financingProvider?: string
 
   @IsOptional()
   @IsIn(['cuotas_simples', 'saldo_compuesto'])
