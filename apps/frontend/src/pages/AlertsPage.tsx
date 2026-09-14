@@ -7,6 +7,7 @@ import { AlertSummaryCards } from '../components/alerts/AlertSummaryCards'
 import { AlertFilters } from '../components/alerts/AlertFilters'
 import { AlertInstallmentCard } from '../components/alerts/AlertInstallmentCard'
 import { AlertReminderCard } from '../components/alerts/AlertReminderCard'
+import { buildFixedFinancingMessage, buildFreeFinancingMessage } from '../lib/alertsWhatsApp'
 
 function SectionBox({ border, children }: { border: string; children: React.ReactNode }) {
   return (
@@ -120,7 +121,7 @@ export function AlertsPage() {
                   <div style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600 }}>Cuota {c.number} · Venció {fmtDate(c.dueDate)}</div>
                 </div>
                 <div style={{ fontWeight: 700, color: '#dc2626', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
-                <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que la cuota ${c.number} de tu financiación con SpeedMotors por $${Number(c.amount).toLocaleString('es-AR')} venció el ${fmtDate(c.dueDate)}. Te pedimos regularizar el pago. ¡Gracias!`} />
+                <WaButton phone={c.clientPhone} msg={buildFixedFinancingMessage({ clientName: c.clientName, installmentNumber: c.number, amount: c.amount, dueDate: c.dueDate })} />
               </div>
             ))}
           </div>
@@ -158,7 +159,7 @@ export function AlertsPage() {
                   <div style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600 }}>Venció {fmtDate(c.dueDate)}</div>
                 </div>
                 <div style={{ fontWeight: 700, color: '#dc2626', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
-                <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que tu cuenta corriente con SpeedMotors por $${Number(c.amount).toLocaleString('es-AR')} venció el ${fmtDate(c.dueDate)}. Te pedimos regularizar el pago. ¡Gracias!`} />
+                <WaButton phone={c.clientPhone} msg={buildFreeFinancingMessage({ clientName: c.clientName, totalAmount: c.amount })} />
               </div>
             ))}
           </div>
@@ -177,7 +178,7 @@ export function AlertsPage() {
                   <div style={{ fontSize: '12px', color: '#d97706' }}>Vence {fmtDate(c.dueDate)}</div>
                 </div>
                 <div style={{ fontWeight: 700, color: '#d97706', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
-                <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que tu cuenta corriente con SpeedMotors por $${Number(c.amount).toLocaleString('es-AR')} vence el ${fmtDate(c.dueDate)}. ¡Gracias!`} />
+                <WaButton phone={c.clientPhone} msg={buildFreeFinancingMessage({ clientName: c.clientName, totalAmount: c.amount })} />
               </div>
             ))}
           </div>
@@ -196,7 +197,7 @@ export function AlertsPage() {
                   <div style={{ fontSize: '12px', color: '#64748b' }}>{c.dueDate ? `Vence ${fmtDate(c.dueDate)}` : 'Sin vencimiento'}</div>
                 </div>
                 <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '14px' }}>${Number(c.amount).toLocaleString('es-AR')}</div>
-                <WaButton phone={c.clientPhone} msg={`Hola ${c.clientName || ''}, te recordamos que tenés un saldo de $${Number(c.amount).toLocaleString('es-AR')} en tu cuenta corriente con SpeedMotors${c.dueDate ? `, con vencimiento el ${fmtDate(c.dueDate)}` : ''}. ¡Gracias!`} />
+                <WaButton phone={c.clientPhone} msg={buildFreeFinancingMessage({ clientName: c.clientName, totalAmount: c.amount })} />
               </div>
             ))}
           </div>
