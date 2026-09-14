@@ -351,7 +351,7 @@ export class CreditsService {
     return insts.some(i => !!i.paidAt)
   }
 
-  // Aplica intereses pendientes: el primer período empieza al crear el crédito y los siguientes siguen el mismo día mensual.
+  // Aplica intereses pendientes: el primer período empieza en el vencimiento y los siguientes siguen ese día mensual.
   // Si no hay fecha de vencimiento, conserva la espera de un mes para créditos cargados como saldo actual.
   async applyPendingInterest(creditId: number) {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
@@ -371,7 +371,7 @@ export class CreditsService {
       nextChargeDate = new Date(charges[0].chargeDate)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
     } else if (credit.firstDueDate) {
-      nextChargeDate = new Date(credit.startDate)
+      nextChargeDate = new Date(credit.firstDueDate)
     } else {
       nextChargeDate = new Date(credit.startDate)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
