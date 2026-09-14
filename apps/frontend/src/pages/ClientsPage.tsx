@@ -1,14 +1,20 @@
+import { useState } from 'react'
 import { useClients } from '../hooks/useClients'
 import { InfoBanner } from '../components/ui/InfoBanner'
-import { btnPrimary, inputStyle } from '../components/ui/FormField'
+import { btnPrimary, btnSecondary, inputStyle } from '../components/ui/FormField'
 import { ClientsTable } from '../components/clients/ClientsTable'
 import { ClientFormModal } from '../components/clients/ClientFormModal'
 import { ClientAccountModal } from '../components/clients/ClientAccountModal'
 import { Pagination } from '../components/ui/Pagination'
 import { useAuth } from '../hooks/useAuth'
+import { api, apiError } from '../lib/api'
+import { exportDebtorsXlsx } from '../lib/debtorsExport'
+import type { DebtorReportRow } from '../types/clients.types'
+import { toast } from '../lib/toast'
 
 export function ClientsPage() {
   const { isAdmin } = useAuth()
+  const [isExporting, setIsExporting] = useState(false)
   const {
     clients, isLoading,
     search, setSearch,
@@ -19,6 +25,19 @@ export function ClientsPage() {
     create, update, remove,
   } = useClients()
 
+  async function handleExportDebtors() {
+    setIsExporting(true)
+    try {
+      const { data } = await api.get<DebtorReportRow[]>('/clients/debtors/report')
+      exportDebtorsXlsx(data)
+      toast.success(`${data.length} financiación${data.length === 1 ? '' : 'es'} exportada${data.length === 1 ? '' : 's'}`)
+    } catch (err) {
+      toast.error(apiError(err))
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
   return (
     <div>
       <div className="page-header">
@@ -26,7 +45,13 @@ export function ClientsPage() {
           <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Clientes</h1>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>{total} clientes{pages > 1 ? ` · pág. ${page}/${pages}` : ''}</p>
         </div>
-        <button onClick={openCreate} style={btnPrimary}>+ Nuevo cliente</button>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          {isAdmin && <button onClick={handleExportDebtors} disabled={isExporting}
+            style={{ ...btnSecondary, color: '#15803d', borderColor: '#bbf7d0', background: '#f0fdf4' }}>
+            {isExporting ? 'Generando...' : 'Excel deudores'}
+          </button>}
+          <button onClick={openCreate} style={btnPrimary}>+ Nuevo cliente</button>
+        </div>
       </div>
 
       <InfoBanner title="Clientes del negocio">

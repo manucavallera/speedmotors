@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
-import { clients, sales, clientPayments, credits, creditInstallments } from '../db/schema'
+import { clients, sales, clientPayments, credits, creditPayments, creditInstallments } from '../db/schema'
 import { eq, ilike, or, desc, sql } from 'drizzle-orm'
 import { CreditsService } from '../credits/credits.service'
+import { buildDebtorReportRow, type DebtorReportRow } from './debtors-report'
 
 @Injectable()
 export class ClientsService {
@@ -92,6 +93,60 @@ export class ClientsService {
     const [client] = await db.select().from(clients).where(eq(clients.id, id))
     if (!client) throw new NotFoundException(`Cliente ${id} no encontrado`)
     return client
+  }
+
+  async getDebtorsReport(): Promise<DebtorReportRow[]> {
+    const rows = await db.select({ credit: credits, client: clients })
+      .from(credits)
+      .leftJoin(clients, eq(credits.clientId, clients.id))
+      .where(eq(credits.status, 'activo'))
+      .orderBy(desc(clients.name), desc(credits.createdAt))
+
+    const report: DebtorReportRow[] = []
+    for (const row of rows) {
+      const credit = row.credit
+      const client = row.client
+      if (!client) continue
+
+      if (credit.creditType === 'saldo_compuesto') await this.creditsService.applyPendingInterest(credit.id)
+      else await this.creditsService.applyInstallmentSurcharges(credit.id)
+
+      const balance = await this.creditsService.computeBalance(credit.id)
+      if (balance <= 0) continue
+
+      const [lastPayment] = await db.select({ amount: creditPayments.amount, paymentDate: creditPayments.paymentDate })
+        .from(creditPayments)
+        .where(eq(creditPayments.creditId, credit.id))
+        .orderBy(desc(creditPayments.paymentDate), desc(creditPayments.id))
+        .limit(1)
+
+      let paidInstallments: number | null = null
+      let installmentsCount: number | null = null
+      if (credit.creditType === 'cuotas_simples') {
+        const installments = await db.select({ paidAt: creditInstallments.paidAt })
+          .from(creditInstallments)
+          .where(eq(creditInstallments.creditId, credit.id))
+        paidInstallments = installments.filter(i => i.paidAt != null).length
+        installmentsCount = installments.length
+      }
+
+      report.push(buildDebtorReportRow({
+        clientId: client.id,
+        creditId: credit.id,
+        clientName: client.name,
+        phone: client.phone,
+        dni: client.dni,
+        cuit: client.cuit,
+        creditType: credit.creditType,
+        currency: credit.currency,
+        balance,
+        lastPaymentAmount: lastPayment?.amount ?? null,
+        lastPaymentDate: lastPayment?.paymentDate ?? null,
+        paidInstallments,
+        installmentsCount,
+      }))
+    }
+    return report
   }
 
   async findSales(id: number) {

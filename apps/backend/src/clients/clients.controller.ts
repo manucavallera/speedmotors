@@ -48,6 +48,12 @@ export class ClientsController {
     return this.clientsService.findAll({ search, page: page ? +page : undefined, limit: limit ? +limit : undefined, hasDebt: hasDebt === 'true', type })
   }
 
+  @Get('debtors/report')
+  @UseGuards(AdminGuard)
+  getDebtorsReport() {
+    return this.clientsService.getDebtorsReport()
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.clientsService.findOne(id)

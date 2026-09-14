@@ -10,6 +10,18 @@ export interface ClientForm {
   notes: string
 }
 
+export interface DebtorReportRow {
+  clientName: string
+  phone: string | null
+  dniOrCuit: string
+  financingType: 'Fija' | 'Libre'
+  currency: 'Pesos' | 'USD'
+  balance: number
+  lastPaymentAmount: number | null
+  lastPaymentDate: string | null
+  installmentProgress: string
+}
+
 export const emptyClientForm: ClientForm = {
   name: '', phone: '', email: '', dni: '', cuit: '',
   condicionIva: 'consumidor_final', address: '', notes: '',
