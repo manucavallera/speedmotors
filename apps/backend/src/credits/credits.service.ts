@@ -44,6 +44,9 @@ export class CreditsService {
     const total = countResult[0]?.count ?? 0
     const meta = creditPageMeta(total, page, limit)
     const items = await Promise.all(rows.map(async r => {
+      if (r.credit.creditType === 'saldo_compuesto') {
+        await this.applyPendingInterest(r.credit.id)
+      }
       const balance = await this.computeBalance(r.credit.id)
       return { ...r.credit, client: r.client, balance }
     }))
@@ -142,6 +145,11 @@ export class CreditsService {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit) throw new NotFoundException(`Crédito ${creditId} no encontrado`)
     if (credit.status !== 'activo') throw new BadRequestException('No se pueden registrar pagos en créditos no activos')
+
+    // El interés del período se carga antes de aplicar un pago anticipado.
+    if (credit.creditType === 'saldo_compuesto') {
+      await this.applyPendingInterest(creditId)
+    }
 
     const [payment] = await db.insert(creditPayments).values({
       creditId,
@@ -343,9 +351,8 @@ export class CreditsService {
     return insts.some(i => !!i.paidAt)
   }
 
-  // Aplica intereses pendientes: cada mes (mismo día) desde firstDueDate (o startDate si no hay), sobre saldo al momento del cargo.
-  // Si firstDueDate está seteado, el primer interés cae exacto en firstDueDate (no un mes después).
-  // Regla 20 días: si hay un pago en el período que llegó 20+ días antes del vencimiento, se omite el cargo de ese mes.
+  // Aplica intereses pendientes: el primer período empieza al crear el crédito y los siguientes siguen el mismo día mensual.
+  // Si no hay fecha de vencimiento, conserva la espera de un mes para créditos cargados como saldo actual.
   async applyPendingInterest(creditId: number) {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit || credit.status !== 'activo') return
@@ -353,9 +360,6 @@ export class CreditsService {
 
     const rate = Number(credit.interestRate) / 100
     if (rate <= 0) return // cuenta corriente sin interés — no generar cargos $0
-    const anchor = credit.firstDueDate ? new Date(credit.firstDueDate) : new Date(credit.startDate)
-    const useAnchorAsFirst = !!credit.firstDueDate
-
     const charges = await db.select().from(creditInterestCharges)
       .where(eq(creditInterestCharges.creditId, creditId))
       .orderBy(desc(creditInterestCharges.chargeDate))
@@ -366,10 +370,10 @@ export class CreditsService {
     if (charges.length > 0) {
       nextChargeDate = new Date(charges[0].chargeDate)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
-    } else if (useAnchorAsFirst) {
-      nextChargeDate = new Date(anchor)
+    } else if (credit.firstDueDate) {
+      nextChargeDate = new Date(credit.startDate)
     } else {
-      nextChargeDate = new Date(anchor)
+      nextChargeDate = new Date(credit.startDate)
       nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
     }
 
