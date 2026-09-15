@@ -132,6 +132,139 @@ describe('CreditsService interest charges', () => {
     }))
   })
 
+  it('starts charging interest on added capital in the following month', async () => {
+    const service = new CreditsService()
+    const startDate = new Date('2026-08-21T12:00:00.000Z')
+    const firstDueDate = new Date('2026-09-10T12:00:00.000Z')
+    const credit = {
+      id: 1,
+      clientId: 10,
+      userId: 20,
+      saleId: null,
+      creditType: 'saldo_compuesto' as const,
+      currency: 'pesos' as const,
+      originalAmount: '1000.00',
+      interestRate: '3.00',
+      startDate,
+      firstDueDate,
+      installmentsCount: null,
+      status: 'activo' as const,
+      notes: null,
+      createdAt: startDate,
+      updatedAt: startDate,
+    } satisfies typeof credits.$inferSelect
+
+    const selectMock = jest.mocked(db.select)
+    const insertMock = jest.mocked(db.insert)
+    const valuesMock = jest.fn().mockResolvedValue([])
+
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => ({ orderBy: () => Promise.resolve([]) }) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([{
+        amount: '500.00',
+        effectiveDate: new Date('2026-09-05T12:00:00.000Z'),
+      }]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([{
+        chargeDate: firstDueDate,
+        balanceBefore: '1000.00',
+        amount: '30.00',
+      }]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([{
+        amount: '500.00',
+        effectiveDate: new Date('2026-09-05T12:00:00.000Z'),
+      }]) }),
+    } as never)
+    insertMock.mockReturnValue({ values: valuesMock } as never)
+
+    jest.useFakeTimers().setSystemTime(new Date('2026-10-11T12:00:00.000Z'))
+
+    await service.applyPendingInterest(credit.id)
+
+    expect(valuesMock).toHaveBeenNthCalledWith(1, expect.objectContaining({
+      creditId: credit.id,
+      chargeDate: firstDueDate,
+      balanceBefore: '1000.00',
+      amount: '30.00',
+    }))
+    expect(valuesMock).toHaveBeenNthCalledWith(2, expect.objectContaining({
+      creditId: credit.id,
+      chargeDate: new Date('2026-10-10T12:00:00.000Z'),
+      balanceBefore: '1530.00',
+      amount: '45.90',
+    }))
+  })
+
+  it('adds new capital to the outstanding balance immediately', async () => {
+    const service = new CreditsService()
+    const startDate = new Date('2026-08-21T12:00:00.000Z')
+    const credit = {
+      id: 1,
+      clientId: 10,
+      userId: 20,
+      saleId: null,
+      creditType: 'saldo_compuesto' as const,
+      currency: 'pesos' as const,
+      originalAmount: '1000.00',
+      interestRate: '3.00',
+      startDate,
+      firstDueDate: new Date('2026-09-10T12:00:00.000Z'),
+      installmentsCount: null,
+      status: 'activo' as const,
+      notes: null,
+      createdAt: startDate,
+      updatedAt: startDate,
+    } satisfies typeof credits.$inferSelect
+
+    const selectMock = jest.mocked(db.select)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([{
+        amount: '500.00',
+        effectiveDate: new Date('2026-09-05T12:00:00.000Z'),
+      }]) }),
+    } as never)
+
+    await expect(service.computeBalance(credit.id)).resolves.toBe(1500)
+  })
+
   it('can materialize the monthly interest before the due date for an early payment', async () => {
     const service = new CreditsService()
     const startDate = new Date('2025-01-01T12:00:00.000Z')

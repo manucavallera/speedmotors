@@ -490,6 +490,7 @@ export class CreditsService {
       .where(eq(creditCapitalAdditions.creditId, creditId))
 
     const firstChargeDate = getFirstInterestChargeDate(credit.startDate, credit.firstDueDate)
+    const interestPeriodStart = new Date(Date.UTC(atDate.getUTCFullYear(), atDate.getUTCMonth(), 1))
     const paymentsTotal = payments
       .filter(p => {
         const paymentDate = new Date(p.paymentDate)
@@ -502,7 +503,11 @@ export class CreditsService {
       .filter(c => new Date(c.chargeDate) < atDate)
       .reduce((sum, c) => sum + Number(c.amount), 0)
     const additionsTotal = additions
-      .filter(a => new Date(a.effectiveDate) <= atDate)
+      .filter(a => {
+        const effectiveDate = new Date(a.effectiveDate)
+        if (effectiveDate > atDate) return false
+        return !interestBeforePeriodPayments || effectiveDate < interestPeriodStart
+      })
       .reduce((sum, a) => sum + Number(a.amount), 0)
 
     return Number(credit.originalAmount) + additionsTotal + chargesTotal - paymentsTotal
