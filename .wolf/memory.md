@@ -6,6 +6,8 @@
 ## Session: 2026-05-01 11:28
 
 | Time | Action | File(s) | Outcome | ~Tokens |
+| 14:15 | Informe Excel de deudores por financiación | clients service/controller, ClientsPage, debtorsExport | endpoint admin-only; fila por crédito; último pago y totales separados por moneda; builds y tests específicos OK | ~4200 |
+| 13:35 | Mensajes personalizados de financiación para WhatsApp | apps/frontend/src/lib/alertsWhatsApp.ts, alertsWhatsApp.spec.ts, pages/AlertsPage.tsx | plantillas fija/libre con datos dinámicos; tests específicos y build frontend OK | ~1800 |
 |------|--------|---------|---------|--------|
 | 11:33 | Edited CLAUDE.md | expanded (+8 lines) | ~100 |
 | 11:33 | Session end: 1 writes across 1 files (CLAUDE.md) | 3 reads | ~2041 tok |
@@ -3692,3 +3694,7 @@
 | 20:25 | Mejora de usabilidad Marina sin renombrar el grupo: guía visible, Guardería separada en primeros pasos/uso diario, textos de caja pendiente y acciones en estados vacíos | HelpModal + helpContent + Guardería/Turnera/Proveeduría | frontend build OK, 16 tests backend OK | ~4500 tok |
 | 22:18 | Integración Marina + correcciones de motos/stock en master | merge feat/marina-cunas-cobro-mensual | migraciones 0000-0046 sobre DB nueva OK; builds back/front; 16 tests; smoke principal 13/13 y Marina 21/21; temporales eliminados | ~12000 tok |
 | 23:05 | Entrega final en producción | master 82f4c59 + EasyPanel | migrations PROD 0034-0046 13/13; back/front desplegados; smoke público 6/6; precios iniciales pendientes; rotar clave Anthropic expuesta en log | ~6500 tok |
+| 23:35 | Interés saldo variable corregido según Excel | credits.service.ts, credits.service.spec.ts | primer cargo usa fecha de vencimiento; prueba TDD roja y verde; buglog bug-635 | ~1800 tok |
+| 16:33 | Diagnosticado feedback de capital según Excel | credits.service.ts, credit-interest.ts, historial UI | capital actual entra en la base del mismo período; propuesta pendiente de aprobación, buglog bug-636 | ~2500 tok |
+| 16:46 | Corregido interés sobre capital agregado | credits.service.ts, credits.service.spec.ts | saldo sube inmediato; interés empieza al mes siguiente; 63 tests y build backend OK; revisión sin issues | ~3500 tok |
+| 16:49 | Commit y push del fix de interés sobre capital | 689b155, origin/master | push verificado en remoto; cambios locales ajenos preservados | ~700 tok |

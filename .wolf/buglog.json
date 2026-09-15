@@ -10063,6 +10063,66 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T22:01:00.000Z"
+    },
+    {
+      "id": "bug-632",
+      "timestamp": "2026-09-14T13:35:00.000Z",
+      "error_message": "La prueba nueva de mensajes de financiación no pudo resolver ./alertsWhatsApp",
+      "file": "apps/frontend/src/lib/alertsWhatsApp.spec.ts",
+      "root_cause": "La prueba TDD se ejecutó antes de crear el módulo de generación de mensajes.",
+      "fix": "Se creó alertsWhatsApp.ts con los generadores de mensajes y se conectó al flujo de alertas.",
+      "tags": ["tdd", "whatsapp", "alerts", "frontend"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-14T13:35:00.000Z"
+    },
+    {
+      "id": "bug-633",
+      "timestamp": "2026-09-14T14:10:00.000Z",
+      "error_message": "El build del reporte de deudores no encontraba btnSecondary ni creditPayments",
+      "file": "apps/frontend/src/pages/ClientsPage.tsx; apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Faltaban imports para el botón de exportación y la consulta del último pago.",
+      "fix": "Se agregaron ambos imports y backend/frontend compilan correctamente.",
+      "tags": ["build", "typescript", "clients", "debtors-report"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-14T14:10:00.000Z"
+    },
+    {
+      "id": "bug-634",
+      "timestamp": "2026-09-14T14:14:00.000Z",
+      "error_message": "El primer diseño del Excel sumaba saldos en pesos y dólares en un total único",
+      "file": "apps/frontend/src/lib/debtorsExport.ts",
+      "root_cause": "El total general no distinguía la moneda de cada financiación.",
+      "fix": "Se generan totales separados para Pesos y USD.",
+      "tags": ["excel", "currency", "debtors-report"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-14T14:14:00.000Z"
+    },
+    {
+      "id": "bug-635",
+      "timestamp": "2026-09-14T23:35:03.000Z",
+      "error_message": "El saldo variable generaba el primer interés en la fecha del documento y sobre el saldo original",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "applyPendingInterest usaba startDate como ancla del primer cargo aunque existía firstDueDate",
+      "fix": "El primer cargo ahora usa firstDueDate; los cargos posteriores continúan mensualmente desde ese vencimiento",
+      "tags": ["credits", "interest", "due-date", "excel"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-14T23:35:03.000Z"
+    },
+    {
+      "id": "bug-636",
+      "timestamp": "2026-09-15T16:33:19.000Z",
+      "error_message": "Al agregar capital se carga interés en el mismo mes, pero debe empezar a generar interés en el siguiente",
+      "file": "apps/backend/src/credits/credits.service.ts",
+      "root_cause": "computeBalanceAt incluye todo capital con effectiveDate menor o igual a la fecha del cargo, sin respetar el cierre del período mensual",
+      "fix": "Al calcular la base mensual, el capital agregado en el mismo mes del cargo queda excluido; entra desde el mes siguiente. Se agregaron pruebas del saldo inmediato y de los cargos de ambos meses.",
+      "tags": ["credits", "capital", "interest", "periods", "excel"],
+      "related_bugs": ["bug-635"],
+      "occurrences": 1,
+      "last_seen": "2026-09-15T16:33:19.000Z"
     }
   ]
 }

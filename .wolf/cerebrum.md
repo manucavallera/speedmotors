@@ -84,3 +84,8 @@
 - **Proveeduría = servicios** (dixit el sobrino): combustible, hielo, asado, batería, parrilla son ítems del catálogo de servicios, no un módulo POS aparte.
 - **Precios siempre editables desde la UI**, nunca hardcodeados.
 - Canal de difusión = lista de difusión de WhatsApp manual (la API oficial se paga por conversación; no se justifica para ~100 clientes).
+
+### [2026-09-14] Excel como fuente de verdad para interés de saldo variable
+- El primer interés de `saldo_compuesto` se calcula en `firstDueDate`, no en `startDate`.
+- Los pagos posteriores al día 10 deben dejar que el interés del período actual se calcule antes del pago; el pago impacta en el período siguiente.
+- Un alta de capital se coloca al final del período en que se registra: aumenta el saldo de inmediato, pero empieza a generar interés recién en el vencimiento del mes siguiente. Regla confirmada por el dueño el 2026-09-15.
