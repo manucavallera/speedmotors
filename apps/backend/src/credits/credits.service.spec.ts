@@ -117,7 +117,7 @@ describe('CreditsService interest charges', () => {
     }))
   })
 
-  it('calculates the monthly interest before payments made before that month due date', async () => {
+  it('can materialize the monthly interest before the due date for an early payment', async () => {
     const service = new CreditsService()
     const startDate = new Date('2025-01-01T12:00:00.000Z')
     const firstDueDate = new Date('2025-02-10T12:00:00.000Z')
@@ -151,11 +151,11 @@ describe('CreditsService interest charges', () => {
     } as never)
     insertMock.mockReturnValue({ values: valuesMock } as never)
 
-    jest.useFakeTimers().setSystemTime(new Date('2025-02-11T12:00:00.000Z'))
+    jest.useFakeTimers().setSystemTime(new Date('2025-02-09T12:00:00.000Z'))
     const balanceAtSpy = jest.spyOn(service as unknown as { computeBalanceAt: (...args: unknown[]) => Promise<number> }, 'computeBalanceAt')
       .mockResolvedValue(1000000)
 
-    await service.applyPendingInterest(credit.id)
+    await service.applyPendingInterest(credit.id, firstDueDate)
 
     expect(balanceAtSpy).toHaveBeenCalledWith(credit.id, firstDueDate, true)
     expect(valuesMock).toHaveBeenCalledWith(expect.objectContaining({

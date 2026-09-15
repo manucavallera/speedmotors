@@ -161,7 +161,8 @@ export class CreditsService {
 
     // Pago (incluso retroactivo) cambia el saldo de períodos siguientes: recalcular cargos posteriores
     if (credit.creditType === 'saldo_compuesto') {
-      await this.recomputeChargesAfter(creditId, new Date(dto.paymentDate))
+      const paymentDate = new Date(dto.paymentDate)
+      await this.recomputeChargesAfter(creditId, paymentDate, this.getInterestChargeDateForPayment(credit, paymentDate))
     }
 
     const balance = await this.computeBalance(creditId)
@@ -218,10 +219,10 @@ export class CreditsService {
   }
 
   // Borra cargos de interés con fecha posterior al pago y los regenera con el saldo correcto.
-  private async recomputeChargesAfter(creditId: number, paymentDate: Date) {
+  private async recomputeChargesAfter(creditId: number, paymentDate: Date, interestThroughDate?: Date) {
     await db.delete(creditInterestCharges)
       .where(and(eq(creditInterestCharges.creditId, creditId), gt(creditInterestCharges.chargeDate, paymentDate)))
-    await this.applyPendingInterest(creditId)
+    await this.applyPendingInterest(creditId, interestThroughDate)
   }
 
   // Genera N cuotas con interés simple. amount = cuota con interés (capital + intereses) / N. principalAmount = capital / N (descuento si paga +20d antes del vto).
@@ -354,7 +355,7 @@ export class CreditsService {
   // Aplica intereses pendientes en el calendario mensual del vencimiento.
   // Los cargos son derivados: si quedaron cargos de la regla anterior (por ejemplo,
   // uno fechado en startDate), se reconstruye todo el calendario para no arrastrarlos.
-  async applyPendingInterest(creditId: number) {
+  async applyPendingInterest(creditId: number, throughDate?: Date) {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit || credit.status !== 'activo') return
     if (credit.creditType !== 'saldo_compuesto') return
@@ -372,6 +373,7 @@ export class CreditsService {
     }
 
     const now = new Date()
+    const horizon = throughDate && throughDate > now ? throughDate : now
     let nextChargeDate: Date
 
     if (charges.length > 0) {
@@ -386,7 +388,7 @@ export class CreditsService {
 
     while (true) {
       const next = nextChargeDate
-      if (next > now) break
+      if (next > horizon) break
 
       // Interés mensual sobre saldo pendiente. Pago parcial baja el saldo pero no exime el cargo.
       // Pago total queda cubierto: balanceBefore <= 0 corta el loop.
@@ -406,6 +408,20 @@ export class CreditsService {
       nextChargeDate = new Date(next)
       nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
     }
+  }
+
+  private getInterestChargeDateForPayment(
+    credit: typeof credits.$inferSelect,
+    paymentDate: Date,
+  ): Date {
+    const nextChargeDate = new Date(credit.firstDueDate || credit.startDate)
+    if (!credit.firstDueDate) nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
+
+    while (nextChargeDate < paymentDate) {
+      nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
+    }
+
+    return nextChargeDate
   }
 
   private async isInterestScheduleAligned(
