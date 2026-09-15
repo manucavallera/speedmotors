@@ -14,10 +14,10 @@ describe('CreditsService interest charges', () => {
   afterEach(() => {
     jest.useRealTimers()
     jest.restoreAllMocks()
-    jest.clearAllMocks()
+    jest.resetAllMocks()
   })
 
-  it('repairs an old charge created before the configured due date', async () => {
+  it('repairs an old charge and rebuilds the due period of an existing payment', async () => {
     const service = new CreditsService()
     const startDate = new Date('2026-08-21T12:00:00.000Z')
     const firstDueDate = new Date('2026-10-10T12:00:00.000Z')
@@ -28,7 +28,7 @@ describe('CreditsService interest charges', () => {
       saleId: null,
       creditType: 'saldo_compuesto' as const,
       currency: 'pesos' as const,
-      originalAmount: '1000000.00',
+      originalAmount: '1910.00',
       interestRate: '3.00',
       startDate,
       firstDueDate,
@@ -57,16 +57,28 @@ describe('CreditsService interest charges', () => {
         amount: '57.30',
       }]) }) }),
     } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([{
+        paymentDate: new Date('2026-09-14T12:00:00.000Z'),
+      }]) }),
+    } as never)
     insertMock.mockReturnValue({ values: valuesMock } as never)
     deleteMock.mockReturnValue({ where: deleteWhereMock } as never)
 
     jest.useFakeTimers().setSystemTime(new Date('2026-09-15T12:00:00.000Z'))
+    jest.spyOn(service as unknown as { computeBalanceAt: () => Promise<number> }, 'computeBalanceAt')
+      .mockResolvedValue(1510)
 
     await service.applyPendingInterest(credit.id)
 
     expect(deleteMock).toHaveBeenCalled()
     expect(deleteWhereMock).toHaveBeenCalled()
-    expect(insertMock).not.toHaveBeenCalled()
+    expect(valuesMock).toHaveBeenCalledWith(expect.objectContaining({
+      creditId: credit.id,
+      chargeDate: firstDueDate,
+      balanceBefore: '1510.00',
+      amount: '45.30',
+    }))
   })
 
   it('charges October interest on the post-payment balance at the October due date', async () => {
@@ -100,6 +112,9 @@ describe('CreditsService interest charges', () => {
     } as never)
     selectMock.mockReturnValueOnce({
       from: () => ({ where: () => ({ orderBy: () => Promise.resolve([]) }) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
     } as never)
     insertMock.mockReturnValue({ values: valuesMock } as never)
 
@@ -148,6 +163,9 @@ describe('CreditsService interest charges', () => {
     } as never)
     selectMock.mockReturnValueOnce({
       from: () => ({ where: () => ({ orderBy: () => Promise.resolve([]) }) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
     } as never)
     insertMock.mockReturnValue({ values: valuesMock } as never)
 
@@ -205,6 +223,9 @@ describe('CreditsService interest charges', () => {
         balanceBefore: '900000.00',
         amount: '45000.00',
       }]) }) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([]) }),
     } as never)
     insertMock.mockReturnValue({ values: valuesMock } as never)
     deleteMock.mockReturnValue({ where: deleteWhereMock } as never)

@@ -6,6 +6,7 @@ import { CreateCreditDto, UpdateCreditDto, CreatePaymentDto } from './credit.dto
 import { calcCuotasFijas } from './credit-math'
 import { ListCreditsQueryDto } from './list-credits.dto'
 import { creditPageMeta, normalizeCreditSearch } from './credit-list'
+import { getFirstInterestChargeDate, paymentReducesInterestBase } from './credit-interest'
 
 @Injectable()
 export class CreditsService {
@@ -373,7 +374,14 @@ export class CreditsService {
     }
 
     const now = new Date()
-    const horizon = throughDate && throughDate > now ? throughDate : now
+    let horizon = throughDate && throughDate > now ? throughDate : now
+    const knownPayments = await db.select({ paymentDate: creditPayments.paymentDate })
+      .from(creditPayments)
+      .where(eq(creditPayments.creditId, creditId))
+    for (const payment of knownPayments) {
+      const paymentPeriod = this.getInterestChargeDateForPayment(credit, new Date(payment.paymentDate))
+      if (paymentPeriod > horizon) horizon = paymentPeriod
+    }
     let nextChargeDate: Date
 
     if (charges.length > 0) {
@@ -392,8 +400,8 @@ export class CreditsService {
 
       // Interés mensual sobre saldo pendiente. Pago parcial baja el saldo pero no exime el cargo.
       // Pago total queda cubierto: balanceBefore <= 0 corta el loop.
-      // Cuota libre: el interés del mes se calcula antes de los pagos hechos
-      // dentro de ese mismo mes; esos pagos reducen la base desde el período siguiente.
+      // Cuota libre: primero se carga el interés de la fila mensual y luego sus pagos.
+      // Un pago posterior al día de vencimiento pertenece al período siguiente.
       const balanceBefore = await this.computeBalanceAt(creditId, next, true)
       if (balanceBefore <= 0) break
 
@@ -414,8 +422,7 @@ export class CreditsService {
     credit: typeof credits.$inferSelect,
     paymentDate: Date,
   ): Date {
-    const nextChargeDate = new Date(credit.firstDueDate || credit.startDate)
-    if (!credit.firstDueDate) nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
+    const nextChargeDate = getFirstInterestChargeDate(credit.startDate, credit.firstDueDate)
 
     while (nextChargeDate < paymentDate) {
       nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
@@ -430,8 +437,7 @@ export class CreditsService {
   ): Promise<boolean> {
     if (charges.length === 0) return true
 
-    const firstChargeDate = new Date(credit.firstDueDate || credit.startDate)
-    if (!credit.firstDueDate) firstChargeDate.setUTCMonth(firstChargeDate.getUTCMonth() + 1)
+    const firstChargeDate = getFirstInterestChargeDate(credit.startDate, credit.firstDueDate)
 
     const ordered = [...charges].sort((a, b) => (
       new Date(a.chargeDate).getTime() - new Date(b.chargeDate).getTime()
@@ -472,7 +478,7 @@ export class CreditsService {
     return this.computeBalanceAt(creditId, new Date(8640000000000000))
   }
 
-  private async computeBalanceAt(creditId: number, atDate: Date, interestBeforeSameMonthPayments = false): Promise<number> {
+  private async computeBalanceAt(creditId: number, atDate: Date, interestBeforePeriodPayments = false): Promise<number> {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit) return 0
 
@@ -483,12 +489,13 @@ export class CreditsService {
     const additions = await db.select().from(creditCapitalAdditions)
       .where(eq(creditCapitalAdditions.creditId, creditId))
 
-    const monthStart = new Date(Date.UTC(atDate.getUTCFullYear(), atDate.getUTCMonth(), 1))
+    const firstChargeDate = getFirstInterestChargeDate(credit.startDate, credit.firstDueDate)
     const paymentsTotal = payments
       .filter(p => {
         const paymentDate = new Date(p.paymentDate)
         if (paymentDate > atDate) return false
-        return !interestBeforeSameMonthPayments || paymentDate < monthStart
+        return !interestBeforePeriodPayments
+          || paymentReducesInterestBase(paymentDate, atDate, firstChargeDate)
       })
       .reduce((sum, p) => sum + Number(p.amount), 0)
     const chargesTotal = charges
