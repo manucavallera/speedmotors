@@ -351,8 +351,9 @@ export class CreditsService {
     return insts.some(i => !!i.paidAt)
   }
 
-  // Aplica intereses pendientes: el primer período empieza en el vencimiento y los siguientes siguen ese día mensual.
-  // Si no hay fecha de vencimiento, conserva la espera de un mes para créditos cargados como saldo actual.
+  // Aplica intereses pendientes en el calendario mensual del vencimiento.
+  // Los cargos son derivados: si quedaron cargos de la regla anterior (por ejemplo,
+  // uno fechado en startDate), se reconstruye todo el calendario para no arrastrarlos.
   async applyPendingInterest(creditId: number) {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit || credit.status !== 'activo') return
@@ -360,21 +361,27 @@ export class CreditsService {
 
     const rate = Number(credit.interestRate) / 100
     if (rate <= 0) return // cuenta corriente sin interés — no generar cargos $0
-    const charges = await db.select().from(creditInterestCharges)
+    let charges = await db.select().from(creditInterestCharges)
       .where(eq(creditInterestCharges.creditId, creditId))
       .orderBy(desc(creditInterestCharges.chargeDate))
+
+    if (!this.isInterestScheduleAligned(credit, charges)) {
+      await db.delete(creditInterestCharges)
+        .where(eq(creditInterestCharges.creditId, creditId))
+      charges = []
+    }
 
     const now = new Date()
     let nextChargeDate: Date
 
     if (charges.length > 0) {
       nextChargeDate = new Date(charges[0].chargeDate)
-      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
+      nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
     } else if (credit.firstDueDate) {
       nextChargeDate = new Date(credit.firstDueDate)
     } else {
       nextChargeDate = new Date(credit.startDate)
-      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
+      nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
     }
 
     while (true) {
@@ -395,8 +402,31 @@ export class CreditsService {
       })
 
       nextChargeDate = new Date(next)
-      nextChargeDate.setMonth(nextChargeDate.getMonth() + 1)
+      nextChargeDate.setUTCMonth(nextChargeDate.getUTCMonth() + 1)
     }
+  }
+
+  private isInterestScheduleAligned(
+    credit: typeof credits.$inferSelect,
+    charges: Array<typeof creditInterestCharges.$inferSelect>,
+  ): boolean {
+    if (charges.length === 0) return true
+
+    const firstChargeDate = new Date(credit.firstDueDate || credit.startDate)
+    if (!credit.firstDueDate) firstChargeDate.setUTCMonth(firstChargeDate.getUTCMonth() + 1)
+
+    const ordered = [...charges].sort((a, b) => (
+      new Date(a.chargeDate).getTime() - new Date(b.chargeDate).getTime()
+    ))
+
+    return ordered.every((charge, index) => {
+      const expected = new Date(firstChargeDate)
+      expected.setUTCMonth(expected.getUTCMonth() + index)
+      const actualDate = new Date(charge.chargeDate)
+      return actualDate.getUTCFullYear() === expected.getUTCFullYear()
+        && actualDate.getUTCMonth() === expected.getUTCMonth()
+        && actualDate.getUTCDate() === expected.getUTCDate()
+    })
   }
 
   async computeBalance(creditId: number): Promise<number> {

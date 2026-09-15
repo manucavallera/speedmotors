@@ -33,7 +33,7 @@ export function CreditsPage() {
         Acá aparecen todos los clientes que te deben plata: los que compraron en <strong>cuotas fijas</strong> (interés simple, cuotas generadas automáticamente desde la venta), los que quedaron en <strong>cuenta corriente</strong> (sin interés, con fecha de vencimiento), y los que tienen <strong>cuota libre</strong> (pagan lo que pueden, interés compuesto mensual sobre el saldo).
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '8px', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
           <span><strong>Cuotas fijas</strong> — cuotas calculadas al momento de la venta. Si paga 20+ días antes del vencimiento de una cuota, se le cobra solo el capital (sin interés).</span>
-          <span><strong>Cuota libre</strong> — paga cuando puede. Interés se aplica cada 30 días sobre el saldo. Si paga 20+ días antes del vencimiento mensual, ese mes no corre el interés.</span>
+          <span><strong>Cuota libre</strong> — paga cuando puede. El interés se aplica en cada vencimiento mensual sobre el saldo; aunque pague antes del día de vencimiento, cuenta el interés de ese mes. Si paga después, pasa al período siguiente.</span>
           <span><strong>Cuenta corriente</strong> — sin interés, con fecha de vencimiento. Si no paga, genera alerta automática.</span>
         </div>
         <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '6px' }}>

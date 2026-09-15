@@ -87,7 +87,7 @@ export function CreditFormModal({ mode, credit, clients, onClose, onSubmit, isPe
 
         {mode === 'create' && creditType === 'saldo_compuesto' && (
           <div style={infoBox}>
-            💡 <strong>Para deudores viejos del Excel:</strong> poné en "Monto" el saldo que te deben <strong>hoy</strong>. Con una fecha de vencimiento cargada, el primer interés se suma desde la fecha de inicio, aunque el cliente pague antes del vencimiento. Sin fecha de vencimiento, el primer interés se cobra 30 días después del inicio.
+            💡 <strong>Para deudores viejos del Excel:</strong> poné en "Monto" el saldo que te deben <strong>hoy</strong>. Con una fecha de vencimiento cargada, el primer interés se suma en ese vencimiento y luego cada mes el día 10 (o el día configurado). Si paga antes de ese día, igual corresponde el interés del mes; si paga después, pasa al período siguiente. Sin fecha de vencimiento, el primer interés se cobra 30 días después del inicio.
           </div>
         )}
         {mode === 'create' && creditType === 'cuotas_simples' && (

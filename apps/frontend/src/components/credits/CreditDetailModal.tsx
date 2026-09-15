@@ -68,8 +68,8 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
             <div style={{ fontSize: '17px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>{detail.interestRate}%</div>
           </div>
           <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px' }}>
-            <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>{isCuotas ? 'Primera cuota' : 'Inicio'}</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>{formatDateOnly(isCuotas && detail.firstDueDate ? detail.firstDueDate : detail.startDate)}</div>
+            <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>{isCuotas ? 'Primera cuota' : detail.firstDueDate ? 'Vencimiento mensual' : 'Inicio'}</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>{formatDateOnly(isCuotas || detail.firstDueDate ? detail.firstDueDate || detail.startDate : detail.startDate)}</div>
           </div>
           {isCuotas && (
             <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px' }}>
