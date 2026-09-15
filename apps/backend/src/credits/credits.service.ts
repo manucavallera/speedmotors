@@ -365,7 +365,7 @@ export class CreditsService {
       .where(eq(creditInterestCharges.creditId, creditId))
       .orderBy(desc(creditInterestCharges.chargeDate))
 
-    if (!this.isInterestScheduleAligned(credit, charges)) {
+    if (!(await this.isInterestScheduleAligned(credit, charges))) {
       await db.delete(creditInterestCharges)
         .where(eq(creditInterestCharges.creditId, creditId))
       charges = []
@@ -390,7 +390,9 @@ export class CreditsService {
 
       // Interés mensual sobre saldo pendiente. Pago parcial baja el saldo pero no exime el cargo.
       // Pago total queda cubierto: balanceBefore <= 0 corta el loop.
-      const balanceBefore = await this.computeBalanceAt(creditId, next)
+      // Cuota libre: el interés del mes se calcula antes de los pagos hechos
+      // dentro de ese mismo mes; esos pagos reducen la base desde el período siguiente.
+      const balanceBefore = await this.computeBalanceAt(creditId, next, true)
       if (balanceBefore <= 0) break
 
       const interestAmount = balanceBefore * rate
@@ -406,10 +408,10 @@ export class CreditsService {
     }
   }
 
-  private isInterestScheduleAligned(
+  private async isInterestScheduleAligned(
     credit: typeof credits.$inferSelect,
     charges: Array<typeof creditInterestCharges.$inferSelect>,
-  ): boolean {
+  ): Promise<boolean> {
     if (charges.length === 0) return true
 
     const firstChargeDate = new Date(credit.firstDueDate || credit.startDate)
@@ -419,14 +421,24 @@ export class CreditsService {
       new Date(a.chargeDate).getTime() - new Date(b.chargeDate).getTime()
     ))
 
-    return ordered.every((charge, index) => {
+    for (const [index, charge] of ordered.entries()) {
       const expected = new Date(firstChargeDate)
       expected.setUTCMonth(expected.getUTCMonth() + index)
       const actualDate = new Date(charge.chargeDate)
-      return actualDate.getUTCFullYear() === expected.getUTCFullYear()
+      const dateAligned = actualDate.getUTCFullYear() === expected.getUTCFullYear()
         && actualDate.getUTCMonth() === expected.getUTCMonth()
         && actualDate.getUTCDate() === expected.getUTCDate()
-    })
+      if (!dateAligned) return false
+
+      const expectedBalance = await this.computeBalanceAt(credit.id, actualDate, true)
+      const expectedAmount = expectedBalance * (Number(credit.interestRate) / 100)
+      if (Number(charge.balanceBefore).toFixed(2) !== expectedBalance.toFixed(2)
+        || Number(charge.amount).toFixed(2) !== expectedAmount.toFixed(2)) {
+        return false
+      }
+    }
+
+    return true
   }
 
   async computeBalance(creditId: number): Promise<number> {
@@ -444,7 +456,7 @@ export class CreditsService {
     return this.computeBalanceAt(creditId, new Date(8640000000000000))
   }
 
-  private async computeBalanceAt(creditId: number, atDate: Date): Promise<number> {
+  private async computeBalanceAt(creditId: number, atDate: Date, interestBeforeSameMonthPayments = false): Promise<number> {
     const [credit] = await db.select().from(credits).where(eq(credits.id, creditId))
     if (!credit) return 0
 
@@ -455,8 +467,13 @@ export class CreditsService {
     const additions = await db.select().from(creditCapitalAdditions)
       .where(eq(creditCapitalAdditions.creditId, creditId))
 
+    const monthStart = new Date(Date.UTC(atDate.getUTCFullYear(), atDate.getUTCMonth(), 1))
     const paymentsTotal = payments
-      .filter(p => new Date(p.paymentDate) <= atDate)
+      .filter(p => {
+        const paymentDate = new Date(p.paymentDate)
+        if (paymentDate > atDate) return false
+        return !interestBeforeSameMonthPayments || paymentDate < monthStart
+      })
       .reduce((sum, p) => sum + Number(p.amount), 0)
     const chargesTotal = charges
       .filter(c => new Date(c.chargeDate) < atDate)

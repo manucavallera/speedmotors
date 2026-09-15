@@ -116,4 +116,112 @@ describe('CreditsService interest charges', () => {
       amount: '45.30',
     }))
   })
+
+  it('calculates the monthly interest before payments made before that month due date', async () => {
+    const service = new CreditsService()
+    const startDate = new Date('2025-01-01T12:00:00.000Z')
+    const firstDueDate = new Date('2025-02-10T12:00:00.000Z')
+    const credit = {
+      id: 1,
+      clientId: 10,
+      userId: 20,
+      saleId: null,
+      creditType: 'saldo_compuesto' as const,
+      currency: 'pesos' as const,
+      originalAmount: '1000000.00',
+      interestRate: '5.00',
+      startDate,
+      firstDueDate,
+      installmentsCount: null,
+      status: 'activo' as const,
+      notes: null,
+      createdAt: startDate,
+      updatedAt: startDate,
+    } satisfies typeof credits.$inferSelect
+
+    const selectMock = jest.mocked(db.select)
+    const insertMock = jest.mocked(db.insert)
+    const valuesMock = jest.fn().mockReturnValue({ returning: jest.fn().mockResolvedValue([]) })
+
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => ({ orderBy: () => Promise.resolve([]) }) }),
+    } as never)
+    insertMock.mockReturnValue({ values: valuesMock } as never)
+
+    jest.useFakeTimers().setSystemTime(new Date('2025-02-11T12:00:00.000Z'))
+    const balanceAtSpy = jest.spyOn(service as unknown as { computeBalanceAt: (...args: unknown[]) => Promise<number> }, 'computeBalanceAt')
+      .mockResolvedValue(1000000)
+
+    await service.applyPendingInterest(credit.id)
+
+    expect(balanceAtSpy).toHaveBeenCalledWith(credit.id, firstDueDate, true)
+    expect(valuesMock).toHaveBeenCalledWith(expect.objectContaining({
+      creditId: credit.id,
+      chargeDate: firstDueDate,
+      balanceBefore: '1000000.00',
+      amount: '50000.00',
+    }))
+  })
+
+  it('repairs an aligned charge whose amount used the post-payment balance', async () => {
+    const service = new CreditsService()
+    const startDate = new Date('2025-01-01T12:00:00.000Z')
+    const firstDueDate = new Date('2025-02-10T12:00:00.000Z')
+    const credit = {
+      id: 1,
+      clientId: 10,
+      userId: 20,
+      saleId: null,
+      creditType: 'saldo_compuesto' as const,
+      currency: 'pesos' as const,
+      originalAmount: '1000000.00',
+      interestRate: '5.00',
+      startDate,
+      firstDueDate,
+      installmentsCount: null,
+      status: 'activo' as const,
+      notes: null,
+      createdAt: startDate,
+      updatedAt: startDate,
+    } satisfies typeof credits.$inferSelect
+
+    const selectMock = jest.mocked(db.select)
+    const insertMock = jest.mocked(db.insert)
+    const deleteMock = jest.mocked(db.delete)
+    const valuesMock = jest.fn().mockReturnValue({ returning: jest.fn().mockResolvedValue([]) })
+    const deleteWhereMock = jest.fn().mockResolvedValue([])
+
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => Promise.resolve([credit]) }),
+    } as never)
+    selectMock.mockReturnValueOnce({
+      from: () => ({ where: () => ({ orderBy: () => Promise.resolve([{
+        id: 1,
+        creditId: credit.id,
+        chargeDate: firstDueDate,
+        balanceBefore: '900000.00',
+        amount: '45000.00',
+      }]) }) }),
+    } as never)
+    insertMock.mockReturnValue({ values: valuesMock } as never)
+    deleteMock.mockReturnValue({ where: deleteWhereMock } as never)
+
+    jest.useFakeTimers().setSystemTime(new Date('2025-02-11T12:00:00.000Z'))
+    const balanceAtSpy = jest.spyOn(service as unknown as { computeBalanceAt: (...args: unknown[]) => Promise<number> }, 'computeBalanceAt')
+      .mockResolvedValue(1000000)
+
+    await service.applyPendingInterest(credit.id)
+
+    expect(balanceAtSpy).toHaveBeenCalledWith(credit.id, firstDueDate, true)
+    expect(deleteMock).toHaveBeenCalled()
+    expect(valuesMock).toHaveBeenCalledWith(expect.objectContaining({
+      creditId: credit.id,
+      chargeDate: firstDueDate,
+      balanceBefore: '1000000.00',
+      amount: '50000.00',
+    }))
+  })
 })
