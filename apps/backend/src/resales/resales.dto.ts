@@ -1,19 +1,36 @@
-import { IsDateString, IsNumber, IsOptional, IsString, Min } from 'class-validator'
+import {
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator';
 
 export class CreateResellerDto {
-  @IsString() name: string
-  @IsOptional() @IsString() phone?: string
-  @IsOptional() @IsString() notes?: string
+  @IsString() name: string;
+  @IsOptional() @IsString() phone?: string;
+  @IsOptional() @IsString() notes?: string;
+}
+
+export class UpdateResellerDto {
+  @IsOptional() @IsString() name?: string;
+  @IsOptional() @IsString() phone?: string;
+  @IsOptional() @IsString() notes?: string;
 }
 
 export class CreateConsignmentDto {
-  @IsNumber() resellerId: number
-  @IsNumber() vehicleId: number
-  @IsNumber() @Min(0) agreedPrice: number
-  @IsOptional() @IsDateString() deliveredAt?: string
+  @IsNumber() resellerId: number;
+  @IsNumber() vehicleId: number;
+  @IsOptional() @IsNumber() @Min(0) agreedPrice?: number;
+  @IsOptional() @IsDateString() deliveredAt?: string;
+}
+
+export class UpdateConsignmentDto {
+  @IsOptional() @IsNumber() resellerId?: number;
+  @IsOptional() @IsNumber() vehicleId?: number;
+  @IsOptional() @IsDateString() deliveredAt?: string;
 }
 
 export class RegisterResaleDto {
-  @IsNumber() @Min(0) soldPrice: number
-  @IsOptional() @IsDateString() soldAt?: string
+  @IsOptional() @IsDateString() soldAt?: string;
 }

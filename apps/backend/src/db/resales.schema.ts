@@ -14,7 +14,8 @@ export const resaleConsignments = pgTable('resale_consignments', {
   resellerId: integer('reseller_id').references(() => resellers.id).notNull(),
   vehicleId: integer('vehicle_id').references(() => vehicles.id).notNull(),
   deliveredAt: date('delivered_at').notNull(),
-  agreedPrice: numeric('agreed_price', { precision: 12, scale: 2 }).notNull(),
+  // Legacy reference only. The definitive price is captured from the vehicle list at payment time.
+  agreedPrice: numeric('agreed_price', { precision: 12, scale: 2 }),
   soldAt: date('sold_at'),
   soldPrice: numeric('sold_price', { precision: 12, scale: 2 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
