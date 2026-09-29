@@ -11,6 +11,7 @@ export interface PrintField {
   width: number
   align?: 'left' | 'right' | 'center'
   fontSize?: number
+  bold?: boolean
 }
 
 export interface DetailGrid {
@@ -76,4 +77,15 @@ export interface PrintTextCommand {
   width: number
   align: 'left' | 'right' | 'center'
   fontSize: number
+  bold?: boolean
+}
+
+export interface PrintIssuerSettings {
+  businessName: string
+  tagline: string
+  address: string
+  phone: string
+  email: string
+  cuit: string
+  condicionIva: string
 }

@@ -4,6 +4,10 @@ const invoiceLayout: PrintedFormLayout = {
   kind: 'invoice',
   pageSizeMm: [210, 297],
   fields: {
+    issuerName: { x: 14, y: 16, width: 92, fontSize: 14, bold: true },
+    issuerTagline: { x: 14, y: 23, width: 92, fontSize: 8 },
+    issuerContact: { x: 14, y: 29, width: 92, fontSize: 7 },
+    issuerFiscal: { x: 14, y: 34, width: 92, fontSize: 7 },
     issueDate: { x: 151, y: 40.6, width: 35 },
     customerDocument: { x: 23, y: 72.2, width: 34 },
     customerName: { x: 124.5, y: 71.9, width: 76 },
