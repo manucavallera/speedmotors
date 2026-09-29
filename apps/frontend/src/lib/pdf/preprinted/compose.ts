@@ -1,5 +1,5 @@
 import { getPrintedFormLayout } from './layouts'
-import type { PrintClient, PrintOffset, PrintSale, PrintedFormKind, PrintTextCommand } from './types'
+import type { PrintClient, PrintIssuerSettings, PrintOffset, PrintSale, PrintedFormKind, PrintTextCommand } from './types'
 
 export class PrintedFormOverflowError extends Error {
   constructor() {
@@ -30,13 +30,13 @@ function wrap(text: string, width: number): string[] {
   }, [])
 }
 
-export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, client: PrintClient | undefined, offset: PrintOffset): PrintTextCommand[] {
+export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, client: PrintClient | undefined, offset: PrintOffset, issuer?: PrintIssuerSettings): PrintTextCommand[] {
   const layout = getPrintedFormLayout(kind)
   const commands: PrintTextCommand[] = []
   const add = (field: string, text: string | null | undefined, y?: number) => {
     const position = layout.fields[field]
     if (!position || !text) return
-    commands.push({ field, text, x: position.x + offset.x, y: (y ?? position.y) + offset.y, width: position.width, align: position.align || 'left', fontSize: position.fontSize || 8 })
+    commands.push({ field, text, x: position.x + offset.x, y: (y ?? position.y) + offset.y, width: position.width, align: position.align || 'left', fontSize: position.fontSize || 8, bold: position.bold })
   }
   const document = client?.cuit ? `CUIT: ${client.cuit}` : client?.dni ? `DNI: ${client.dni}` : ''
   const iva = client?.condicionIva || 'consumidor_final'
@@ -62,6 +62,12 @@ export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, cl
     add('truckPlate', sale.dominioVehiculo)
     add('trailerPlate', sale.dominioAcoplado)
   } else {
+    if (issuer) {
+      add('issuerName', issuer.businessName)
+      add('issuerTagline', issuer.tagline)
+      add('issuerContact', [issuer.phone, issuer.address].filter(Boolean).join(' · '))
+      add('issuerFiscal', [issuer.cuit ? `CUIT: ${issuer.cuit}` : '', issuer.condicionIva ? `IVA ${issuer.condicionIva}` : ''].filter(Boolean).join(' · '))
+    }
     const date = new Date(sale.createdAt)
     add('issueDate', date.toLocaleDateString('es-AR', { timeZone: 'UTC' }))
     add('customerDocument', document)

@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf'
 import { toast } from '../toast'
+import { getSettings } from './helpers'
 import { composePreprintedForm, PrintedFormOverflowError } from './preprinted/compose'
 import { getPrintedFormLayout } from './preprinted/layouts'
 import { loadPrintOffset } from './preprinted/settings'
@@ -12,7 +13,7 @@ function generate(kind: PrintedFormKind, sale: PrintSale, client?: PrintClient):
   doc.setFont('helvetica', 'normal')
   let commands: PrintTextCommand[]
   try {
-    commands = composePreprintedForm(kind, sale, client, loadPrintOffset(kind))
+    commands = composePreprintedForm(kind, sale, client, loadPrintOffset(kind), kind === 'invoice' ? getSettings() : undefined)
   } catch (error) {
     if (error instanceof PrintedFormOverflowError) {
       toast.error(error.message)
@@ -21,6 +22,7 @@ function generate(kind: PrintedFormKind, sale: PrintSale, client?: PrintClient):
     throw error
   }
   commands.forEach(command => {
+    doc.setFont('helvetica', command.bold ? 'bold' : 'normal')
     doc.setFontSize(command.fontSize)
     doc.text(command.text, command.x, command.y, { maxWidth: command.width, align: command.align })
   })

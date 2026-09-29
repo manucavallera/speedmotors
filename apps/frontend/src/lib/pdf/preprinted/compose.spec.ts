@@ -23,6 +23,25 @@ describe('composePreprintedForm', () => {
     expect(commands.some(command => command.text.includes('40111222'))).toBe(true)
   })
 
+  it('prints the configured issuer header on preprinted invoices', () => {
+    const commands = composePreprintedForm('invoice', sale, dniClient, { x: 0, y: 0 }, {
+      businessName: 'Speed Motors',
+      tagline: 'Motos y repuestos',
+      address: 'Av. Rivadavia 123',
+      phone: '11-5555-0101',
+      email: '',
+      cuit: '20-12345678-9',
+      condicionIva: 'Responsable Inscripto',
+    })
+
+    expect(commands).toEqual(expect.arrayContaining([
+      expect.objectContaining({ field: 'issuerName', text: 'Speed Motors', bold: true }),
+      expect.objectContaining({ field: 'issuerTagline', text: 'Motos y repuestos' }),
+      expect.objectContaining({ field: 'issuerContact', text: '11-5555-0101 · Av. Rivadavia 123' }),
+      expect.objectContaining({ field: 'issuerFiscal', text: 'CUIT: 20-12345678-9 · IVA Responsable Inscripto' }),
+    ]))
+  })
+
   it('prints formal amount for mixed invoices', () => {
     const mixedSale: PrintSale = {
       ...sale,
