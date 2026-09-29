@@ -3710,3 +3710,4 @@
 | 14:15 | Redondeo de subtotales de factura | compose.ts + compose.spec.ts | residuo de centavos se asigna al último renglón, sumando igual al neto; prueba multirrenglón primero falló; buglog bug-650 | ~400 tok |
 | 14:22 | Coherencia de precio unitario | compose.ts + compose.spec.ts | precio unitario ahora se deriva del subtotal redondeado; 4 decimales para cantidades múltiples; buglog bug-651 | ~350 tok |
 | 14:13 | Verificación final de comprobantes preimpresos | frontend completo | 17 suites, 104 tests y build OK; revisión final sin blockers; calibración física pendiente con impresora del local | ~350 tok |
+| 15:12 | Integración y publicación de comprobantes preimpresos | master / origin/master | merge `9c9551c`, master sincronizado; 104 tests y build OK; no requiere migración; producción aún sirve un bundle anterior y requiere redeploy manual de frontend; calibración física pendiente | ~500 tok |
