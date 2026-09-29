@@ -1,19 +1,31 @@
 import jsPDF from 'jspdf'
-import { composePreprintedForm } from './preprinted/compose'
+import { toast } from '../toast'
+import { composePreprintedForm, PrintedFormOverflowError } from './preprinted/compose'
 import { getPrintedFormLayout } from './preprinted/layouts'
 import { loadPrintOffset } from './preprinted/settings'
-import type { PrintClient, PrintSale, PrintedFormKind } from './preprinted/types'
+import type { PrintClient, PrintOffset, PrintSale, PrintedFormKind, PrintTextCommand } from './preprinted/types'
 
 function generate(kind: PrintedFormKind, sale: PrintSale, client?: PrintClient): void {
   const layout = getPrintedFormLayout(kind)
   const doc = new jsPDF({ unit: 'mm', format: [...layout.pageSizeMm], orientation: 'portrait' })
   doc.setTextColor(0, 0, 0)
   doc.setFont('helvetica', 'normal')
-  composePreprintedForm(kind, sale, client, loadPrintOffset(kind)).forEach(command => {
+  let commands: PrintTextCommand[]
+  try {
+    commands = composePreprintedForm(kind, sale, client, loadPrintOffset(kind))
+  } catch (error) {
+    if (error instanceof PrintedFormOverflowError) {
+      toast.error(error.message)
+      return
+    }
+    throw error
+  }
+  commands.forEach(command => {
     doc.setFontSize(command.fontSize)
     doc.text(command.text, command.x, command.y, { maxWidth: command.width, align: command.align })
   })
-  doc.save(`${kind}-preimpreso-${sale.saleNumber || sale.id}.pdf`)
+  doc.autoPrint()
+  doc.output('dataurlnewwindow')
 }
 
 export function generatePreprintedInvoice(sale: PrintSale, client?: PrintClient): void {
@@ -24,7 +36,7 @@ export function generatePreprintedRemito(sale: PrintSale, client?: PrintClient):
   generate('remito', sale, client)
 }
 
-export function generatePreprintedCalibration(kind: PrintedFormKind): void {
+export function generatePreprintedCalibration(kind: PrintedFormKind, offset: PrintOffset = loadPrintOffset(kind)): void {
   const layout = getPrintedFormLayout(kind)
   const doc = new jsPDF({ unit: 'mm', format: [...layout.pageSizeMm], orientation: 'portrait' })
   doc.setTextColor(100, 116, 139)
@@ -33,6 +45,12 @@ export function generatePreprintedCalibration(kind: PrintedFormKind): void {
   doc.setFontSize(6)
   for (let x = 0; x <= layout.pageSizeMm[0]; x += 10) doc.line(x, 15, x, layout.pageSizeMm[1])
   for (let y = 15; y <= layout.pageSizeMm[1]; y += 10) doc.line(0, y, layout.pageSizeMm[0], y)
-  Object.entries(layout.fields).forEach(([name, field]) => doc.text(name, field.x, field.y))
-  doc.save(`calibracion-${kind}.pdf`)
+  Object.entries(layout.fields).forEach(([name, field]) => {
+    const x = field.x + offset.x
+    const y = field.y + offset.y
+    doc.text(name, x, y)
+    doc.line(x, y + 1, x + field.width, y + 1)
+  })
+  doc.autoPrint()
+  doc.output('dataurlnewwindow')
 }

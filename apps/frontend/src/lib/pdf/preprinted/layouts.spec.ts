@@ -9,6 +9,15 @@ describe('preprinted form layouts', () => {
     expect(getPrintedFormLayout('remito').pageSizeMm).toEqual([215.9, 279.4])
   })
 
+  it('keeps invoice quantity, unit price and subtotal columns separate', () => {
+    const { detail } = getPrintedFormLayout('invoice')
+    const columns = [detail.quantity, detail.unitPrice, detail.subtotal]
+      .filter((field): field is NonNullable<typeof field> => Boolean(field))
+      .sort((left, right) => left.x - right.x)
+
+    expect(columns.every((field, index) => index === 0 || columns[index - 1].x + columns[index - 1].width <= field.x)).toBe(true)
+  })
+
   it('keeps calibration offsets independent for each form', () => {
     savePrintOffset('invoice', { x: 1.5, y: -0.75 })
 

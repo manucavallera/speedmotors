@@ -3703,3 +3703,10 @@
 | 13:15 | Plan de comprobantes preimpresos preparado | docs/superpowers/plans/2026-09-29-comprobantes-preimpresos.md | cuatro tareas: layouts, renderer, UI/calibración y prueba física | ~4300 tok |
 | 13:30 | Base de formularios preimpresos | preprinted/types, layouts, settings + tests | A4/Carta y offsets locales aislados; frontend tests 89/89 OK | ~4000 tok |
 | 13:45 | Renderer de superposición para formularios | pdf/preprinted/compose.ts, preprinted.ts + tests | datos variables, importes mixtos y overflow controlado; frontend tests 93/93 OK | ~5000 tok |
+| 14:35 | Acciones de impresión física y calibración | SaleDetailModal, SalesHistoryList, SettingsPage, pdf/preprinted.ts | impresión de venta A4/Carta y hoja de prueba con offsets X/Y; frontend 98/98 tests y build OK; falta cotejo físico del operador | ~5000 tok |
+| 13:47 | Mapeo IVA de remito | compose.ts + compose.spec.ts | valor persistido `monotributo` ahora marca la casilla correcta; prueba primero falló y queda corregida; buglog bug-647 | ~600 tok |
+| 13:55 | Revisión final y correcciones de factura | compose.ts, layouts.ts + tests | neto e IVA 21% para factura A, importe formal mixto, columnas separadas y descuento aplicado al precio unitario; regresiones primero rojas; buglog bug-648 | ~1200 tok |
+| 14:05 | Coherencia detalle/IVA factura A | compose.ts + compose.spec.ts | renglones ahora escalan al neto del pie luego del descuento; prueba de suma de detalle primero falló y quedó verde; buglog bug-649 | ~500 tok |
+| 14:15 | Redondeo de subtotales de factura | compose.ts + compose.spec.ts | residuo de centavos se asigna al último renglón, sumando igual al neto; prueba multirrenglón primero falló; buglog bug-650 | ~400 tok |
+| 14:22 | Coherencia de precio unitario | compose.ts + compose.spec.ts | precio unitario ahora se deriva del subtotal redondeado; 4 decimales para cantidades múltiples; buglog bug-651 | ~350 tok |
+| 14:13 | Verificación final de comprobantes preimpresos | frontend completo | 17 suites, 104 tests y build OK; revisión final sin blockers; calibración física pendiente con impresora del local | ~350 tok |

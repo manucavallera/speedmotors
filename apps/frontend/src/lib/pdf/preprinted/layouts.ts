@@ -11,7 +11,7 @@ const invoiceLayout: PrintedFormLayout = {
     customerIva: { x: 46.2, y: 78, width: 52 },
     paymentCondition: { x: 39.9, y: 85.8, width: 30 },
     subtotal: { x: 188, y: 198, width: 17, align: 'right' },
-    otherTaxes: { x: 188, y: 204.3, width: 17, align: 'right' },
+    vat: { x: 188, y: 204.3, width: 17, align: 'right' },
     total: { x: 188, y: 211, width: 17, align: 'right' },
   },
   detail: {
@@ -21,7 +21,6 @@ const invoiceLayout: PrintedFormLayout = {
     description: { x: 20.1, y: 0, width: 49.5 },
     quantity: { x: 85.9, y: 0, width: 22.6, align: 'right' },
     unitPrice: { x: 121.4, y: 0, width: 27.5, align: 'right' },
-    discount: { x: 137.8, y: 0, width: 25.8, align: 'right' },
     subtotal: { x: 172.4, y: 0, width: 28.2, align: 'right' },
   },
 }

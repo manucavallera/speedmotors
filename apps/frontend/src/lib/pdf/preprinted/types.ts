@@ -20,7 +20,6 @@ export interface DetailGrid {
   description: PrintField
   quantity: PrintField
   unitPrice?: PrintField
-  discount?: PrintField
   subtotal?: PrintField
 }
 
@@ -36,6 +35,7 @@ export interface PrintItem {
   quantity: number
   unitPrice: string | number
   subtotal: string | number
+  ingresoTipo?: 'blanco' | 'negro' | null
 }
 
 export interface PrintSale {
@@ -44,6 +44,8 @@ export interface PrintSale {
   invoiceType?: 'A' | 'B' | 'X' | 'mixto'
   createdAt: string | Date
   total: string | number
+  subtotal?: string | number
+  discount?: string | number
   amountFormal?: string | number | null
   paymentMethod?: string | null
   items: PrintItem[]

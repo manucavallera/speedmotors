@@ -11,6 +11,14 @@ function money(value: string | number | null | undefined): string {
   return Number(value || 0).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
 
+function unitMoney(value: number): string {
+  return value.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 4 })
+}
+
+function roundMoney(value: number): number {
+  return Math.round((value + Number.EPSILON) * 100) / 100
+}
+
 function wrap(text: string, width: number): string[] {
   const maxChars = Math.max(1, Math.floor(width / 1.6))
   const words = text.trim().split(/\s+/).filter(Boolean)
@@ -32,6 +40,7 @@ export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, cl
   }
   const document = client?.cuit ? `CUIT: ${client.cuit}` : client?.dni ? `DNI: ${client.dni}` : ''
   const iva = client?.condicionIva || 'consumidor_final'
+  let invoiceNetAmount: number | undefined
 
   if (kind === 'remito') {
     const date = new Date(sale.createdAt)
@@ -41,7 +50,7 @@ export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, cl
     add('customerName', client?.name)
     add('customerAddress', client?.address)
     add('customerDocument', document)
-    const ivaField = iva === 'responsable_inscripto' ? 'ivaResponsible' : iva === 'monotributista' ? 'ivaMonotributo' : iva === 'exento' ? 'ivaExempt' : 'ivaConsumer'
+    const ivaField = iva === 'responsable_inscripto' ? 'ivaResponsible' : iva === 'monotributo' || iva === 'monotributista' ? 'ivaMonotributo' : iva === 'exento' ? 'ivaExempt' : 'ivaConsumer'
     add(ivaField, 'X')
     add(sale.transportPropio ? 'transportOwn' : 'transportThirdParty', 'X')
     add('carrierName', sale.transportistaNombre)
@@ -61,18 +70,47 @@ export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, cl
     add('customerIva', client?.condicionIva)
     add('paymentCondition', sale.paymentMethod)
     const total = sale.invoiceType === 'mixto' ? sale.amountFormal : sale.total
-    add('subtotal', money(total))
+    const gross = Number(sale.subtotal ?? sale.items.reduce((sum, item) => sum + Number(item.subtotal), 0))
+    const net = sale.invoiceType === 'A' ? Number(total) / 1.21 : sale.invoiceType === 'mixto' ? Number(total) : gross - Number(sale.discount || 0)
+    invoiceNetAmount = net
+    add('subtotal', money(net))
+    if (sale.invoiceType === 'A') add('vat', money(Number(total) - net))
     add('total', money(total))
   }
 
-  const detailLines = sale.items.flatMap(item => {
+  const invoiceItems = kind === 'invoice' && sale.invoiceType === 'mixto'
+    ? sale.items.filter(item => item.ingresoTipo === 'blanco')
+    : sale.items
+  const invoiceBase = invoiceItems.reduce((sum, item) => sum + Number(item.subtotal), 0)
+  const allItemsBase = Number(sale.subtotal ?? sale.items.reduce((sum, item) => sum + Number(item.subtotal), 0))
+  const invoiceDiscount = sale.invoiceType === 'mixto' || allItemsBase <= 0
+    ? 0
+    : Number(sale.discount || 0) * (invoiceBase / allItemsBase)
+  const discountedInvoiceBase = invoiceBase - invoiceDiscount
+  const invoiceScale = kind !== 'invoice' || discountedInvoiceBase <= 0
+    ? 1
+    : sale.invoiceType === 'mixto'
+      ? Number(sale.amountFormal || 0) / invoiceBase
+      : sale.invoiceType === 'A'
+        ? Number(sale.total) / 1.21 / discountedInvoiceBase
+        : 1
+  const itemDiscounts = invoiceItems.map(item => sale.invoiceType === 'mixto' || allItemsBase <= 0
+    ? 0
+    : Number(sale.discount || 0) * (Number(item.subtotal) / allItemsBase))
+  const detailSubtotals = invoiceItems.map((item, index) => roundMoney((Number(item.subtotal) - itemDiscounts[index]) * invoiceScale))
+  if (invoiceNetAmount !== undefined && detailSubtotals.length > 0) {
+    const roundedNet = roundMoney(invoiceNetAmount)
+    const roundedRows = detailSubtotals.reduce((sum, subtotal) => sum + subtotal, 0)
+    detailSubtotals[detailSubtotals.length - 1] = roundMoney(detailSubtotals.at(-1)! + roundedNet - roundedRows)
+  }
+  const detailLines = invoiceItems.flatMap((item, itemIndex) => {
     const lines = wrap(item.description, layout.detail.description.width)
-    return lines.map((line, index) => ({ line, item, first: index === 0 }))
+    return lines.map((line, index) => ({ line, item, itemIndex, first: index === 0 }))
   })
   if (detailLines.length > layout.detail.maxLines) throw new PrintedFormOverflowError()
-  detailLines.forEach(({ line, item, first }, index) => {
+  detailLines.forEach(({ line, item, itemIndex, first }, index) => {
     const y = layout.detail.startY + index * layout.detail.lineHeight + offset.y
-    const addDetail = (field: 'description' | 'quantity' | 'unitPrice' | 'discount' | 'subtotal', text: string) => {
+    const addDetail = (field: 'description' | 'quantity' | 'unitPrice' | 'subtotal', text: string) => {
       const position = layout.detail[field]
       if (!position || !text) return
       commands.push({ field, text, x: position.x + offset.x, y, width: position.width, align: position.align || 'left', fontSize: 8 })
@@ -81,8 +119,11 @@ export function composePreprintedForm(kind: PrintedFormKind, sale: PrintSale, cl
     if (first) {
       addDetail('quantity', String(item.quantity))
       if (kind === 'invoice') {
-        addDetail('unitPrice', money(item.unitPrice))
-        addDetail('subtotal', money(item.subtotal))
+        const printedSubtotal = detailSubtotals[itemIndex]
+        const quantity = Number(item.quantity)
+        const effectiveUnitPrice = quantity > 0 ? printedSubtotal / quantity : Number(item.unitPrice) * invoiceScale
+        addDetail('unitPrice', unitMoney(effectiveUnitPrice))
+        addDetail('subtotal', money(printedSubtotal))
       }
     }
   })
