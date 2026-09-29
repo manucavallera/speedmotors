@@ -10123,6 +10123,42 @@
       "related_bugs": ["bug-635"],
       "occurrences": 1,
       "last_seen": "2026-09-15T16:33:19.000Z"
+    },
+    {
+      "id": "bug-637",
+      "timestamp": "2026-09-29T13:00:00.000Z",
+      "error_message": "La configuración de Jest del frontend referencia ts-jest, pero ts-jest no está declarado en las dependencias de desarrollo.",
+      "file": "apps/frontend/package.json; apps/frontend/jest.config.cjs",
+      "root_cause": "La configuración de transformación TypeScript fue conservada sin instalar su transformador requerido.",
+      "fix": "El plan de comprobantes preimpresos incorpora declarar ts-jest antes de añadir pruebas unitarias de los renderers PDF.",
+      "tags": ["frontend", "jest", "testing", "dependency"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T13:00:00.000Z"
+    },
+    {
+      "id": "bug-638",
+      "timestamp": "2026-09-29T13:02:00.000Z",
+      "error_message": "El comando de inspección del stream PDF falló por comillas incompatibles entre Bash y node -e.",
+      "file": "/mnt/c/Users/coco/Desktop/20222675325_006_00002_00002096.pdf",
+      "root_cause": "El script JavaScript se pasó entre comillas dobles y el envoltorio interpretó parte de su contenido antes de Node.",
+      "fix": "Ejecutar el script node -e entre comillas simples para preservar el código literalmente.",
+      "tags": ["pdf", "shell", "quoting", "investigation"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T13:02:00.000Z"
+    },
+    {
+      "id": "bug-639",
+      "timestamp": "2026-09-29T13:03:00.000Z",
+      "error_message": "La descompresión del stream PDF falló con incorrect header check.",
+      "file": "/mnt/c/Users/coco/Desktop/20222675325_006_00002_00002096.pdf",
+      "root_cause": "La extracción asumió un salto de línea de un byte tras stream, pero el PDF puede usar CRLF.",
+      "fix": "Calcular los límites del stream desde los delimitadores de salto de línea reales antes de llamar a inflateSync.",
+      "tags": ["pdf", "zlib", "investigation"],
+      "related_bugs": ["bug-638"],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T13:03:00.000Z"
     }
   ]
 }

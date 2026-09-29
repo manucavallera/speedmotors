@@ -13,7 +13,7 @@ Permitir que una venta se imprima sobre las facturas y remitos físicos que entr
 
 ## Diseño
 
-Cada comprobante tendrá un renderer de superposición A4, separado de los renderers digitales actuales. El renderer partirá de los datos de una venta y de su cliente, escribirá texto negro sin fondos ni bordes y usará coordenadas expresadas en milímetros.
+Cada comprobante tendrá un renderer de superposición con el tamaño físico de su formulario, separado de los renderers digitales actuales. La factura se genera en A4 (210 × 297 mm) y el remito en Carta (215,9 × 279,4 mm), según los PDFs de referencia. El renderer partirá de los datos de una venta y de su cliente, escribirá texto negro sin fondos ni bordes y usará coordenadas expresadas en milímetros.
 
 Los campos se agrupan por zona para que la calibración pueda cambiar una zona sin desplazar las demás:
 
@@ -28,7 +28,7 @@ Cada plantilla limitará el texto al ancho del campo, ajustará las líneas del 
 
 ## Flujo de usuario
 
-Desde el comprobante de una venta habrá una acción de impresión sobre formulario. Al elegir factura o remito, el sistema genera el PDF de superposición y abre el diálogo de impresión del navegador. El usuario coloca el formulario correspondiente en la bandeja; el navegador debe imprimir a escala real, sin encabezados ni pies de página.
+Desde el comprobante de una venta habrá una acción de impresión sobre formulario. Al elegir factura o remito, el sistema genera el PDF de superposición y abre el diálogo de impresión del navegador. El usuario coloca el formulario correspondiente en la bandeja; el navegador debe imprimir en el tamaño del documento y a escala real, sin encabezados ni pies de página.
 
 El primer uso de cada plantilla incluye una acción de calibración. Genera una hoja de prueba con una grilla y etiquetas de campo para cotejarla contra una fotocopia del formulario. Una vez ajustadas las coordenadas, esa acción queda fuera del uso diario.
 
