@@ -40,7 +40,7 @@
 - `apps/frontend/src/components/sales/SaleDetailModal.tsx`: acciones para imprimir formularios físicos desde una venta.
 - `apps/frontend/src/components/clients/SalesHistoryList.tsx`: mismas acciones desde el historial del cliente.
 - `apps/frontend/src/pages/SettingsPage.tsx`: controles de calibración y generación de hojas de prueba.
-- `apps/frontend/package.json`, `apps/frontend/package-lock.json`: incorporar `ts-jest`, requerido por la configuración de Jest existente.
+- `apps/frontend/package.json`, `package-lock.json`: incorporar `ts-jest`, requerido por la configuración de Jest existente.
 
 ### Task 1: Base tipada, coordenadas y configuración de calibración
 
@@ -50,7 +50,7 @@
 - Create: `apps/frontend/src/lib/pdf/preprinted/settings.ts`
 - Test: `apps/frontend/src/lib/pdf/preprinted/layouts.spec.ts`
 - Modify: `apps/frontend/package.json`
-- Modify: `apps/frontend/package-lock.json`
+- Modify: `package-lock.json`
 
 **Interfaces:**
 - Produces `PrintedFormKind = 'invoice' | 'remito'`, `PrintedFormLayout`, `PrintOffset`, `getPrintedFormLayout(kind)`, `loadPrintOffset(kind)` and `savePrintOffset(kind, offset)`.
@@ -79,7 +79,7 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add apps/frontend/package.json apps/frontend/package-lock.json apps/frontend/src/lib/pdf/preprinted
+git add apps/frontend/package.json package-lock.json apps/frontend/src/lib/pdf/preprinted
 git commit -m "feat: add preprinted form layouts"
 ```
 
@@ -204,4 +204,3 @@ git commit -m "fix: calibrate preprinted form layouts"
 - Type consistency: `PrintedFormKind`, `PrintOffset`, `composePreprintedForm` and the three public generators are defined once and consumed by the later tasks.
 - Review Focus coverage: DNI and mixed amounts are tested in Task 2; overflow in Tasks 2 and 4; offsets in Task 1; paper sizes in Task 1.
 - Scope: the plan leaves existing digital PDFs and sales persistence untouched, so no backend or database change is needed.
-

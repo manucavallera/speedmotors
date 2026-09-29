@@ -10159,6 +10159,30 @@
       "related_bugs": ["bug-638"],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:03:00.000Z"
+    },
+    {
+      "id": "bug-640",
+      "timestamp": "2026-09-29T13:20:00.000Z",
+      "error_message": "La guía de executing-plans referencia task-start, pero el script no existe en la instalación de la skill.",
+      "file": "/home/manucavalelra/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/subagent-driven-development/scripts/task-start",
+      "root_cause": "La versión instalada de subagent-driven-development solo contiene task-brief, sdd-workspace y review-package.",
+      "fix": "Usar task-brief para extraer la tarea y registrar manualmente el BASE en el ledger.",
+      "tags": ["superpowers", "plan-execution", "shell"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T13:20:00.000Z"
+    },
+    {
+      "id": "bug-641",
+      "timestamp": "2026-09-29T13:33:00.000Z",
+      "error_message": "El staging de Task 1 buscó apps/frontend/package-lock.json, pero npm workspaces actualiza package-lock.json en la raíz.",
+      "file": "package-lock.json; docs/superpowers/plans/2026-09-29-comprobantes-preimpresos.md",
+      "root_cause": "El plan asumió un lockfile por workspace aunque el repositorio usa un lockfile raíz.",
+      "fix": "Actualizar el plan y el comando de staging para incluir package-lock.json desde la raíz.",
+      "tags": ["npm", "workspaces", "lockfile", "plan-execution"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T13:33:00.000Z"
     }
   ]
 }

@@ -3701,3 +3701,4 @@
 | 12:50 | Diseño de impresión sobre factura/remito preimpresos | docs/superpowers/specs/2026-09-29-comprobantes-preimpresos-design.md | alcance documentado; pendiente revisión y calibración sobre formularios físicos | ~1800 tok |
 | 13:08 | Referencias de imprenta analizadas | comprobantes PDF del usuario | factura A4; remito Carta; las plantillas deben conservar el tamaño físico de cada formulario | ~1200 tok |
 | 13:15 | Plan de comprobantes preimpresos preparado | docs/superpowers/plans/2026-09-29-comprobantes-preimpresos.md | cuatro tareas: layouts, renderer, UI/calibración y prueba física | ~4300 tok |
+| 13:30 | Base de formularios preimpresos | preprinted/types, layouts, settings + tests | A4/Carta y offsets locales aislados; frontend tests 89/89 OK | ~4000 tok |
