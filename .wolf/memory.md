@@ -3698,3 +3698,4 @@
 | 16:33 | Diagnosticado feedback de capital según Excel | credits.service.ts, credit-interest.ts, historial UI | capital actual entra en la base del mismo período; propuesta pendiente de aprobación, buglog bug-636 | ~2500 tok |
 | 16:46 | Corregido interés sobre capital agregado | credits.service.ts, credits.service.spec.ts | saldo sube inmediato; interés empieza al mes siguiente; 63 tests y build backend OK; revisión sin issues | ~3500 tok |
 | 16:49 | Commit y push del fix de interés sobre capital | 689b155, origin/master | push verificado en remoto; cambios locales ajenos preservados | ~700 tok |
+| 12:50 | Diseño de impresión sobre factura/remito preimpresos | docs/superpowers/specs/2026-09-29-comprobantes-preimpresos-design.md | alcance documentado; pendiente revisión y calibración sobre formularios físicos | ~1800 tok |
