@@ -40,7 +40,7 @@
 - `apps/frontend/src/components/sales/SaleDetailModal.tsx`: acciones para imprimir formularios físicos desde una venta.
 - `apps/frontend/src/components/clients/SalesHistoryList.tsx`: mismas acciones desde el historial del cliente.
 - `apps/frontend/src/pages/SettingsPage.tsx`: controles de calibración y generación de hojas de prueba.
-- `apps/frontend/package.json`, `apps/frontend/package-lock.json`: incorporar `ts-jest`, requerido por la configuración de Jest existente.
+- `apps/frontend/package.json`, `package-lock.json`: incorporar `ts-jest`, requerido por la configuración de Jest existente.
 
 ### Task 1: Base tipada, coordenadas y configuración de calibración
 
@@ -50,36 +50,36 @@
 - Create: `apps/frontend/src/lib/pdf/preprinted/settings.ts`
 - Test: `apps/frontend/src/lib/pdf/preprinted/layouts.spec.ts`
 - Modify: `apps/frontend/package.json`
-- Modify: `apps/frontend/package-lock.json`
+- Modify: `package-lock.json`
 
 **Interfaces:**
 - Produces `PrintedFormKind = 'invoice' | 'remito'`, `PrintedFormLayout`, `PrintOffset`, `getPrintedFormLayout(kind)`, `loadPrintOffset(kind)` and `savePrintOffset(kind, offset)`.
 - Consumed by the composer, jsPDF adapter and calibration controls in later tasks.
 
-- [ ] **Step 1: Write the failing layout and calibration tests**
+- [x] **Step 1: Write the failing layout and calibration tests**
 
 Test that invoice reports `[210, 297]`, remito reports `[215.9, 279.4]`, saved invoice offsets do not affect remito offsets, and malformed localStorage values fall back to `{ x: 0, y: 0 }`.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand lib/pdf/preprinted/layouts.spec.ts`
 
 Expected: FAIL because `ts-jest` and the preprinted modules do not exist.
 
-- [ ] **Step 3: Install and declare `ts-jest`, then implement the layout and offset interfaces**
+- [x] **Step 3: Install and declare `ts-jest`, then implement the layout and offset interfaces**
 
 Use `npm install --workspace=apps/frontend --save-dev ts-jest`. Define immutable coordinate maps from the two reference PDFs; the remito map covers date, customer, address, CUIT/DNI, IVA checkbox, quantity, description, reception and transport. The invoice map covers date, customer fiscal data, item columns, net/IVA/total and payment condition. Store offsets in `localStorage['speedmotors_preprinted_offsets']` as `{ invoice: { x, y }, remito: { x, y } }` and reject non-finite values.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand lib/pdf/preprinted/layouts.spec.ts`
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
-git add apps/frontend/package.json apps/frontend/package-lock.json apps/frontend/src/lib/pdf/preprinted
+git add apps/frontend/package.json package-lock.json apps/frontend/src/lib/pdf/preprinted
 git commit -m "feat: add preprinted form layouts"
 ```
 
@@ -93,29 +93,29 @@ git commit -m "feat: add preprinted form layouts"
 
 **Interfaces:**
 - Consumes `PrintedFormKind`, layouts and offsets from Task 1.
-- Produces `composePreprintedForm(kind, sale, client, offset): PrintTextCommand[]`, `generatePreprintedInvoice(sale, client)`, `generatePreprintedRemito(sale, client)` and `generatePreprintedCalibration(kind)`.
+- Produces `composePreprintedForm(kind, sale, client, offset): PrintTextCommand[]`, `generatePreprintedInvoice(sale, client)`, `generatePreprintedRemito(sale, client)` and `generatePreprintedCalibration(kind, offset?)`.
 
-- [ ] **Step 1: Write the failing composer tests**
+- [x] **Step 1: Write the failing composer tests**
 
 Use typed fixtures to assert: client DNI is emitted if CUIT is absent; an invoice A/B uses its sale total while `mixto` uses `amountFormal`; date is separated into day/month/year for the remito; all commands shift by the supplied offset; and an item set exceeding the layout line budget throws `PrintedFormOverflowError` before a PDF is saved.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand lib/pdf/preprinted/compose.spec.ts`
 
 Expected: FAIL because `composePreprintedForm` does not exist.
 
-- [ ] **Step 3: Implement `composePreprintedForm` and the jsPDF adapter**
+- [x] **Step 3: Implement `composePreprintedForm` and the jsPDF adapter**
 
 The composer returns only text and checkbox-mark commands. It splits descriptions to the fixed column width, counts lines against the physical grid, and produces no command for missing optional data. The adapter initializes jsPDF with the layout’s exact format, uses black text and no background or border drawing, applies the saved offset, calls `save` with an unambiguous filename, and exposes a gridded calibration page that does not resemble a fiscal document.
 
-- [ ] **Step 4: Export the public generators and run the targeted test**
+- [x] **Step 4: Export the public generators and run the targeted test**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand lib/pdf/preprinted/compose.spec.ts`
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add apps/frontend/src/lib/pdf/preprinted.ts apps/frontend/src/lib/pdf/preprinted apps/frontend/src/lib/pdf/index.ts
@@ -134,27 +134,27 @@ git commit -m "feat: generate preprinted receipt overlays"
 - Consumes the generator and offset interfaces from Tasks 1 and 2.
 - Produces visible `Factura preimpresa`, `Remito preimpreso` and calibration controls.
 
-- [ ] **Step 1: Write the failing settings test**
+- [x] **Step 1: Write the failing settings test**
 
-Mock the calibration generator. Verify that saving a positive or negative invoice offset persists only the invoice record, and that the invoice and remito calibration buttons invoke their matching generator.
+Mock the calibration generator. Verify that saving a positive or negative invoice offset persists only the invoice record, and that invoice/remito calibration buttons pass their own current offsets to the matching generator.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand pages/SettingsPage.spec.tsx`
 
 Expected: FAIL because the calibration controls do not exist.
 
-- [ ] **Step 3: Add printing actions and calibration controls**
+- [x] **Step 3: Add printing actions and calibration controls**
 
-Keep `Factura` and `Remito` bound to the existing digital PDFs. Add adjacent actions named `Factura preimpresa` and `Remito preimpreso`; invoice remains unavailable for invoice type `X`. In Settings, add a compact “Impresión en formularios preimpresos” section with independent X/Y offsets in millimetres, a save action and a test-print button per form. Add copy that asks the operator to choose the document’s paper size and 100% scale, with browser headers and footers disabled.
+Keep `Factura` and `Remito` bound to the existing digital PDFs. Add adjacent actions named `Factura preimpresa` and `Remito preimpreso`; invoice remains unavailable for invoice type `X`. In Settings, add a compact “Impresión en formularios preimpresos” section with independent X/Y offsets in millimetres, a save action and a test-print button per form. The test sheet applies the unsaved offsets currently visible in the controls. Add copy that asks the operator to choose the document’s paper size and 100% scale, with browser headers and footers disabled.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand pages/SettingsPage.spec.tsx`
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add apps/frontend/src/components/sales/SaleDetailModal.tsx apps/frontend/src/components/clients/SalesHistoryList.tsx apps/frontend/src/pages/SettingsPage.tsx apps/frontend/src/pages/SettingsPage.spec.tsx
@@ -171,11 +171,11 @@ git commit -m "feat: add preprinted form print actions"
 - Consumes the generated calibration pages and saved offsets from previous tasks.
 - Produces finalized field coordinates for the invoice and remito printer setup.
 
-- [ ] **Step 1: Add boundary fixtures for the longest permitted invoice and remito detail**
+- [x] **Step 1: Add boundary fixtures for the longest permitted invoice and remito detail**
 
 Assert the exact maximum accepted line counts for each layout and assert one additional line raises `PrintedFormOverflowError`.
 
-- [ ] **Step 2: Run the compositor test to verify the extra-line case fails until the limits are encoded**
+- [x] **Step 2: Run the compositor test to verify the extra-line case fails until the limits are encoded**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand lib/pdf/preprinted/compose.spec.ts`
 
@@ -183,9 +183,9 @@ Expected: FAIL with the expected overflow assertion until the final form limits 
 
 - [ ] **Step 3: Print calibration sheets over photocopies of the supplied factura and remito**
 
-Set each final X/Y offset in Settings after checking every zone: header data, detail grid, totals, signatures and transport. Update only the coordinate constants or saved default offset that the physical result proves need adjustment; do not move individual fields ad hoc.
+The implementation environment has no access to the operator's physical printer. After handoff, print each calibration sheet over a photocopy and set the X/Y offsets in Settings after checking header data, detail grid, totals, signatures and transport. Update coordinate constants only if the same correction is required for the supplied paper across printers; otherwise retain a per-printer offset. This physical check remains a handoff action.
 
-- [ ] **Step 4: Run the full frontend verification**
+- [x] **Step 4: Run the full frontend verification**
 
 Run: `npm test --workspace=apps/frontend -- --runInBand && npm run build --workspace=apps/frontend`
 
@@ -204,4 +204,4 @@ git commit -m "fix: calibrate preprinted form layouts"
 - Type consistency: `PrintedFormKind`, `PrintOffset`, `composePreprintedForm` and the three public generators are defined once and consumed by the later tasks.
 - Review Focus coverage: DNI and mixed amounts are tested in Task 2; overflow in Tasks 2 and 4; offsets in Task 1; paper sizes in Task 1.
 - Scope: the plan leaves existing digital PDFs and sales persistence untouched, so no backend or database change is needed.
-
+- Physical validation: the implementation can generate calibration sheets and persist independent offsets, but the final printer-specific millimeter correction requires the operator to print over photocopies.

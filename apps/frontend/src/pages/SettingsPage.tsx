@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { FormField, inputStyle, btnPrimary, btnSecondary } from '../components/ui/FormField'
+import { generatePreprintedCalibration } from '../lib/pdf'
+import { loadPrintOffset, savePrintOffset } from '../lib/pdf/preprinted/settings'
+import type { PrintedFormKind, PrintOffset } from '../lib/pdf/preprinted/types'
 
 const STORAGE_KEY = 'speedmotors_settings'
 
@@ -24,6 +27,9 @@ export function loadSettings(): typeof defaults {
 export function SettingsPage() {
   const [form, setForm] = useState(loadSettings())
   const [saved, setSaved] = useState(false)
+  const [invoiceOffset, setInvoiceOffset] = useState(loadPrintOffset('invoice'))
+  const [remitoOffset, setRemitoOffset] = useState(loadPrintOffset('remito'))
+  const [printSaved, setPrintSaved] = useState(false)
 
   const f = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm(p => ({ ...p, [key]: e.target.value }))
@@ -40,13 +46,40 @@ export function SettingsPage() {
     localStorage.removeItem(STORAGE_KEY)
   }
 
+  function savePrintSettings() {
+    savePrintOffset('invoice', invoiceOffset)
+    savePrintOffset('remito', remitoOffset)
+    setPrintSaved(true)
+    setTimeout(() => setPrintSaved(false), 2000)
+  }
+
+  const offsetFields = (kind: PrintedFormKind, value: PrintOffset, setValue: (offset: PrintOffset) => void) => {
+    const label = kind === 'invoice' ? 'Factura A4' : 'Remito Carta'
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '8px', alignItems: 'end' }}>
+        <FormField label={`${label} X (mm)`}><input aria-label={`${label} X (mm)`} style={inputStyle} type="number" step="0.1" value={value.x} onChange={e => setValue({ ...value, x: Number(e.target.value) })} /></FormField>
+        <FormField label={`${label} Y (mm)`}><input aria-label={`${label} Y (mm)`} style={inputStyle} type="number" step="0.1" value={value.y} onChange={e => setValue({ ...value, y: Number(e.target.value) })} /></FormField>
+        <button type="button" onClick={() => generatePreprintedCalibration(kind, value)} style={{ ...btnSecondary, marginBottom: '1px', whiteSpace: 'nowrap' }}>Prueba {kind === 'invoice' ? 'factura' : 'remito'}</button>
+      </div>
+    )
+  }
+
+
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
         <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a' }}>Configuración</h1>
         <p style={{ color: '#64748b', fontSize: '14px', marginTop: '2px' }}>Datos del negocio — aparecen en todos los comprobantes PDF</p>
       </div>
-
+      <div style={{ background: 'white', borderRadius: '14px', padding: '28px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', maxWidth: '560px', marginBottom: '18px' }}>
+        <h2 style={{ fontSize: '16px', color: '#0f172a', margin: '0 0 6px' }}>Impresión en formularios preimpresos</h2>
+        <p style={{ color: '#64748b', fontSize: '13px', margin: '0 0 16px' }}>Imprimí la prueba sobre una fotocopia. Usá 100% de escala, tamaño A4 para factura o Carta para remito y desactivá encabezados y pies del navegador.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {offsetFields('invoice', invoiceOffset, setInvoiceOffset)}
+          {offsetFields('remito', remitoOffset, setRemitoOffset)}
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}><button type="button" onClick={savePrintSettings} style={btnPrimary}>{printSaved ? '✓ Guardado' : 'Guardar calibración'}</button></div>
+        </div>
+      </div>
       <div style={{ background: 'white', borderRadius: '14px', padding: '28px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', maxWidth: '560px' }}>
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <FormField label="Nombre del negocio">

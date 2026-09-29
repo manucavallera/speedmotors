@@ -4,3 +4,4 @@ export { generateReceipt, generateInstallmentReceipt, generateAccountPaymentRece
 export { generateInvoice } from './invoice'
 export { generateAccountStatement, generatePriceList } from './account'
 export { generateCreditStatement } from './credit'
+export { generatePreprintedCalibration, generatePreprintedInvoice, generatePreprintedRemito } from './preprinted'

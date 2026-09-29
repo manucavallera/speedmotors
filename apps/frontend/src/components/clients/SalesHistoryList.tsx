@@ -1,5 +1,5 @@
 import { api } from '../../lib/api'
-import { generateInvoice, generateRemito } from '../../lib/pdf'
+import { generateInvoice, generatePreprintedInvoice, generatePreprintedRemito, generateRemito } from '../../lib/pdf'
 
 interface SalesHistoryListProps {
   sales: any[]
@@ -27,11 +27,21 @@ export function SalesHistoryList({ sales, client }: SalesHistoryListProps) {
               style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#f5f3ff', color: '#7c3aed', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
               Remito
             </button>
+            <button onClick={async () => { const { data } = await api.get(`/sales/${s.id}`); generatePreprintedRemito(data, client) }}
+              style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#faf5ff', color: '#7e22ce', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+              Remito imp.
+            </button>
             {s.invoiceType && s.invoiceType !== 'X' && (
-              <button onClick={async () => { const { data } = await api.get(`/sales/${s.id}`); generateInvoice(data, client) }}
-                style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
-                Factura {s.invoiceType}
-              </button>
+              <>
+                <button onClick={async () => { const { data } = await api.get(`/sales/${s.id}`); generateInvoice(data, client) }}
+                  style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                  Factura {s.invoiceType}
+                </button>
+                <button onClick={async () => { const { data } = await api.get(`/sales/${s.id}`); generatePreprintedInvoice(data, client) }}
+                  style={{ padding: '3px 8px', fontSize: '11px', fontWeight: 600, background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                  Factura imp.
+                </button>
+              </>
             )}
           </div>
         </div>

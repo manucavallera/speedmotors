@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '../ui/Modal'
 import { btnPrimary, btnSecondary, inputStyle, FormField } from '../ui/FormField'
-import { generateReceipt, generateInvoice, generateRemito } from '../../lib/pdf'
+import { generateReceipt, generateInvoice, generatePreprintedInvoice, generatePreprintedRemito, generateRemito } from '../../lib/pdf'
 
 const invoiceColors: Record<string, { bg: string; color: string }> = {
   A: { bg: '#eff6ff', color: '#2563eb' },
@@ -56,6 +56,16 @@ export function SaleDetailModal({ detail, clients, onClose, onCancel, cancelPend
           style={{ ...btnSecondary, fontSize: '13px', padding: '7px 16px', color: '#7c3aed' }}>
           Remito
         </button>
+        <button onClick={() => generatePreprintedRemito(detail, clientData)}
+          style={{ ...btnSecondary, fontSize: '13px', padding: '7px 16px', color: '#7c3aed' }}>
+          Remito preimpreso
+        </button>
+        {detail.invoiceType && detail.invoiceType !== 'X' && (
+          <button onClick={() => generatePreprintedInvoice(detail, clientData)}
+            style={{ ...btnSecondary, fontSize: '13px', padding: '7px 16px', color: invStyle.color }}>
+            Factura preimpresa
+          </button>
+        )}
         <button onClick={() => generateReceipt(detail, clientData)}
           style={{ ...btnPrimary, fontSize: '13px', padding: '7px 16px' }}>
           Comprobante PDF
