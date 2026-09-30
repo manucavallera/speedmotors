@@ -9843,8 +9843,15 @@
       "file": "apps/backend/src/guarderia/guarderia.service.ts",
       "root_cause": "El filtrado for_unit existía en la UI, pero setUnitServices, getUnit y monthChargeRows no lo validaban en backend",
       "fix": "Validación server-side de servicios mensuales y filtrado por active + for_unit en ficha y cobro masivo",
-      "tags": ["guarderia", "servicios", "billing-scope", "double-charge"],
-      "related_bugs": ["bug-611"],
+      "tags": [
+        "guarderia",
+        "servicios",
+        "billing-scope",
+        "double-charge"
+      ],
+      "related_bugs": [
+        "bug-611"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
     },
@@ -9855,7 +9862,13 @@
       "file": "apps/backend/src/guarderia/guarderia.service.ts; apps/backend/src/turnera/turnera.service.ts",
       "root_cause": "El UPDATE condicional de Guardería y el cobro de Turnera no condicionaban el depósito a haber marcado realmente el registro como pagado",
       "fix": "UPDATE con paid_at IS NULL y depósito únicamente cuando la actualización devuelve el registro",
-      "tags": ["guarderia", "turnera", "cash", "race-condition", "idempotency"],
+      "tags": [
+        "guarderia",
+        "turnera",
+        "cash",
+        "race-condition",
+        "idempotency"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9867,7 +9880,12 @@
       "file": "apps/backend/src/turnera/turnera.service.ts",
       "root_cause": "findClientByPhone y publicReserve verificaban propiedad, pero no storage_units.status=en_guarderia",
       "fix": "Filtro de estado activo en identificación pública, reserva pública y alta interna de turnos",
-      "tags": ["turnera", "public-api", "guarderia", "authorization"],
+      "tags": [
+        "turnera",
+        "public-api",
+        "guarderia",
+        "authorization"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9879,7 +9897,11 @@
       "file": "apps/backend/src/proveeduria/proveeduria.service.ts",
       "root_cause": "El stock se leía y luego se escribía en operaciones separadas sin condición atómica",
       "fix": "Descuento atómico UPDATE stock=stock-cantidad WHERE stock>=cantidad y validación de producto activo",
-      "tags": ["proveeduria", "stock", "race-condition"],
+      "tags": [
+        "proveeduria",
+        "stock",
+        "race-condition"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9891,7 +9913,12 @@
       "file": "apps/backend/drizzle/0043_cash_open_per_area.sql",
       "root_cause": "0038 agregó cash_sessions.area pero no reemplazó el índice único global sobre status='abierta'",
       "fix": "Migración 0043 elimina el índice global y crea uno único parcial por área",
-      "tags": ["cash", "marina", "migration", "unique-index"],
+      "tags": [
+        "cash",
+        "marina",
+        "migration",
+        "unique-index"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9903,8 +9930,14 @@
       "file": "apps/backend/src/guarderia/guarderia.service.ts; apps/frontend/src/hooks/useGuarderia.ts",
       "root_cause": "El frontend hacía dos requests independientes: crear unidad y luego asociar servicios",
       "fix": "fixedServiceIds forma parte del alta backend y todo se ejecuta en una única transacción",
-      "tags": ["guarderia", "transaction", "partial-state"],
-      "related_bugs": ["bug-613"],
+      "tags": [
+        "guarderia",
+        "transaction",
+        "partial-state"
+      ],
+      "related_bugs": [
+        "bug-613"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
     },
@@ -9915,7 +9948,12 @@
       "file": "apps/backend/src/turnera/turnera.service.ts",
       "root_cause": "La comprobación de solapamiento ocurría antes de la transacción y sin serialización",
       "fix": "Las altas públicas/internas y reprogramaciones bloquean la fila singleton de configuración antes de comprobar e insertar",
-      "tags": ["turnera", "race-condition", "overlap", "transaction"],
+      "tags": [
+        "turnera",
+        "race-condition",
+        "overlap",
+        "transaction"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9927,7 +9965,12 @@
       "file": "apps/backend/drizzle/0044_marina_integrity.sql",
       "root_cause": "La ocupación se comprobaba solo en aplicación, sin restricción única en base de datos",
       "fix": "Índice único parcial por spot_id para unidades con status=en_guarderia",
-      "tags": ["guarderia", "migration", "race-condition", "data-integrity"],
+      "tags": [
+        "guarderia",
+        "migration",
+        "race-condition",
+        "data-integrity"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9939,7 +9982,10 @@
       "file": "apps/backend/src/proveeduria/proveeduria.service.ts",
       "root_cause": "El contexto esperado contenía una línea en blanco que no existía en el archivo",
       "fix": "Se dividió el parche por módulo y se aplicó contra contexto exacto",
-      "tags": ["tooling", "apply-patch"],
+      "tags": [
+        "tooling",
+        "apply-patch"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:41:12Z"
@@ -9951,7 +9997,11 @@
       "file": "apps/frontend",
       "root_cause": "Deuda técnica global previa: principalmente usos explícitos de any y algunas reglas nuevas de pureza de React",
       "fix": "No corregido en el cierre de Marina; se verificó la entrega mediante build TypeScript/Vite exitoso y se deja para una limpieza dedicada",
-      "tags": ["frontend", "lint", "technical-debt"],
+      "tags": [
+        "frontend",
+        "lint",
+        "technical-debt"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:45:00Z"
@@ -9963,7 +10013,12 @@
       "file": "apps/backend",
       "root_cause": "Deuda técnica global previa: 1477 diferencias de Prettier y reglas unsafe/no-unused en archivos existentes",
       "fix": "No se ejecutó el lint con --fix para no reescribir masivamente archivos ajenos; build Nest y 16 tests pasan",
-      "tags": ["backend", "lint", "prettier", "technical-debt"],
+      "tags": [
+        "backend",
+        "lint",
+        "prettier",
+        "technical-debt"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:45:00Z"
@@ -9975,7 +10030,11 @@
       "file": ".git/config",
       "root_cause": "El perfil de filesystem de la sesión expone .git como solo lectura",
       "fix": "La rama ya se subió correctamente; se omite el tracking local y se puede configurar fuera del sandbox",
-      "tags": ["git", "sandbox", "upstream"],
+      "tags": [
+        "git",
+        "sandbox",
+        "upstream"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-03T17:49:00Z"
@@ -9987,7 +10046,12 @@
       "file": "apps/backend/src/vehicles/vehicles.service.ts",
       "root_cause": "ParsedRemitoItem formaba parte del tipo público del service pero la interface no estaba exportada.",
       "fix": "Se exportó ParsedRemitoItem para que Nest pueda emitir las declaraciones del controller.",
-      "tags": ["typescript", "build", "vehicles", "remito"],
+      "tags": [
+        "typescript",
+        "build",
+        "vehicles",
+        "remito"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T00:00:00.000Z"
@@ -9999,7 +10063,13 @@
       "file": "apps/backend/Dockerfile",
       "root_cause": "La descarga de drizzle-orm desde registry.npmjs.org falló dentro de Docker por un error SSL transitorio.",
       "fix": "Para el smoke local se levanta solo el servicio db y se ejecuta el backend ya compilado, evitando una reconstrucción innecesaria de imágenes.",
-      "tags": ["docker", "npm", "ssl", "infra", "smoke-test"],
+      "tags": [
+        "docker",
+        "npm",
+        "ssl",
+        "infra",
+        "smoke-test"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:02:54.655Z"
@@ -10011,7 +10081,11 @@
       "file": "/tmp/speedmotors-smoke.mjs",
       "root_cause": "La expectativa del script no respetaba el status por defecto de un endpoint POST de NestJS.",
       "fix": "Se cambió la expectativa del login a HTTP 201.",
-      "tags": ["smoke-test", "auth", "http-status"],
+      "tags": [
+        "smoke-test",
+        "auth",
+        "http-status"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:17:55.000Z"
@@ -10023,7 +10097,13 @@
       "file": "apps/backend/src/stock-movements/stock-movements.service.ts",
       "root_cause": "La consulta de movimientos posteriores comparaba created_at con un Date de JavaScript. PostgreSQL conserva microsegundos y JS los trunca, por lo que el propio movimiento editado volvía a entrar en el recálculo.",
       "fix": "Los movimientos posteriores ahora se seleccionan y ordenan por el id serial, evitando pérdida de precisión temporal y doble aplicación.",
-      "tags": ["stock", "recalculation", "timestamp", "postgresql", "precision"],
+      "tags": [
+        "stock",
+        "recalculation",
+        "timestamp",
+        "postgresql",
+        "precision"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:20:00.000Z"
@@ -10035,7 +10115,12 @@
       "file": "apps/backend/dist",
       "root_cause": "Se iniciaron por error dos builds del backend en paralelo y ambos intentaron limpiar el mismo directorio dist.",
       "fix": "Se dejó terminar el build original y se verificaron backend y frontend en una única ejecución serial, que finalizó correctamente.",
-      "tags": ["build", "concurrency", "infra", "nestjs"],
+      "tags": [
+        "build",
+        "concurrency",
+        "infra",
+        "nestjs"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T16:32:00.000Z"
@@ -10047,7 +10132,12 @@
       "file": ".env",
       "root_cause": "El contenedor speedmotors-db fue creado con una contraseña anterior que no coincide con el DB_PASSWORD del .env actual.",
       "fix": "El backend temporal de smoke tomó la credencial directamente del entorno del contenedor, sin mostrarla ni modificar la base. El smoke posterior pasó 13/13.",
-      "tags": ["smoke-test", "postgresql", "docker", "local-env"],
+      "tags": [
+        "smoke-test",
+        "postgresql",
+        "docker",
+        "local-env"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T17:13:00.000Z"
@@ -10059,7 +10149,12 @@
       "file": "/tmp/run-speedmotors-integrated-migrations.sh",
       "root_cause": "La variable con la ruta de docker.exe se invocó sin comillas.",
       "fix": "Se invocó el ejecutable como \"$docker_bin\"; la segunda ejecución aplicó 0000-0046 correctamente.",
-      "tags": ["smoke-test", "docker", "shell", "quoting"],
+      "tags": [
+        "smoke-test",
+        "docker",
+        "shell",
+        "quoting"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-04T22:01:00.000Z"
@@ -10071,7 +10166,12 @@
       "file": "apps/frontend/src/lib/alertsWhatsApp.spec.ts",
       "root_cause": "La prueba TDD se ejecutó antes de crear el módulo de generación de mensajes.",
       "fix": "Se creó alertsWhatsApp.ts con los generadores de mensajes y se conectó al flujo de alertas.",
-      "tags": ["tdd", "whatsapp", "alerts", "frontend"],
+      "tags": [
+        "tdd",
+        "whatsapp",
+        "alerts",
+        "frontend"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-14T13:35:00.000Z"
@@ -10083,7 +10183,12 @@
       "file": "apps/frontend/src/pages/ClientsPage.tsx; apps/backend/src/clients/clients.service.ts",
       "root_cause": "Faltaban imports para el botón de exportación y la consulta del último pago.",
       "fix": "Se agregaron ambos imports y backend/frontend compilan correctamente.",
-      "tags": ["build", "typescript", "clients", "debtors-report"],
+      "tags": [
+        "build",
+        "typescript",
+        "clients",
+        "debtors-report"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-14T14:10:00.000Z"
@@ -10095,7 +10200,11 @@
       "file": "apps/frontend/src/lib/debtorsExport.ts",
       "root_cause": "El total general no distinguía la moneda de cada financiación.",
       "fix": "Se generan totales separados para Pesos y USD.",
-      "tags": ["excel", "currency", "debtors-report"],
+      "tags": [
+        "excel",
+        "currency",
+        "debtors-report"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-14T14:14:00.000Z"
@@ -10107,7 +10216,12 @@
       "file": "apps/backend/src/credits/credits.service.ts",
       "root_cause": "applyPendingInterest usaba startDate como ancla del primer cargo aunque existía firstDueDate",
       "fix": "El primer cargo ahora usa firstDueDate; los cargos posteriores continúan mensualmente desde ese vencimiento",
-      "tags": ["credits", "interest", "due-date", "excel"],
+      "tags": [
+        "credits",
+        "interest",
+        "due-date",
+        "excel"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-14T23:35:03.000Z"
@@ -10119,8 +10233,16 @@
       "file": "apps/backend/src/credits/credits.service.ts",
       "root_cause": "computeBalanceAt incluye todo capital con effectiveDate menor o igual a la fecha del cargo, sin respetar el cierre del período mensual",
       "fix": "Al calcular la base mensual, el capital agregado en el mismo mes del cargo queda excluido; entra desde el mes siguiente. Se agregaron pruebas del saldo inmediato y de los cargos de ambos meses.",
-      "tags": ["credits", "capital", "interest", "periods", "excel"],
-      "related_bugs": ["bug-635"],
+      "tags": [
+        "credits",
+        "capital",
+        "interest",
+        "periods",
+        "excel"
+      ],
+      "related_bugs": [
+        "bug-635"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-15T16:33:19.000Z"
     },
@@ -10131,7 +10253,12 @@
       "file": "apps/frontend/package.json; apps/frontend/jest.config.cjs",
       "root_cause": "La configuración de transformación TypeScript fue conservada sin instalar su transformador requerido.",
       "fix": "El plan de comprobantes preimpresos incorpora declarar ts-jest antes de añadir pruebas unitarias de los renderers PDF.",
-      "tags": ["frontend", "jest", "testing", "dependency"],
+      "tags": [
+        "frontend",
+        "jest",
+        "testing",
+        "dependency"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:00:00.000Z"
@@ -10143,7 +10270,12 @@
       "file": "/mnt/c/Users/coco/Desktop/20222675325_006_00002_00002096.pdf",
       "root_cause": "El script JavaScript se pasó entre comillas dobles y el envoltorio interpretó parte de su contenido antes de Node.",
       "fix": "Ejecutar el script node -e entre comillas simples para preservar el código literalmente.",
-      "tags": ["pdf", "shell", "quoting", "investigation"],
+      "tags": [
+        "pdf",
+        "shell",
+        "quoting",
+        "investigation"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:02:00.000Z"
@@ -10155,8 +10287,14 @@
       "file": "/mnt/c/Users/coco/Desktop/20222675325_006_00002_00002096.pdf",
       "root_cause": "La extracción asumió un salto de línea de un byte tras stream, pero el PDF puede usar CRLF.",
       "fix": "Calcular los límites del stream desde los delimitadores de salto de línea reales antes de llamar a inflateSync.",
-      "tags": ["pdf", "zlib", "investigation"],
-      "related_bugs": ["bug-638"],
+      "tags": [
+        "pdf",
+        "zlib",
+        "investigation"
+      ],
+      "related_bugs": [
+        "bug-638"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:03:00.000Z"
     },
@@ -10167,7 +10305,11 @@
       "file": "/home/manucavalelra/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/subagent-driven-development/scripts/task-start",
       "root_cause": "La versión instalada de subagent-driven-development solo contiene task-brief, sdd-workspace y review-package.",
       "fix": "Usar task-brief para extraer la tarea y registrar manualmente el BASE en el ledger.",
-      "tags": ["superpowers", "plan-execution", "shell"],
+      "tags": [
+        "superpowers",
+        "plan-execution",
+        "shell"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:20:00.000Z"
@@ -10179,7 +10321,12 @@
       "file": "package-lock.json; docs/superpowers/plans/2026-09-29-comprobantes-preimpresos.md",
       "root_cause": "El plan asumió un lockfile por workspace aunque el repositorio usa un lockfile raíz.",
       "fix": "Actualizar el plan y el comando de staging para incluir package-lock.json desde la raíz.",
-      "tags": ["npm", "workspaces", "lockfile", "plan-execution"],
+      "tags": [
+        "npm",
+        "workspaces",
+        "lockfile",
+        "plan-execution"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:33:00.000Z"
@@ -10191,7 +10338,11 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "El objeto de prueba no declaró su contrato TypeScript.",
       "fix": "Tipar la fixture como PrintSale para conservar el literal de invoiceType.",
-      "tags": ["typescript", "test", "preprinted-forms"],
+      "tags": [
+        "typescript",
+        "test",
+        "preprinted-forms"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:40:00.000Z"
@@ -10203,7 +10354,12 @@
       "file": "apps/frontend/src/components/clients/SalesHistoryList.tsx",
       "root_cause": "La nueva acción de factura preimpresa se agregó junto al botón existente sin un fragmento React.",
       "fix": "Agrupar ambos botones dentro de un fragmento.",
-      "tags": ["react", "typescript", "build", "preprinted-forms"],
+      "tags": [
+        "react",
+        "typescript",
+        "build",
+        "preprinted-forms"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:50:00.000Z"
@@ -10215,8 +10371,15 @@
       "file": "apps/frontend/src/lib/pdf.ts",
       "root_cause": "Los consumidores importan el barrel pdf.ts, mientras Task 2 solo exportó desde lib/pdf/index.ts.",
       "fix": "Reexportar el módulo preprinted desde pdf.ts, el barrel usado por la UI.",
-      "tags": ["typescript", "barrel", "build", "preprinted-forms"],
-      "related_bugs": ["bug-643"],
+      "tags": [
+        "typescript",
+        "barrel",
+        "build",
+        "preprinted-forms"
+      ],
+      "related_bugs": [
+        "bug-643"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:52:00.000Z"
     },
@@ -10227,7 +10390,12 @@
       "file": "apps/frontend/src/pages/SettingsPage.tsx; apps/frontend/src/lib/pdf/preprinted.ts",
       "root_cause": "El generador de calibración solo recibía el tipo de formulario y leía el valor guardado, sin tomar los cambios aún no guardados del formulario.",
       "fix": "Pasar el offset actual al generador y aplicarlo a cada etiqueta de campo; añadir prueba de regresión.",
-      "tags": ["pdf", "calibration", "settings", "preprinted-forms"],
+      "tags": [
+        "pdf",
+        "calibration",
+        "settings",
+        "preprinted-forms"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T14:10:00.000Z"
@@ -10239,8 +10407,15 @@
       "file": "apps/frontend/src/lib/pdf/preprinted.ts",
       "root_cause": "La firma del generador de calibración se amplió para recibir un offset, pero el import de tipos no se actualizó.",
       "fix": "Importar PrintOffset como tipo y volver a ejecutar la suite completa.",
-      "tags": ["typescript", "build", "tests", "preprinted-forms"],
-      "related_bugs": ["bug-645"],
+      "tags": [
+        "typescript",
+        "build",
+        "tests",
+        "preprinted-forms"
+      ],
+      "related_bugs": [
+        "bug-645"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T14:24:00.000Z"
     },
@@ -10251,7 +10426,13 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "El mapeo esperaba 'monotributista', distinto del valor 'monotributo' definido por el sistema.",
       "fix": "Aceptar el valor persistido 'monotributo' y el alias histórico 'monotributista'; añadir prueba de regresión.",
-      "tags": ["pdf", "iva", "remito", "preprinted-forms", "test"],
+      "tags": [
+        "pdf",
+        "iva",
+        "remito",
+        "preprinted-forms",
+        "test"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:47:00.000Z"
@@ -10263,8 +10444,17 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.ts; apps/frontend/src/lib/pdf/preprinted/layouts.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "El renderer no calculaba el IVA para facturas A y ubicaba columnas de descuento que no forman parte del ancho separado definido en el layout.",
       "fix": "Imprimir neto e IVA 21% para tipo A, conservar el importe formal para mixtas, reflejar descuentos en precio unitario efectivo y eliminar columnas de descuento solapadas.",
-      "tags": ["pdf", "invoice", "vat", "layout", "preprinted-forms", "test"],
-      "related_bugs": ["bug-647"],
+      "tags": [
+        "pdf",
+        "invoice",
+        "vat",
+        "layout",
+        "preprinted-forms",
+        "test"
+      ],
+      "related_bugs": [
+        "bug-647"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T13:55:00.000Z"
     },
@@ -10275,8 +10465,17 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "El factor de escala de los renglones solo cubría el importe formal de ventas mixtas y no el neto gravado de facturas A.",
       "fix": "Escalar los renglones de factura A para que su suma neta coincida con el neto del pie, manteniendo el total bruto y el IVA separado.",
-      "tags": ["pdf", "invoice", "vat", "subtotal", "preprinted-forms", "test"],
-      "related_bugs": ["bug-648"],
+      "tags": [
+        "pdf",
+        "invoice",
+        "vat",
+        "subtotal",
+        "preprinted-forms",
+        "test"
+      ],
+      "related_bugs": [
+        "bug-648"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T14:05:00.000Z"
     },
@@ -10287,8 +10486,16 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "Cada subtotal de línea se redondeaba de forma independiente sin asignar la diferencia acumulada.",
       "fix": "Redondear subtotales por renglón y asignar el residuo al último renglón para que la suma coincida con el neto del pie.",
-      "tags": ["pdf", "invoice", "rounding", "preprinted-forms", "test"],
-      "related_bugs": ["bug-649"],
+      "tags": [
+        "pdf",
+        "invoice",
+        "rounding",
+        "preprinted-forms",
+        "test"
+      ],
+      "related_bugs": [
+        "bug-649"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T14:15:00.000Z"
     },
@@ -10299,10 +10506,37 @@
       "file": "apps/frontend/src/lib/pdf/preprinted/compose.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
       "root_cause": "El precio unitario se calculaba por separado del subtotal ya ajustado al centavo.",
       "fix": "Derivar el precio unitario del subtotal final y la cantidad, con hasta cuatro decimales para cantidades mayores.",
-      "tags": ["pdf", "invoice", "rounding", "unit-price", "preprinted-forms", "test"],
-      "related_bugs": ["bug-650"],
+      "tags": [
+        "pdf",
+        "invoice",
+        "rounding",
+        "unit-price",
+        "preprinted-forms",
+        "test"
+      ],
+      "related_bugs": [
+        "bug-650"
+      ],
       "occurrences": 1,
       "last_seen": "2026-09-29T14:22:00.000Z"
+    },
+    {
+      "id": "bug-652",
+      "timestamp": "2026-09-29T00:00:00.000Z",
+      "error_message": "La primera ejecución de la prueba de cabecera de factura no compiló porque el objeto de configuración de prueba incluía email, ausente del tipo usado por el renderer.",
+      "file": "apps/frontend/src/lib/pdf/preprinted/types.ts; apps/frontend/src/lib/pdf/preprinted/compose.spec.ts",
+      "root_cause": "El tipo específico de emisor no reflejaba todas las propiedades del objeto de configuración existente.",
+      "fix": "Se añadió email al tipo de configuración del emisor; no se usa al imprimir. La suite completa volvió a pasar.",
+      "tags": [
+        "pdf",
+        "invoice",
+        "preprinted-forms",
+        "test",
+        "typescript"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-09-29T00:00:00.000Z"
     }
   ]
 }

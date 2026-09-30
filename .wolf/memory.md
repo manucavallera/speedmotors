@@ -3711,3 +3711,5 @@
 | 14:22 | Coherencia de precio unitario | compose.ts + compose.spec.ts | precio unitario ahora se deriva del subtotal redondeado; 4 decimales para cantidades múltiples; buglog bug-651 | ~350 tok |
 | 14:13 | Verificación final de comprobantes preimpresos | frontend completo | 17 suites, 104 tests y build OK; revisión final sin blockers; calibración física pendiente con impresora del local | ~350 tok |
 | 15:12 | Integración y publicación de comprobantes preimpresos | master / origin/master | merge `9c9551c`, master sincronizado; 104 tests y build OK; no requiere migración; producción aún sirve un bundle anterior y requiere redeploy manual de frontend; calibración física pendiente | ~500 tok |
+
+| 15:45 | Cabecera de empresa en factura preimpresa | pdf/preprinted.ts, compose.ts, layouts.ts, types.ts | configuraciones imprimen razón comercial destacada, lema, contacto, CUIT y condición IVA; 17 suites/105 tests y build OK; merge `ebc740c` a master y push a origin/master; sin migración, requiere redeploy frontend; buglog bug-652 | ~1000 |
