@@ -10,6 +10,7 @@ describe('reporte de deudores', () => {
       dni: '30111222',
       cuit: null,
       creditType: 'cuotas_simples',
+      interestRate: 5,
       currency: 'pesos',
       balance: 250000,
       lastPaymentAmount: '125000',
@@ -40,6 +41,7 @@ describe('reporte de deudores', () => {
       dni: null,
       cuit: '20-33333333-9',
       creditType: 'saldo_compuesto',
+      interestRate: 5,
       currency: 'usd',
       balance: 1000.5,
       lastPaymentAmount: null,
@@ -54,6 +56,27 @@ describe('reporte de deudores', () => {
       lastPaymentAmount: null,
       lastPaymentDate: null,
       installmentProgress: '',
+    }))
+  })
+
+  it('distingue la cuenta corriente (tasa 0) de la financiación libre', () => {
+    expect(buildDebtorReportRow({
+      clientId: 9,
+      creditId: 23,
+      clientName: 'Ana Ruiz',
+      phone: null,
+      dni: '28999888',
+      cuit: null,
+      creditType: 'saldo_compuesto',
+      interestRate: 0,
+      currency: 'pesos',
+      balance: 50000,
+      lastPaymentAmount: null,
+      lastPaymentDate: null,
+      paidInstallments: null,
+      installmentsCount: null,
+    })).toEqual(expect.objectContaining({
+      financingType: 'Cuenta corriente',
     }))
   })
 })

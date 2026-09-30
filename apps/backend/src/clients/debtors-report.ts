@@ -6,6 +6,7 @@ export interface DebtorReportSource {
   dni: string | null
   cuit: string | null
   creditType: 'cuotas_simples' | 'saldo_compuesto'
+  interestRate: number
   currency: 'pesos' | 'usd'
   balance: number
   lastPaymentAmount: string | null
@@ -20,7 +21,7 @@ export interface DebtorReportRow {
   clientName: string
   phone: string | null
   dniOrCuit: string
-  financingType: 'Fija' | 'Libre'
+  financingType: 'Fija' | 'Libre' | 'Cuenta corriente'
   currency: 'Pesos' | 'USD'
   balance: number
   lastPaymentAmount: number | null
@@ -35,7 +36,9 @@ export function buildDebtorReportRow(source: DebtorReportSource): DebtorReportRo
     clientName: source.clientName,
     phone: source.phone,
     dniOrCuit: source.cuit || source.dni || '',
-    financingType: source.creditType === 'cuotas_simples' ? 'Fija' : 'Libre',
+    financingType: source.creditType === 'cuotas_simples'
+      ? 'Fija'
+      : source.interestRate > 0 ? 'Libre' : 'Cuenta corriente',
     currency: source.currency === 'usd' ? 'USD' : 'Pesos',
     balance: Number(source.balance.toFixed(2)),
     lastPaymentAmount: source.lastPaymentAmount == null ? null : Number(source.lastPaymentAmount),

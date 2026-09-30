@@ -14,7 +14,7 @@ export interface DebtorReportRow {
   clientName: string
   phone: string | null
   dniOrCuit: string
-  financingType: 'Fija' | 'Libre'
+  financingType: 'Fija' | 'Libre' | 'Cuenta corriente'
   currency: 'Pesos' | 'USD'
   balance: number
   lastPaymentAmount: number | null

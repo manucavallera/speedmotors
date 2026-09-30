@@ -138,6 +138,7 @@ export class ClientsService {
         dni: client.dni,
         cuit: client.cuit,
         creditType: credit.creditType,
+        interestRate: Number(credit.interestRate),
         currency: credit.currency,
         balance,
         lastPaymentAmount: lastPayment?.amount ?? null,
