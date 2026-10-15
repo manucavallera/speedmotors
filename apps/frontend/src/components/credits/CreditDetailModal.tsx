@@ -4,6 +4,7 @@ import type { CreditDetail } from '../../hooks/useCredits'
 import { generateCreditStatement } from '../../lib/pdf/credit'
 import { generateAccountPaymentReceipt, generateCapitalDebitNote } from '../../lib/pdf'
 import { dateInputToIso, formatDateOnly, todayDateInput } from '../../lib/date'
+import { sortCreditEvents } from '../../lib/creditTimeline'
 
 interface Props {
   detail: CreditDetail
@@ -39,14 +40,14 @@ export function CreditDetailModal({ detail, onClose, onAddPayment, onAddCapital,
   for (const a of detail.capitalAdditions || []) items.push({ date: a.effectiveDate, type: 'capital', amount: Number(a.amount), notes: a.notes, id: a.id })
   for (const p of detail.payments) items.push({ date: p.paymentDate, type: 'pago', amount: Number(p.amount), notes: p.notes, id: p.id })
   for (const c of detail.charges) items.push({ date: c.chargeDate, type: 'interes', amount: Number(c.amount) })
-  items.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  const ordered = sortCreditEvents(items, detail.startDate, detail.firstDueDate)
 
   let running = 0
-  for (const it of items) {
+  for (const it of ordered) {
     running = it.type === 'pago' ? running - it.amount : running + it.amount
     it.balanceAfter = running
   }
-  const sorted = [...items].reverse()
+  const sorted = [...ordered].reverse()
 
   const fmt = (n: number) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
   const today = new Date()

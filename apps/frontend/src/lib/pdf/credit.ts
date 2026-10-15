@@ -2,6 +2,7 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { getSettings } from './helpers'
 import { formatDateOnly } from '../date'
+import { sortCreditEvents } from '../creditTimeline'
 
 const fmt = (n: number, sym: string) => `${sym}${n.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`
 const fmtDate = (d: string | Date) => formatDateOnly(d, { day: '2-digit', month: '2-digit', year: 'numeric' })
@@ -146,9 +147,9 @@ export function generateCreditStatement(credit: any) {
     { date: credit.startDate, type: 'carga', amount: Number(credit.originalAmount), notes: credit.notes },
     ...(credit.payments || []).map((p: any) => ({ date: p.paymentDate, type: 'pago', amount: Number(p.amount), notes: p.notes })),
     ...(credit.charges || []).map((c: any) => ({ date: c.chargeDate, type: 'interes', amount: Number(c.amount), notes: null })),
-  ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  ]
 
-  for (const e of allEvents) {
+  for (const e of sortCreditEvents(allEvents, credit.startDate, credit.firstDueDate)) {
     running = e.type === 'pago' ? running - e.amount : running + e.amount
     histItems.push({ ...e, balance: running })
   }
