@@ -10537,6 +10537,57 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-09-29T00:00:00.000Z"
+    },
+    {
+      "id": "bug-653",
+      "timestamp": "2026-10-15T13:26:28.818Z",
+      "error_message": "Null/undefined access in ",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "Property access on potentially null/undefined value",
+      "fix": "Added null safety (optional chaining or null check)",
+      "tags": [
+        "auto-detected",
+        "null-safety",
+        "ts"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-15T13:26:28.818Z"
+    },
+    {
+      "id": "bug-654",
+      "timestamp": "2026-10-15T00:00:00Z",
+      "error_message": "No borra clientes, sale un error",
+      "file": "apps/backend/src/clients/clients.service.ts",
+      "root_cause": "credits, client_payments (RESTRICT), storage_units y rental_slots referencian clients sin ON DELETE; el DELETE falla por FK 23503 y Nest devuelve 500 genérico",
+      "fix": "remove() distingue bloqueos: guardería/turnos -> 409 forceable:false; créditos/pagos CC -> 409 forceable:true con aviso y saldo pendiente; con ?force=true borra cliente + créditos en transacción (commit 19f7213)",
+      "tags": [
+        "clients",
+        "delete",
+        "foreign-key",
+        "23503"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-15T00:00:00Z"
+    },
+    {
+      "id": "bug-655",
+      "timestamp": "2026-10-15T00:00:00Z",
+      "error_message": "Recibo de saldo variable no calcula bien el interés (MAYOR: saldo restante 1.492.326 sin el interés del 17/10)",
+      "file": "apps/frontend/src/components/credits/CreditDetailModal.tsx",
+      "root_cause": "El historial y el recibo ordenaban movimientos solo por fecha; el backend calcula el interés del período sobre el saldo previo a los pagos del período, así que un pago anterior al vencimiento quedaba antes del cargo",
+      "fix": "Helper sortCreditEvents (lib/creditTimeline.ts) replica paymentReducesInterestBase; usado en CreditDetailModal y pdf/credit.ts",
+      "tags": [
+        "credits",
+        "saldo-variable",
+        "receipt",
+        "interest",
+        "timeline"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-15T00:00:00Z"
     }
   ]
 }

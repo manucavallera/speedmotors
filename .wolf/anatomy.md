@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-07-22T16:15:56.955Z
-> Files: 439 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-10-15T13:44:53.651Z
+> Files: 451 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../../home/manucavalelra/.claude/
 
@@ -34,6 +34,11 @@
 - `project_smoke_test_pendiente.md` — Funcional crítico (~332 tok)
 - `project_sprint1_pendiente.md` — Sprint 1 ✅ COMPLETO (2026-05-07) (~341 tok)
 - `project_sprint3_roadmap.md` — Estado real verificado 2026-05-20 (~286 tok)
+- `reference_prod_db_acceso.md` (~319 tok)
+
+## ../../../../../../home/manucavalelra/proyectos/layunta/docs/
+
+- `ROADMAP.md` — Roadmap — La Yunta (~870 tok)
 
 ## ../../../../../../tmp/
 
@@ -55,7 +60,7 @@
 
 ## ../../.claude/
 
-- `settings.json` (~334 tok)
+- `settings.json` (~1122 tok)
 
 ## ../../.claude/projects/C--Users-coco-proyectos-speedmotors/memory/
 
@@ -245,7 +250,7 @@
 - `client.dto.ts` — Exports CreateClientDto, UpdateClientDto (~242 tok)
 - `clients.controller.ts` — Exports ClientsController (~888 tok)
 - `clients.module.ts` — Exports ClientsModule (~107 tok)
-- `clients.service.ts` — Exports ClientsService (~3368 tok)
+- `clients.service.ts` — Exports ClientsService (~4307 tok)
 
 ## apps/backend/src/credits/
 
@@ -448,10 +453,9 @@
 
 ## apps/frontend/src/components/cash/
 
-- `PendingCashPanel.tsx` — Lista visible de cobros pendientes de Caja Marina con cantidad, total, fecha y motivo. (~620 tok)
-
 - `CashSessionsTable.tsx` — CashSessionsTable — renders table (~1041 tok)
 - `CashStatusPanel.tsx` — CashStatusPanel (~2460 tok)
+- `PendingCashPanel.tsx` — Lista visible de cobros pendientes de Caja Marina con cantidad, total, fecha y motivo. (~620 tok)
 
 ## apps/frontend/src/components/clients/
 
@@ -619,6 +623,8 @@
 ## apps/frontend/src/lib/
 
 - `api.ts` — Exports api, apiError (~188 tok)
+- `creditTimeline.spec.ts` — Declares runningBalances (~586 tok)
+- `creditTimeline.ts` — Ordena los movimientos de un saldo variable igual que el backend (credit-interest.ts): (~456 tok)
 - `export.ts` — Exports exportSalesCsv, exportSalesPdf, exportProductsCsv, exportProductsPdf (~1300 tok)
 - `helpContent.ts` — Guías de Guardería, Turnera y Proveeduría; distingue primeros pasos/uso diario y explica cobros pendientes de Caja Marina. (~2900 tok)
 - `pdf.ts` (~53 tok)
@@ -683,7 +689,6 @@
 ## docs/
 
 - `ENTREGA-2026-08-04.md` — Cierre de la entrega integrada: funcionalidades, migraciones, pruebas, producción y pendientes operativos. (~500 tok)
-
 - `INDEX.md` — Mapa de navegacion -- SpeedMotors (~860 tok)
 - `QUICK_REFERENCE.md` — Quick Reference -- SpeedMotors (~488 tok)
 

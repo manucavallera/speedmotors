@@ -3713,3 +3713,94 @@
 | 15:12 | Integración y publicación de comprobantes preimpresos | master / origin/master | merge `9c9551c`, master sincronizado; 104 tests y build OK; no requiere migración; producción aún sirve un bundle anterior y requiere redeploy manual de frontend; calibración física pendiente | ~500 tok |
 
 | 15:45 | Cabecera de empresa en factura preimpresa | pdf/preprinted.ts, compose.ts, layouts.ts, types.ts | configuraciones imprimen razón comercial destacada, lema, contacto, CUIT y condición IVA; 17 suites/105 tests y build OK; merge `ebc740c` a master y push a origin/master; sin migración, requiere redeploy frontend; buglog bug-652 | ~1000 |
+
+## Session: 2026-10-01 15:33
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-10-03 20:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 20:36 | Creado repo hermano ../layunta (base copiada: auth, users, suppliers, upload, ui, layout); builds OK, sin probar contra DB | ../layunta/ | ok | ~9000 |
+| 20:49 | La Yunta movido de /mnt/c a ~/proyectos/layunta (npm install 5 min -> 26 s) | ~/proyectos/layunta | ok | ~500 |
+| 20:51 | Sesión: consulta ERP supermercado -> creado La Yunta (~/proyectos/layunta), commit inicial 5bde4a4 subido, repo pasado a privado | ../layunta | ok | ~1500 |
+| 20:55 | Created ../../../../../../home/manucavalelra/proyectos/layunta/docs/ROADMAP.md | — | ~899 |
+| 20:55 | Roadmap de La Yunta guardado en docs/ROADMAP.md y subido | ../layunta/docs/ROADMAP.md | ok | ~900 |
+| 20:55 | Session end: 1 writes across 1 files (ROADMAP.md) | 2 reads | ~963 tok |
+
+## Session: 2026-10-05 18:44
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 18:46 | Edited ../../../../../../home/manucavalelra/proyectos/layunta/docs/ROADMAP.md | inline fix | ~48 |
+| 18:46 | Session end: 1 writes across 1 files (ROADMAP.md) | 1 reads | ~52 tok |
+| 19:06 | Session end: 1 writes across 1 files (ROADMAP.md) | 1 reads | ~52 tok |
+| 19:07 | Session end: 1 writes across 1 files (ROADMAP.md) | 1 reads | ~52 tok |
+| 19:07 | Session end: 1 writes across 1 files (ROADMAP.md) | 1 reads | ~52 tok |
+| 23:17 | Session end: 1 writes across 1 files (ROADMAP.md) | 1 reads | ~52 tok |
+| 23:20 | Edited ../../.claude/settings.json | expanded (+15 lines) | ~168 |
+| 23:20 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:20 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:20 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:21 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:21 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:21 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+| 23:22 | Session end: 2 writes across 2 files (ROADMAP.md, settings.json) | 2 reads | ~756 tok |
+
+## Session: 2026-10-07 21:52
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-10-08 14:36
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-10-12 22:44
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-10-13 13:32
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:55 | Created ../../../../../../home/manucavalelra/.claude/projects/-mnt-c-Users-coco-proyectos-speedmotors/memory/reference_prod_db_acceso.md | — | ~310 |
+| 13:55 | Session end: 1 writes across 1 files (reference_prod_db_acceso.md) | 0 reads | ~332 tok |
+| 13:55 | Session end: 1 writes across 1 files (reference_prod_db_acceso.md) | 1 reads | ~332 tok |
+| 13:55 | Session end: 1 writes across 1 files (reference_prod_db_acceso.md) | 1 reads | ~332 tok |
+
+## Session: 2026-10-15 13:23
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:26 | Edited apps/backend/src/clients/clients.service.ts | added optional chaining | ~346 |
+| 13:28 | fix borrar cliente: 409 con detalle si tiene créditos/pagos/guardería/turnos | apps/backend/src/clients/clients.service.ts | ok | ~3k |
+| 13:29 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:29 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:32 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:33 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:34 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:35 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:35 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:36 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:36 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:37 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:40 | Session end: 1 writes across 1 files (clients.service.ts) | 0 reads | ~346 tok |
+| 13:44 | Created apps/frontend/src/lib/creditTimeline.ts | — | ~456 |
+| 13:44 | Created apps/frontend/src/lib/creditTimeline.spec.ts | — | ~586 |
+| 13:45 | fix recibo saldo variable: orden pago/interés como backend | lib/creditTimeline.ts, CreditDetailModal.tsx, pdf/credit.ts | ok, 3 tests | ~8k |
+| 13:46 | Session end: 3 writes across 3 files (clients.service.ts, creditTimeline.ts, creditTimeline.spec.ts) | 0 reads | ~1388 tok |
+| 13:46 | Session end: 3 writes across 3 files (clients.service.ts, creditTimeline.ts, creditTimeline.spec.ts) | 0 reads | ~1388 tok |
+| 13:50 | Session end: 3 writes across 3 files (clients.service.ts, creditTimeline.ts, creditTimeline.spec.ts) | 0 reads | ~1388 tok |
+| 13:53 | borrar cliente con créditos: aviso con saldo + confirmación + borrado en cascada | clients.service/controller, useClients, ClientsPage | ok tsc | ~6k |
+| 13:54 | Session end: 3 writes across 3 files (clients.service.ts, creditTimeline.ts, creditTimeline.spec.ts) | 0 reads | ~1388 tok |
+| 14:04 | Session end: 3 writes across 3 files (clients.service.ts, creditTimeline.ts, creditTimeline.spec.ts) | 0 reads | ~1388 tok |
+
+## Sesión 2026-10-15 — borrar clientes + recibo saldo variable
+- Borrar cliente daba 500 en prod (FK desde credits). Ahora: aviso con saldo pendiente + confirmación + borrado en cascada en transacción; guardería/turnos siguen bloqueados. Commit 19f7213.
+- Recibo de saldo variable mostraba saldo sin el interés del período (caso MAYOR DIEGO RAUL, crédito 87). Orden de movimientos alineado al backend con sortCreditEvents. Commit 00489e2.
+- Push a master hecho. Sin migración. Pendiente: deploy en EasyPanel y probar borrado con cliente de prueba.

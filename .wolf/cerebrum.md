@@ -89,3 +89,9 @@
 - El primer interés de `saldo_compuesto` se calcula en `firstDueDate`, no en `startDate`.
 - Los pagos posteriores al día 10 deben dejar que el interés del período actual se calcule antes del pago; el pago impacta en el período siguiente.
 - Un alta de capital se coloca al final del período en que se registra: aumenta el saldo de inmediato, pero empieza a generar interés recién en el vencimiento del mes siguiente. Regla confirmada por el dueño el 2026-09-15.
+
+[2026-10-03] En WSL no hay `docker`; usar `"/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe"` y solo funciona con Docker Desktop abierto. El backend compilado tarda ~30 s en arrancar desde /mnt/c: esperar a /health antes de hacer curl.
+
+[2026-10-03] `gh` 2.45 no acepta `--accept-visibility-change-consequences`: usar `gh repo edit <repo> --visibility private` a secas. Antes de un push que depende de la visibilidad, comprobar `isPrivate` con un test explícito (`[ "$(gh repo view ... -q .isPrivate)" = true ]`); `gh repo view` imprime `false` pero sale con código 0 y un `&&` sigue de largo.
+- [2026-10-15] Historial/recibo de saldo variable: ordenar con `sortCreditEvents` (lib/creditTimeline.ts), nunca por fecha pura. Replica `paymentReducesInterestBase` del backend; si cambia la regla en backend, cambiar ambos.
+- [2026-10-15] Borrar cliente con créditos/pagos CC: DELETE /clients/:id responde 409 {message, forceable:true}; el front pide window.confirm y reintenta con ?force=true, que borra cliente + créditos en transacción. Guardería/turnos: 409 forceable:false (bloqueo duro). Decisión del dueño: avisar bien y permitir borrar igual.
