@@ -40,9 +40,17 @@ export function useClients() {
   })
 
   const remove = useMutation({
-    mutationFn: (id: number) => api.delete(`/clients/${id}`),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['clients'] }),
-    onError: (err: any) => toast.error(apiError(err)),
+    mutationFn: ({ id, force = false }: { id: number; force?: boolean }) => api.delete(`/clients/${id}`, { params: force ? { force: 'true' } : undefined }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); qc.invalidateQueries({ queryKey: ['credits'] }) },
+    // 409 forceable: el cliente tiene créditos/pagos; se pide confirmación y se reintenta forzando
+    onError: (err: any, vars) => {
+      const data = err?.response?.data
+      if (err?.response?.status === 409 && data?.forceable && !vars.force) {
+        if (window.confirm(data.message)) remove.mutate({ id: vars.id, force: true })
+        return
+      }
+      toast.error(apiError(err))
+    },
   })
 
   function openCreate() { setEditing(null); setModal('create') }

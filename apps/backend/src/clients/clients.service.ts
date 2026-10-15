@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common'
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '../db'
-import { clients, sales, clientPayments, credits, creditPayments, creditInstallments } from '../db/schema'
-import { eq, ilike, or, desc, sql } from 'drizzle-orm'
+import { clients, sales, clientPayments, credits, creditPayments, creditInstallments, creditInterestCharges, creditCapitalAdditions, storageUnits, rentalSlots } from '../db/schema'
+import { eq, ilike, or, desc, sql, inArray } from 'drizzle-orm'
 import { CreditsService } from '../credits/credits.service'
 import { buildDebtorReportRow, type DebtorReportRow } from './debtors-report'
 
@@ -276,10 +276,56 @@ export class ClientsService {
     return client
   }
 
-  async remove(id: number) {
-    const [client] = await db.delete(clients).where(eq(clients.id, id)).returning()
-    if (!client) throw new NotFoundException(`Cliente ${id} no encontrado`)
-    return client
+  async remove(id: number, force = false) {
+    const nCount = sql<number>`count(*)::int`
+    const count = async (q: Promise<{ n: number }[]>) => (await q)[0]?.n ?? 0
+    const [clientCredits, nPayments, nUnits, nSlots] = await Promise.all([
+      db.select({ id: credits.id, currency: credits.currency }).from(credits).where(eq(credits.clientId, id)),
+      count(db.select({ n: nCount }).from(clientPayments).where(eq(clientPayments.clientId, id))),
+      count(db.select({ n: nCount }).from(storageUnits).where(eq(storageUnits.clientId, id))),
+      count(db.select({ n: nCount }).from(rentalSlots).where(eq(rentalSlots.clientId, id))),
+    ])
+
+    // Guardería y turnos dependen de otros módulos: no se borran desde acá
+    const hard = [nUnits && `${nUnits} unidades en guardería`, nSlots && `${nSlots} turnos de alquiler`].filter(Boolean)
+    if (hard.length) {
+      throw new ConflictException({ message: `No se puede eliminar el cliente: tiene ${hard.join(', ')}. Eliminá o reasigná esos registros primero.`, forceable: false })
+    }
+
+    // Créditos y pagos de cuenta corriente: se borran junto con el cliente solo si el usuario confirma
+    if ((clientCredits.length || nPayments) && !force) {
+      const lines: string[] = []
+      if (clientCredits.length) {
+        const pending = { pesos: 0, usd: 0 }
+        for (const c of clientCredits) {
+          const balance = await this.creditsService.computeBalance(c.id)
+          if (balance > 0) pending[c.currency === 'usd' ? 'usd' : 'pesos'] += balance
+        }
+        const fmt = (n: number) => n.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        const debt = [pending.pesos > 0 && `$${fmt(pending.pesos)}`, pending.usd > 0 && `US$${fmt(pending.usd)}`].filter(Boolean).join(' + ')
+        lines.push(`- ${clientCredits.length} ${clientCredits.length === 1 ? 'crédito' : 'créditos'}${debt ? ` con saldo pendiente de ${debt}` : ''}`)
+      }
+      if (nPayments) lines.push(`- ${nPayments} ${nPayments === 1 ? 'pago' : 'pagos'} en cuenta corriente`)
+      throw new ConflictException({
+        message: `ATENCIÓN: el cliente posee:\n${lines.join('\n')}\n\nSi lo borra igual, se borran también los créditos con todos sus pagos, intereses y cuotas. Se pierde la deuda y el historial.\n\nEsta acción NO se puede deshacer. ¿Desea borrarlo igual?`,
+        forceable: true,
+      })
+    }
+
+    return db.transaction(async tx => {
+      const creditIds = clientCredits.map(c => c.id)
+      if (creditIds.length) {
+        await tx.delete(creditInstallments).where(inArray(creditInstallments.creditId, creditIds))
+        await tx.delete(creditPayments).where(inArray(creditPayments.creditId, creditIds))
+        await tx.delete(creditInterestCharges).where(inArray(creditInterestCharges.creditId, creditIds))
+        await tx.delete(creditCapitalAdditions).where(inArray(creditCapitalAdditions.creditId, creditIds))
+        await tx.delete(credits).where(inArray(credits.id, creditIds))
+      }
+      await tx.delete(clientPayments).where(eq(clientPayments.clientId, id))
+      const [client] = await tx.delete(clients).where(eq(clients.id, id)).returning()
+      if (!client) throw new NotFoundException(`Cliente ${id} no encontrado`)
+      return client
+    })
   }
 
   async parseComprobante(file: Express.Multer.File): Promise<{ amount: string; date: string; description: string }> {

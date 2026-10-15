@@ -96,7 +96,7 @@ export class ClientsController {
 
   @Delete(':id')
   @UseGuards(AdminGuard)
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.clientsService.remove(id)
+  remove(@Param('id', ParseIntPipe) id: number, @Query('force') force?: string) {
+    return this.clientsService.remove(id, force === 'true')
   }
 }
